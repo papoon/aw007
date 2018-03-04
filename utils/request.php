@@ -1,6 +1,6 @@
 <?php
 
-    function getResponseCurl($url){
+    function getResponseCurl($url,$header=""){
     
         // is curl installed?
         if (!function_exists('curl_init')){ 
@@ -12,6 +12,11 @@
     
         // set request url
         curl_setopt($ch, CURLOPT_URL, $url);
+        //header 
+        if($header!="")
+        {
+            curl_setopt($ch,CURLOPT_HTTPHEADER,$header);
+        }
         //https
         curl_setopt($ch,CURLOPT_SSL_VERIFYPEER, false);
         // return response

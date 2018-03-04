@@ -7,6 +7,7 @@
     include_once "../webservices/pubmedSearch.php";
     include_once "../webservices/pubmedFeach.php";
     include_once "../webservices/flickr.php";
+    include_once "../webservices/twitterSearch.php";
 
     echo "Hello World";
 
@@ -87,8 +88,17 @@
         echo '<p>Image:<br> <img src="'.$photo[0].'" alt="..." width="300" height="200"></br></p>';
     }*/
 
+    echo '<hr>';
+    echo '<h2>Twitter Disease </h2>'.$label.'';
 
-    
+
+    $twitter = new TwitterSearch($label);
+    $response = $twitter->getResponse();
+    var_dump($response['statuses'][1]);
+
+
+
+
 
 
 
