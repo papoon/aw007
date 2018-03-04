@@ -1,11 +1,12 @@
 <?php
 
     include_once "../utils/request.php";
-
+    include_once "../private/private.php";
+    
     class Flickr{
 
         private $uri = "https://api.flickr.com/services/rest/";
-        private $API_KEY="fc8c3cf83100357650a0c91abd0eb60f";
+        private $API_KEY;
         private $method = "flickr.photos.search";
         private $queryText;
         private $numberPhotos;
@@ -14,6 +15,7 @@
 
         function __construct($queryText,$numberPhotos=10)
         {   
+            $this->API_KEY = $GLOBALS['FLICKR_API_KEY'];
             $this->queryText = $queryText;
             $this->numberPhotos = $numberPhotos;
             $this->obj = $this->getResponse();
