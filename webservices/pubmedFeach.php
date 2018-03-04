@@ -67,7 +67,7 @@
                 return $text;
             }
         }
-        public function getArticleDate(){
+        public function getArticlePubDate(){
 
             $article = $this->getArticle();
             $dataArtigo = $article['Journal']['JournalIssue']['PubDate'];
@@ -84,6 +84,45 @@
             }
 
             //return $dataArtigo['Day'].'-'.$dataArtigo['Month'].'-'.$dataArtigo['Year'];
+        }
+        public function getArticleDate(){
+
+            $article = $this->getArticle();
+            $dataArtigo = $article['ArticleDate'];
+
+            /*switch(count($dataArtigo)){
+                case 3:
+                    return $dataArtigo['Day'].'-'.$dataArtigo['Month'].'-'.$dataArtigo['Year'];
+                case 2:
+                    return $dataArtigo['Month'].'-'.$dataArtigo['Year'];
+                case 1:
+                    return $dataArtigo['Year'];
+                default:
+                    return 'No publish date available';
+            }*/
+            return $dataArtigo['Day'].'-'.$dataArtigo['Month'].'-'.$dataArtigo['Year'];
+
+        }
+        public function getArticleAuthors(){
+
+            $article = $this->getArticle();
+
+            $authors = $article['AuthorList']['Author'];
+
+            $authorsNames = array();
+
+            foreach($authors as $key=>$author){
+                $lastName = $author['LastName'];
+                $firsName = $author['ForeName'];
+                $initials = $author['Initials'];
+                
+
+                $authorsNames[] = $lastName.', '.$firsName.', '.$initials;
+                
+            }
+
+            return $authorsNames;
+
         }
 
     }

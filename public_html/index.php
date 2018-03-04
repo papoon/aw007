@@ -35,7 +35,7 @@
         echo '<hr>';
     }
 
-    $label = $diseases[3]['label']['value'];
+    $label = $diseases[4]['label']['value'];
 
     echo '<h1>PubMed Search</h1>';
 
@@ -53,19 +53,27 @@
     $pubmedFeach = new PubMedFech($response['Id']);
     $article = $pubmedFeach->getResponse();
 
-    $article = $article['PubmedArticle']['MedlineCitation']['Article'];
-    //var_dump($article);
+    //$article = $article['PubmedArticle']['MedlineCitation']['Article'];
+    //var_dump($article['PubmedArticle']['PubmedData']['History']['PubMedPubDate']);
 
     echo '<p> <b>Titulo Artigo: </b>'.$pubmedFeach->getArticleTitle().'</p>';
     echo '<p> <b>Abstract: </b>'.$pubmedFeach->getArticleAbstract().'</p>';
     //$dataArtigo = $article['Journal']['JournalIssue']['PubDate'];
-    echo '<p> <b>Data do Artigo: </b>'.$pubmedFeach->getArticleDate().'</p>';
+    echo '<p> <b>Data do artigo: </b>'.$pubmedFeach->getArticleDate().'</p>';
+    echo '<p> <b>Data de publicação do artigo: </b>'.$pubmedFeach->getArticlePubDate().'</p>';
+    $authors = $pubmedFeach->getArticleAuthors();
+    echo '<p> <b>Autores do artigo: </b>';
+    foreach($authors as $author){
+        echo ''.$author.' |';
+    }
+    echo '</p>';
+    
 
 
     echo '<hr>';
     echo '<h2>Photos Disease</h2>'.$label.'';
 
-    $flickr = new Flickr($label,5);
+    /*$flickr = new Flickr($label,5);
     $photos = $flickr->getResponse();
 
     //var_dump($photos);
@@ -77,6 +85,11 @@
         echo '<p>Photo ID: '.$key.'</p>';
         echo '<p>Photo URL: '.$photo[0].'</p>';
         echo '<p>Image:<br> <img src="'.$photo[0].'" alt="..." width="300" height="200"></br></p>';
-    }
+    }*/
+
+
+    
+
+
 
 ?>
