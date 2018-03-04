@@ -24,12 +24,12 @@
             $this->API_CONSUMER_KEY = $GLOBALS['API_CONSUMER_KEY'];
             $this->API_CONSUMER_SECRET = $GLOBALS['API_CONSUMER_SECRET'];
 
-            //$this->obj = $this->getResponse();
+            $this->obj = $this->getResponse();
         }
 
         private function getUrlSearch(){
 
-            $query = array( 'count' => $this->count, 'q' => urlencode($this->query), "result_type" => $this->result_type);
+            $query = array( 'count' => $this->count, 'q' => urlencode($this->query), "result_type" => $this->result_type, "include_entities" => true);
 
             $oauth = array(
                 'oauth_consumer_key' => $this->API_CONSUMER_KEY,
@@ -57,11 +57,26 @@
             //$searchUrl = $this->uri.'&id='.$this->id.'&retmode='.$this->retmode.'&rettype='.$this->rettype;
             //return $searchUrl;
         }
-        public function getResponse(){
+        private function getResponse(){
 
             $response = $this->getUrlSearch();
             return json_decode($response,true);
         }
+
+        public function getTweets(){
+
+            $tweets = $this->obj['statuses'];
+            
+            return $tweets;
+        }
+
+        public function getTweetId($tweet){
+            return $tweet['id_str'];
+        }
+
+
+
+
     }
 
 ?>

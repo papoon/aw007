@@ -8,6 +8,7 @@
     include_once "../webservices/pubmedFeach.php";
     include_once "../webservices/flickr.php";
     include_once "../webservices/twitterSearch.php";
+    include_once "../webservices/twitterEmbed.php";
 
     echo "Hello World";
 
@@ -36,7 +37,7 @@
         echo '<hr>';
     }
 
-    $label = $diseases[4]['label']['value'];
+    $label = $diseases[3]['label']['value'];
 
     echo '<h1>PubMed Search</h1>';
 
@@ -74,7 +75,7 @@
     echo '<hr>';
     echo '<h2>Photos Disease</h2>'.$label.'';
 
-    /*$flickr = new Flickr($label,5);
+    $flickr = new Flickr($label,5);
     $photos = $flickr->getResponse();
 
     //var_dump($photos);
@@ -86,15 +87,26 @@
         echo '<p>Photo ID: '.$key.'</p>';
         echo '<p>Photo URL: '.$photo[0].'</p>';
         echo '<p>Image:<br> <img src="'.$photo[0].'" alt="..." width="300" height="200"></br></p>';
-    }*/
+    }
 
     echo '<hr>';
     echo '<h2>Twitter Disease </h2>'.$label.'';
 
 
     $twitter = new TwitterSearch($label);
-    $response = $twitter->getResponse();
-    var_dump($response['statuses'][1]);
+    $tweets = $twitter->getTweets();
+    //var_dump($tweets[1]);
+    //echo $twitter->getTweetId($tweets[1]);
+
+    $twitter_embed = new TwitterEmbed($twitter->getTweetId($tweets[1]));
+    //var_dump($twitter_embed->getResponse());
+    $twiiter_embed = $twitter_embed->getResponse();
+    $html = $twiiter_embed['html'];
+
+    echo $html;
+
+
+
 
 
 
