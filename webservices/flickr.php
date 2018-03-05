@@ -6,7 +6,7 @@
     class Flickr{
 
         private $uri = "https://api.flickr.com/services/rest/";
-        private $API_KEY;
+        private $API_KEY = FLICKR_API_KEY;
         private $method = "flickr.photos.search";
         private $queryText;
         private $numberPhotos;
@@ -15,7 +15,6 @@
 
         function __construct($queryText,$numberPhotos=10)
         {   
-            $this->API_KEY = $GLOBALS['FLICKR_API_KEY'];
             $this->queryText = $queryText;
             $this->numberPhotos = $numberPhotos;
             $this->obj = $this->getResponse();
@@ -67,10 +66,7 @@
                 $photosUrl["$photoId"][] = 'https://farm'.$farmId.'.staticflickr.com/'.$serverId.'/'.$photoId.'_'.$secret.'.jpg';
                 
             }
-
             return $photosUrl;
-            
-
         }
 
 

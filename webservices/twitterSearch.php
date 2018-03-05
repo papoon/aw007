@@ -5,10 +5,10 @@
     class TwitterSearch{
 
         private $uri = "https://api.twitter.com/1.1/search/tweets.json";
-        private $API_OAUTH_ACCESS_TOKEN;
-        private $API_OAUTH_ACCESS_TOKEN_SECRET;
-        private $API_CONSUMER_KEY;
-        private $API_CONSUMER_SECRET;
+        private $API_OAUTH_ACCESS_TOKEN = API_OAUTH_ACCESS_TOKEN;
+        private $API_OAUTH_ACCESS_TOKEN_SECRET = API_OAUTH_ACCESS_TOKEN_SECRET;
+        private $API_CONSUMER_KEY = API_CONSUMER_KEY;
+        private $API_CONSUMER_SECRET = API_CONSUMER_SECRET;
         private $query;
         private $count;
         private $result_type = "recent";
@@ -19,11 +19,6 @@
         {   
             $this->query = $query;
             $this->count = $count;
-            $this->API_OAUTH_ACCESS_TOKEN = $GLOBALS['API_OAUTH_ACCESS_TOKEN'];
-            $this->API_OAUTH_ACCESS_TOKEN_SECRET = $GLOBALS['API_OAUTH_ACCESS_TOKEN_SECRET'];
-            $this->API_CONSUMER_KEY = $GLOBALS['API_CONSUMER_KEY'];
-            $this->API_CONSUMER_SECRET = $GLOBALS['API_CONSUMER_SECRET'];
-
             $this->obj = $this->getResponse();
         }
 
