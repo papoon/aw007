@@ -22,10 +22,10 @@
     //$requestURL = getUrlDbpediaDiseasesJson();
 
     //usar o curl para fazer o pedido e retornar a resposta
-    
+
     //$response =  json_decode(getResponseCurl($requestURL),true);
-    
-    
+
+
     echo '<h1>Diseases</h1>';
 
     //var_dump($diseases);
@@ -52,7 +52,7 @@
     echo '<h1>PubMed Feach Disease</h1>';
     echo '<b>Label</b> :'.$label;
 
-    $pubmedFeach = new PubMedFech($response['Id']);
+    $pubmedFeach = new PubMedFeach($response['Id']);
     $article = $pubmedFeach->getResponse();
 
     //$article = $article['PubmedArticle']['MedlineCitation']['Article'];
@@ -69,8 +69,6 @@
         echo ''.$author.' |';
     }
     echo '</p>';
-    
-
 
     echo '<hr>';
     echo '<h2>Photos Disease</h2>'.$label.'';
@@ -104,14 +102,5 @@
     $html = $twiiter_embed['html'];
 
     echo $html;
-
-
-
-
-
-
-
-
-
 
 ?>
