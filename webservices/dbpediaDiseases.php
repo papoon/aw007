@@ -1,7 +1,7 @@
 <?php
-    
+
     include_once "../utils/request.php";
-    
+
     class DBPediaDiseases{
 
         private $uri = "http://dbpedia.org/sparql?query=";
@@ -17,7 +17,7 @@
         {
             //$format = 'json';
 
-            $query = 
+            $query =
             "PREFIX dbo: <http://dbpedia.org/ontology/>
             SELECT * where {
             ?name a  dbo:Disease .
@@ -26,10 +26,10 @@
             ?name dbo:abstract ?abstract.
             ?name dbo:wikiPageID ?wikiPageID.
             ?name dbo:wikiPageRevisionID ?wikiPageRevisionID.
-            filter(langMatches(lang(?abstract),'en'))
-            fILTER (langMatches(lang(?label),'en'))
+            filter(langMatches(lang(?abstract),'en')).
+            filter(langMatches(lang(?label),'en')).
             } LIMIT ".$number;
-            
+
             $searchUrl = $this->uri.urlencode($query).'&format='.$this->format;
 
             return $searchUrl;
@@ -50,6 +50,6 @@
         }
 
 
-       
+
     }
 ?>

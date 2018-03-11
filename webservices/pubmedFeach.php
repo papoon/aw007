@@ -1,18 +1,18 @@
 <?php
 
     include_once "../utils/request.php";
-    class PubMedFech{
-        
+    class PubMedFeach{
+
         private $uri = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=pubmed";
         private $retmode = "xml";
         private $rettype;
         private $id;
 
         function __construct($id)
-        {   
+        {
             $this->id = $id;
             $this->obj = $this->getResponse();
-           
+
         }
 
         private function getUrlFeachXML(){
@@ -48,7 +48,7 @@
 
             $article = $this->getArticle();
             return $article['ArticleTitle'];
-            
+
         }
         public function getArticleAbstract(){
 
@@ -119,10 +119,10 @@
                 $lastName = $author['LastName'];
                 $firsName = $author['ForeName'];
                 $initials = $author['Initials'];
-                
+
 
                 $authorsNames[] = $lastName.', '.$firsName.', '.$initials;
-                
+
             }
 
             return $authorsNames;
