@@ -9,13 +9,28 @@
     include_once "../webservices/flickr.php";
     include_once "../webservices/twitterSearch.php";
     include_once "../webservices/twitterEmbed.php";
+    //include_once "../utils/database.php";
 
     echo "Hello World";
 
     $dbPediaDiseases = new DBPediaDiseases(5);
 
-    //$response = $dbPediaDiseases->getResponseDiseasesJson();
+    $response = $dbPediaDiseases->getResponseDiseasesJson();
+    var_dump($response['results']['bindings']);
+    die();
+    /*
+        diseases
+        <id:></id:>
+        <name></name>
+        <dbpedia_id></dbpedia_id>
+        <dbpedia_revision_id></dbpedia_revision_id>
+        <abstract></abstract>
+        <thumbnail></thumbnail>
+        <created_at></created_at>
+        <update_at></update_at>
 
+    */
+    
     $diseases = $dbPediaDiseases->getDiseases();
 
     //obter o url para fazer o pedido http
@@ -28,7 +43,6 @@
     
     echo '<h1>Diseases</h1>';
 
-    //var_dump($diseases);
     //echo $diseases[0]['wikiPageID'];
     foreach($diseases as $disease){
         echo '<p>'.'<b>Id</b>: '.$disease['wikiPageID']['value'].'</p>';
@@ -55,11 +69,19 @@
     $pubmedFeach = new PubMedFech($response['Id']);
     $article = $pubmedFeach->getResponse();
 
-    //$article = $article['PubmedArticle']['MedlineCitation']['Article'];
+    $article = $article['PubmedArticle']['MedlineCitation']['Article']['Abstract'];
     //var_dump($article['PubmedArticle']['PubmedData']['History']['PubMedPubDate']);
+    //var_dump($article);
+    //die();
+    
 
     echo '<p> <b>Titulo Artigo: </b>'.$pubmedFeach->getArticleTitle().'</p>';
-    echo '<p> <b>Abstract: </b>'.$pubmedFeach->getArticleAbstract().'</p>';
+    try{
+        echo '<p> <b>Abstract: </b>'.$pubmedFeach->getArticleAbstract().'</p>';
+    }catch(Exception $e){
+        echo $e->getMessage();
+    }
+    
     //$dataArtigo = $article['Journal']['JournalIssue']['PubDate'];
     echo '<p> <b>Data do artigo: </b>'.$pubmedFeach->getArticleDate().'</p>';
     echo '<p> <b>Data de publicação do artigo: </b>'.$pubmedFeach->getArticlePubDate().'</p>';
@@ -72,7 +94,7 @@
     
 
 
-    echo '<hr>';
+    /*echo '<hr>';
     echo '<h2>Photos Disease</h2>'.$label.'';
 
     $flickr = new Flickr($label,5);
@@ -104,7 +126,7 @@
     $html = $twiiter_embed['html'];
 
     echo $html;
-
+    */
 
 
 

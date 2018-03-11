@@ -61,9 +61,13 @@
             else{
                 $text = "";
                 foreach($abstractText as $key=>$value){
-                    $text.=$value;
+                    if(!is_array($value)){
+                        $text.=$value;
+                    }
+                    else{
+                        throw new Exception('Not expected array of arrays!');
+                    } 
                 }
-
                 return $text;
             }
         }
