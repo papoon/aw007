@@ -58,7 +58,7 @@
             return $this->dataSet;
         }
 
-        function selectWhere($tableName, $columnName, $operator, $value, $valueType,$limit=NULL)   {
+        function selectWhere($tableName, $columnName, $operator, $value, $valueType, $limit=NULL)   {
             $this->sqlQuery = 'SELECT * FROM '.$tableName.' WHERE '.$columnName.' '.$operator.' ';
             if($valueType == 'int') {
                 $this->sqlQuery .= $value;
@@ -68,6 +68,21 @@
             }
             if(!is_null($limit)) {
               $this->sqlQuery .= ' LIMIT '.$limit;
+            }
+            echo $this->sqlQuery;
+            $this->dataSet = mysqli_query($this->connection, $this->sqlQuery);
+            $this->sqlQuery = NULL;
+            return $this->dataSet;
+        }
+
+        #not tested
+        function selectCountWhere($tableName, $columnName, $operator, $value, $valueType)   {
+            $this->sqlQuery = 'SELECT COUNT(*) FROM '.$tableName.' WHERE '.$columnName.' '.$operator.' ';
+            if($valueType == 'int') {
+                $this->sqlQuery .= $value;
+            }
+            else if($valueType == 'char')   {
+                $this->sqlQuery .= "'".$value."'";
             }
             echo $this->sqlQuery;
             $this->dataSet = mysqli_query($this->connection, $this->sqlQuery);
