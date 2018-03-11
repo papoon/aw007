@@ -49,7 +49,5 @@
             return $responseDiseasesJson['results']['bindings'];
         }
 
-
-
     }
 ?>

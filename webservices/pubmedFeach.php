@@ -71,7 +71,7 @@
                 return $text;
             }
         }
-        public function getArticlePubDate(){
+        public function getArticleJournalPubDate(){
 
             $article = $this->getArticle();
             $dataArtigo = $article['Journal']['JournalIssue']['PubDate'];
@@ -89,10 +89,17 @@
 
             //return $dataArtigo['Day'].'-'.$dataArtigo['Month'].'-'.$dataArtigo['Year'];
         }
-        public function getArticleDate(){
+        public function getArticleJournalId(){
 
             $article = $this->getArticle();
-            $dataArtigo = $article['ArticleDate'];
+            $journalId = $article['Journal']['ISSN'];
+
+            return $journalId;
+        }
+        public function getArticleDate($format="d-m-y"){
+
+            $article = $this->getArticle();
+            $articleDate = $article['ArticleDate'];
 
             /*switch(count($dataArtigo)){
                 case 3:
@@ -104,8 +111,36 @@
                 default:
                     return 'No publish date available';
             }*/
-            return $dataArtigo['Day'].'-'.$dataArtigo['Month'].'-'.$dataArtigo['Year'];
+            $format = strtolower($format);
+            if($format == "d-m-y"){
+                return $articleDate['Day'].'-'.$articleDate['Month'].'-'.$articleDate['Year'];
+            }
+            elseif($format == "m-d-y"){
+                return $articleDate['Month'].'-'.$articleDate['Day'].'-'.$articleDate['Year'];
+            }
+            elseif($format == "y-m-d"){
+                return $articleDate['Month'].'-'.$articleDate['Day'].'-'.$articleDate['Year'];
+            }
+            else{
+                throw new Exception('Date format not available!');
+            }
+            
 
+        }
+        public function getArticleRevisionDate(){
+            
+            $dateRevised = $this->obj['PubmedArticle']['MedlineCitation']['DateRevised'];
+
+            switch(count($dateRevised)){
+                case 3:
+                    return $dateRevised['Day'].'-'.$dateRevised['Month'].'-'.$dateRevised['Year'];
+                case 2:
+                    return $dateRevised['Month'].'-'.$dateRevised['Year'];
+                case 1:
+                    return $dateRevised['Year'];
+                default:
+                    return 'No revision date available';
+            }
         }
         public function getArticleAuthors(){
 
@@ -120,15 +155,11 @@
                 $firsName = $author['ForeName'];
                 $initials = $author['Initials'];
 
-
                 $authorsNames[] = $lastName.', '.$firsName.', '.$initials;
 
             }
-
             return $authorsNames;
-
         }
-
     }
 
 ?>

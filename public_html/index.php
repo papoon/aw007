@@ -15,9 +15,9 @@
 
     $dbPediaDiseases = new DBPediaDiseases(5);
 
-    $response = $dbPediaDiseases->getResponseDiseasesJson();
-    var_dump($response['results']['bindings']);
-    die();
+    //$response = $dbPediaDiseases->getResponseDiseasesJson();
+    //var_dump($response);
+    //die();
     /*
         diseases
         <id:></id:>
@@ -26,13 +26,23 @@
         <dbpedia_revision_id></dbpedia_revision_id>
         <abstract></abstract>
         <thumbnail></thumbnail>
+        <uri></uri>
         <created_at></created_at>
         <update_at></update_at>
 
     */
     
     $diseases = $dbPediaDiseases->getDiseases();
-
+    var_dump($diseases[0]['label']['value']);//name
+    var_dump($diseases[0]['wikiPageID']['value']);//dbpedia_id
+    var_dump($diseases[0]['wikiPageRevisionID']['value']);//dbpedia_revision_id
+    var_dump($diseases[0]['abstract']['value']);//abstract
+    var_dump($diseases[0]['thumbnail']['value']);//thumbnail
+    var_dump($diseases[0]['name']['value']);//uri
+    //created_at automatic insert timestamp
+    //update_at automatic insert timestamp
+    
+    //die();
     //obter o url para fazer o pedido http
     //$requestURL = getUrlDbpediaDiseasesJson();
 
@@ -41,7 +51,7 @@
     //$response =  json_decode(getResponseCurl($requestURL),true);
 
 
-    echo '<h1>Diseases</h1>';
+    /*echo '<h1>Diseases</h1>';
 
     //echo $diseases[0]['wikiPageID'];
     foreach($diseases as $disease){
@@ -49,7 +59,7 @@
         echo '<p>'.'<b>Label</b>: '.$disease['label']['value'].'</p>';
         echo '<p> <b>Abstract</b>: '.$disease['abstract']['value'].'</p>';
         echo '<hr>';
-    }
+    }*/
 
     $label = $diseases[3]['label']['value'];
 
@@ -69,12 +79,13 @@
     $pubmedFeach = new PubMedFeach($response['Id']);
     $article = $pubmedFeach->getResponse();
 
-    $article = $article['PubmedArticle']['MedlineCitation']['Article']['Abstract'];
+    //var_dump( $article['PubmedArticle']['MedlineCitation']['Article']['AuthorList']['Author']);
+    //die();
+    //$article = $article['PubmedArticle']['MedlineCitation']['Article']['Abstract'];
     //var_dump($article['PubmedArticle']['PubmedData']['History']['PubMedPubDate']);
     //var_dump($article);
     //die();
     
-
     echo '<p> <b>Titulo Artigo: </b>'.$pubmedFeach->getArticleTitle().'</p>';
     try{
         echo '<p> <b>Abstract: </b>'.$pubmedFeach->getArticleAbstract().'</p>';
@@ -84,7 +95,23 @@
     
     //$dataArtigo = $article['Journal']['JournalIssue']['PubDate'];
     echo '<p> <b>Data do artigo: </b>'.$pubmedFeach->getArticleDate().'</p>';
-    echo '<p> <b>Data de publicação do artigo: </b>'.$pubmedFeach->getArticlePubDate().'</p>';
+    echo '<p> <b>Data de publicação do artigo: </b>'.$pubmedFeach->getArticleJournalPubDate().'</p>';
+    echo '<p> <b>Data de revisão do artigo: </b>'.$pubmedFeach->getArticleRevisionDate().'</p>';
+    echo '<p> <b>Jornal Id: </b>'.$pubmedFeach->getArticleJournalId().'</p>';
+
+     /*
+        articles
+        <did:></did:>
+        <journal_id></journal_id>
+        <title></title>
+        <abstract></abstract>
+        <published_at></published_at>
+        <inserted_at></inserted_at>
+        <updated_at></updated_at>
+
+    */
+
+
     $authors = $pubmedFeach->getArticleAuthors();
     echo '<p> <b>Autores do artigo: </b>';
     foreach($authors as $author){
