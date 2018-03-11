@@ -1,4 +1,6 @@
 <?php
+    include_once '../database/dbUtils.php';
+
     class DbConnector {
 
         private $hostName;
@@ -51,13 +53,13 @@
             if(!is_null($limit)) {
               $this->sqlQuery .= ' LIMIT '.$limit;
             }
-            #echo $this->sqlQuery;
-            $this->dataSet = mysql_query($this->sqlQuery, $this->connection);
+            echo $this->sqlQuery;
+            $this->dataSet = mysqli_query($this->connection, $this->sqlQuery);
             return $this->dataSet;
         }
 
-        function selectWhere($tableName, $rowName, $operator, $value, $valueType,$limit=NULL)   {
-            $this->sqlQuery = 'SELECT * FROM '.$tableName.' WHERE '.$rowName.' '.$operator.' ';
+        function selectWhere($tableName, $columnName, $operator, $value, $valueType,$limit=NULL)   {
+            $this->sqlQuery = 'SELECT * FROM '.$tableName.' WHERE '.$columnName.' '.$operator.' ';
             if($valueType == 'int') {
                 $this->sqlQuery .= $value;
             }
@@ -67,14 +69,15 @@
             if(!is_null($limit)) {
               $this->sqlQuery .= ' LIMIT '.$limit;
             }
-            #echo $this->sqlQuery;
-            $this->dataSet = mysql_query($this->sqlQuery, $this->connection);
+            echo $this->sqlQuery;
+            $this->dataSet = mysqli_query($this->connection, $this->sqlQuery);
             $this->sqlQuery = NULL;
             return $this->dataSet;
         }
 
         function insertInto($tableName, $values) {
-            $this->sqlQuery = 'INSERT INTO '.$tableName.' VALUES (';
+            $queryValuesStr = getValuesStr($tableName);
+            $this->sqlQuery = 'INSERT INTO '.$tableName.$queryValuesStr.' VALUES (';
             $i = 0;
             while($values[$i]["val"] != NULL && $values[$i]["type"] != NULL)    {
                 if($values[$i]["type"] == "char")   {
@@ -91,9 +94,11 @@
                 }
             }
             $this->sqlQuery .= ')';
-            #echo $this->sqlQuery;
-            mysql_query($this->sqlQuery, $this->connection);
+            echo $this->sqlQuery;
+            mysqli_query($this->connection, $this->sqlQuery);
             return $this -> sqlQuery;
         }
+
+
     }
 ?>
