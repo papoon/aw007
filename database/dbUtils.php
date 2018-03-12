@@ -1,9 +1,16 @@
 <?php
 
+    const TABLE_ARTICLE = 'Article';
+    const TABLE_ARTICLE_AUTHOR = 'Article_Author';
+    const TABLE_AUTHOR = 'Author';
+    const TABLE_DISEASE = 'Disease';
+    const TABLE_PHOTOS = 'Photos';
+    const TABLE_TWEETS = 'Tweets';
+
     function printDataFromTable($data, $tableName)
     {
       switch ($tableName) {
-        case 'Article':
+        case TABLE_ARTICLE:
           while ( $rows = $data->fetch_assoc() ) {
             echo '<p>'.$rows['id'].'</p>';
             echo '<p>'.$rows['did'].'</p>';
@@ -16,14 +23,14 @@
             echo '<br/>';
           }
           break;
-        case 'Article_Author':
+        case TABLE_ARTICLE_AUTHOR:
           while ( $rows = $data->fetch_assoc() ) {
             echo '<p>'.$rows['art_id'].'</p>';
             echo '<p>'.$rows['aut_id'].'</p>';
             echo '<br/>';
           }
           break;
-        case 'Author':
+        case TABLE_AUTHOR:
           while ( $rows = $data->fetch_assoc() ) {
             echo '<p>'.$rows['id'].'</p>';
             echo '<p>'.$rows['name'].'</p>';
@@ -34,7 +41,7 @@
             echo '<br/>';
           }
           break;
-        case 'Disease':
+        case TABLE_DISEASE:
           while ( $rows = $data->fetch_assoc() ) {
             echo '<p>'.$rows['id'].'</p>';
             echo '<p>'.$rows['name'].'</p>';
@@ -45,7 +52,7 @@
             echo '<br/>';
           }
           break;
-        case 'Photos':
+        case TABLE_PHOTOS:
           while ( $rows = $data->fetch_assoc() ) {
             echo '<p>'.$rows['id'].'</p>';
             echo '<p>'.$rows['did'].'</p>';
@@ -63,7 +70,7 @@
             echo '<br/>';
           }
           break;
-        case 'Tweets':
+        case TABLE_TWEETS:
           while ( $rows = $data->fetch_assoc() ) {
             echo '<p>'.$rows['id'].'</p>';
             echo '<p>'.$rows['did'].'</p>';
@@ -91,12 +98,22 @@
       }
     }
 
+    function printCountResult($data) {
+      $row = $data->fetch_row();
+      echo '<p>'.$row[0].'</p>';
+    }
+
+    function getCountResult($data) {
+      $row = $data->fetch_row();
+      return $row[0];
+    }
+
     function getValuesStr($tableName) {
 
       $valuesStr = ' (';
 
       switch ($tableName) {
-        case 'Article':
+        case TABLE_ARTICLE:
           $valuesStr .= 'did,';
           $valuesStr .= 'journal_id,';
           $valuesStr .= 'title,';
@@ -105,25 +122,25 @@
           $valuesStr .= 'inserted_at,';
           $valuesStr .= 'updated_at';
           break;
-        case 'Article_Author':
+        case TABLE_ARTICLE_AUTHOR:
           $valuesStr .= 'art_id,';
           $valuesStr .= 'aut_id';
           break;
-        case 'Author':
+        case TABLE_AUTHOR:
           $valuesStr .= 'name,';
           $valuesStr .= 'institution,';
           $valuesStr .= 'contact,';
           $valuesStr .= 'inserted_at,';
           $valuesStr .= 'updated_at';
           break;
-        case 'Disease':
+        case TABLE_DISEASE:
           $valuesStr .= 'name,';
           $valuesStr .= 'dbpedia_id,';
           $valuesStr .= 'abstract,';
           $valuesStr .= 'created_at,';
           $valuesStr .= 'updated_at';
           break;
-        case 'Photos':
+        case TABLE_PHOTOS:
           $valuesStr .= 'did,';
           $valuesStr .= 'url,';
           $valuesStr .= 'flicrk_id,';
@@ -137,7 +154,7 @@
           $valuesStr .= 'inserted_at,';
           $valuesStr .= 'updated_at';
           break;
-        case 'Tweets':
+        case TABLE_TWEETS:
           $valuesStr .= 'did,';
           $valuesStr .= 'url,';
           $valuesStr .= 'type,';

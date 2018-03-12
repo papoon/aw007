@@ -27,50 +27,48 @@
         echo "Host information: " . mysqli_get_host_info($link) . PHP_EOL;
 
         echo '<hr>';
-
         echo '<h2>Test Select * </h2>';
-
-        $data = $connector->selectAll('Author');
-
-        printDataFromTable($data, 'Author');
+        $data = $connector->selectAll(TABLE_AUTHOR);
+        printDataFromTable($data, TABLE_AUTHOR);
 
         echo '<hr>';
-
         echo '<h2>Test Select * with Limit </h2>';
-
-        $data = $connector->selectAll('Author',3);
-
-        printDataFromTable($data, 'Author');
+        $data = $connector->selectAll(TABLE_AUTHOR,3);
+        printDataFromTable($data, TABLE_AUTHOR);
 
         echo '<hr>';
-
         echo '<h2>Test Select WHERE </h2>';
-
-        $data = $connector->selectWhere('Author','id','>',8,'int');
-
-        printDataFromTable($data, 'Author');
+        $data = $connector->selectWhere(TABLE_AUTHOR,'id','>',8,'int');
+        printDataFromTable($data, TABLE_AUTHOR);
 
         echo '<hr>';
-
         echo '<h2>Test Select WHERE with Limit</h2>';
-
-        $data = $connector->selectWhere('Author','id','>',5,'int',3);
-
-        printDataFromTable($data, 'Author');
+        $data = $connector->selectWhere(TABLE_AUTHOR,'id','>',5,'int',3);
+        printDataFromTable($data, TABLE_AUTHOR);
 
         echo '<hr>';
 
-        echo '<h2>Test Insert</h2>';
+        // echo '<h2>Test Insert</h2>';
+        //
+        // $value1 = array(
+        //   array("val"=>"testname", "type"=>"char"),
+        //   array("val"=>"testinstitution", "type"=>"char"),
+        //   array("val"=>"testcontact", "type"=>"char"),
+        //   array("val"=>"2033-02-08 15:48:00", "type"=>"char"),
+        //   array("val"=>"2033-02-08 15:48:00", "type"=>"char")
+        // );
+        //
+        // $data = $connector->insertInto(TABLE_AUTHOR, $value1);
 
-        $value1 = array(
-          array("val"=>"testname", "type"=>"char"),
-          array("val"=>"testinstitution", "type"=>"char"),
-          array("val"=>"testcontact", "type"=>"char"),
-          array("val"=>"2033-02-08 15:48:00", "type"=>"char"),
-          array("val"=>"2033-02-08 15:48:00", "type"=>"char")
-        );
+        echo '<h2>Test Select COUNT All</h2>';
+        $data = $connector->selectCountAll(TABLE_AUTHOR);
+        printCountResult($data);
+        echo '<hr>';
 
-        $data = $connector->insertInto('Author', $value1);
+        echo '<h2>Test Select COUNT Where</h2>';
+        $data = $connector->selectCountWhere(TABLE_AUTHOR,'id','>',5,'int');
+        printCountResult($data);
+        echo '<hr>';
 
         $connector->disconnect();
         ?>
