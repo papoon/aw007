@@ -75,6 +75,13 @@
             return $this->dataSet;
         }
 
+        function selectColumnAll($tableName, $columnName) {
+          $this->sqlQuery = 'SELECT '.$columnName.' FROM '.$this->dbName.'.'.$tableName;
+          //echo $this->sqlQuery;
+          $this->dataSet = mysqli_query($this->connection, $this->sqlQuery);
+          return $this->dataSet;
+        }
+
         function selectCountAll($tableName)   {
             $this->sqlQuery = 'SELECT COUNT(*) FROM '.$tableName;
             //echo $this->sqlQuery;

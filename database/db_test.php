@@ -27,9 +27,14 @@
         echo "Host information: " . mysqli_get_host_info($link) . PHP_EOL;
 
         echo '<hr>';
+        $currentDate = new DateTime();
+        echo $currentDate->format('Y-m-d H:i:s');
+
+        echo '<hr>';
         echo '<h2>Test Select * </h2>';
         $data = $connector->selectAll(TABLE_AUTHOR);
-        printDataFromTable($data, TABLE_AUTHOR);
+        //printDataFromTable($data, TABLE_AUTHOR);
+        var_dump(convertDatasetToArray($data));
 
         echo '<hr>';
         echo '<h2>Test Select * with Limit </h2>';
