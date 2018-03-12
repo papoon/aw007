@@ -5,6 +5,6 @@
   $numberElements = 5;
 
   $collector = new DataCollector($numberDiseases, $numberElements);
-  $collector->startCollectionAll();
+  $collector->getAllData();
 
 ?>

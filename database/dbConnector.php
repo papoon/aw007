@@ -12,11 +12,6 @@
         public $dataset;
         private static $instance;
 
-        /*const DEFAULT_HOST = "localhost";
-        const DEFAULT_USER = "aw007";
-        const DEFAULT_PASS = "aw007";
-        const DEFAULT_DB = "aw007";*/
-
         //generic construct
         protected function __construct() {
 
