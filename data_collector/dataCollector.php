@@ -26,45 +26,36 @@
           $this->numberElements = $numberElements;
       }
 
-      public function startCollectionAll() {
-
-          //get current diseases
-          $currentDiseases = $this->connector->selectColumnAll(TABLE_DISEASE, 'id');
-          $countDiseases = getNumberRows($currentDiseases);
-          $arrayDiseaseIds = convertDatasetToArray($currentDiseases);
-
-          if($countDiseases > 0) {
-            echo 'Current diseases: ';
-            printColumn($currentDiseases, 'id');
-          }
-          else {
-            echo 'No diseases found. <br/>';
-          }
+      //use this operation when database is empty
+      public function getAllData() {
 
           //get the information for the needed number of diseases
           $dbPediaDiseases = new DBPediaDiseases($this->numberDiseases);
           $diseases = $dbPediaDiseases->getDiseases();
-          $newDiseases = array();
-          $existingDiseases = array();
+
           //insert disease information in the database only if it is not there
           foreach($diseases as $disease){
-              //if the retrieved disease is not in the database
-              if(!in_array($disease['id']['value'], $arrayDiseaseIds)) {
-                //save its information on the database
-                $currentDate = new DateTime();
-                $currentDateStr = $currentDate->format('Y-m-d H:i:s');
+            //save its information on the database
+            $currentDate = new DateTime();
+            $currentDateStr = $currentDate->format('Y-m-d H:i:s');
 
-                //WIP
-                $values = array($disease['label']['value'],
-                                $disease['wikiPageID']['value'],
-                                $disease['abstract']['value'],
-                                $currentDateStr,
-                                $currentDateStr);
+            //WIP
+            $values = array($disease['label']['value'],
+                            $disease['wikiPageID']['value'],
+                            $disease['abstract']['value'],
+                            $currentDateStr,
+                            $currentDateStr);
 
-                $toInsert = createInsertArray(TABLE_DISEASE, $values);
-              }
+            echo implode("|", $values);
+            echo '<hr>';
+
+            $toInsert = createInsertArray(TABLE_DISEASE, $values);
+
+            var_dump($toInsert);
+            echo '<hr>';
+
+            $this->connector->insertInto(TABLE_DISEASE, $toInsert);
           }
-
 
 
           $this->connector->disconnect();

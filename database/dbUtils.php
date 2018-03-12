@@ -34,7 +34,6 @@
       while($row = $data->fetch_assoc()) {
         $rows[] = $row;
       }
-      echo $rows;
       return $rows;
     }
 
@@ -106,6 +105,8 @@
           # code...
           break;
         }
+
+        return $result;
     }
 
     function getValuesStr($tableName) {
