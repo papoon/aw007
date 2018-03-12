@@ -79,8 +79,8 @@ SELECT ?name where {
 
 ### Evaluation
 
-•	Developing additional functionalities will be valued. 
-•	requires Group Selection  
+•	Developing additional functionalities will be valued.
+•	requires Group Selection 
 •	Project Demonstrations I and II 
 •	5 minutes per group (prepare it beforehand)
 •	select a Demo I slot and Demo II slot
@@ -99,7 +99,7 @@ SELECT ?name where {
 •	Some resources may block access to DI-FCUL when the number of requests is too high. As such, it is the group reponsability to guarantee that even when this occurs, their project is working and presents data previously retrieved.
 •	All components of the developed work should be available during the evaluation;
 
-##Documentation
+## Documentation
 
 Add stuff
 
