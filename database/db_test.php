@@ -75,6 +75,13 @@
         printCountResult($data);
         echo '<hr>';
 
+        echo '<h2>get article author</h2>';
+        $data = $connector->rawQuery('select a.title,c.name from article as a inner join article_author as b
+        on a.id = b.art_id
+        inner join author as c on b.aut_id = c.id')->fetch_assoc();
+        echo '<p>Article: ',$data['title'].'</p>';
+        echo '<p>Author Name: ',$data['name'].'</p>';
+
         $connector->disconnect();
         ?>
    </body>

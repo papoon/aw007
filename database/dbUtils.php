@@ -34,7 +34,7 @@
       while($row = $data->fetch_assoc()) {
         $rows[] = $row;
       }
-      echo $rows;
+      //echo $rows;
       return $rows;
     }
 

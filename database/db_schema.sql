@@ -78,3 +78,12 @@ CREATE TABLE Tweets (
 	updated_at DATETIME,
   FOREIGN KEY (did) REFERENCES Disease(id) ON DELETE CASCADE ON UPDATE CASCADE
 );
+
+ALTER TABLE `aw007`.`disease` 
+ADD COLUMN `dbpedia_revision_id` INT NULL AFTER `dbpedia_id`,
+ADD COLUMN `thumbnail` VARCHAR(255) NULL COMMENT 'url do thumbnail' AFTER `abstract`,
+ADD COLUMN `uri` VARCHAR(255) NULL COMMENT 'url disease' AFTER `thumbnail`;
+
+ALTER TABLE `aw007`.`article` 
+ADD COLUMN `article_revision_date` DATETIME NULL AFTER `article_date`;
+

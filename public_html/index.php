@@ -106,6 +106,8 @@
         <title></title>
         <abstract></abstract>
         <published_at></published_at>
+        <article_date></article_date>
+        <article_revision_date></article_revision_date>
         <inserted_at></inserted_at>
         <updated_at></updated_at>
 
