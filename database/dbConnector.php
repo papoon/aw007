@@ -1,6 +1,6 @@
 <?php
     include_once '../database/dbUtils.php';
-
+    include_once '../private/private.php';
     class DbConnector {
 
         private $hostName;
@@ -10,28 +10,34 @@
         private $connection;
         private $sqlQuery;
         public $dataset;
+        private static $instance;
 
-        const DEFAULT_HOST = "localhost";
+        /*const DEFAULT_HOST = "localhost";
         const DEFAULT_USER = "aw007";
         const DEFAULT_PASS = "aw007";
-        const DEFAULT_DB = "aw007";
+        const DEFAULT_DB = "aw007";*/
 
         //generic construct
-        public function __construct($host, $user, $pass, $db) {
-            $this->hostName = $host;
-            $this->userName = $user;
-            $this->password = $pass;
-            $this->dbName = $db;
+        protected function __construct() {
+
+            $this->hostName = DB_HOST;
+            $this->userName = DB_USER;
+            $this->password = DB_PASS;
+            $this->dbName = DB_NAME;
             $this->connection = NULL;
             $this->sqlQuery = NULL;
             $this->dataSet = NULL;
+
         }
 
         //default connection auxiliar function
         public static function defaultConnection() {
-            $instance = new self(DbConnector::DEFAULT_HOST, DbConnector::DEFAULT_USER,
-                                 DbConnector::DEFAULT_PASS, DbConnector::DEFAULT_DB);
-            return $instance;
+            if (self::$instance === NULL){
+                self::$instance = new self();
+            }
+            return self::$instance;
+            //$instance = new self(DB_HOST, DB_USER, DB_PASS, DB_NAME);
+            //return $instance;
         }
 
         //connect function, returns link to the db
