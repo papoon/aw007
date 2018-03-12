@@ -111,11 +111,11 @@ SELECT ?name where {
 
 * [PHP5](http://php.net) - The server side programming language
 * [MySql](https://www.mysql.com) - The DBMS 
-* [GitHub](https://github.com) - Version control system
+* [Git](https://git-scm.com) - Version control system
 
 ## Versioning
 
-We use GitHub for versioning. For the versions available at (https://github.com/papoon/aw007). 
+We use GitHub for hosting versioning. For the versions available at (https://github.com/papoon/aw007). 
 
 ## Authors
 
