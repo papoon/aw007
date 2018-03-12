@@ -7,7 +7,8 @@ The AW 2017/18 project consists in creating a semantic search engine for disease
 •	Data Annotation: create semantic links between the collected data (Demo II)
 •	Data Access: make the information available as a web service and as dynamic web page.
 
-###Data Collection
+### Data Collection
+
 •	Collect the list of diseases using the DBpedia SPARQL endpoint, for example:
 PREFIX dbo: <http://dbpedia.org/ontology/>
 SELECT ?name where {
@@ -25,7 +26,8 @@ SELECT ?name where {
 •	Have an update functionality, so it does not have to download everything from scratch everytime we execute the data collector
 •	Tip: start with a limited number of diseases
 
-###Data Annotation
+### Data Annotation
+
 •	For each article recognize disease mentions (NER) using at least one of these tools:
 •	MER, example: recognizing diseases in a given text
 •	PubTator, example:  recognizing diseases in abstract 29346343
@@ -37,7 +39,8 @@ SELECT ?name where {
 •	relevance feedback, including explicit feedback and implicit feedback
 •	published date
 
-###Data Access
+### Data Access
+
 •	a REST Web Service to get and add information about diseases and articles, including at least the following functionalities:w
 •	get the top-n related articles for a given disease
 •	get the top-n related diseases given a disease
@@ -59,7 +62,8 @@ SELECT ?name where {
 •	Notes:
 •	Macromedia Flash or Java Applets is not allowed
 
-###Documentation
+### Documentation
+
 •	Provide online documentation describing:
 •	the data collected with statistics and examples  (Demo I)
 •	the annotations stored for each disease and article, with statistics and examples (Demo II)
@@ -73,7 +77,8 @@ SELECT ?name where {
 •	code listings in an annex (only original code)
 •	file named AW1617_group??.pdf (replace ?? by the respective two digit number)
 
-###Evaluation
+### Evaluation
+
 •	Developing additional functionalities will be valued. 
 •	requires Group Selection  
 •	Project Demonstrations I and II 
