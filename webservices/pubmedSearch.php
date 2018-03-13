@@ -8,7 +8,7 @@
         private $term;
 
         function __construct($term,$retmax = 10)
-        {   
+        {
             $this->term = $term;
             $this->retmax = $retmax;
         }
@@ -20,7 +20,7 @@
             return $searchUrl;
 
         }
-        
+
         private function getResponseXML($url){
 
             $response =  getResponseCurl($url);
@@ -33,9 +33,9 @@
 
             return $response;
         }
-        
 
-        public function getIdLists(){
+
+        public function getIdList(){
 
             $response = $this->getResponseXML($this->getUrlSearchXML());
             return $response['IdList'];

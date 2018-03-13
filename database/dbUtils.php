@@ -7,6 +7,9 @@
     const TABLE_PHOTOS = 'Photos';
     const TABLE_TWEETS = 'Tweets';
 
+    function getLastInsertId($connection) {
+      return mysqli_insert_id($connection);
+    }
 
     function printCountResult($data) {
       $row = $data->fetch_row();
@@ -34,10 +37,6 @@
       while($row = $data->fetch_assoc()) {
         $rows[] = $row;
       }
-<<<<<<< HEAD
-      //echo $rows;
-=======
->>>>>>> eda4c47829baebd2959f24f2db8c94814cab7d84
       return $rows;
     }
 
@@ -52,8 +51,9 @@
           $result[] = array("val"=>$valuesArray[2], "type"=>"char");  //title
           $result[] = array("val"=>$valuesArray[3], "type"=>"char");  //abstract
           $result[] = array("val"=>$valuesArray[4], "type"=>"char");  //article_date
-          $result[] = array("val"=>$valuesArray[5], "type"=>"char");  //inserted_at
-          $result[] = array("val"=>$valuesArray[6], "type"=>"char");  //updated_at
+          $result[] = array("val"=>$valuesArray[5], "type"=>"char");  //article_revision_date
+          $result[] = array("val"=>$valuesArray[6], "type"=>"char");  //inserted_at
+          $result[] = array("val"=>$valuesArray[7], "type"=>"char");  //updated_at
           break;
         case TABLE_ARTICLE_AUTHOR:
           $result[] = array("val"=>$valuesArray[0], "type"=>"int");   //art_id
@@ -69,9 +69,12 @@
         case TABLE_DISEASE:
           $result[] = array("val"=>$valuesArray[0], "type"=>"char");  //name
           $result[] = array("val"=>$valuesArray[1], "type"=>"int");   //dbpedia_id
-          $result[] = array("val"=>$valuesArray[2], "type"=>"char");  //abstract
-          $result[] = array("val"=>$valuesArray[3], "type"=>"char");  //inserted_at
-          $result[] = array("val"=>$valuesArray[4], "type"=>"char");  //updated_at
+          $result[] = array("val"=>$valuesArray[2], "type"=>"int");   //dbpedia_revision_id
+          $result[] = array("val"=>$valuesArray[3], "type"=>"char");  //abstract
+          $result[] = array("val"=>$valuesArray[4], "type"=>"char");  //thumbnail
+          $result[] = array("val"=>$valuesArray[5], "type"=>"char");  //uri
+          $result[] = array("val"=>$valuesArray[6], "type"=>"char");  //created_at
+          $result[] = array("val"=>$valuesArray[7], "type"=>"char");  //updated_at
           break;
         case TABLE_PHOTOS:
           $result[] = array("val"=>$valuesArray[0], "type"=>"int");   //did
@@ -124,6 +127,7 @@
           $valuesStr .= 'title,';
           $valuesStr .= 'abstract,';
           $valuesStr .= 'article_date,';
+          $valuesStr .= 'article_revision_date,';
           $valuesStr .= 'inserted_at,';
           $valuesStr .= 'updated_at';
           break;
@@ -141,7 +145,9 @@
         case TABLE_DISEASE:
           $valuesStr .= 'name,';
           $valuesStr .= 'dbpedia_id,';
+          $valuesStr .= 'dbpedia_revision_id,';
           $valuesStr .= 'abstract,';
+          $valuesStr .= 'thumbnail,';
           $valuesStr .= 'created_at,';
           $valuesStr .= 'updated_at';
           break;
@@ -198,6 +204,7 @@
             echo '<p>'.$rows['title'].'</p>';
             echo '<p>'.$rows['abstract'].'</p>';
             echo '<p>'.$rows['article_date'].'</p>';
+            echo '<p>'.$rows['article_revision_date'].'</p>';
             echo '<p>'.$rows['inserted_at'].'</p>';
             echo '<p>'.$rows['updated_at'].'</p>';
             echo '<br/>';
@@ -226,7 +233,9 @@
             echo '<p>'.$rows['id'].'</p>';
             echo '<p>'.$rows['name'].'</p>';
             echo '<p>'.$rows['dbpedia_id'].'</p>';
+            echo '<p>'.$rows['dbpedia_revision_id'].'</p>';
             echo '<p>'.$rows['abstract'].'</p>';
+            echo '<p>'.$rows['thumbnail'].'</p>';
             echo '<p>'.$rows['created_at'].'</p>';
             echo '<p>'.$rows['updated_at'].'</p>';
             echo '<br/>';
