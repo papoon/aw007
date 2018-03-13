@@ -9,7 +9,7 @@
         private $startDate;
 
         function __construct($term,$retmax = 10)
-        {   
+        {
             $this->term = $term;
             $this->retmax = $retmax;
             //$this->startDate = $startAt;
@@ -22,7 +22,7 @@
             return $searchUrl;
 
         }
-        
+
         private function getResponseXML($url){
 
             $response =  getResponseCurl($url);
@@ -35,7 +35,6 @@
 
             return $response;
         }
-        
 
         public function getIdLists(){
             

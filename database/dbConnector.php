@@ -49,7 +49,7 @@
         }
 
         //OPERATIONS
-        function selectAll($tableName,$limit=NULL)  {
+        public function selectAll($tableName,$limit=NULL)  {
             $this->sqlQuery = 'SELECT * FROM '.$this->dbName.'.'.$tableName;
             if(!is_null($limit)) {
               $this->sqlQuery .= ' LIMIT '.$limit;
@@ -59,7 +59,7 @@
             return $this->dataSet;
         }
 
-        function selectWhere($tableName, $columnName, $operator, $value, $valueType, $limit=NULL)   {
+        public function selectWhere($tableName, $columnName, $operator, $value, $valueType, $limit=NULL)   {
             $this->sqlQuery = 'SELECT * FROM '.$tableName.' WHERE '.$columnName.' '.$operator.' ';
             if($valueType == 'int') {
                 $this->sqlQuery .= $value;
@@ -76,14 +76,14 @@
             return $this->dataSet;
         }
 
-        function selectColumnAll($tableName, $columnName) {
+        public function selectColumnAll($tableName, $columnName) {
           $this->sqlQuery = 'SELECT '.$columnName.' FROM '.$this->dbName.'.'.$tableName;
           //echo $this->sqlQuery;
           $this->dataSet = mysqli_query($this->connection, $this->sqlQuery);
           return $this->dataSet;
         }
 
-        function selectCountAll($tableName)   {
+        public function selectCountAll($tableName)   {
             $this->sqlQuery = 'SELECT COUNT(*) FROM '.$tableName;
             //echo $this->sqlQuery;
             $this->dataSet = mysqli_query($this->connection, $this->sqlQuery);
@@ -91,7 +91,7 @@
             return $this->dataSet;
         }
 
-        function selectCountWhere($tableName, $columnName, $operator, $value, $valueType)   {
+        public function selectCountWhere($tableName, $columnName, $operator, $value, $valueType)   {
             $this->sqlQuery = 'SELECT COUNT(*) FROM '.$tableName.' WHERE '.$columnName.' '.$operator.' ';
             if($valueType == 'int') {
                 $this->sqlQuery .= $value;
@@ -105,7 +105,7 @@
             return $this->dataSet;
         }
 
-        function insertInto($tableName, $values) {
+        public function insertInto($tableName, $values) {
             $queryValuesStr = getValuesStr($tableName);
             $this->sqlQuery = 'INSERT INTO '.$tableName.$queryValuesStr.' VALUES (';
             $i = 0;
@@ -128,12 +128,13 @@
             mysqli_query($this->connection, $this->sqlQuery);
             return $this -> sqlQuery;
         }
+
         public function rawQuery($query){
             $this->sqlQuery = $query;
             $this->dataSet = mysqli_query($this->connection, $this->sqlQuery);
             $this->sqlQuery = NULL;
             return $this->dataSet;
-        }   
+        }
 
 
     }

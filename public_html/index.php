@@ -31,7 +31,7 @@
         <update_at></update_at>
 
     */
-    
+
     $diseases = $dbPediaDiseases->getDiseases();
     var_dump($diseases[0]['label']['value']);//name
     var_dump($diseases[0]['wikiPageID']['value']);//dbpedia_id
@@ -41,7 +41,7 @@
     var_dump($diseases[0]['name']['value']);//uri
     //created_at automatic insert timestamp
     //update_at automatic insert timestamp
-    
+
     //die();
     //obter o url para fazer o pedido http
     //$requestURL = getUrlDbpediaDiseasesJson();
@@ -87,14 +87,14 @@
     //var_dump($article['PubmedArticle']['PubmedData']['History']['PubMedPubDate']);
     //var_dump($article);
     //die();
-    
+
     echo '<p> <b>Titulo Artigo: </b>'.$pubmedFeach->getArticleTitle().'</p>';
     try{
         echo '<p> <b>Abstract: </b>'.$pubmedFeach->getArticleAbstract().'</p>';
     }catch(Exception $e){
         echo $e->getMessage();
     }
-    
+
     //$dataArtigo = $article['Journal']['JournalIssue']['PubDate'];
     echo '<p> <b>Data do artigo: </b>'.$pubmedFeach->getArticleDate().'</p>';
     echo '<p> <b>Data de publicação do artigo: </b>'.$pubmedFeach->getArticleJournalPubDate().'</p>';
