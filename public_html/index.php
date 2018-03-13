@@ -61,22 +61,24 @@
         echo '<hr>';
     }*/
 
-    $label = $diseases[3]['label']['value'];
+    $label = $diseases[2]['label']['value'];
 
     echo '<h1>PubMed Search</h1>';
 
-    $pubmed = new PubMedSearch($label,1);
+    $pubmed = new PubMedSearch($label,10);
 
-    $response = $pubmed->getIdLists();
-
+    $ids = $pubmed->getIdLists();
+    $response = $pubmed->getIdListsByDate("2015-01-01");
+    //var_dump($response);
+    
     echo '<p> <b>Label</b>: '.$label.'</p>';
-    echo '<p> <b>PubMed Id</b>: '.$response['Id'].'</p>';
+    echo '<p> <b>PubMed Id</b>: '.$ids['Id'][7].'</p>';
 
     echo '<hr>';
     echo '<h1>PubMed Feach Disease</h1>';
     echo '<b>Label</b> :'.$label;
 
-    $pubmedFeach = new PubMedFeach($response['Id']);
+    $pubmedFeach = new PubMedFeach($ids['Id'][9]);
     $article = $pubmedFeach->getResponse();
 
     //var_dump( $article['PubmedArticle']['MedlineCitation']['Article']['AuthorList']['Author']);

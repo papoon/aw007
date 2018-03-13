@@ -6,17 +6,19 @@
         private $retmode = "xml";
         private $retmax;
         private $term;
+        private $startDate;
 
         function __construct($term,$retmax = 10)
         {   
             $this->term = $term;
             $this->retmax = $retmax;
+            //$this->startDate = $startAt;
         }
 
         private function getUrlSearchXML(){
 
             $searchUrl = $this->uri.'&term='.urlencode($this->term).'&retmax='.$this->retmax.'&retmode='.$this->retmode;
-
+            
             return $searchUrl;
 
         }
@@ -36,9 +38,31 @@
         
 
         public function getIdLists(){
+            
+            $response = $this->getResponseXML($this->getUrlSearchXML());
+            if(is_array($response['IdList']['Id'])){
+                return $response['IdList'];
+            }
+            else{
+                return array("Id"=>array($response['IdList']['Id']));
+            }
+            
+        }
+        public function getResponseDebug(){
+            $response = $this->getResponseXML($this->getUrlSearchXML());
+            return $response;
+        }
+        public function getIdListsByDate($startAt){
+            
+            //$query = '+AND+("2018/01/03":"3000"[Date%20-%20Entrez])';
+            $query = '+ AND +("'.$startAt.'":"3000"[Date - Entrez])';
+
+            $this->term .= $query;
 
             $response = $this->getResponseXML($this->getUrlSearchXML());
-            return $response['IdList'];
+            return $response;
+
+
         }
     }
 

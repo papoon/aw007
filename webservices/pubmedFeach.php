@@ -99,7 +99,13 @@
         public function getArticleDate($format="d-m-y"){
 
             $article = $this->getArticle();
-            $articleDate = $article['ArticleDate'];
+            if(array_key_exists('ArticleDate',$article)){
+                $articleDate = $article['ArticleDate'];
+            }
+            else{
+                return 'Date not found!';
+            }
+            
 
             /*switch(count($dataArtigo)){
                 case 3:
@@ -150,14 +156,25 @@
 
             $authorsNames = array();
 
-            foreach($authors as $key=>$author){
-                $lastName = $author['LastName'];
-                $firsName = $author['ForeName'];
-                $initials = $author['Initials'];
-
-                $authorsNames[] = $lastName.', '.$firsName.', '.$initials;
-
+            if(!array_key_exists('ForeName',$authors)){
+                foreach($authors as $key=>$author){
+                    $lastName = $author['LastName'];
+                    $firsName = $author['ForeName'];
+                    $initials = $author['Initials'];
+    
+                    $authorsNames[] = $lastName.', '.$firsName.', '.$initials;
+    
+                }
             }
+            else{
+                $lastName = $authors['LastName'];
+                $firsName = $authors['ForeName'];
+                $initials = $authors['Initials'];
+    
+                $authorsNames[] = $lastName.', '.$firsName.', '.$initials;
+            }
+
+            
             return $authorsNames;
         }
     }
