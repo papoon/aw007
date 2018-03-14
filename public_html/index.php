@@ -61,22 +61,24 @@
         echo '<hr>';
     }*/
 
-    $label = $diseases[3]['label']['value'];
+    $label = $diseases[2]['label']['value'];
 
     echo '<h1>PubMed Search</h1>';
 
-    $pubmed = new PubMedSearch($label,1);
+    $pubmed = new PubMedSearch($label,10);
 
-    $response = $pubmed->getIdList();
-
+    $ids = $pubmed->getIdLists();
+    $response = $pubmed->getIdListsByDate("2015-01-01");
+    //var_dump($response);
+    
     echo '<p> <b>Label</b>: '.$label.'</p>';
-    echo '<p> <b>PubMed Id</b>: '.$response['Id'].'</p>';
+    echo '<p> <b>PubMed Id</b>: '.$ids['Id'][7].'</p>';
 
     echo '<hr>';
     echo '<h1>PubMed Feach Disease</h1>';
     echo '<b>Label</b> :'.$label;
 
-    $pubmedFeach = new PubMedFeach($response['Id']);
+    $pubmedFeach = new PubMedFeach($ids['Id'][9]);
     $article = $pubmedFeach->getResponse();
 
     //var_dump( $article['PubmedArticle']['MedlineCitation']['Article']['AuthorList']['Author']);
@@ -137,6 +139,7 @@
         echo '<p>Photo URL: '.$photo[0].'</p>';
         echo '<p>Image:<br> <img src="'.$photo[0].'" alt="..." width="300" height="200"></br></p>';
     }
+    */
 
     echo '<hr>';
     echo '<h2>Twitter Disease </h2>'.$label.'';
@@ -146,16 +149,27 @@
     $tweets = $twitter->getTweets();
     //var_dump($tweets[1]);
     //echo $twitter->getTweetId($tweets[1]);
-
-    $twitter_embed = new TwitterEmbed($twitter->getTweetId($tweets[1]));
+    $tweetId = $twitter->getTweetId($tweets[1]);
+    $twitter_embed = new TwitterEmbed($tweetId);
     //var_dump($twitter_embed->getResponse());
     $twiiter_embed = $twitter_embed->getResponse();
     $html = $twiiter_embed['html'];
 
     echo $html;
-    */
 
+    echo '<br>';
 
+    $tweet = $twitter->searchTweetId($tweetId);
+    $tweetId = $twitter->getTweetId($tweet);
+    $twitter_embed = new TwitterEmbed($tweetId);
+    //var_dump($twitter_embed->getResponse());
+    $twiiter_embed = $twitter_embed->getResponse();
+    $html = $twiiter_embed['html'];
+
+    echo $html;
+
+   
+    //var_dump($response);
 
 
 
