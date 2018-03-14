@@ -43,68 +43,69 @@
     function createInsertArray($tableName, $valuesArray) {
 
       $result = array();
+      $i = 0;
 
       switch ($tableName) {
         case TABLE_ARTICLE:
-          $result[] = array("val"=>$valuesArray[0], "type"=>"int");   //did
-          $result[] = array("val"=>$valuesArray[1], "type"=>"char");  //journal_id
-          $result[] = array("val"=>$valuesArray[2], "type"=>"char");  //title
-          $result[] = array("val"=>$valuesArray[3], "type"=>"char");  //abstract
-          $result[] = array("val"=>$valuesArray[4], "type"=>"char");  //published_at
-          $result[] = array("val"=>$valuesArray[5], "type"=>"char");  //article_date
-          $result[] = array("val"=>$valuesArray[6], "type"=>"char");  //article_revision_date
-          $result[] = array("val"=>$valuesArray[7], "type"=>"char");  //inserted_at
-          $result[] = array("val"=>$valuesArray[8], "type"=>"char");  //updated_at
+          $result[] = array("val"=>$valuesArray[$i++], "type"=>"int");   //did
+          $result[] = array("val"=>$valuesArray[$i++], "type"=>"char");  //journal_id
+          $result[] = array("val"=>$valuesArray[$i++], "type"=>"char");  //title
+          $result[] = array("val"=>$valuesArray[$i++], "type"=>"char");  //abstract
+          $result[] = array("val"=>$valuesArray[$i++], "type"=>"char");  //published_at
+          $result[] = array("val"=>$valuesArray[$i++], "type"=>"char");  //article_date
+          $result[] = array("val"=>$valuesArray[$i++], "type"=>"char");  //article_revision_date
+          $result[] = array("val"=>$valuesArray[$i++], "type"=>"char");  //inserted_at
+          $result[] = array("val"=>$valuesArray[$i++], "type"=>"char");  //updated_at
           break;
         case TABLE_ARTICLE_AUTHOR:
-          $result[] = array("val"=>$valuesArray[0], "type"=>"int");   //art_id
-          $result[] = array("val"=>$valuesArray[1], "type"=>"int");   //aut_id
+          $result[] = array("val"=>$valuesArray[$i++], "type"=>"int");   //art_id
+          $result[] = array("val"=>$valuesArray[$i++], "type"=>"int");   //aut_id
           break;
         case TABLE_AUTHOR:
-          $result[] = array("val"=>$valuesArray[0], "type"=>"char");  //name
-          $result[] = array("val"=>$valuesArray[1], "type"=>"char");  //institution
-          $result[] = array("val"=>$valuesArray[2], "type"=>"char");  //contact
-          $result[] = array("val"=>$valuesArray[3], "type"=>"char");  //inserted_at
-          $result[] = array("val"=>$valuesArray[4], "type"=>"char");  //updated_at
+          $result[] = array("val"=>$valuesArray[$i++], "type"=>"char");  //name
+          $result[] = array("val"=>$valuesArray[$i++], "type"=>"char");  //institution
+          $result[] = array("val"=>$valuesArray[$i++], "type"=>"char");  //contact
+          $result[] = array("val"=>$valuesArray[$i++], "type"=>"char");  //inserted_at
+          $result[] = array("val"=>$valuesArray[$i++], "type"=>"char");  //updated_at
           break;
         case TABLE_DISEASE:
-          $result[] = array("val"=>$valuesArray[0], "type"=>"char");  //name
-          $result[] = array("val"=>$valuesArray[1], "type"=>"int");   //dbpedia_id
-          $result[] = array("val"=>$valuesArray[2], "type"=>"int");   //dbpedia_revision_id
-          $result[] = array("val"=>$valuesArray[3], "type"=>"char");  //abstract
-          $result[] = array("val"=>$valuesArray[4], "type"=>"char");  //thumbnail
-          $result[] = array("val"=>$valuesArray[5], "type"=>"char");  //uri
-          $result[] = array("val"=>$valuesArray[6], "type"=>"char");  //created_at
-          $result[] = array("val"=>$valuesArray[7], "type"=>"char");  //updated_at
+          $result[] = array("val"=>$valuesArray[$i++], "type"=>"char");  //name
+          $result[] = array("val"=>$valuesArray[$i++], "type"=>"int");   //dbpedia_id
+          $result[] = array("val"=>$valuesArray[$i++], "type"=>"int");   //dbpedia_revision_id
+          $result[] = array("val"=>$valuesArray[$i++], "type"=>"char");  //abstract
+          $result[] = array("val"=>$valuesArray[$i++], "type"=>"char");  //thumbnail
+          $result[] = array("val"=>$valuesArray[$i++], "type"=>"char");  //uri
+          $result[] = array("val"=>$valuesArray[$i++], "type"=>"char");  //created_at
+          $result[] = array("val"=>$valuesArray[$i++], "type"=>"char");  //updated_at
           break;
         case TABLE_PHOTOS:
-          $result[] = array("val"=>$valuesArray[0], "type"=>"int");   //did
-          $result[] = array("val"=>$valuesArray[1], "type"=>"char");  //url
-          $result[] = array("val"=>$valuesArray[2], "type"=>"char");  //flicrk_id
-          $result[] = array("val"=>$valuesArray[3], "type"=>"char");  //author_name
-          $result[] = array("val"=>$valuesArray[4], "type"=>"char");  //username
-          $result[] = array("val"=>$valuesArray[5], "type"=>"int");   //nr_likes
-          $result[] = array("val"=>$valuesArray[6], "type"=>"int");   //nr_comments
-          $result[] = array("val"=>$valuesArray[7], "type"=>"int");   //shares
-          $result[] = array("val"=>$valuesArray[8], "type"=>"char");  //country
-          $result[] = array("val"=>$valuesArray[9], "type"=>"char");  //published_at
-          $result[] = array("val"=>$valuesArray[10], "type"=>"char"); //inserted_at
-          $result[] = array("val"=>$valuesArray[11], "type"=>"char"); //updated_at
+          $result[] = array("val"=>$valuesArray[$i++], "type"=>"int");   //did
+          $result[] = array("val"=>$valuesArray[$i++], "type"=>"char");  //url
+          $result[] = array("val"=>$valuesArray[$i++], "type"=>"char");  //flicrk_id
+          $result[] = array("val"=>$valuesArray[$i++], "type"=>"char");  //author_name
+          $result[] = array("val"=>$valuesArray[$i++], "type"=>"char");  //username
+          $result[] = array("val"=>$valuesArray[$i++], "type"=>"int");   //nr_likes
+          $result[] = array("val"=>$valuesArray[$i++], "type"=>"int");   //nr_comments
+          $result[] = array("val"=>$valuesArray[$i++], "type"=>"int");   //shares
+          $result[] = array("val"=>$valuesArray[$i++], "type"=>"char");  //country
+          $result[] = array("val"=>$valuesArray[$i++], "type"=>"char");  //published_at
+          $result[] = array("val"=>$valuesArray[$i++], "type"=>"char"); //inserted_at
+          $result[] = array("val"=>$valuesArray[$i++], "type"=>"char"); //updated_at
           break;
         case TABLE_TWEETS:
-          $result[] = array("val"=>$valuesArray[0], "type"=>"int");   //did
-          $result[] = array("val"=>$valuesArray[1], "type"=>"char");  //url
-          $result[] = array("val"=>$valuesArray[2], "type"=>"char");  //type
-          $result[] = array("val"=>$valuesArray[3], "type"=>"char");  //tweet_id
-          $result[] = array("val"=>$valuesArray[4], "type"=>"char");  //author_name
-          $result[] = array("val"=>$valuesArray[5], "type"=>"char");  //username
-          $result[] = array("val"=>$valuesArray[6], "type"=>"int");   //nr_likes
-          $result[] = array("val"=>$valuesArray[7], "type"=>"int");   //nr_comments
-          $result[] = array("val"=>$valuesArray[8], "type"=>"int");   //shares
-          $result[] = array("val"=>$valuesArray[9], "type"=>"char");  //country
-          $result[] = array("val"=>$valuesArray[10], "type"=>"char"); //published_at
-          $result[] = array("val"=>$valuesArray[11], "type"=>"char"); //inserted_at
-          $result[] = array("val"=>$valuesArray[12], "type"=>"char"); //updated_at
+          $result[] = array("val"=>$valuesArray[$i++], "type"=>"int");   //did
+          $result[] = array("val"=>$valuesArray[$i++], "type"=>"char");  //url
+          $result[] = array("val"=>$valuesArray[$i++], "type"=>"char");  //type
+          $result[] = array("val"=>$valuesArray[$i++], "type"=>"char");  //tweet_id
+          $result[] = array("val"=>$valuesArray[$i++], "type"=>"char");  //author_name
+          $result[] = array("val"=>$valuesArray[$i++], "type"=>"char");  //username
+          $result[] = array("val"=>$valuesArray[$i++], "type"=>"int");   //nr_likes
+          $result[] = array("val"=>$valuesArray[$i++], "type"=>"int");   //nr_comments
+          $result[] = array("val"=>$valuesArray[$i++], "type"=>"int");   //shares
+          $result[] = array("val"=>$valuesArray[$i++], "type"=>"char");  //country
+          $result[] = array("val"=>$valuesArray[$i++], "type"=>"char"); //published_at
+          $result[] = array("val"=>$valuesArray[$i++], "type"=>"char"); //inserted_at
+          $result[] = array("val"=>$valuesArray[$i++], "type"=>"char"); //updated_at
           break;
         //case 'Comments':
         //  # code...
