@@ -2,11 +2,11 @@
     include_once '../database/dbConnector.php';
     include_once '../database/dbUtils.php';
     include_once "../webservices/dbpediaDiseases.php";
-    //include_once "../webservices/pubmedSearch.php";
-    //include_once "../webservices/pubmedFeach.php";
-    //include_once "../webservices/flickr.php";
-    //include_once "../webservices/twitterSearch.php";
-    //include_once "../webservices/twitterEmbed.php";
+    include_once "../webservices/pubmedSearch.php";
+    include_once "../webservices/pubmedFeach.php";
+    include_once "../webservices/flickr.php";
+    include_once "../webservices/twitterSearch.php";
+    include_once "../webservices/twitterEmbed.php";
 
     class DataCollector {
 
@@ -59,20 +59,20 @@
             //save diseases ids and names for next phase (key value pair)
             $diseaseIdsNames[getLastInsertId($this->dbLink)] = $disease['label']['value'];
 
-            echo getLastInsertId($this->dbLink)."|".$disease['label']['value'];
+            #echo getLastInsertId($this->dbLink)."|".$disease['label']['value'];
           }
 
-          echo implode("|", $diseaseIdsNames);
+          #echo implode("|", $diseaseIdsNames);
 
           //get pubmed articles information for each disease
           foreach($diseaseIdsNames as $did=>$diseaseName) {
               //getting 10 (random?) article ids
-              $pubmed = new PubMedSearch($diseaseName);
-              $articleIds = $pubmed->getIdList();
+              $pubmed = new PubMedSearch($diseaseName, 2);
+              $articleIds = $pubmed->getIdList()['Id'];
 
               //get information for each article with given id
               foreach($articleIds as $articleId) {
-                  $pubmedFeach = new PubMedFeach($articleId['Id']);
+                  $pubmedFeach = new PubMedFeach($articleId);
                   $article = $pubmedFeach->getResponse();
 
                   //set default value for abstract string (what is kept in case of no abstract)
@@ -83,10 +83,13 @@
                       //do nothing
                   }
 
+                  echo $pubmedFeach->getArticleJournalId();
+
                   $values = array($did,                                     //did
                                   $pubmedFeach->getArticleJournalId(),      //journal_id
                                   $pubmedFeach->getArticleTitle(),          //title
                                   $abstract,                                //abstract
+                                  $pubmedFeach->getArticleJournalPubDate(), //published_at
                                   $pubmedFeach->getArticleDate(),           //article_date
                                   $pubmedFeach->getArticleRevisionDate(),   //article_revision_date
                                   $currentDateStr,                          //inserted_at
@@ -96,8 +99,6 @@
                   $toInsert = createInsertArray(TABLE_ARTICLE, $values);
                   //insert disease in the database
                   $this->connector->insertInto(TABLE_ARTICLE, $toInsert);
-
-
 
               }
 
