@@ -17,7 +17,7 @@ CREATE TABLE Disease (
 CREATE TABLE Article (
 	id INT(11) PRIMARY KEY AUTO_INCREMENT,
 	did INT(11),
-	journal_id INT(20),
+	journal_id VARCHAR(50),
 	title text(5000),
 	abstract text(40000),
 	published_at DATETIME,
