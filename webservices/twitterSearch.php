@@ -12,19 +12,28 @@
         private $query;
         private $count;
         private $result_type = "recent";
+        private $max_id;
+        private $since_id;
 
         //$query = array( 'count' => 100, 'q' => urlencode($search), "result_type" => "recent");
 
-        function __construct($query,$count=10)
+        function __construct($query,$count=10,$max_id="")
         {   
-            $this->query = $query;
+            $this->query = urlencode($query);
             $this->count = $count;
+            //$this->max_id = $max_id;
             $this->obj = $this->getResponse();
         }
 
         private function getUrlSearch(){
 
-            $query = array( 'count' => $this->count, 'q' => urlencode($this->query), "result_type" => $this->result_type, "include_entities" => true);
+            $query = array( 'count' => $this->count, 'q' => $this->query, "result_type" => $this->result_type, "include_entities" => true);
+            if($this->max_id != ""){
+                $query['max_id'] = $this->max_id;
+            }
+            if($this->since_id != ""){
+                $query['since_id'] = $this->since_id;
+            }
 
             $oauth = array(
                 'oauth_consumer_key' => $this->API_CONSUMER_KEY,
@@ -67,6 +76,16 @@
 
         public function getTweetId($tweet){
             return $tweet['id_str'];
+        }
+        public function searchTweetId($id){
+            
+            //$id_since = $id - 1;
+            //$this->query .= '&max_id='.$id;
+            $this->max_id = $id;
+            $this->count = 1;
+            $response = $this->getResponse();
+
+            return $response['statuses'][0];
         }
 
 

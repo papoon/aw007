@@ -139,6 +139,7 @@
         echo '<p>Photo URL: '.$photo[0].'</p>';
         echo '<p>Image:<br> <img src="'.$photo[0].'" alt="..." width="300" height="200"></br></p>';
     }
+    */
 
     echo '<hr>';
     echo '<h2>Twitter Disease </h2>'.$label.'';
@@ -148,16 +149,27 @@
     $tweets = $twitter->getTweets();
     //var_dump($tweets[1]);
     //echo $twitter->getTweetId($tweets[1]);
-
-    $twitter_embed = new TwitterEmbed($twitter->getTweetId($tweets[1]));
+    $tweetId = $twitter->getTweetId($tweets[1]);
+    $twitter_embed = new TwitterEmbed($tweetId);
     //var_dump($twitter_embed->getResponse());
     $twiiter_embed = $twitter_embed->getResponse();
     $html = $twiiter_embed['html'];
 
     echo $html;
-    */
 
+    echo '<br>';
 
+    $tweet = $twitter->searchTweetId($tweetId);
+    $tweetId = $twitter->getTweetId($tweet);
+    $twitter_embed = new TwitterEmbed($tweetId);
+    //var_dump($twitter_embed->getResponse());
+    $twiiter_embed = $twitter_embed->getResponse();
+    $html = $twiiter_embed['html'];
+
+    echo $html;
+
+   
+    //var_dump($response);
 
 
 
