@@ -2,7 +2,7 @@
 
     include_once "../utils/request.php";
     include_once "../private/private.php";
-    
+
     class Flickr{
 
         private $uri = "https://api.flickr.com/services/rest/";
@@ -14,7 +14,7 @@
         private $safeSearch=1;
 
         function __construct($queryText,$numberPhotos=10)
-        {   
+        {
             $this->queryText = $queryText;
             $this->numberPhotos = $numberPhotos;
             $this->obj = $this->getResponse();
@@ -55,6 +55,8 @@
 
             $photoUri = "https://farm{farm-id}.staticflickr.com/{server-id}/{id}_{secret}.jpg";
             $photos = $this->getPhotos();
+            //flickr request is bringing 100 photos ever with per_page set...
+            $photos = array_slice($photos, 0, $this->numberPhotos);
             $photosUrl = array();
 
             foreach($photos as $key=>$photo){
@@ -64,7 +66,7 @@
                 $secret = $photo['@attributes']['secret'];
 
                 $photosUrl["$photoId"][] = 'https://farm'.$farmId.'.staticflickr.com/'.$serverId.'/'.$photoId.'_'.$secret.'.jpg';
-                
+
             }
             return $photosUrl;
         }
