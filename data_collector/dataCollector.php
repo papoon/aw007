@@ -42,10 +42,14 @@
           //insert disease information in the database
           foreach($diseases as $disease){
 
-            $values = array($disease['label']['value'],               //name
+            //escape text for apostrofes and other string breakers (security issues)
+            $diseaseName = mysqli_real_escape_string($this->dbLink, $disease['label']['value']);
+            $abstract = mysqli_real_escape_string($this->dbLink, $disease['abstract']['value']);
+
+            $values = array($diseaseName,                             //name
                             $disease['wikiPageID']['value'],          //dbpedia_id
                             $disease['wikiPageRevisionID']['value'],  //dbpedia_revision_id
-                            $disease['abstract']['value'],            //abstract
+                            $abstract,                                //abstract
                             $disease['thumbnail']['value'],           //thumbnail
                             $disease['name']['value'],                //uri
                             $currentDateStr,                          //created_at
@@ -57,7 +61,7 @@
             $this->connector->insertInto(TABLE_DISEASE, $toInsert);
 
             //save diseases ids and names for next phase (key value pair)
-            $diseaseIdsNames[getLastInsertId($this->dbLink)] = $disease['label']['value'];
+            $diseaseIdsNames[getLastInsertId($this->dbLink)] = $diseaseName;
 
             #echo getLastInsertId($this->dbLink)."|".$disease['label']['value'];
           }
@@ -68,7 +72,7 @@
           foreach($diseaseIdsNames as $did=>$diseaseName) {
               //getting 10 (random?) article ids
               $pubmed = new PubMedSearch($diseaseName, 2);
-              $articleIds = $pubmed->getIdList()['Id'];
+              $articleIds = $pubmed->getIdLists()['Id'];
 
               //get information for each article with given id
               foreach($articleIds as $articleId) {
@@ -79,15 +83,18 @@
                   $abstract = 'No abstract found.';
                   try{
                       $abstract = $pubmedFeach->getArticleAbstract();
+                      //escape text for apostrofes and other string breakers (security issues)
+                      $abstract = mysqli_real_escape_string($this->dbLink, $abstract);
                   } catch(Exception $e){
                       //do nothing
                   }
 
-                  echo $pubmedFeach->getArticleJournalId();
+                  //escape text for apostrofes and other string breakers (security issues)
+                  $articleTitle = mysqli_real_escape_string($this->dbLink, $pubmedFeach->getArticleTitle());
 
                   $values = array($did,                                     //did
                                   $pubmedFeach->getArticleJournalId(),      //journal_id
-                                  $pubmedFeach->getArticleTitle(),          //title
+                                  $articleTitle,                            //title
                                   $abstract,                                //abstract
                                   $pubmedFeach->getArticleJournalPubDate(), //published_at
                                   $pubmedFeach->getArticleDate(),           //article_date
