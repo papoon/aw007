@@ -30,6 +30,7 @@
       //use this operation when database is empty
       public function getAllData() {
 
+          //**************table Disease*****************
           //get the information for the needed number of diseases
           $dbPediaDiseases = new DBPediaDiseases($this->numberDiseases);
           $diseases = $dbPediaDiseases->getDiseases();
@@ -74,8 +75,14 @@
               $pubmed = new PubMedSearch($diseaseName, 2);
               $articleIds = $pubmed->getIdLists()['Id'];
 
+              //list for pairs (article, author)
+              $articleAuthors = [];
+              //set of authors to insert in the database at the end of this phase
+              $setAuthors = [];
+
               //get information for each article with given id
               foreach($articleIds as $articleId) {
+                  //**************table Article*****************
                   $pubmedFeach = new PubMedFeach($articleId);
                   $article = $pubmedFeach->getResponse();
 
@@ -116,11 +123,28 @@
                   $toInsert = createInsertArray(TABLE_ARTICLE, $values);
                   //insert disease in the database
                   $this->connector->insertInto(TABLE_ARTICLE, $toInsert);
+                  //save article id for later use
+                  $dbArticleId = getLastInsertId($this->dbLink);
 
+                  //**************tables Article_Author e Author*****************
+                  $authors = $pubmedFeach->getArticleAuthors();
+
+                  foreach($authors as $author){
+                      echo ''.$author.' |';
+                  }
+
+                  //TODO
               }
 
           }
 
+          //**************table Photos*****************
+          //TODO
+
+          //**************table Tweets*****************
+          //TODO
+
+          //close db connection
           $this->connector->disconnect();
       }
 
