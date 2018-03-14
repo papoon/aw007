@@ -108,8 +108,9 @@
         public function insertInto($tableName, $values) {
             $queryValuesStr = getValuesStr($tableName);
             $this->sqlQuery = 'INSERT INTO '.$tableName.$queryValuesStr.' VALUES (';
-            $i = 0;
-            while($values[$i]["val"] != NULL && $values[$i]["type"] != NULL)    {
+
+            for ($i = 0; $i < sizeof($values); $i++) {
+              if ($values[$i]["val"] != NULL && $values[$i]["type"] != NULL) {
                 if($values[$i]["type"] == "char")   {
                     $this->sqlQuery .= "'";
                     $this->sqlQuery .= $values[$i]["val"];
@@ -118,15 +119,15 @@
                 else if($values[$i]["type"] == 'int')   {
                     $this->sqlQuery .= $values[$i]["val"];
                 }
-                $i++;
-                if($values[$i]["val"] != NULL)  {
+                if(($i < sizeof($values) - 1) && $values[$i]["val"] != NULL)  {
                     $this->sqlQuery .= ',';
                 }
+              }
             }
             $this->sqlQuery .= ')';
-            //echo $this->sqlQuery;
+            echo $this->sqlQuery;
             mysqli_query($this->connection, $this->sqlQuery);
-            return $this -> sqlQuery;
+            return $this->sqlQuery;
         }
 
         public function rawQuery($query){
