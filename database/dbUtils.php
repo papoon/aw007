@@ -47,13 +47,14 @@
       switch ($tableName) {
         case TABLE_ARTICLE:
           $result[] = array("val"=>$valuesArray[0], "type"=>"int");   //did
-          $result[] = array("val"=>$valuesArray[1], "type"=>"int");   //journal_id
+          $result[] = array("val"=>$valuesArray[1], "type"=>"char");  //journal_id
           $result[] = array("val"=>$valuesArray[2], "type"=>"char");  //title
           $result[] = array("val"=>$valuesArray[3], "type"=>"char");  //abstract
-          $result[] = array("val"=>$valuesArray[4], "type"=>"char");  //article_date
-          $result[] = array("val"=>$valuesArray[5], "type"=>"char");  //article_revision_date
-          $result[] = array("val"=>$valuesArray[6], "type"=>"char");  //inserted_at
-          $result[] = array("val"=>$valuesArray[7], "type"=>"char");  //updated_at
+          $result[] = array("val"=>$valuesArray[4], "type"=>"char");  //published_at
+          $result[] = array("val"=>$valuesArray[5], "type"=>"char");  //article_date
+          $result[] = array("val"=>$valuesArray[6], "type"=>"char");  //article_revision_date
+          $result[] = array("val"=>$valuesArray[7], "type"=>"char");  //inserted_at
+          $result[] = array("val"=>$valuesArray[8], "type"=>"char");  //updated_at
           break;
         case TABLE_ARTICLE_AUTHOR:
           $result[] = array("val"=>$valuesArray[0], "type"=>"int");   //art_id
@@ -101,7 +102,7 @@
           $result[] = array("val"=>$valuesArray[7], "type"=>"int");   //nr_comments
           $result[] = array("val"=>$valuesArray[8], "type"=>"int");   //shares
           $result[] = array("val"=>$valuesArray[9], "type"=>"char");  //country
-          $result[] = array("val"=>$valuesArray[10], "type"=>"char");  //published_at
+          $result[] = array("val"=>$valuesArray[10], "type"=>"char"); //published_at
           $result[] = array("val"=>$valuesArray[11], "type"=>"char"); //inserted_at
           $result[] = array("val"=>$valuesArray[12], "type"=>"char"); //updated_at
           break;
@@ -126,6 +127,7 @@
           $valuesStr .= 'journal_id,';
           $valuesStr .= 'title,';
           $valuesStr .= 'abstract,';
+          $valuesStr .= 'published_at,';
           $valuesStr .= 'article_date,';
           $valuesStr .= 'article_revision_date,';
           $valuesStr .= 'inserted_at,';
@@ -148,6 +150,7 @@
           $valuesStr .= 'dbpedia_revision_id,';
           $valuesStr .= 'abstract,';
           $valuesStr .= 'thumbnail,';
+          $valuesStr .= 'uri,';
           $valuesStr .= 'created_at,';
           $valuesStr .= 'updated_at';
           break;
@@ -203,6 +206,7 @@
             echo '<p>'.$rows['journal_id'].'</p>';
             echo '<p>'.$rows['title'].'</p>';
             echo '<p>'.$rows['abstract'].'</p>';
+            echo '<p>'.$rows['published_at'].'</p>';
             echo '<p>'.$rows['article_date'].'</p>';
             echo '<p>'.$rows['article_revision_date'].'</p>';
             echo '<p>'.$rows['inserted_at'].'</p>';
@@ -236,6 +240,7 @@
             echo '<p>'.$rows['dbpedia_revision_id'].'</p>';
             echo '<p>'.$rows['abstract'].'</p>';
             echo '<p>'.$rows['thumbnail'].'</p>';
+            echo '<p>'.$rows['uri'].'</p>';
             echo '<p>'.$rows['created_at'].'</p>';
             echo '<p>'.$rows['updated_at'].'</p>';
             echo '<br/>';
