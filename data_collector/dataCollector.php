@@ -92,13 +92,23 @@
                   //escape text for apostrofes and other string breakers (security issues)
                   $articleTitle = mysqli_real_escape_string($this->dbLink, $pubmedFeach->getArticleTitle());
 
+                  //converting date formats to mysql format
+                  $publishedAt = new DateTime($pubmedFeach->getArticleJournalPubDate());
+                  $publishedAt = $publishedAt->format('Y-m-d H:i:s');
+
+                  $articleDate = new DateTime($pubmedFeach->getArticleDate());
+                  $articleDate = $articleDate->format('Y-m-d H:i:s');
+
+                  $articleRevisionDate = new DateTime($pubmedFeach->getArticleRevisionDate());
+                  $articleRevisionDate = $articleRevisionDate->format('Y-m-d H:i:s');
+
                   $values = array($did,                                     //did
                                   $pubmedFeach->getArticleJournalId(),      //journal_id
                                   $articleTitle,                            //title
                                   $abstract,                                //abstract
-                                  $pubmedFeach->getArticleJournalPubDate(), //published_at
-                                  $pubmedFeach->getArticleDate(),           //article_date
-                                  $pubmedFeach->getArticleRevisionDate(),   //article_revision_date
+                                  $publishedAt,                             //published_at
+                                  $articleDate,                             //article_date
+                                  $articleRevisionDate,                     //article_revision_date
                                   $currentDateStr,                          //inserted_at
                                   $currentDateStr);                         //updated_at
 

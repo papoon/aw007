@@ -27,6 +27,10 @@
         echo "Host information: " . mysqli_get_host_info($link) . PHP_EOL;
 
         echo '<hr>';
+        $date = new DateTime('14-Dec-2017');
+        echo $date->format('Y-m-d H:i:s');
+
+        echo '<hr>';
         $currentDate = new DateTime();
         echo $currentDate->format('Y-m-d H:i:s');
 
