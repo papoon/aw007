@@ -121,7 +121,7 @@
 
                   //create array of values to insert in the database
                   $toInsert = createInsertArray(TABLE_ARTICLE, $values);
-                  //insert disease in the database
+                  //insert article in the database
                   $this->connector->insertInto(TABLE_ARTICLE, $toInsert);
                   //save article id for later use
                   $dbArticleId = getLastInsertId($this->dbLink);
@@ -140,9 +140,46 @@
 
           //**************table Photos*****************
           //TODO
+          //get photos information for each disease
+          // foreach($diseaseIdsNames as $did=>$diseaseName) {
+          //   $flickr = new Flickr($diseaseName);
+          //   $photos = $flickr->getResponse();
+          //   $photosUrl = $flickr->getPhotosUrl();
+          //
+          //   $i = 0;
+          //   foreach($photosUrl as $key=>$photo) {
+          //
+          //     //escape text for apostrofes and other string breakers (security issues)
+          //     $owner = mysqli_real_escape_string($this->dbLink, $photos['photos']['photo'][$i]['owner']);
+          //
+          //     $values = array($did,                                     //did
+          //                     $photo[0],                                //url
+          //                     $key,                                     //flicrk_id
+          //                     "Unknown",                                //author_name
+          //                     $owner,                                   //username
+          //                     -1,                                       //nr_likes
+          //                     -1,                                       //nr_comments
+          //                     -1,                                       //shares
+          //                     "Unknown",                                //country
+          //                     "0000-00-00 00:00:00",                    //published_at
+          //                     $currentDateStr,                          //inserted_at
+          //                     $currentDateStr);                         //updated_at
+          //
+          //     //create array of values to insert in the database
+          //     $toInsert = createInsertArray(TABLE_PHOTOS, $values);
+          //     //insert photo in the database
+          //     $this->connector->insertInto(TABLE_PHOTOS, $toInsert);
+          //
+          //   }
+          //
+          // }
 
           //**************table Tweets*****************
           //TODO
+          foreach($diseaseIdsNames as $did=>$diseaseName) {
+            $twitter = new TwitterSearch($label);
+            $tweets = $twitter->getTweets();
+          }
 
           //close db connection
           $this->connector->disconnect();

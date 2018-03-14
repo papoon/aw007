@@ -70,7 +70,7 @@
     $ids = $pubmed->getIdLists();
     $response = $pubmed->getIdListsByDate("2015-01-01");
     //var_dump($response);
-    
+
     echo '<p> <b>Label</b>: '.$label.'</p>';
     echo '<p> <b>PubMed Id</b>: '.$ids['Id'][7].'</p>';
 
@@ -123,14 +123,13 @@
     }
     echo '</p>';
 
-    /*echo '<hr>';
+    echo '<hr>';
     echo '<h2>Photos Disease</h2>'.$label.'';
 
-    $flickr = new Flickr($label,5);
+    $flickr = new Flickr($label,1);
     $photos = $flickr->getResponse();
 
-    //var_dump($photos);
-    //var_dump($photos['photos']['photo']);
+    var_dump($photos);
 
     $photosUrl = $flickr->getPhotosUrl();
 
@@ -139,7 +138,6 @@
         echo '<p>Photo URL: '.$photo[0].'</p>';
         echo '<p>Image:<br> <img src="'.$photo[0].'" alt="..." width="300" height="200"></br></p>';
     }
-    */
 
     echo '<hr>';
     echo '<h2>Twitter Disease </h2>'.$label.'';
@@ -168,7 +166,7 @@
 
     echo $html;
 
-   
+
     //var_dump($response);
 
 
