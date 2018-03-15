@@ -36,26 +36,26 @@
 
         echo '<hr>';
         echo '<h2>Test Select * </h2>';
-        $data = $connector->selectAll(TABLE_AUTHOR);
+        $data = $connector->selectAll(TABLE_DISEASE);
         //printDataFromTable($data, TABLE_AUTHOR);
         var_dump(convertDatasetToArray($data));
 
-        echo '<hr>';
-        echo '<h2>Test Select * with Limit </h2>';
-        $data = $connector->selectAll(TABLE_AUTHOR,3);
-        printDataFromTable($data, TABLE_AUTHOR);
-
-        echo '<hr>';
-        echo '<h2>Test Select WHERE </h2>';
-        $data = $connector->selectWhere(TABLE_AUTHOR,'id','>',8,'int');
-        printDataFromTable($data, TABLE_AUTHOR);
-
-        echo '<hr>';
-        echo '<h2>Test Select WHERE with Limit</h2>';
-        $data = $connector->selectWhere(TABLE_AUTHOR,'id','>',5,'int',3);
-        printDataFromTable($data, TABLE_AUTHOR);
-
-        echo '<hr>';
+        // echo '<hr>';
+        // echo '<h2>Test Select * with Limit </h2>';
+        // $data = $connector->selectAll(TABLE_DISEASE,3);
+        // printDataFromTable($data, TABLE_DISEASE);
+        //
+        // echo '<hr>';
+        // echo '<h2>Test Select WHERE </h2>';
+        // $data = $connector->selectWhere(TABLE_DISEASE,'id','>',8,'int');
+        // printDataFromTable($data, TABLE_DISEASE);
+        //
+        // echo '<hr>';
+        // echo '<h2>Test Select WHERE with Limit</h2>';
+        // $data = $connector->selectWhere(TABLE_DISEASE,'id','>',5,'int',3);
+        // printDataFromTable($data, TABLE_DISEASE);
+        //
+        // echo '<hr>';
 
         // echo '<h2>Test Insert</h2>';
         //
@@ -70,21 +70,21 @@
         // $data = $connector->insertInto(TABLE_AUTHOR, $value1);
 
         echo '<h2>Test Select COUNT All</h2>';
-        $data = $connector->selectCountAll(TABLE_AUTHOR);
+        $data = $connector->selectCountAll(TABLE_DISEASE);
         printCountResult($data);
         echo '<hr>';
 
         echo '<h2>Test Select COUNT Where</h2>';
-        $data = $connector->selectCountWhere(TABLE_AUTHOR,'id','>',5,'int');
+        $data = $connector->selectCountWhere(TABLE_DISEASE,'id','>',5,'int');
         printCountResult($data);
         echo '<hr>';
 
-        echo '<h2>get article author</h2>';
-        $data = $connector->rawQuery('select a.title,c.name from article as a inner join article_author as b
-        on a.id = b.art_id
-        inner join author as c on b.aut_id = c.id')->fetch_assoc();
-        echo '<p>Article: ',$data['title'].'</p>';
-        echo '<p>Author Name: ',$data['name'].'</p>';
+        // echo '<h2>get article author</h2>';
+        // $data = $connector->rawQuery('select a.title,c.name from article as a inner join article_author as b
+        // on a.id = b.art_id
+        // inner join author as c on b.aut_id = c.id')->fetch_assoc();
+        // echo '<p>Article: ',$data['title'].'</p>';
+        // echo '<p>Author Name: ',$data['name'].'</p>';
 
         $connector->disconnect();
         ?>
