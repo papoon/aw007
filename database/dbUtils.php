@@ -48,12 +48,14 @@
       switch ($tableName) {
         case TABLE_ARTICLE:
           $result[] = array("val"=>$valuesArray[$i++], "type"=>"int");   //did
+          $result[] = array("val"=>$valuesArray[$i++], "type"=>"int");   //article_id
           $result[] = array("val"=>$valuesArray[$i++], "type"=>"char");  //journal_id
           $result[] = array("val"=>$valuesArray[$i++], "type"=>"char");  //title
           $result[] = array("val"=>$valuesArray[$i++], "type"=>"char");  //abstract
           $result[] = array("val"=>$valuesArray[$i++], "type"=>"char");  //published_at
           $result[] = array("val"=>$valuesArray[$i++], "type"=>"char");  //article_date
           $result[] = array("val"=>$valuesArray[$i++], "type"=>"char");  //article_revision_date
+          $result[] = array("val"=>$valuesArray[$i++], "type"=>"char");  //authors (TEMP)
           $result[] = array("val"=>$valuesArray[$i++], "type"=>"char");  //inserted_at
           $result[] = array("val"=>$valuesArray[$i++], "type"=>"char");  //updated_at
           break;
@@ -125,12 +127,14 @@
       switch ($tableName) {
         case TABLE_ARTICLE:
           $valuesStr .= 'did,';
+          $valuesStr .= 'article_id,';
           $valuesStr .= 'journal_id,';
           $valuesStr .= 'title,';
           $valuesStr .= 'abstract,';
           $valuesStr .= 'published_at,';
           $valuesStr .= 'article_date,';
           $valuesStr .= 'article_revision_date,';
+          $valuesStr .= 'authors,';  //(TEMP)
           $valuesStr .= 'inserted_at,';
           $valuesStr .= 'updated_at';
           break;
@@ -204,12 +208,14 @@
           while ( $rows = $data->fetch_assoc() ) {
             echo '<p>'.$rows['id'].'</p>';
             echo '<p>'.$rows['did'].'</p>';
+            echo '<p>'.$rows['article_id'].'</p>';
             echo '<p>'.$rows['journal_id'].'</p>';
             echo '<p>'.$rows['title'].'</p>';
             echo '<p>'.$rows['abstract'].'</p>';
             echo '<p>'.$rows['published_at'].'</p>';
             echo '<p>'.$rows['article_date'].'</p>';
             echo '<p>'.$rows['article_revision_date'].'</p>';
+            echo '<p>'.$rows['authors'].'</p>';
             echo '<p>'.$rows['inserted_at'].'</p>';
             echo '<p>'.$rows['updated_at'].'</p>';
             echo '<br/>';

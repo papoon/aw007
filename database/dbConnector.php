@@ -125,7 +125,7 @@
               }
             }
             $this->sqlQuery .= ')';
-            echo $this->sqlQuery;
+            #echo $this->sqlQuery;
             mysqli_query($this->connection, $this->sqlQuery);
             return $this->sqlQuery;
         }
