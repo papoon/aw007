@@ -14,6 +14,8 @@
       private $dbLink;
       private $numberDiseases;
       private $numberElements;
+      const ARTICLE_FROM_DATE = '2017/01/01';
+      const NULL = 'NULL';
 
       //generic construct
       //$numberElements is the number of elements of each type that should
@@ -45,6 +47,9 @@
 
             //escape text for apostrofes and other string breakers (security issues)
             $diseaseName = mysqli_real_escape_string($this->dbLink, $disease['label']['value']);
+
+            echo "Getting information for disease: ".$diseaseName.PHP_EOL;
+
             $abstract = mysqli_real_escape_string($this->dbLink, $disease['abstract']['value']);
 
             $values = array($diseaseName,                             //name
@@ -71,17 +76,20 @@
 
           //get pubmed articles information for each disease
           foreach($diseaseIdsNames as $did=>$diseaseName) {
-              //getting 10 (random?) article ids
-              $pubmed = new PubMedSearch($diseaseName, 2);
-              $articleIds = $pubmed->getIdLists()['Id'];
 
-              //list for pairs (article, author)
-              $articleAuthors = [];
-              //set of authors to insert in the database at the end of this phase
-              $setAuthors = [];
+              echo "Getting articles for disease: ".$diseaseName.PHP_EOL;
+
+              //getting 10 (random?) article ids
+              $pubmed = new PubMedSearch($diseaseName);
+              $articleIds = $pubmed->getIdListsByDate(self::ARTICLE_FROM_DATE)['Id'];
+
+              $countArticles = 1;
 
               //get information for each article with given id
               foreach($articleIds as $articleId) {
+
+                  echo "  Getting information for article with id: ".$articleId.PHP_EOL;
+
                   //**************table Article*****************
                   $pubmedFeach = new PubMedFeach($articleId);
                   $article = $pubmedFeach->getResponse();
@@ -100,22 +108,45 @@
                   $articleTitle = mysqli_real_escape_string($this->dbLink, $pubmedFeach->getArticleTitle());
 
                   //converting date formats to mysql format
-                  $publishedAt = new DateTime($pubmedFeach->getArticleJournalPubDate());
-                  $publishedAt = $publishedAt->format('Y-m-d H:i:s');
+                  try{
+                    $publishedAt = new DateTime($pubmedFeach->getArticleJournalPubDate());
+                    $publishedAt = $publishedAt->format('Y-m-d H:i:s');
+                  } catch(Exception $e){
+                    //in case date is not found
+                    $publishedAt = self::NULL;
+                  }
 
-                  $articleDate = new DateTime($pubmedFeach->getArticleDate());
-                  $articleDate = $articleDate->format('Y-m-d H:i:s');
+                  try{
+                    $articleDate = new DateTime($pubmedFeach->getArticleDate());
+                    $articleDate = $articleDate->format('Y-m-d H:i:s');
+                  } catch(Exception $e){
+                    //in case date is not found
+                    $articleDate = self::NULL;
+                  }
 
-                  $articleRevisionDate = new DateTime($pubmedFeach->getArticleRevisionDate());
-                  $articleRevisionDate = $articleRevisionDate->format('Y-m-d H:i:s');
+                  try{
+                    $articleRevisionDate = new DateTime($pubmedFeach->getArticleRevisionDate());
+                    $articleRevisionDate = $articleRevisionDate->format('Y-m-d H:i:s');
+                  } catch(Exception $e){
+                    //in case date is not found
+                    $articleRevisionDate = self::NULL;
+                  }
+
+                  //join authors names with pipes
+                  //escape text for apostrofes and other string breakers (security issues)
+                  $authors = $pubmedFeach->getArticleAuthors();
+                  $authors = implode('|', $authors);
+                  $authors = mysqli_real_escape_string($this->dbLink, $authors);
 
                   $values = array($did,                                     //did
+                                  $articleId,                               //article_id
                                   $pubmedFeach->getArticleJournalId(),      //journal_id
                                   $articleTitle,                            //title
                                   $abstract,                                //abstract
                                   $publishedAt,                             //published_at
                                   $articleDate,                             //article_date
                                   $articleRevisionDate,                     //article_revision_date
+                                  $authors,                                 //authors
                                   $currentDateStr,                          //inserted_at
                                   $currentDateStr);                         //updated_at
 
@@ -125,17 +156,7 @@
                   $this->connector->insertInto(TABLE_ARTICLE, $toInsert);
                   //save article id for later use
                   $dbArticleId = getLastInsertId($this->dbLink);
-
-                  //**************tables Article_Author e Author*****************
-                  $authors = $pubmedFeach->getArticleAuthors();
-
-                  foreach($authors as $author){
-                      echo ''.$author.' |';
-                  }
-
-                  //TODO
               }
-
           }
 
           //**************table Photos*****************
@@ -177,7 +198,7 @@
           //**************table Tweets*****************
           //TODO
           foreach($diseaseIdsNames as $did=>$diseaseName) {
-            $twitter = new TwitterSearch($label);
+            $twitter = new TwitterSearch($diseaseName);
             $tweets = $twitter->getTweets();
           }
 
