@@ -128,7 +128,7 @@
 
     $flickr = new Flickr($label,1);
     $photos = $flickr->getResponse();
-
+   
 
     $photosUrl = $flickr->getPhotosUrl();
 
@@ -136,7 +136,26 @@
         echo '<p>Photo ID: '.$key.'</p>';
         echo '<p>Photo URL: '.$photo[0].'</p>';
         echo '<p>Image:<br> <img src="'.$photo[0].'" alt="..." width="300" height="200"></br></p>';
+
+        $photo = $flickr->getPhotoInfo($key);
+
+        echo '<p>AuthorName: '.$flickr->getPhotoAuthorName().'</p>';
+        echo '<p>UserName: '.$flickr->getPhotoUserName().'</p>';
+        echo '<p>NumberOfLikes: '.$flickr->getNumberOfLikes().'</p>';
+        echo '<p>NumberOfComments: '.$flickr->getPhotoNumberOfComments().'</p>';
+        echo '<p>NumberOfViews: '.$flickr->getPhotoNumberOfViews().'</p>';
+        echo '<p>UserLocation: '.$flickr->getUserLocation().'</p>';
+        echo '<p>PublishedAt: '.$flickr->getPhotoPublishedAt().'</p>';
+        echo '<hr>';
+
+        
+
+        //var_dump($photo['photo']);
+        
     }
+    var_dump($photos['photos']['photo']);
+    die();
+    
 
     echo '<hr>';
     echo '<h2>Twitter Disease </h2>'.$label.'';

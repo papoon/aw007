@@ -13,6 +13,10 @@
         private $numberPhotos;
         private $privacyFilter=1;
         private $safeSearch=1;
+        private $photoId;
+        private $secret;
+        private $photo;
+
 
         function __construct($queryText,$numberPhotos=10)
         {
@@ -23,16 +27,28 @@
 
         private function getUrlXML(){
 
-            $searchUrl = $this->uri;
-            $searchUrl .= '?method='.$this->method;
-            $searchUrl .= '&api_key='.$this->API_KEY;
-            $searchUrl .= '&text='.$this->queryText;
-            $searchUrl .= '&per_page='.$this->numberPhotos;
-            $searchUrl .= '&privacy_filter='.$this->privacyFilter;
-            $searchUrl .= '&safe_search='.$this->safeSearch;
-            //only get photos uploaded until 7 days ago
-            //$searchUrl .= '&min_upload_date='.getOneYearAgoTimestamp();
-            //echo $searchUrl.PHP_EOL;
+            if($this->method == "flickr.photos.search"){
+                $searchUrl = $this->uri;
+                $searchUrl .= '?method='.$this->method;
+                $searchUrl .= '&api_key='.$this->API_KEY;
+                $searchUrl .= '&text='.$this->queryText;
+                $searchUrl .= '&per_page='.$this->numberPhotos;
+                $searchUrl .= '&privacy_filter='.$this->privacyFilter;
+                $searchUrl .= '&safe_search='.$this->safeSearch;
+                //only get photos uploaded until 7 days ago
+                //$searchUrl .= '&min_upload_date='.getOneYearAgoTimestamp();
+                //echo $searchUrl.PHP_EOL;
+            }
+
+            if($this->method == "flickr.photos.getInfo"){
+                $searchUrl = $this->uri;
+                $searchUrl .= '?method='.$this->method;
+                $searchUrl .= '&api_key='.$this->API_KEY;
+                $searchUrl .= '&photo_id='.$this->photoId;
+                //$searchUrl .= '&secret='.$this->secret;
+
+            }
+
             return $searchUrl;
         }
 
@@ -69,17 +85,63 @@
             $photos = array_slice($photos, 0, $this->numberPhotos);
             $photosUrl = array();
 
-            foreach($photos as $key=>$photo){
-                $photoId = $photo['@attributes']['id'];
-                $farmId = $photo['@attributes']['farm'];
-                $serverId = $photo['@attributes']['server'];
-                $secret = $photo['@attributes']['secret'];
-
-                $photosUrl["$photoId"][] = 'https://farm'.$farmId.'.staticflickr.com/'.$serverId.'/'.$photoId.'_'.$secret.'.jpg';
-
+            if($this->numberPhotos > 1){
+                foreach($photos as $key=>$photo){
+                    $photoId = $photo['@attributes']['id'];
+                    $farmId = $photo['@attributes']['farm'];
+                    $serverId = $photo['@attributes']['server'];
+                    $secret = $photo['@attributes']['secret'];
+    
+                    $photosUrl["$photoId"][] = 'https://farm'.$farmId.'.staticflickr.com/'.$serverId.'/'.$photoId.'_'.$secret.'.jpg';
+    
+                }
             }
+            else{
+
+                $photoId = $photos['@attributes']['id'];
+                $farmId = $photos['@attributes']['farm'];
+                $serverId = $photos['@attributes']['server'];
+                $secret = $photos['@attributes']['secret'];
+    
+                $photosUrl["$photoId"][] = 'https://farm'.$farmId.'.staticflickr.com/'.$serverId.'/'.$photoId.'_'.$secret.'.jpg';
+            }
+
+            
             return $photosUrl;
         }
+        public function getPhotoInfo($photoId){
+
+            $this->method = "flickr.photos.getInfo";
+            $this->photoId = $photoId;
+            $response = $this->getResponse();
+            $this->photo = $response;
+            //return $response;
+            
+        }
+
+        public function getPhotoAuthorName(){
+
+           return  $this->photo['photo']['owner']['@attributes']['realname'];
+        }
+        public function getPhotoUserName(){
+            return $this->photo['photo']['owner']['@attributes']['username'];
+        }
+        public function getNumberOfLikes(){
+            return $this->photo['photo']['@attributes']['isfavorite'];
+        }
+        public function getPhotoNumberOfComments(){
+            return $this->photo['photo']['comments'];
+        }
+        public function getPhotoNumberOfViews(){
+            return $this->photo['photo']['@attributes']['views'];
+        }
+        public function getUserLocation(){
+            return $this->photo['photo']['owner']['@attributes']['location'];
+        }
+        public function getPhotoPublishedAt(){
+            return $this->photo['photo']['dates']['@attributes']['taken'];
+        }
+        
 
 
 
