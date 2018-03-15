@@ -201,11 +201,16 @@
           //**************table Tweets*****************
           //get tweets information for each disease
           foreach($diseaseIdsNames as $did=>$diseaseName) {
+
+            echo "Getting tweets for disease: ".$diseaseName.PHP_EOL;
+
             //get tweets from the last 7 days
             $twitter = new TwitterSearch($diseaseName);
             $tweets = $twitter->getTweets();
 
             foreach($tweets as $tweet) {
+
+              echo "  Getting information for tweet with id: ".$tweet.PHP_EOL;
 
               //create twitter embed url
               $twitter_embed = new TwitterEmbed($tweetId);
