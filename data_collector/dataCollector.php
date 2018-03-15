@@ -23,7 +23,6 @@
           $this->numberDiseases = $numberDiseases;
       }
 
-      //**************WIP************
       //use this operation when database is empty
       public function getAllData() {
 
@@ -124,7 +123,7 @@
           }
 
           //close db connection
-          $this->connector->disconnect();
+          //$this->connector->disconnect();
       }
 
       //use this operation when database is NOT empty
@@ -152,7 +151,13 @@
 
           //get all articles for the disease from the database
           $currentArticles = $this->connector->selectWhere(TABLE_ARTICLE,'did','=',$did,'int');
-          $currentArticles = convertDatasetToArray($currentArticles);
+
+          if ($currentArticles != NULL && mysqli_num_rows($currentArticles) > 0) {
+            $currentArticles = convertDatasetToArray($currentArticles);
+            $currentArticles = array_column($currentArticles, "article_id");
+          } else {
+            $currentArticles = [];
+          }
 
           //getting 10 (random?) article ids
           $pubmed = new PubMedSearch($diseaseName);
@@ -176,7 +181,13 @@
 
           //get all photos for the disease from the database
           $currentPhotos = $this->connector->selectWhere(TABLE_PHOTOS,'did','=',$did,'int');
-          $currentPhotos = convertDatasetToArray($currentPhotos);
+
+          if ($currentPhotos != NULL && mysqli_num_rows($currentPhotos) > 0) {
+            $currentPhotos = convertDatasetToArray($currentPhotos);
+            $currentPhotos = array_column($currentPhotos, "flicrk_id");
+          } else {
+            $currentPhotos = [];
+          }
 
           //getting 10 photos
           $flickr = new Flickr($diseaseName);
@@ -201,7 +212,13 @@
 
           //get all tweets for the disease from the database
           $currentTweets = $this->connector->selectWhere(TABLE_TWEETS,'did','=',$did,'int');
-          $currentTweets = convertDatasetToArray($currentTweets);
+
+          if ($currentTweets != NULL && mysqli_num_rows($currentTweets) > 0) {
+            $currentTweets = convertDatasetToArray($currentTweets);
+            $currentTweets = array_column($currentTweets, "tweet_id");
+          } else {
+            $currentTweets = [];
+          }
 
           //get tweets from the last 7 days
           $twitter = new TwitterSearch($diseaseName);
@@ -221,7 +238,7 @@
           }
 
           //close db connection
-          $this->connector->disconnect();
+          //$this->connector->disconnect();
       }
 
       private function getArticleData($articleId, $did, $currentDateStr) {
