@@ -91,8 +91,8 @@
           $result[] = array("val"=>$valuesArray[$i++], "type"=>"int");   //shares
           $result[] = array("val"=>$valuesArray[$i++], "type"=>"char");  //country
           $result[] = array("val"=>$valuesArray[$i++], "type"=>"char");  //published_at
-          $result[] = array("val"=>$valuesArray[$i++], "type"=>"char"); //inserted_at
-          $result[] = array("val"=>$valuesArray[$i++], "type"=>"char"); //updated_at
+          $result[] = array("val"=>$valuesArray[$i++], "type"=>"char");  //inserted_at
+          $result[] = array("val"=>$valuesArray[$i++], "type"=>"char");  //updated_at
           break;
         case TABLE_TWEETS:
           $result[] = array("val"=>$valuesArray[$i++], "type"=>"int");   //did
@@ -105,9 +105,9 @@
           $result[] = array("val"=>$valuesArray[$i++], "type"=>"int");   //nr_comments
           $result[] = array("val"=>$valuesArray[$i++], "type"=>"int");   //shares
           $result[] = array("val"=>$valuesArray[$i++], "type"=>"char");  //country
-          $result[] = array("val"=>$valuesArray[$i++], "type"=>"char"); //published_at
-          $result[] = array("val"=>$valuesArray[$i++], "type"=>"char"); //inserted_at
-          $result[] = array("val"=>$valuesArray[$i++], "type"=>"char"); //updated_at
+          $result[] = array("val"=>$valuesArray[$i++], "type"=>"char");  //published_at
+          $result[] = array("val"=>$valuesArray[$i++], "type"=>"char");  //inserted_at
+          $result[] = array("val"=>$valuesArray[$i++], "type"=>"char");  //updated_at
           break;
         //case 'Comments':
         //  # code...
@@ -164,7 +164,7 @@
           $valuesStr .= 'url,';
           $valuesStr .= 'flicrk_id,';
           $valuesStr .= 'author_name,';
-          $valuesStr .= 'username';
+          $valuesStr .= 'username,';
           $valuesStr .= 'nr_likes,';
           $valuesStr .= 'nr_comments,';
           $valuesStr .= 'shares,';
@@ -179,7 +179,7 @@
           $valuesStr .= 'type,';
           $valuesStr .= 'tweet_id,';
           $valuesStr .= 'author_name,';
-          $valuesStr .= 'username';
+          $valuesStr .= 'username,';
           $valuesStr .= 'nr_likes,';
           $valuesStr .= 'nr_comments,';
           $valuesStr .= 'shares,';

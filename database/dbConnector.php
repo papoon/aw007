@@ -110,18 +110,20 @@
             $this->sqlQuery = 'INSERT INTO '.$tableName.$queryValuesStr.' VALUES (';
 
             for ($i = 0; $i < sizeof($values); $i++) {
-              if ($values[$i]["val"] != NULL && $values[$i]["type"] != NULL) {
-                if($values[$i]["type"] == "char")   {
-                    $this->sqlQuery .= "'";
-                    $this->sqlQuery .= $values[$i]["val"];
-                    $this->sqlQuery .= "'";
-                }
-                else if($values[$i]["type"] == 'int')   {
-                    $this->sqlQuery .= $values[$i]["val"];
-                }
-                if(($i < sizeof($values) - 1) && $values[$i]["val"] != NULL)  {
-                    $this->sqlQuery .= ',';
-                }
+              if($values[$i]["type"] == "char")   {
+                  #echo PHP_EOL;
+                  #echo '-----print char '.$values[$i]["val"].PHP_EOL;
+                  $this->sqlQuery .= "'";
+                  $this->sqlQuery .= $values[$i]["val"];
+                  $this->sqlQuery .= "'";
+              }
+              else if($values[$i]["type"] == 'int')   {
+                  #echo PHP_EOL;
+                  #echo '-----print int '.$values[$i]["val"].PHP_EOL;
+                  $this->sqlQuery .= $values[$i]["val"];
+              }
+              if(($i < sizeof($values) - 1))  {
+                  $this->sqlQuery .= ',';
               }
             }
             $this->sqlQuery .= ')';
