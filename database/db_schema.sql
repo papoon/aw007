@@ -84,5 +84,11 @@ ADD COLUMN `dbpedia_revision_id` INT NULL AFTER `dbpedia_id`,
 ADD COLUMN `thumbnail` VARCHAR(255) NULL COMMENT 'url do thumbnail' AFTER `abstract`,
 ADD COLUMN `uri` VARCHAR(255) NULL COMMENT 'url disease' AFTER `thumbnail`;
 
-ALTER TABLE `Article` 
+ALTER TABLE `Article`
 ADD COLUMN `article_revision_date` DATETIME NULL AFTER `article_date`;
+
+ALTER TABLE `Article`
+ADD COLUMN `authors` VARCHAR(500) NULL AFTER `article_revision_date`;
+
+ALTER TABLE `Article`
+ADD COLUMN `article_id` INT(11) NULL AFTER `did`;
