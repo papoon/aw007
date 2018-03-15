@@ -1,6 +1,7 @@
 <?php
 
     include_once "../utils/request.php";
+    include_once "../utils/helpers.php";
     include_once "../private/private.php";
 
     class Flickr{
@@ -15,14 +16,23 @@
 
         function __construct($queryText,$numberPhotos=10)
         {
-            $this->queryText = $queryText;
+            $this->queryText = getStringForUrl($queryText);
             $this->numberPhotos = $numberPhotos;
             $this->obj = $this->getResponse();
         }
 
         private function getUrlXML(){
 
-            $searchUrl = $this->uri.'?method='.$this->method.'&api_key='.$this->API_KEY.'&text='.$this->queryText.'&per_page='.$this->numberPhotos.'&privacy_filter='.$this->privacyFilter.'&safe_search='.$this->safeSearch;
+            $searchUrl = $this->uri;
+            $searchUrl .= '?method='.$this->method;
+            $searchUrl .= '&api_key='.$this->API_KEY;
+            $searchUrl .= '&text='.$this->queryText;
+            $searchUrl .= '&per_page='.$this->numberPhotos;
+            $searchUrl .= '&privacy_filter='.$this->privacyFilter;
+            $searchUrl .= '&safe_search='.$this->safeSearch;
+            //only get photos uploaded until 7 days ago
+            //$searchUrl .= '&min_upload_date='.getOneWeekAgoTimestamp();
+            //echo $searchUrl.PHP_EOL;
             return $searchUrl;
         }
 
