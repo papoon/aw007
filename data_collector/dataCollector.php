@@ -75,7 +75,7 @@
           #echo implode("|", $diseaseIdsNames);
 
           //get pubmed articles information for each disease
-          foreach($diseaseIdsNames as $did=>$diseaseName) {
+/*          foreach($diseaseIdsNames as $did=>$diseaseName) {
 
               echo "Getting articles for disease: ".$diseaseName.PHP_EOL;
 
@@ -161,6 +161,7 @@
                   $dbArticleId = getLastInsertId($this->dbLink);
               }
           }
+          */
 
           //**************table Photos*****************
           //TODO
@@ -210,7 +211,9 @@
 
             foreach($tweets as $tweet) {
 
-              echo "  Getting information for tweet with id: ".$tweet.PHP_EOL;
+              $tweetId = $twitter->getTweetId($tweet);
+
+              echo "  Getting information for tweet with id: ".$tweetId.PHP_EOL;
 
               //create twitter embed url
               $twitter_embed = new TwitterEmbed($tweetId);
@@ -219,7 +222,15 @@
               //escape text for apostrofes and other string breakers (security issues)
               $authorName = mysqli_real_escape_string($this->dbLink, $twitter->getAuthorName($tweet));
               $userName = mysqli_real_escape_string($this->dbLink, $twitter->getUsername($tweet));
-              $location = mysqli_real_escape_string($this->dbLink, $twitter->getAuthorLocation($tweet));
+
+              //set default value for location string (what is kept in case of no location
+              $location = $twitter->getAuthorLocation($tweet);
+              if ($location == '') {
+                $location = 'Unknown';
+              } else {
+                //escape text for apostrofes and other string breakers (security issues)
+                $location = mysqli_real_escape_string($this->dbLink, $location);
+              }
 
               //converting date formats to mysql format
               try{
@@ -232,13 +243,13 @@
               }
 
               $values = array($did,                                     //did
-                              $twiiter_embed['url'],                    //url
+                              $twitter_embed['url'],                    //url
                               self::NULL,                               //type
-                              $twitter->getTweetId($tweet),             //tweet_id
+                              $tweetId,                                 //tweet_id
                               $authorName,                              //author_name
                               $userName,                                //username
                               $twitter->getNumberOfLikes($tweet),       //nr_likes
-                              $twitter->getNumberOfComments($tweet),    //nr_comments
+                              0,                                        //nr_comments
                               $twitter->getNumberOfShares($tweet),      //shares
                               $location,                                //country
                               $tweetPublishedDate,                      //published_at
@@ -247,6 +258,7 @@
 
               //create array of values to insert in the database
               $toInsert = createInsertArray(TABLE_TWEETS, $values);
+
               //insert tweet in the database
               $this->connector->insertInto(TABLE_TWEETS, $toInsert);
 
