@@ -31,7 +31,7 @@
             $searchUrl .= '&privacy_filter='.$this->privacyFilter;
             $searchUrl .= '&safe_search='.$this->safeSearch;
             //only get photos uploaded until 7 days ago
-            //$searchUrl .= '&min_upload_date='.getOneWeekAgoTimestamp();
+            //$searchUrl .= '&min_upload_date='.getOneYearAgoTimestamp();
             //echo $searchUrl.PHP_EOL;
             return $searchUrl;
         }

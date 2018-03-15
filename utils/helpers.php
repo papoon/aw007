@@ -35,6 +35,21 @@
       return $date->getTimestamp();
     }
 
+    function getOneYearAgoTimestamp() {
+
+      //get unix timestamp
+      $now = strtotime("now");
+      //build new datetime object with it
+      $date = new DateTime();
+      $date->setTimestamp($now);
+      //subtract 1 year
+      $date->modify('-1 year');
+      //reset the time
+      $date->setTime(0,0,0);
+
+      return $date->getTimestamp();
+    }
+
     function getStringForUrl($dataStr) {
       return str_replace(' ', '%20', $dataStr);
     }
