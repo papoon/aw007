@@ -11,7 +11,7 @@
         private $API_CONSUMER_SECRET = API_CONSUMER_SECRET;
         private $query;
         private $count;
-        private $result_type = "recent";
+        private $result_type = "mixed";
         private $max_id;
         private $since_id;
 
@@ -86,6 +86,29 @@
             $response = $this->getResponse();
 
             return $response['statuses'][0];
+        }
+        public function getAuthorName($tweet){
+            return $tweet['user']['name'];
+        }
+        public function getUsername($tweet){
+            return $tweet['user']['screen_name'];
+        }
+        public function getNumberOfLikes($tweet){
+            return $tweet['favorite_count'];
+        }
+        public function getNumberOfComments($tweet){
+            return null;
+        }
+        public function getNumberOfShares($tweet){
+            return $tweet['retweet_count'];
+        }
+        public function getAuthorLocation($tweet){
+            return $tweet['user']['location'];
+        }
+        public function getPublishedDate($tweet){
+            $date = new DateTime($tweet['created_at']);
+            return $date->format('Y-m-d');
+            
         }
 
 

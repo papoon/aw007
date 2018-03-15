@@ -129,7 +129,6 @@
     $flickr = new Flickr($label,1);
     $photos = $flickr->getResponse();
 
-    var_dump($photos);
 
     $photosUrl = $flickr->getPhotosUrl();
 
@@ -143,11 +142,13 @@
     echo '<h2>Twitter Disease </h2>'.$label.'';
 
 
-    $twitter = new TwitterSearch($label);
+    $twitter = new TwitterSearch($label,2);
+    
     $tweets = $twitter->getTweets();
-    //var_dump($tweets[1]);
+    
+
     //echo $twitter->getTweetId($tweets[1]);
-    $tweetId = $twitter->getTweetId($tweets[1]);
+    $tweetId = $twitter->getTweetId($tweets[0]);
     $twitter_embed = new TwitterEmbed($tweetId);
     //var_dump($twitter_embed->getResponse());
     $twiiter_embed = $twitter_embed->getResponse();
@@ -155,7 +156,20 @@
 
     echo $html;
 
-    echo '<br>';
+    echo '<p>Tweet URL: <a href="'.$twiiter_embed['url'].'">'.$twiiter_embed['url'].'</a> </p>';
+    //echo '<p>Type '..'</p>';
+    echo '<p>Tweet ID: '.$tweetId.'</p>';
+    echo '<p>Author Name '.$twitter->getAuthorName($tweets[0]).'</p>';
+    echo '<p>Username '.$twitter->getUsername($tweets[0]).'</p>';
+    echo '<p>nr_likes '.$twitter->getNumberOfLikes($tweets[0]).'</p>';
+    echo '<p>nr_comments '.$twitter->getNumberOfComments($tweets[0]).'</p>';
+    echo '<p>shares '.$twitter->getNumberOfShares($tweets[0]).'</p> ';
+    echo '<p>Location '.$twitter->getAuthorLocation($tweets[0]).'</p>';
+    echo '<p>Published At '.$twitter->getPublishedDate($tweets[0]).'</p>';
+    //echo '<p>Inserted At </p>';
+    //echo '<p>Updated At </p>';
+
+    /*echo '<br>';
 
     $tweet = $twitter->searchTweetId($tweetId);
     $tweetId = $twitter->getTweetId($tweet);
@@ -164,7 +178,7 @@
     $twiiter_embed = $twitter_embed->getResponse();
     $html = $twiiter_embed['html'];
 
-    echo $html;
+    echo $html;*/
 
 
     //var_dump($response);
