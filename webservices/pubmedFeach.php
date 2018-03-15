@@ -76,7 +76,7 @@
             $article = $this->getArticle();
             $dataArtigo = $article['Journal']['JournalIssue']['PubDate'];
 
-            echo '----'.implode($dataArtigo, '|').PHP_EOL;
+            #echo '----'.implode($dataArtigo, '|').PHP_EOL;
 
             switch(count($dataArtigo)){
                 case 3:
@@ -90,7 +90,7 @@
                     else {
                       //dates with $dataArtigo['MedlineDate'] = '2017 Oct-Dec' for example
                       $parts = explode(' ', $dataArtigo['MedlineDate']);
-                      return $parts[0];
+                      return $parts[0].'-01-01';
                     }
                 default:
                     return 'No publish date available';

@@ -110,6 +110,7 @@
                   //converting date formats to mysql format
                   try{
                     $publishedAt = new DateTime($pubmedFeach->getArticleJournalPubDate());
+                    $publishedAt->setTime(0,0,0);
                     $publishedAt = $publishedAt->format('Y-m-d H:i:s');
                   } catch(Exception $e){
                     //in case date is not found
@@ -118,6 +119,7 @@
 
                   try{
                     $articleDate = new DateTime($pubmedFeach->getArticleDate());
+                    $articleDate->setTime(0,0,0);
                     $articleDate = $articleDate->format('Y-m-d H:i:s');
                   } catch(Exception $e){
                     //in case date is not found
@@ -126,6 +128,7 @@
 
                   try{
                     $articleRevisionDate = new DateTime($pubmedFeach->getArticleRevisionDate());
+                    $articleRevisionDate->setTime(0,0,0);
                     $articleRevisionDate = $articleRevisionDate->format('Y-m-d H:i:s');
                   } catch(Exception $e){
                     //in case date is not found
