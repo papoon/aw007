@@ -66,7 +66,7 @@
                     }
                     else{
                         throw new Exception('Not expected array of arrays!');
-                    } 
+                    }
                 }
                 return $text;
             }
@@ -76,13 +76,22 @@
             $article = $this->getArticle();
             $dataArtigo = $article['Journal']['JournalIssue']['PubDate'];
 
+            echo '----'.implode($dataArtigo, '|').PHP_EOL;
+
             switch(count($dataArtigo)){
                 case 3:
                     return $dataArtigo['Day'].'-'.$dataArtigo['Month'].'-'.$dataArtigo['Year'];
                 case 2:
                     return $dataArtigo['Month'].'-'.$dataArtigo['Year'];
                 case 1:
-                    return $dataArtigo['Year'];
+                    if (array_key_exists('Year', $dataArtigo)) {
+                      return $dataArtigo['Year'];
+                    }
+                    else {
+                      //dates with $dataArtigo['MedlineDate'] = '2017 Oct-Dec' for example
+                      $parts = explode(' ', $dataArtigo['MedlineDate']);
+                      return $parts[0];
+                    }
                 default:
                     return 'No publish date available';
             }
@@ -105,7 +114,7 @@
             else{
                 return 'Date not found!';
             }
-            
+
 
             /*switch(count($dataArtigo)){
                 case 3:
@@ -130,11 +139,11 @@
             else{
                 throw new Exception('Date format not available!');
             }
-            
+
 
         }
         public function getArticleRevisionDate(){
-            
+
             $dateRevised = $this->obj['PubmedArticle']['MedlineCitation']['DateRevised'];
 
             switch(count($dateRevised)){
@@ -161,20 +170,20 @@
                     $lastName = $author['LastName'];
                     $firsName = $author['ForeName'];
                     $initials = $author['Initials'];
-    
+
                     $authorsNames[] = $lastName.', '.$firsName.', '.$initials;
-    
+
                 }
             }
             else{
                 $lastName = $authors['LastName'];
                 $firsName = $authors['ForeName'];
                 $initials = $authors['Initials'];
-    
+
                 $authorsNames[] = $lastName.', '.$firsName.', '.$initials;
             }
 
-            
+
             return $authorsNames;
         }
     }
