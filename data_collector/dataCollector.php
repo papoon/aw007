@@ -75,7 +75,7 @@
           #echo implode("|", $diseaseIdsNames);
 
           //get pubmed articles information for each disease
-/*          foreach($diseaseIdsNames as $did=>$diseaseName) {
+          foreach($diseaseIdsNames as $did=>$diseaseName) {
 
               echo "Getting articles for disease: ".$diseaseName.PHP_EOL;
 
@@ -161,43 +161,44 @@
                   $dbArticleId = getLastInsertId($this->dbLink);
               }
           }
-          */
+
 
           //**************table Photos*****************
-          //TODO
           //get photos information for each disease
-          // foreach($diseaseIdsNames as $did=>$diseaseName) {
-          //   $flickr = new Flickr($diseaseName);
-          //   $photos = $flickr->getResponse();
-          //   $photosUrl = $flickr->getPhotosUrl();
-          //
-          //   $i = 0;
-          //   foreach($photosUrl as $key=>$photo) {
-          //
-          //     //escape text for apostrofes and other string breakers (security issues)
-          //     $owner = mysqli_real_escape_string($this->dbLink, $photos['photos']['photo'][$i]['owner']);
-          //
-          //     $values = array($did,                                     //did
-          //                     $photo[0],                                //url
-          //                     $key,                                     //flicrk_id
-          //                     "Unknown",                                //author_name
-          //                     $owner,                                   //username
-          //                     -1,                                       //nr_likes
-          //                     -1,                                       //nr_comments
-          //                     -1,                                       //shares
-          //                     "Unknown",                                //country
-          //                     "0000-00-00 00:00:00",                    //published_at
-          //                     $currentDateStr,                          //inserted_at
-          //                     $currentDateStr);                         //updated_at
-          //
-          //     //create array of values to insert in the database
-          //     $toInsert = createInsertArray(TABLE_PHOTOS, $values);
-          //     //insert photo in the database
-          //     $this->connector->insertInto(TABLE_PHOTOS, $toInsert);
-          //
-          //   }
-          //
-          // }
+          foreach($diseaseIdsNames as $did=>$diseaseName) {
+
+            echo "Getting photos for disease: ".$diseaseName.PHP_EOL;
+
+            $flickr = new Flickr($diseaseName);
+            $photos = $flickr->getResponse();
+            $photosUrl = $flickr->getPhotosUrl();
+
+            $i = 0;
+            foreach($photosUrl as $key=>$photo) {
+
+              echo "  Getting information for photo with id: ".$key.PHP_EOL;
+
+              $values = array($did,                                     //did
+                              $photo[0],                                //url
+                              $key,                                     //flicrk_id
+                              "Unknown",                                //author_name
+                              "Unknown",                                //username
+                              0,                                        //nr_likes
+                              0,                                        //nr_comments
+                              0,                                        //shares
+                              "Unknown",                                //country
+                              self::NULL,                               //published_at
+                              $currentDateStr,                          //inserted_at
+                              $currentDateStr);                         //updated_at
+
+              //create array of values to insert in the database
+              $toInsert = createInsertArray(TABLE_PHOTOS, $values);
+              //insert photo in the database
+              $this->connector->insertInto(TABLE_PHOTOS, $toInsert);
+
+            }
+
+          }
 
           //**************table Tweets*****************
           //get tweets information for each disease
