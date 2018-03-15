@@ -199,10 +199,53 @@
           // }
 
           //**************table Tweets*****************
-          //TODO
+          //get tweets information for each disease
           foreach($diseaseIdsNames as $did=>$diseaseName) {
+            //get tweets from the last 7 days
             $twitter = new TwitterSearch($diseaseName);
             $tweets = $twitter->getTweets();
+
+            foreach($tweets as $tweet) {
+
+              //create twitter embed url
+              $twitter_embed = new TwitterEmbed($tweetId);
+              $twitter_embed = $twitter_embed->getResponse();
+
+              //escape text for apostrofes and other string breakers (security issues)
+              $authorName = mysqli_real_escape_string($this->dbLink, $twitter->getAuthorName($tweet));
+              $userName = mysqli_real_escape_string($this->dbLink, $twitter->getUsername($tweet));
+              $location = mysqli_real_escape_string($this->dbLink, $twitter->getAuthorLocation($tweet));
+
+              //converting date formats to mysql format
+              try{
+                $tweetPublishedDate = new DateTime($twitter->getPublishedDate($tweet));
+                $tweetPublishedDate->setTime(0,0,0);
+                $tweetPublishedDate = $tweetPublishedDate->format('Y-m-d H:i:s');
+              } catch(Exception $e){
+                //in case date is not found
+                $tweetPublishedDate = self::NULL;
+              }
+
+              $values = array($did,                                     //did
+                              $twiiter_embed['url'],                    //url
+                              self::NULL,                               //type
+                              $twitter->getTweetId($tweet),             //tweet_id
+                              $authorName,                              //author_name
+                              $userName,                                //username
+                              $twitter->getNumberOfLikes($tweet),       //nr_likes
+                              $twitter->getNumberOfComments($tweet),    //nr_comments
+                              $twitter->getNumberOfShares($tweet),      //shares
+                              $location,                                //country
+                              $tweetPublishedDate,                      //published_at
+                              $currentDateStr,                          //inserted_at
+                              $currentDateStr);                         //updated_at
+
+              //create array of values to insert in the database
+              $toInsert = createInsertArray(TABLE_TWEETS, $values);
+              //insert tweet in the database
+              $this->connector->insertInto(TABLE_TWEETS, $toInsert);
+
+            }
           }
 
           //close db connection
