@@ -92,10 +92,11 @@
             echo "Getting photos for disease: ".$diseaseName.PHP_EOL;
 
             $flickr = new Flickr($diseaseName);
-            $photos = $flickr->getResponse();
-            $photosUrl = $flickr->getPhotosUrl();
+            //$photos = $flickr->getResponse();
+            //$photosUrl = $flickr->getPhotosUrl();
+            $photos = $flickr->getPhotos();
 
-            foreach($photosUrl as $key=>$photo) {
+            foreach($photos as $key=>$photo) {
 
               echo "  Getting information for photo with id: ".$key.PHP_EOL;
               $this->getPhotoData($key, $photo, $did, $currentDateStr);
@@ -191,11 +192,13 @@
 
           //getting 10 photos
           $flickr = new Flickr($diseaseName);
-          $photos = $flickr->getResponse();
-          $photosUrl = $flickr->getPhotosUrl();
+          //$photos = $flickr->getResponse();
+          //$photosUrl = $flickr->getPhotosUrl();
+
+          $photos = $flickr->getPhotos();
 
           //check information for each article with given id
-          foreach($photosUrl as $key=>$photo) {
+          foreach($photos as $key=>$photo) {
 
               echo "  Checking information for photo with id: ".$key.PHP_EOL;
 
@@ -314,15 +317,15 @@
       private function getPhotoData($key, $photo, $did, $currentDateStr) {
 
         $values = array($did,                                     //did
-                        $photo[0],                                //url
+                        $photo['url'],                            //url
                         $key,                                     //flicrk_id
-                        "Unknown",                                //author_name
-                        "Unknown",                                //username
-                        0,                                        //nr_likes
-                        0,                                        //nr_comments
-                        0,                                        //shares
-                        "Unknown",                                //country
-                        self::NULL,                               //published_at
+                        $photo['authorName'],                     //author_name
+                        $photo['username'],                       //username
+                        $photo['numerOfLikes'],                   //nr_likes
+                        $photo['numberOfComments'],               //nr_comments
+                        $photo['views'],                          //viwes
+                        $photo['location'],                       //location
+                        $photo['publishedAt'],                               //published_at
                         $currentDateStr,                          //inserted_at
                         $currentDateStr);                         //updated_at
 

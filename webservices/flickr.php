@@ -3,6 +3,7 @@
     include_once "../utils/request.php";
     include_once "../utils/helpers.php";
     include_once "../private/private.php";
+    include_once "../webservices/flickrPhotoInfo.php";
 
     class Flickr{
 
@@ -74,16 +75,16 @@
         public function getStatus(){
             return $this->obj['attributes']['stat'];
         }
-        public function getPhotos(){
+        public function photos(){
             return $this->obj['photos']['photo'];
         }
-        public function getPhotosUrl(){
+        public function getPhotos(){
 
             $photoUri = "https://farm{farm-id}.staticflickr.com/{server-id}/{id}_{secret}.jpg";
-            $photos = $this->getPhotos();
+            $photos = $this->photos();
             //flickr request is bringing 100 photos ever with per_page set...
             $photos = array_slice($photos, 0, $this->numberPhotos);
-            $photosUrl = array();
+            $photosData = array();
 
             if($this->numberPhotos > 1){
                 foreach($photos as $key=>$photo){
@@ -92,8 +93,21 @@
                     $serverId = $photo['@attributes']['server'];
                     $secret = $photo['@attributes']['secret'];
     
-                    $photosUrl["$photoId"][] = 'https://farm'.$farmId.'.staticflickr.com/'.$serverId.'/'.$photoId.'_'.$secret.'.jpg';
-    
+                    $photosData["$photoId"]['url'] = 'https://farm'.$farmId.'.staticflickr.com/'.$serverId.'/'.$photoId.'_'.$secret.'.jpg';
+                    $photosData["$photoId"]['serverId'] = $serverId;
+                    $photosData["$photoId"]['secret'] = $secret;
+                    $photosData["$photoId"]['farmId'] = $farmId;
+
+                    $flickrPhotoInfo = new FlickrPhotoInfo($photoId);
+
+                    $photosData["$photoId"]['authorName'] = $flickrPhotoInfo->getPhotoAuthorName();
+                    $photosData["$photoId"]['username'] = $flickrPhotoInfo->getPhotoUserName();
+                    $photosData["$photoId"]['numerOfLikes'] = $flickrPhotoInfo->getNumberOfLikes();
+                    $photosData["$photoId"]['numberOfComments'] = $flickrPhotoInfo->getPhotoNumberOfComments();
+                    $photosData["$photoId"]['views'] = $flickrPhotoInfo->getPhotoNumberOfViews();
+                    $photosData["$photoId"]['location'] = $flickrPhotoInfo->getUserLocation();
+                    $photosData["$photoId"]['publishedAt'] = $flickrPhotoInfo->getPhotoPublishedAt();
+
                 }
             }
             else{
@@ -103,11 +117,24 @@
                 $serverId = $photos['@attributes']['server'];
                 $secret = $photos['@attributes']['secret'];
     
-                $photosUrl["$photoId"][] = 'https://farm'.$farmId.'.staticflickr.com/'.$serverId.'/'.$photoId.'_'.$secret.'.jpg';
+                $photosData["$photoId"]['url'] = 'https://farm'.$farmId.'.staticflickr.com/'.$serverId.'/'.$photoId.'_'.$secret.'.jpg';
+                $photosData["$photoId"]['serverId'] = $serverId;
+                $photosData["$photoId"]['secret'] = $secret;
+                $photosData["$photoId"]['farmId'] = $farmId;
+
+                $flickrPhotoInfo = new FlickrPhotoInfo($photoId);
+
+                $photosData["$photoId"]['authorName'] = $flickrPhotoInfo->getPhotoAuthorName();
+                $photosData["$photoId"]['username'] = $flickrPhotoInfo->getPhotoUserName();
+                $photosData["$photoId"]['numerOfLikes'] = $flickrPhotoInfo->getNumberOfLikes();
+                $photosData["$photoId"]['numberOfComments'] = $flickrPhotoInfo->getPhotoNumberOfComments();
+                $photosData["$photoId"]['views'] = $flickrPhotoInfo->getPhotoNumberOfViews();
+                $photosData["$photoId"]['loacation'] = $flickrPhotoInfo->getUserLocation();
+                $photosData["$photoId"]['publishedAt'] = $flickrPhotoInfo->getPhotoPublishedAt();
             }
 
             
-            return $photosUrl;
+            return $photosData;
         }
         public function getPhotoInfo($photoId){
 

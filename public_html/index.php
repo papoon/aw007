@@ -7,6 +7,7 @@
     include_once "../webservices/pubmedSearch.php";
     include_once "../webservices/pubmedFeach.php";
     include_once "../webservices/flickr.php";
+    include_once "../webservices/flickrPhotoInfo.php";
     include_once "../webservices/twitterSearch.php";
     include_once "../webservices/twitterEmbed.php";
     //include_once "../utils/database.php";
@@ -33,12 +34,12 @@
     */
 
     $diseases = $dbPediaDiseases->getDiseases();
-    var_dump($diseases[0]['label']['value']);//name
+    /*var_dump($diseases[0]['label']['value']);//name
     var_dump($diseases[0]['wikiPageID']['value']);//dbpedia_id
     var_dump($diseases[0]['wikiPageRevisionID']['value']);//dbpedia_revision_id
     var_dump($diseases[0]['abstract']['value']);//abstract
     var_dump($diseases[0]['thumbnail']['value']);//thumbnail
-    var_dump($diseases[0]['name']['value']);//uri
+    var_dump($diseases[0]['name']['value']);//uri*/
     //created_at automatic insert timestamp
     //update_at automatic insert timestamp
 
@@ -61,7 +62,7 @@
         echo '<hr>';
     }*/
 
-    $label = $diseases[2]['label']['value'];
+    $label = $diseases[4]['label']['value'];
 
     echo '<h1>PubMed Search</h1>';
 
@@ -126,34 +127,32 @@
     echo '<hr>';
     echo '<h2>Photos Disease</h2>'.$label.'';
 
-    $flickr = new Flickr($label,1);
-    $photos = $flickr->getResponse();
+    $flickr = new Flickr($label,10);
+    //$photos = $flickr->getResponse();
    
 
-    $photosUrl = $flickr->getPhotosUrl();
+    $photos = $flickr->getPhotos();
 
-    foreach($photosUrl as $key=>$photo){
+    foreach($photos as $key=>$photo){
         echo '<p>Photo ID: '.$key.'</p>';
-        echo '<p>Photo URL: '.$photo[0].'</p>';
-        echo '<p>Image:<br> <img src="'.$photo[0].'" alt="..." width="300" height="200"></br></p>';
+        echo '<p>Photo URL: '.$photo['url'].'</p>';
+        echo '<p>Image:<br> <img src="'.$photo['url'].'" alt="..." width="300" height="200"></br></p>';
+        
+        //$photo = $flickr->getPhotoInfo($key);
 
-        $photo = $flickr->getPhotoInfo($key);
+        //$flickrPhotoInfo = new FlickrPhotoInfo($key);
 
-        echo '<p>AuthorName: '.$flickr->getPhotoAuthorName().'</p>';
-        echo '<p>UserName: '.$flickr->getPhotoUserName().'</p>';
-        echo '<p>NumberOfLikes: '.$flickr->getNumberOfLikes().'</p>';
-        echo '<p>NumberOfComments: '.$flickr->getPhotoNumberOfComments().'</p>';
-        echo '<p>NumberOfViews: '.$flickr->getPhotoNumberOfViews().'</p>';
-        echo '<p>UserLocation: '.$flickr->getUserLocation().'</p>';
-        echo '<p>PublishedAt: '.$flickr->getPhotoPublishedAt().'</p>';
+        echo '<p>AuthorName: '.$photo['authorName'].'</p>';
+        echo '<p>UserName: '.$photo['username'].'</p>';
+        echo '<p>NumberOfLikes: '.$photo['numerOfLikes'].'</p>';
+        echo '<p>NumberOfComments: '.$photo['numberOfComments'].'</p>';
+        echo '<p>NumberOfViews: '.$photo['views'].'</p>';
+        echo '<p>UserLocation: '.$photo['location'].'</p>';
+        echo '<p>PublishedAt: '.$photo['publishedAt'].'</p>';
         echo '<hr>';
 
-        
-
-        //var_dump($photo['photo']);
-        
     }
-    var_dump($photos['photos']['photo']);
+    
     die();
     
 
