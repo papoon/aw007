@@ -316,16 +316,21 @@
 
       private function getPhotoData($key, $photo, $did, $currentDateStr) {
 
+        //escape text for apostrofes and other string breakers (security issues)
+        $authorName = mysqli_real_escape_string($this->dbLink, $photo['authorName']);
+        $userName = mysqli_real_escape_string($this->dbLink, $photo['username']);
+        $country = mysqli_real_escape_string($this->dbLink, $photo['location']);
+
         $values = array($did,                                     //did
                         $photo['url'],                            //url
                         $key,                                     //flicrk_id
-                        $photo['authorName'],                     //author_name
-                        $photo['username'],                       //username
+                        $authorName,                              //author_name
+                        $userName,                                //username
                         $photo['numerOfLikes'],                   //nr_likes
                         $photo['numberOfComments'],               //nr_comments
-                        $photo['views'],                          //viwes
-                        $photo['location'],                       //location
-                        $photo['publishedAt'],                               //published_at
+                        $photo['views'],                          //shares
+                        $country,                                 //country
+                        $photo['publishedAt'],                    //published_at
                         $currentDateStr,                          //inserted_at
                         $currentDateStr);                         //updated_at
 
