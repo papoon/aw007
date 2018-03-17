@@ -1,3 +1,5 @@
 .vcscode/*
 private/*
 utils/database.php
+.htaccess
+public_html/.htaccess

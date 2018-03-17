@@ -1,6 +1,7 @@
 <?php
-    include_once '../database/dbUtils.php';
-    include_once '../private/private.php';
+    require_once '../database/dbUtils.php';
+    require_once '../private/private.php';
+
     class DbConnector {
 
         private $hostName;
