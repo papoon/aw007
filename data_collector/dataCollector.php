@@ -139,6 +139,16 @@
           }
       }
 
+      //util method for the demo
+      //use this operation to update data from a specific disease by id
+      public function updateDiseaseById($did) {
+        //get disease name
+        $disease = $this->connector->selectWhere(TABLE_DISEASE, 'id','=',$did,'int');
+        $disease = convertDatasetToArray($disease);
+        //update only that specific disease
+        $this->updateDisease($did, $disease[0]['name']);
+      }
+
       //use this operation to update data from a specific disease
       public function updateDisease($did, $diseaseName) {
 
