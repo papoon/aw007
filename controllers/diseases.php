@@ -4,27 +4,27 @@
     require_once '../models/disease.php';
 
     class Diseases extends Controller{
-        private $desiase;
+        private $disease;
         public function __construct(){
             parent::__construct();
 
-            $this->desiase = new Disease();
+            $this->disease = new Disease();
         }
         public function index($id=0){
             if($id == 0){
 
-                $diseases = $this->desiase->getDiseases();
+                $diseases = $this->disease->getDiseases();
                 $this->view->message =  array('diseases' => $diseases);
 
-                
                 $this->view->render('diseases/index.html');
             }
             else{
-                $disease = $this->desiase->getDisease($id);
+                $disease = $this->disease->getDisease($id);
                 $this->view->message =  array('disease' => $disease);
                 $this->view->render('diseases/disease.html');
             }
             
         }
     }
+
 ?>
