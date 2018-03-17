@@ -13,7 +13,7 @@
             
         }
         public function getDisease($id){
-            $id = mysql_real_escape_string($id);
+            $id = mysqli_real_escape_string($this->connector->connect(),$id);
             $data = $this->connector->selectWhere(TABLE_DISEASE,'id','=',$id,'int')->fetch_assoc();
             return $data;
             
