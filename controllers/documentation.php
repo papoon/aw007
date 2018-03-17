@@ -7,8 +7,6 @@
         
         public function __construct(){
             parent::__construct();
-
-            $this->documentation = new Documentation();
         }
         
         public function index(){
