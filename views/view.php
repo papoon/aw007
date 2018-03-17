@@ -11,12 +11,15 @@
         
         }
         public function render($view){
-            //require($view);
-
             echo $this->twig->render($view, $this->message);
         }
 
     }
 
-
 ?>
+
+
+
+
+
+
