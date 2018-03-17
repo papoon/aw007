@@ -259,14 +259,19 @@
         $pubmedFeach = new PubMedFeach($articleId);
         $article = $pubmedFeach->getResponse();
 
-        //set default value for abstract string (what is kept in case of no abstract)
-        $abstract = 'No abstract found.';
+        //check if article is of PubmedArticle type
+        if(!$pubmedFeach->isPubmedArticle()) {
+          echo "  Article with id ".$articleId." is not of PubmedArticle type, skipping!".PHP_EOL;
+          return;
+        }
+
         try{
             $abstract = $pubmedFeach->getArticleAbstract();
             //escape text for apostrofes and other string breakers (security issues)
             $abstract = mysqli_real_escape_string($this->dbLink, $abstract);
         } catch(Exception $e){
-            //do nothing
+            //set default value for abstract string (what is kept in case of no abstract)
+            $abstract = 'No abstract found.';
         }
 
         //escape text for apostrofes and other string breakers (security issues)

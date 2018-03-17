@@ -40,6 +40,10 @@
             return $response;
         }
 
+        public function isPubmedArticle() {
+            return array_key_exists('PubmedArticle', $this->obj);
+        }
+
         public function getArticle(){
             return $this->obj['PubmedArticle']['MedlineCitation']['Article'];
         }
@@ -50,9 +54,16 @@
             return $article['ArticleTitle'];
 
         }
+
         public function getArticleAbstract(){
 
             $article = $this->getArticle();
+
+            //set default value for abstract string (what is kept in case of no abstract)
+            if (!array_key_exists('Abstract', $article)) {
+              return 'No abstract found.';
+            }
+
             $abstractText = $article['Abstract']['AbstractText'];
 
             if(!is_array($abstractText)){
@@ -71,6 +82,7 @@
                 return $text;
             }
         }
+
         public function getArticleJournalPubDate(){
 
             $article = $this->getArticle();
@@ -98,6 +110,7 @@
 
             //return $dataArtigo['Day'].'-'.$dataArtigo['Month'].'-'.$dataArtigo['Year'];
         }
+
         public function getArticleJournalId(){
 
             $article = $this->getArticle();
@@ -105,6 +118,7 @@
 
             return $journalId;
         }
+
         public function getArticleDate($format="d-m-y"){
 
             $article = $this->getArticle();
@@ -142,6 +156,7 @@
 
 
         }
+
         public function getArticleRevisionDate(){
 
             $dateRevised = $this->obj['PubmedArticle']['MedlineCitation']['DateRevised'];
@@ -157,6 +172,7 @@
                     return 'No revision date available';
             }
         }
+
         public function getArticleAuthors(){
 
             $article = $this->getArticle();
@@ -165,24 +181,31 @@
 
             $authorsNames = array();
 
-            if(!array_key_exists('ForeName',$authors)){
-                foreach($authors as $key=>$author){
-                    $lastName = $author['LastName'];
-                    $firsName = $author['ForeName'];
-                    $initials = $author['Initials'];
-
-                    $authorsNames[] = $lastName.', '.$firsName.', '.$initials;
-
-                }
-            }
-            else{
+            if(array_key_exists('ForeName',$authors)){
                 $lastName = $authors['LastName'];
                 $firsName = $authors['ForeName'];
                 $initials = $authors['Initials'];
 
                 $authorsNames[] = $lastName.', '.$firsName.', '.$initials;
             }
+            elseif(array_key_exists('CollectiveName',$authors)){
+                //collective author
+                $authorsNames[] = $authors['CollectiveName'];
+            }
+            else {
+                foreach($authors as $key=>$author){
+                    //collective author
+                    if(!array_key_exists('ForeName',$author)){
+                      $authorsNames[] = $author['CollectiveName'];
+                    } else {
+                      $lastName = $author['LastName'];
+                      $firsName = $author['ForeName'];
+                      $initials = $author['Initials'];
 
+                      $authorsNames[] = $lastName.', '.$firsName.', '.$initials;
+                    }
+                }
+            }
 
             return $authorsNames;
         }
