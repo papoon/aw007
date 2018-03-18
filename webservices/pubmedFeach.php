@@ -58,8 +58,6 @@
         public function getArticleAbstract(){
 
             $article = $this->getArticle();
-<<<<<<< HEAD
-=======
 
             //set default value for abstract string (what is kept in case of no abstract)
             if (!array_key_exists('Abstract', $article)) {
@@ -67,7 +65,6 @@
             }
 
             $abstractText = $article['Abstract']['AbstractText'];
->>>>>>> 3ea3aa24b0b577e80dc4bee2ba3909cd82ea1d47
 
             if(!array_key_exists('Abstract',$article)){
                 throw new Exception('Not exist Abstract!');
