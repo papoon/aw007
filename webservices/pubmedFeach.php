@@ -58,27 +58,17 @@
         public function getArticleAbstract(){
 
             $article = $this->getArticle();
-<<<<<<< HEAD
-=======
-
-            //set default value for abstract string (what is kept in case of no abstract)
-            if (!array_key_exists('Abstract', $article)) {
-              return 'No abstract found.';
-            }
-
-            $abstractText = $article['Abstract']['AbstractText'];
->>>>>>> 3ea3aa24b0b577e80dc4bee2ba3909cd82ea1d47
 
             if(!array_key_exists('Abstract',$article)){
-                throw new Exception('Not exist Abstract!');
+                throw new Exception('No Abstract!');
             }
             else{
 
                 if(!array_key_exists('AbstractText',$article['Abstract'])){
-                    throw new Exception('Not exist Abstract!');
+                    throw new Exception('No Abstract!');
                 }
                 else{
-                    
+
                     $abstractText = $article['Abstract']['AbstractText'];
 
                     if(!is_array($abstractText)){
@@ -91,16 +81,13 @@
                                 $text.=$value;
                             }
                             else{
-                                throw new Exception('Not expected array of arrays!');
+                                throw new Exception('Unexpected array of arrays!');
                             }
                         }
                         return $text;
                     }
                 }
-
-                
             }
-            
         }
 
         public function getArticleJournalPubDate(){
