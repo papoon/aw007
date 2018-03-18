@@ -1,31 +1,8 @@
-<!DOCTYPE html>
-<html>
-    <head>
-
-        <meta charset="UTF-8">
-        <meta name="description" content="Web Aplications 2017/2018">
-        <meta name="keywords" content="Diseases, Articles">
-        <meta name="author" content="Fábio Martins, Joana Matos, Rodrigo Matos, Sara Gonçalves">
-
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-        <!-- Latest compiled and minified CSS -->
-        <link rel="stylesheet" href="public_html/assets/bootstrap-3.3.7/css/bootstrap.min.css" >
-
-        <!-- Optional theme -->
-        <link rel="stylesheet" href="public_html/assets/bootstrap-3.3.7/css/bootstrap-theme.min.css">
-
-        <!-- Latest compiled and minified JavaScript -->
-        <script src="public_html/assets/js/jquery-3.3.1.min.js"></script>
-       
-        <script src="public_html/assets/bootstrap-3.3.7/js/bootstrap.js"></script>
+{% extends "index/index.html" %}
 
 
-        <title>Aplicações Web 2017/2018</title>
+{% block content %}
 
-    </head>
-
-    <body>
         <!-- Page Content -->
         <div class="container">
             <div class="row">
@@ -35,8 +12,6 @@
                 </div>
             </div>
                 
-            </div>
-            <!-- /.row -->
-    </body>
-    
-</html>
+        </div>
+        <!-- /.row -->
+{% endblock content %}

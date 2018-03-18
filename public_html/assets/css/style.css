@@ -1,3 +1,46 @@
 body{
-    background-color:#F6F6F6
+    background-color:#F6F6F6;
+    color: #333333;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 100;
+    font-size: 16px;
+    line-height: 160%;
+    margin-bottom: 10%;
+}
+.contentText{
+    text-align: left;
+    margin-bottom: 10px;
+    margin: 10px;
+}
+.btn {
+    padding: 14px 24px;
+    border: 0 none;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+ 
+.btn:focus, .btn:active:focus, .btn.active:focus {
+    outline: 0 none;
+}
+.btn:focus, .btn:active:focus, .btn.active:focus {
+    outline: 0 none;
+}
+ 
+.btn-primary {
+    background: #0099cc;
+    color: #ffffff;
+}
+footer{
+    background-color:#333333;
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+
+}
+footer .footer-copyright{
+    color: ivory;
+}
+footer .footer-copyright span{
+    font-size: 10px;
 }

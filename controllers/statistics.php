@@ -9,7 +9,7 @@
             parent::__construct();
 
             $this->statistics = new Statistic();
-            $this->statistic = new Statistic();
+            //$this->statistic = new Statistic();
         }
         public function index($id=0){
 
@@ -22,14 +22,15 @@
                 $this->view->render('statistics/index.html');
             }
             else{
-
-                $statistics = $this->statistics->getDisease($id);
-                $this->view->message =  array('statistics' => $statistics);
-                $this->view->render('statistics/statistic.html');
+                $this->view->message =  array('error' => 'Disease Not Found!');
+                $this->view->render('error.html',$this->view->message);
+                //$statistics = $this->statistics->getDisease($id);
+                //$this->view->message =  array('statistics' => $statistics);
+                //$this->view->render('statistics/statistic.html');
             }
 
             /*-*  Total numbers - Counts  *-*/
-            $nrDiseases = $this->statistic->getNrOfDiseases();
+            /*$nrDiseases = $this->statistic->getNrOfDiseases();
             $nrTweets = $this->statistic->getNrOfTweets();
             $nrPhotos= $this->statistic->getNrOfPhotos();
             $nrArticles = $this->statistic->getNrOfArticles();
@@ -48,7 +49,7 @@
 
                                     ); 
 
-            $this->view->render('statistics/statistics.html');
+            $this->view->render('statistics/statistics.html');*/
          }
 
     }

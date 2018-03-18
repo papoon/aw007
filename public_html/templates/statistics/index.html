@@ -8,12 +8,16 @@
         <!-- Page Heading -->
         <div class="row">
             <div class="page-header">
-                <h1>Aplicações na Web <small> 2017/2018</small></h1>
+                <h1>Web Applications <small> 2017/2018</small></h1>
             </div>
         </div>
     
         <div class="row">
-            <h3>Estatísticas</h3>
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <h2 style="text-align:center;">Statistics</h2>
+                </div>
+            </div>
         </div>
         <div class="row">
             {% for key, statistic in statistics %}
@@ -34,6 +38,7 @@
                 
             </div>
         </div>
+    </div>
         <!-- /.row -->
 {% endblock content %}
 
@@ -64,7 +69,7 @@
         data: {
             labels: labels_graph,
             datasets: [{
-                label: '# Numero de artigos publicados em cada jornal ',
+                label: '# Articles Per Journal (dsc)',
                 data: data_graph,
                 backgroundColor: [
                     'rgba(255, 99, 132, 0.2)',
@@ -72,7 +77,11 @@
                     'rgba(255, 206, 86, 0.2)',
                     'rgba(75, 192, 192, 0.2)',
                     'rgba(153, 102, 255, 0.2)',
-                    'rgba(255, 159, 64, 0.2)'
+                    'rgba(255, 159, 64, 0.2)',
+                    'rgba(237, 192, 199, 0.2)',
+                    'rgba(227, 197, 177, 0.2)',
+                    'rgba(171, 214, 197, 0.2)',
+                    'rgba(77, 37, 16, 0.2)'
                 ],
                 borderColor: [
                     'rgba(255,99,132,1)',
@@ -80,7 +89,11 @@
                     'rgba(255, 206, 86, 1)',
                     'rgba(75, 192, 192, 1)',
                     'rgba(153, 102, 255, 1)',
-                    'rgba(255, 159, 64, 1)'
+                    'rgba(255, 159, 64, 1)',
+                    'rgba(237, 192, 199, 1)',
+                    'rgba(227, 197, 177, 1)',
+                    'rgba(171, 214, 197, 1)',
+                    'rgba(77, 37, 16, 1)'
                 ],
                 borderWidth: 1
             }]
@@ -91,6 +104,16 @@
                     ticks: {
                         beginAtZero:true
                     }
+                }],
+                xAxes: [{
+                    scaleLabel:{
+                        display: true,
+                        labelString: '# Artigos'
+                    },
+                    ticks: {
+                        display: false
+                    }
+                    
                 }]
             }
         }
@@ -117,7 +140,7 @@
         data: {
             labels: labels_graph,
             datasets: [{
-                label: '# Numero de tweets por disease ',
+                label: '# Tweets Per Disease (asc)',
                 data: data_graph,
                 backgroundColor: [
                     'rgba(255, 99, 132, 0.2)',
@@ -125,7 +148,11 @@
                     'rgba(255, 206, 86, 0.2)',
                     'rgba(75, 192, 192, 0.2)',
                     'rgba(153, 102, 255, 0.2)',
-                    'rgba(255, 159, 64, 0.2)'
+                    'rgba(255, 159, 64, 0.2)',
+                    'rgba(237, 192, 199, 0.2)',
+                    'rgba(227, 197, 177, 0.2)',
+                    'rgba(171, 214, 197, 0.2)',
+                    'rgba(77, 37, 16, 0.2)'
                 ],
                 borderColor: [
                     'rgba(255,99,132,1)',
@@ -133,7 +160,11 @@
                     'rgba(255, 206, 86, 1)',
                     'rgba(75, 192, 192, 1)',
                     'rgba(153, 102, 255, 1)',
-                    'rgba(255, 159, 64, 1)'
+                    'rgba(255, 159, 64, 1)',
+                    'rgba(237, 192, 199, 1)',
+                    'rgba(227, 197, 177, 1)',
+                    'rgba(171, 214, 197, 1)',
+                    'rgba(77, 37, 16, 1)'
                 ],
                 borderWidth: 1
             }]
@@ -144,7 +175,397 @@
                     ticks: {
                         beginAtZero:true
                     }
+                }],
+                xAxes: [{
+                    scaleLabel:{
+                        display: true,
+                        labelString: '# Tweets'
+                    },
+                    ticks: {
+                        display: false
+                    }
+                    
                 }]
+            },
+            tooltips: {
+                callbacks: {
+                    label: function(tooltipItem) {
+                        return tooltipItem.yLabel;
+                    }
+                }
+            }
+        }
+    });
+
+
+    var tweetsPerDisease = statistics['photosPerDisease'];
+
+    var labels_graph = [];
+    var data_graph = [];
+    for (let index = 0; index < tweetsPerDisease.length; index++) {
+        const element = tweetsPerDisease[index];
+
+        labels_graph.push(element[1]);
+        data_graph.push(element[3]);
+        
+    }
+    var ctx = document.getElementById('photosPerDisease').getContext('2d');
+
+    var myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: labels_graph,
+            datasets: [{
+                label: '# Photos Per Disease (asc)',
+                data: data_graph,
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(255, 159, 64, 0.2)',
+                    'rgba(237, 192, 199, 0.2)',
+                    'rgba(227, 197, 177, 0.2)',
+                    'rgba(171, 214, 197, 0.2)',
+                    'rgba(77, 37, 16, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(255,99,132,1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)',
+                    'rgba(237, 192, 199, 1)',
+                    'rgba(227, 197, 177, 1)',
+                    'rgba(171, 214, 197, 1)',
+                    'rgba(77, 37, 16, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero:true
+                    }
+                }],
+                xAxes: [{
+                    scaleLabel:{
+                        display: true,
+                        labelString: '# Fotos'
+                    },
+                    ticks: {
+                        display: false
+                    }
+                    
+                }]
+            },
+            tooltips: {
+                callbacks: {
+                    label: function(tooltipItem) {
+                        return tooltipItem.yLabel;
+                    }
+                }
+            }
+        }
+    });
+
+    var articlesPerDay = statistics['articlesPerDay'];
+
+    var labels_graph = [];
+    var data_graph = [];
+    for (let index = 0; index < articlesPerDay.length; index++) {
+        const element = articlesPerDay[index];
+
+        labels_graph.push(element[1]);
+        data_graph.push(element[2]);
+        
+    }
+    var ctx = document.getElementById('articlesPerDay').getContext('2d');
+
+    var myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: labels_graph,
+            datasets: [{
+                label: '# Articles Per Day (dsc)',
+                data: data_graph,
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(255, 159, 64, 0.2)',
+                    'rgba(237, 192, 199, 0.2)',
+                    'rgba(227, 197, 177, 0.2)',
+                    'rgba(171, 214, 197, 0.2)',
+                    'rgba(77, 37, 16, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(255,99,132,1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)',
+                    'rgba(237, 192, 199, 1)',
+                    'rgba(227, 197, 177, 1)',
+                    'rgba(171, 214, 197, 1)',
+                    'rgba(77, 37, 16, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero:true
+                    }
+                }],
+                xAxes: [{
+                    scaleLabel:{
+                        display: true,
+                        labelString: '# Artigos'
+                    },
+                    ticks: {
+                        display: false
+                    }
+                    
+                }]
+            },
+            tooltips: {
+                callbacks: {
+                    label: function(tooltipItem) {
+                        return tooltipItem.yLabel;
+                    }
+                }
+            }
+        }
+    });
+    var sharesPhotosPerDisease = statistics['sharesPhotosPerDisease'];
+
+    var labels_graph = [];
+    var data_graph = [];
+    for (let index = 0; index < sharesPhotosPerDisease.length; index++) {
+        const element = sharesPhotosPerDisease[index];
+
+        labels_graph.push(element[1]);
+        data_graph.push(element[3]);
+        
+    }
+    var ctx = document.getElementById('sharesPhotosPerDisease').getContext('2d');
+
+    var myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: labels_graph,
+            datasets: [{
+                label: '# Shares of Photos Per Disease (dsc)',
+                data: data_graph,
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(255, 159, 64, 0.2)',
+                    'rgba(237, 192, 199, 0.2)',
+                    'rgba(227, 197, 177, 0.2)',
+                    'rgba(171, 214, 197, 0.2)',
+                    'rgba(77, 37, 16, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(255,99,132,1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)',
+                    'rgba(237, 192, 199, 1)',
+                    'rgba(227, 197, 177, 1)',
+                    'rgba(171, 214, 197, 1)',
+                    'rgba(77, 37, 16, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero:true
+                    }
+                }],
+                xAxes: [{
+                    scaleLabel:{
+                        display: true,
+                        labelString: '# Fotos'
+                    },
+                    ticks: {
+                        display: false
+                    }
+                    
+                }]
+            },
+            tooltips: {
+                callbacks: {
+                    label: function(tooltipItem) {
+                        return tooltipItem.yLabel;
+                    }
+                }
+            }
+        }
+    });
+    var sharesTweetsPerDisease = statistics['sharesTweetsPerDisease'];
+
+    var labels_graph = [];
+    var data_graph = [];
+    for (let index = 0; index < sharesTweetsPerDisease.length; index++) {
+        const element = sharesTweetsPerDisease[index];
+
+        labels_graph.push(element[1]);
+        data_graph.push(element[3]);
+        
+    }
+    var ctx = document.getElementById('sharesTweetsPerDisease').getContext('2d');
+
+    var myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: labels_graph,
+            datasets: [{
+                label: '# Shares of Tweets Per Disease (dsc)',
+                data: data_graph,
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(255, 159, 64, 0.2)',
+                    'rgba(237, 192, 199, 0.2)',
+                    'rgba(227, 197, 177, 0.2)',
+                    'rgba(171, 214, 197, 0.2)',
+                    'rgba(77, 37, 16, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(255,99,132,1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)',
+                    'rgba(237, 192, 199, 1)',
+                    'rgba(227, 197, 177, 1)',
+                    'rgba(171, 214, 197, 1)',
+                    'rgba(77, 37, 16, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero:true,
+                    }
+                }],
+                xAxes: [{
+                    scaleLabel:{
+                        display: true,
+                        labelString: '# Tweets'
+                    },
+                    ticks: {
+                        display: false
+                    }
+                    
+                }]
+            },
+            tooltips: {
+                callbacks: {
+                    label: function(tooltipItem) {
+                        return tooltipItem.yLabel;
+                    }
+                }
+            }
+        }
+    });
+    var tweetsAuthor = statistics['tweetsAuthor'];
+
+    var labels_graph = [];
+    var data_graph = [];
+    for (let index = 0; index < tweetsAuthor.length; index++) {
+        const element = tweetsAuthor[index];
+
+        labels_graph.push(element[0]);
+        data_graph.push(element[1]);
+        
+    }
+    var ctx = document.getElementById('tweetsAuthor').getContext('2d');
+
+    var myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: labels_graph,
+            datasets: [{
+                label: '# Number of Tweets Per Username (dsc)',
+                data: data_graph,
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(255, 159, 64, 0.2)',
+                    'rgba(237, 192, 199, 0.2)',
+                    'rgba(227, 197, 177, 0.2)',
+                    'rgba(171, 214, 197, 0.2)',
+                    'rgba(77, 37, 16, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(255,99,132,1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)',
+                    'rgba(237, 192, 199, 1)',
+                    'rgba(227, 197, 177, 1)',
+                    'rgba(171, 214, 197, 1)',
+                    'rgba(77, 37, 16, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero:true,
+                    }
+                }],
+                xAxes: [{
+                    scaleLabel:{
+                        display: true,
+                        labelString: '# Tweets'
+                    },
+                    ticks: {
+                        display: false
+                    }
+                    
+                }]
+            },
+            tooltips: {
+                callbacks: {
+                    label: function(tooltipItem) {
+                        return tooltipItem.yLabel;
+                    }
+                }
             }
         }
     });
