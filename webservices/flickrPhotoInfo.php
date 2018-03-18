@@ -16,11 +16,10 @@
 
         function __construct($photoId)
         {
-           
+
             $this->photoId = $photoId;
             $response = $this->getResponse();
             $this->photo = $response;
-
         }
         private function getUrlXML(){
 
@@ -50,6 +49,13 @@
 
             $response = $this->getResponseXML($this->getUrlXML());
             return $response;
+        }
+
+        public function isValidPhoto() {
+
+            //if the photo is not valid, the 'photo' array is not present;
+            //an 'err' array is present instead
+            return (array_key_exists('photo',$this->photo));
         }
 
         public function getPhotoAuthorName(){

@@ -92,22 +92,25 @@
                     $farmId = $photo['@attributes']['farm'];
                     $serverId = $photo['@attributes']['server'];
                     $secret = $photo['@attributes']['secret'];
-    
-                    $photosData["$photoId"]['url'] = 'https://farm'.$farmId.'.staticflickr.com/'.$serverId.'/'.$photoId.'_'.$secret.'.jpg';
-                    $photosData["$photoId"]['serverId'] = $serverId;
-                    $photosData["$photoId"]['secret'] = $secret;
-                    $photosData["$photoId"]['farmId'] = $farmId;
 
                     $flickrPhotoInfo = new FlickrPhotoInfo($photoId);
 
-                    $photosData["$photoId"]['authorName'] = $flickrPhotoInfo->getPhotoAuthorName();
-                    $photosData["$photoId"]['username'] = $flickrPhotoInfo->getPhotoUserName();
-                    $photosData["$photoId"]['numerOfLikes'] = $flickrPhotoInfo->getNumberOfLikes();
-                    $photosData["$photoId"]['numberOfComments'] = $flickrPhotoInfo->getPhotoNumberOfComments();
-                    $photosData["$photoId"]['views'] = $flickrPhotoInfo->getPhotoNumberOfViews();
-                    $photosData["$photoId"]['location'] = $flickrPhotoInfo->getUserLocation();
-                    $photosData["$photoId"]['publishedAt'] = $flickrPhotoInfo->getPhotoPublishedAt();
+                    if(!$flickrPhotoInfo->isValidPhoto()) {
+                      echo "  Photo with id ".$photoId." is not valid, skipping!".PHP_EOL;
+                    } else {
+                      $photosData["$photoId"]['url'] = 'https://farm'.$farmId.'.staticflickr.com/'.$serverId.'/'.$photoId.'_'.$secret.'.jpg';
+                      $photosData["$photoId"]['serverId'] = $serverId;
+                      $photosData["$photoId"]['secret'] = $secret;
+                      $photosData["$photoId"]['farmId'] = $farmId;
 
+                      $photosData["$photoId"]['authorName'] = $flickrPhotoInfo->getPhotoAuthorName();
+                      $photosData["$photoId"]['username'] = $flickrPhotoInfo->getPhotoUserName();
+                      $photosData["$photoId"]['numerOfLikes'] = $flickrPhotoInfo->getNumberOfLikes();
+                      $photosData["$photoId"]['numberOfComments'] = $flickrPhotoInfo->getPhotoNumberOfComments();
+                      $photosData["$photoId"]['views'] = $flickrPhotoInfo->getPhotoNumberOfViews();
+                      $photosData["$photoId"]['location'] = $flickrPhotoInfo->getUserLocation();
+                      $photosData["$photoId"]['publishedAt'] = $flickrPhotoInfo->getPhotoPublishedAt();
+                    }
                 }
             }
             else{
@@ -116,24 +119,28 @@
                 $farmId = $photos['@attributes']['farm'];
                 $serverId = $photos['@attributes']['server'];
                 $secret = $photos['@attributes']['secret'];
-    
-                $photosData["$photoId"]['url'] = 'https://farm'.$farmId.'.staticflickr.com/'.$serverId.'/'.$photoId.'_'.$secret.'.jpg';
-                $photosData["$photoId"]['serverId'] = $serverId;
-                $photosData["$photoId"]['secret'] = $secret;
-                $photosData["$photoId"]['farmId'] = $farmId;
 
                 $flickrPhotoInfo = new FlickrPhotoInfo($photoId);
 
-                $photosData["$photoId"]['authorName'] = $flickrPhotoInfo->getPhotoAuthorName();
-                $photosData["$photoId"]['username'] = $flickrPhotoInfo->getPhotoUserName();
-                $photosData["$photoId"]['numerOfLikes'] = $flickrPhotoInfo->getNumberOfLikes();
-                $photosData["$photoId"]['numberOfComments'] = $flickrPhotoInfo->getPhotoNumberOfComments();
-                $photosData["$photoId"]['views'] = $flickrPhotoInfo->getPhotoNumberOfViews();
-                $photosData["$photoId"]['loacation'] = $flickrPhotoInfo->getUserLocation();
-                $photosData["$photoId"]['publishedAt'] = $flickrPhotoInfo->getPhotoPublishedAt();
+                if(!$flickrPhotoInfo->isValidPhoto()) {
+                  echo "  Photo with id ".$photoId." is not valid, skipping!".PHP_EOL;
+                } else {
+                  $photosData["$photoId"]['url'] = 'https://farm'.$farmId.'.staticflickr.com/'.$serverId.'/'.$photoId.'_'.$secret.'.jpg';
+                  $photosData["$photoId"]['serverId'] = $serverId;
+                  $photosData["$photoId"]['secret'] = $secret;
+                  $photosData["$photoId"]['farmId'] = $farmId;
+
+                  $photosData["$photoId"]['authorName'] = $flickrPhotoInfo->getPhotoAuthorName();
+                  $photosData["$photoId"]['username'] = $flickrPhotoInfo->getPhotoUserName();
+                  $photosData["$photoId"]['numerOfLikes'] = $flickrPhotoInfo->getNumberOfLikes();
+                  $photosData["$photoId"]['numberOfComments'] = $flickrPhotoInfo->getPhotoNumberOfComments();
+                  $photosData["$photoId"]['views'] = $flickrPhotoInfo->getPhotoNumberOfViews();
+                  $photosData["$photoId"]['location'] = $flickrPhotoInfo->getUserLocation();
+                  $photosData["$photoId"]['publishedAt'] = $flickrPhotoInfo->getPhotoPublishedAt();
+                }
             }
 
-            
+
             return $photosData;
         }
         public function getPhotoInfo($photoId){
@@ -143,7 +150,7 @@
             $response = $this->getResponse();
             $this->photo = $response;
             //return $response;
-            
+
         }
 
         public function getPhotoAuthorName(){
@@ -168,7 +175,7 @@
         public function getPhotoPublishedAt(){
             return $this->photo['photo']['dates']['@attributes']['taken'];
         }
-        
+
 
 
 
