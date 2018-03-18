@@ -50,7 +50,7 @@
         #artigos por dia
         public function articlesPerDay(){
             $data = $this->connector->rawQuery('select id,article_date,count(*) as n_articles from article as a 
-            where a.`article_date` != "0000-00-00 00:00:00"
+            where a.article_date != "0000-00-00 00:00:00"
             group by article_date order by count(*) desc limit 10;')->fetch_all();
 
             return $data;
