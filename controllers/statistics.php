@@ -8,7 +8,7 @@
         public function __construct(){
             parent::__construct();
 
-            $this->statistics = new Statistics();
+            $this->statistics = new Statistic();
             $this->statistic = new Statistic();
         }
         public function index($id=0){
