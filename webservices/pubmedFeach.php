@@ -40,7 +40,7 @@
             return $response;
         }
 
-        public function isPubmedArticle() {
+        public function isPubmedArticle() {  
             return array_key_exists('PubmedArticle', $this->obj);
         }
 
@@ -59,23 +59,16 @@
 
             $article = $this->getArticle();
 
-            //set default value for abstract string (what is kept in case of no abstract)
-            if (!array_key_exists('Abstract', $article)) {
-              return 'No abstract found.';
-            }
-
-            $abstractText = $article['Abstract']['AbstractText'];
-
             if(!array_key_exists('Abstract',$article)){
-                throw new Exception('Not exist Abstract!');
+                throw new Exception('No Abstract!');
             }
             else{
 
                 if(!array_key_exists('AbstractText',$article['Abstract'])){
-                    throw new Exception('Not exist Abstract!');
+                    throw new Exception('No Abstract!');
                 }
                 else{
-                    
+
                     $abstractText = $article['Abstract']['AbstractText'];
 
                     if(!is_array($abstractText)){
@@ -88,16 +81,13 @@
                                 $text.=$value;
                             }
                             else{
-                                throw new Exception('Not expected array of arrays!');
+                                throw new Exception('Unexpected array of arrays!');
                             }
                         }
                         return $text;
                     }
                 }
-
-                
             }
-            
         }
 
         public function getArticleJournalPubDate(){
