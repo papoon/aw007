@@ -1,0 +1,157 @@
+{% extends "index/index.html" %}
+
+
+{% block content %}
+    <!-- Page Content -->
+    <div class="container">
+
+        <!-- Page Heading -->
+        <div class="row">
+            <div class="page-header">
+                <h1>Aplicações na Web <small> 2017/2018</small></h1>
+            </div>
+        </div>
+    
+        <div class="row">
+            <h3>Estatísticas</h3>
+        </div>
+        <div class="row">
+            {% for key, statistic in statistics %}
+                <div class="col-sm-6 col-md-4">
+                    <div class="thumbnail">
+                    
+                    <div class="caption">
+                        <!-- <h3><a href="statistics/{{key}}" target="_blank" >{{ key }}</a></h3>-->
+                        <canvas id="{{key}}" width="400" height="400"></canvas>
+                    </div>
+                    </div>
+                </div>
+            {% endfor %}
+                
+        </div>
+        <div class="row">
+            <div class="col-sm-4">
+                
+            </div>
+        </div>
+        <!-- /.row -->
+{% endblock content %}
+
+{% block footer %}
+
+<script>
+    var statistics = '{{ statistics|json_encode|raw }}';
+    statistics = JSON.parse(statistics);
+
+    var articlesPerJournal = statistics['articlesPerJournal'];
+
+    var labels_graph = [];
+    var data_graph = [];
+    for (let index = 0; index < articlesPerJournal.length; index++) {
+        const element = articlesPerJournal[index];
+
+        labels_graph.push(element[0]);
+        data_graph.push(element[1]);
+        
+    }
+    
+
+
+    var ctx = document.getElementById('articlesPerJournal').getContext('2d');
+
+    var myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: labels_graph,
+            datasets: [{
+                label: '# Numero de artigos publicados em cada jornal ',
+                data: data_graph,
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(255, 159, 64, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(255,99,132,1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero:true
+                    }
+                }]
+            }
+        }
+    });
+
+    var tweetsPerDisease = statistics['tweetsPerDisease'];
+
+    var labels_graph = [];
+    var data_graph = [];
+    for (let index = 0; index < tweetsPerDisease.length; index++) {
+        const element = tweetsPerDisease[index];
+
+        labels_graph.push(element[1]);
+        data_graph.push(element[3]);
+        
+    }
+
+
+
+    var ctx = document.getElementById('tweetsPerDisease').getContext('2d');
+
+    var myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: labels_graph,
+            datasets: [{
+                label: '# Numero de tweets por disease ',
+                data: data_graph,
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(255, 159, 64, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(255,99,132,1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero:true
+                    }
+                }]
+            }
+        }
+    });
+
+
+
+    
+
+</script>
+{% endblock footer %}
