@@ -1,5 +1,5 @@
 <?php
-    
+
     class App{
 
         public function __construct(){
@@ -10,7 +10,7 @@
             require_once '../includes/lib/Twig/Autoloader.php';
             Twig_Autoloader::register();
 
-            
+
             //$loader = new Twig_Loader_Filesystem('public_html/templates');
             //$twig = new Twig_Environment($loader);
 
@@ -29,7 +29,7 @@
 
             //route
             $tokens = explode('/',rtrim($_SERVER['REQUEST_URI'],'/'));
-           
+
             //server
             if(count($tokens)==2){
                 $server = $tokens[0];
@@ -65,7 +65,7 @@
             }
 
             if(count($tokens)>2){
-                
+
                 $controller = $page;
                 if(file_exists('../controllers/'.$controller.'.php')){
                     require_once('../controllers/'.$controller.'.php');
@@ -73,7 +73,7 @@
                     $controller = new $controller;
 
                     if(isset($tokens[2])){
-                        
+
                         $action = $tokens[2];
 
                         if(isset($tokens[3])){
@@ -82,7 +82,7 @@
                         else{
                             $controller->index();
                         }
-                        
+
                     }
                     else{
                         $controller = ucfirst($tokens[1]);
@@ -91,7 +91,7 @@
                     }
                 }
                 else{
-                    require_once '../controllers/Error.php';
+                    require_once '../controllers/error.php';
                     $controller = 'Error';
                     $controller = new $controller;
                     $controller->index();
@@ -102,7 +102,7 @@
                 $controller = new Index();
                 $controller->index();
             }
-            
+
         }
 
     }

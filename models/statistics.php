@@ -8,7 +8,7 @@
 
         public function getAll(){
 
-            
+
             $data = array();
 
             $data['articlesPerJournal'] = $this->articlesPerJournal();
@@ -21,11 +21,11 @@
 
             return $data;
 
-            
+
         }
-        #numero de artigos por publicados em cada jornal 
+        #numero de artigos por publicados em cada jornal
         public function articlesPerJournal(){
-            $data = $this->connector->rawQuery('select journal_id, count(*) as n_articles from article 
+            $data = $this->connector->rawQuery('select journal_id, count(*) as n_articles from Article
             where journal_id != "" group by journal_id order by count(*) desc limit 10;')->fetch_all();
 
             return $data;
@@ -33,15 +33,15 @@
         #numero de tweets por disease
         public function tweetsPerDisease(){
 
-            $data = $this->connector->rawQuery('select a.id,a.name, b.did, count(*) as n_tweets from disease as a inner join tweets as b 
+            $data = $this->connector->rawQuery('select a.id,a.name, b.did, count(*) as n_tweets from Disease as a inner join Tweets as b
             on a.id = b.did
             group by a.id,b.did order by count(*)  asc limit 10;')->fetch_all();
 
             return $data;
         }
-        #numero de photospor disease desc
+        #numero de photos por disease desc
         public function photosPerDisease(){
-            $data = $this->connector->rawQuery('select a.id,a.name , b.did,count(*) as n_photos from disease as a inner join photos as b 
+            $data = $this->connector->rawQuery('select a.id,a.name , b.did,count(*) as n_photos from Disease as a inner join Photos as b
             on a.id = b.did
             group by a.id,b.did order by count(*)  asc limit 10;')->fetch_all();
 
@@ -49,7 +49,7 @@
         }
         #artigos por dia
         public function articlesPerDay(){
-            $data = $this->connector->rawQuery('select id,article_date,count(*) as n_articles from article as a 
+            $data = $this->connector->rawQuery('select id,article_date,count(*) as n_articles from Article as a
             where a.`article_date` != "0000-00-00 00:00:00"
             group by article_date order by count(*) desc limit 10;')->fetch_all();
 
@@ -58,7 +58,7 @@
         # numero de shares por disease photos
         public function sharesPhotosPerDisease(){
 
-            $data = $this->connector->rawQuery('select a.id,a.name, b.did,sum(shares) as s_shares_photos from disease as a inner join photos as b 
+            $data = $this->connector->rawQuery('select a.id,a.name, b.did,sum(shares) as s_shares_photos from Disease as a inner join Photos as b
             on a.id = b.did
             group by a.id,b.did order by sum(shares)  desc limit 10;')->fetch_all();
 
@@ -66,7 +66,7 @@
         }
 
         public function sharesTweetsPerDisease(){
-            $data = $this->connector->rawQuery('select a.id,a.name, b.did,sum(shares) as s_shares_tweets from disease as a inner join tweets as b 
+            $data = $this->connector->rawQuery('select a.id,a.name, b.did,sum(shares) as s_shares_tweets from Disease as a inner join Tweets as b
             on a.id = b.did
             group by a.id,b.did order by sum(shares) desc limit 10;')->fetch_all();
 
@@ -74,7 +74,7 @@
         }
         # numero tweets por author sobre as doenças
         public function tweetsAuthor(){
-            $data = $this->connector->rawQuery('select b.author_name,sum(a.id) as s_tweets from disease as a inner join tweets as b 
+            $data = $this->connector->rawQuery('select b.author_name,sum(a.id) as s_tweets from Disease as a inner join Tweets as b 
             on a.id = b.did
             group by b.author_name order by sum(a.id)  desc limit 10;')->fetch_all();
 
