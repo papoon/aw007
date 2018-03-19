@@ -112,6 +112,9 @@ SELECT ?name where {
 * [PHP5](http://php.net) - The server side programming language
 * [MySql](https://www.mysql.com) - The DBMS 
 * [Git](https://git-scm.com) - Version control system
+* [BootStrap](https://getbootstrap.com) - CSS FrameWork
+* [Twig](https://twig.symfony.com) - Template Engine for PHP
+* [ChartJs](http://www.chartjs.org) - Simple yet flexible JavaScript charting for designers & developers
 
 ## Versioning
 
