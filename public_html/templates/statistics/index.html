@@ -46,6 +46,8 @@
 
 <script>
     var statistics = '{{ statistics|json_encode|raw }}';
+    
+
     statistics = JSON.parse(statistics);
 
     var articlesPerJournal = statistics['articlesPerJournal'];

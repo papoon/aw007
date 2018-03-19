@@ -18,6 +18,7 @@
             $data['sharesPhotosPerDisease'] = $this->sharesPhotosPerDisease();
             $data['sharesTweetsPerDisease'] = $this->sharesTweetsPerDisease();
             $data['tweetsAuthor'] = $this->tweetsAuthor();
+            
 
             return $data;
 
@@ -104,6 +105,9 @@
             group by b.author_name order by sum(a.id)  desc limit 10;');
 
             while ($row = $result->fetch_row()) {
+                array_walk_recursive($row, function(&$value) {
+                    $value = utf8_encode($value);
+                });
                 $data[] = $row;
             }
 
