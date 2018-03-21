@@ -17,7 +17,7 @@
             $data['articlesPerDay'] = $this->articlesPerDay();
             $data['sharesPhotosPerDisease'] = $this->sharesPhotosPerDisease();
             $data['sharesTweetsPerDisease'] = $this->sharesTweetsPerDisease();
-            $data['tweetsAuthor'] = $this->tweetsAuthor();
+            //$data['tweetsAuthor'] = $this->tweetsAuthor();
             
 
             return $data;
