@@ -11,12 +11,22 @@
                     <h1>Web Applications <small> 2017/2018 {{message}}</small></h1>
                 </div>
             </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <a href="/aw007" class="btn btn-info" role="button">< Back</a>
+                </div> 
+            </div>
+
+            <h1 class="text-center">Diseases</h1>
+            <hr>
+
       
             <div class="row">
                 {% for disease in diseases %}
                     <div class="col-sm-6 col-md-4">
                         <div class="thumbnail">
-                        <a href="diseases/{{disease.id}}" target="_blank" ><img src="{{ disease.thumbnail }}" alt="..." class="img-responsive" style="min-height:200px; max-height:200px; width:100%;"></a>
+                        <a href="diseases/{{disease.id}}" ><img src="{{ disease.thumbnail }}" alt="..." class="img-responsive" style="min-height:200px; max-height:200px; width:100%;"></a>
                         <div class="caption">
                             <h3>{{ disease.name }}</h3>
                             
