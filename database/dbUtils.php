@@ -105,6 +105,7 @@
           $result[] = array("val"=>$valuesArray[$i++], "type"=>"int");   //nr_comments
           $result[] = array("val"=>$valuesArray[$i++], "type"=>"int");   //shares
           $result[] = array("val"=>$valuesArray[$i++], "type"=>"char");  //country
+          $result[] = array("val"=>$valuesArray[$i++], "type"=>"char");  //html
           $result[] = array("val"=>$valuesArray[$i++], "type"=>"char");  //published_at
           $result[] = array("val"=>$valuesArray[$i++], "type"=>"char");  //inserted_at
           $result[] = array("val"=>$valuesArray[$i++], "type"=>"char");  //updated_at
@@ -184,6 +185,7 @@
           $valuesStr .= 'nr_comments,';
           $valuesStr .= 'shares,';
           $valuesStr .= 'country,';
+          $valuesStr .= 'html,';
           $valuesStr .= 'published_at,';
           $valuesStr .= 'inserted_at,';
           $valuesStr .= 'updated_at';
