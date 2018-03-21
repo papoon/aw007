@@ -393,6 +393,7 @@
                         0,                                        //nr_comments
                         $twitter->getNumberOfShares($tweet),      //shares
                         $location,                                //country
+                        $twitter_embed['html'],                   //html
                         $tweetPublishedDate,                      //published_at
                         $currentDateStr,                          //inserted_at
                         $currentDateStr);                         //updated_at

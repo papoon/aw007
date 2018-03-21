@@ -92,3 +92,7 @@ ADD COLUMN `authors` VARCHAR(500) NULL AFTER `article_revision_date`;
 
 ALTER TABLE `Article`
 ADD COLUMN `article_id` INT(11) NULL AFTER `did`;
+
+ALTER TABLE `Tweets` 
+ADD COLUMN `html` TEXT NULL AFTER `country`;
+
