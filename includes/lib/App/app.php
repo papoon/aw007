@@ -77,7 +77,10 @@
                         $action = $tokens[2];
 
                         if(isset($tokens[3])){
-                            $controller->index($tokens[3]);
+                            if(is_numeric($tokens[3])){
+                                $controller->index($tokens[3]);
+                            }
+                            $controller->$tokens[3]();
                         }
                         else{
                             $controller->index();

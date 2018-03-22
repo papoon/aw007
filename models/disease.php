@@ -8,7 +8,11 @@
 
         public function getDiseases(){
 
-            $data = $this->connector->selectAll(TABLE_DISEASE);
+            $result = $this->connector->selectAll(TABLE_DISEASE);
+
+            while ($row = $result->fetch_assoc()) {
+                $data[] = $row;
+            }
 
             $this->connector->disconnect();
             return $data;
