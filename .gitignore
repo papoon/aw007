@@ -3,3 +3,4 @@ private/*
 utils/database.php
 .htaccess
 public_html/.htaccess
+scripts/annotation/__pycache__
