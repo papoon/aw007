@@ -361,7 +361,8 @@
         $twitter_embed = $twitter_embed->getResponse();
 
         //escape text for apostrofes and other string breakers (security issues)
-        $authorName = mysqli_real_escape_string($this->dbLink, $twitter->getAuthorName($tweet));
+        $authorName = str_replace('"', '', $twitter->getAuthorName($tweet)); //remove quotation marks
+        $authorName = mysqli_real_escape_string($this->dbLink, $authorName);
         $userName = mysqli_real_escape_string($this->dbLink, $twitter->getUsername($tweet));
 
         //set default value for location string (what is kept in case of no location

@@ -286,6 +286,7 @@
             echo '<p>'.$rows['nr_comments'].'</p>';
             echo '<p>'.$rows['shares'].'</p>';
             echo '<p>'.$rows['country'].'</p>';
+            echo '<p>'.$rows['html'].'</p>';
             echo '<p>'.$rows['published_at'].'</p>';
             echo '<p>'.$rows['inserted_at'].'</p>';
             echo '<p>'.$rows['updated_at'].'</p>';
