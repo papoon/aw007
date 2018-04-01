@@ -161,3 +161,37 @@ def calculateIDF(term, docCollection):
 
     #return IDF calculation
     return math.log10(totalNumberDocs / countDocsWithTerm)
+
+def saveTfIdfInformation(table, term, id, tf_idf_value):
+    """
+    Save TF-IDF values in the database.
+    Requires: table, where to save the information (please use Table_Tf_Idf_Articles
+              or Table_Tf_Idf_Tweets constants);
+              term, the term associated to the TF-IDF value;
+              id, document database id (Articles(id) or Tweets(id) depending on table argument);
+              tf_idf_value, the TF-IDF value to save for the t
+    Ensures: saves the TD-IDF value for a given term and a given document in the
+    respective table.
+    """
+    connection = getDatabaseConnection()
+
+    try:
+        with connection.cursor() as cursor:
+            # create insert query
+            if table == Table_Tf_Idf_Articles:
+                sql = "INSERT INTO " + Table_Tf_Idf_Articles + \
+                      " (term, article_id, tf_idf_value) VALUES ('" + \
+                      term + "', "  + str(id) + ', ' + str(tf_idf_value) + ");"
+            elif table == Table_Tf_Idf_Tweets:
+                sql = "INSERT INTO " + Table_Tf_Idf_Tweets + \
+                      " (term, tweet_id, tf_idf_value) VALUES ('" + \
+                      term + "', "+ str(id) + ', ' + str(tf_idf_value) + ");"
+            else:
+                raise ValueError('Table name: valid values are Tf_Idf_Articles and Tf_Idf_Tweets (see constants).')
+
+            #execute insert query
+            cursor.execute(sql)
+            #commit explicitly (autocommit is off by default)
+            connection.commit()
+    finally:
+        connection.close()

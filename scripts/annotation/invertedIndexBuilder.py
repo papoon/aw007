@@ -1,4 +1,5 @@
 from utils import *
+from constants import *
 
 def calculateTFIDF():
     #get entity terms from docs
@@ -53,16 +54,36 @@ def calculateTFIDF():
         idf_value = calculateIDF(term, dictsList)
         idfValues[term] = idf_value
 
-    print("articleTfValues:")
-    print(articleTfValues)
-    print("tweetTfValues:")
-    print(tweetTfValues)
-    print("uniqueTerms:")
-    print(uniqueTerms)
-    print("idfValues:")
-    print(idfValues)
+    # print("articleTfValues:")
+    # print(articleTfValues)
+    # print("tweetTfValues:")
+    # print(tweetTfValues)
+    # print("uniqueTerms:")
+    # print(uniqueTerms)
+    # print("idfValues:")
+    # print(idfValues)
 
+    #calculate TF-IDF for Articles
+    for key, value in articleTfValues.items():
+        #get idf value for term
+        idf_value = idfValues[key]
+        #key is term, value is list of tuples (article['id'], tf_value)
+        for element in value:
+            #TF-IDF = TF * IDF (rounded to 4 decimal cases)
+            tf_idf_value = round(element[1] * idf_value, 4)
+            #save TF-IDF in Tf_Idf_Articles table
+            saveTfIdfInformation(Table_Tf_Idf_Articles, key, element[0], tf_idf_value)
 
+    #calculate TF-IDF for Tweets
+    for key, value in tweetTfValues.items():
+        #get idf value for term
+        idf_value = idfValues[key]
+        #key is term, value is list of tuples (tweet['id'], tf_value)
+        for element in value:
+            #TF-IDF = TF * IDF (rounded to 4 decimal cases)
+            tf_idf_value = round(element[1] * idf_value, 4)
+            #save TF-IDF in Tf_Idf_Tweets table
+            saveTfIdfInformation(Table_Tf_Idf_Tweets, key, element[0], tf_idf_value)
 
 def buildInvertedIndex():
     calculateTFIDF()
