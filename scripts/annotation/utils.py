@@ -2,6 +2,8 @@
 # Python 3
 import pymysql.cursors
 import subprocess
+import math
+from __future__ import division
 from constants import *
 
 import sys
@@ -116,3 +118,48 @@ def entityAnnotation():
         termsPerTweet[(tweet['did'], tweet['id'])] = listTerms
 
     return [termsPerArticle, termsPerTweet]
+
+#NOT TESTED YET
+def calculateTF(term, docTerms):
+    """
+    Calculate TF (term frequency) of a term in a document.
+    Requires: term, the term to calculate the frequency;
+              docTerms, list with all terms found in the document.
+    Ensures: returns the calculation for the TF of the given terms in
+    the given document.
+    """
+    countTermOccurrences = 0
+    totalNumberTerms = len(docTerms)
+    for t in docTerms:
+        if t == term:
+            countTermOccurrences += 1
+
+    #return tF calculation
+    return countTermOccurrences / totalNumberTerms
+
+#NOT TESTED YET
+def calculateIDF(term, docCollection):
+    """
+    Calculate IDF (inverse document frequency) of a term in all documents.
+    Requires: term, the term to calculate the frequency;
+              docCollection, list with list with 2 dictionaries (one with
+              the terms for the articles and another with the terms for the tweets).
+    Ensures: returns the calculation for the IDF of the given term in
+    the given collection of terms (of all documents).
+    """
+    countDocsWithTerm = 0
+    #total number of docs = number of articles + number of tweets
+    totalNumberDocs = len(docCollection[0]) + len(docCollection[1])
+
+    #iterate through articles
+    for key, value in docCollection[0].items():
+        if term in value:
+            countDocsWithTerm += 1
+
+    #iterate through tweets
+    for key, value in docCollection[1].items():
+        if term in value:
+            countDocsWithTerm += 1
+
+    #return IDF calculation
+    return math.log10(totalNumberDocs / countDocsWithTerm)
