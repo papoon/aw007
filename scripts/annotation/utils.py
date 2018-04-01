@@ -119,7 +119,6 @@ def entityAnnotation():
 
     return [termsPerArticle, termsPerTweet]
 
-#NOT TESTED YET
 def calculateTF(term, docTerms):
     """
     Calculate TF (term frequency) of a term in a document.
@@ -137,7 +136,6 @@ def calculateTF(term, docTerms):
     #return TF calculation
     return countTermOccurrences / totalNumberTerms
 
-#NOT TESTED YET
 def calculateIDF(term, docCollection):
     """
     Calculate IDF (inverse document frequency) of a term in all documents.

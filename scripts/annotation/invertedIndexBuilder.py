@@ -21,7 +21,7 @@ def calculateTFIDF():
             #add to unique terms set
             uniqueTerms.add(term)
             #calculate TF value
-            tf_value = round(calculateTF(term, value), 5)
+            tf_value = calculateTF(term, value)
             #save TF value for this document
             if term in articleTfValues:
                 articleTfValues[term] += [(key[1], tf_value)]
@@ -39,19 +39,29 @@ def calculateTFIDF():
             #add to unique terms set
             uniqueTerms.add(term)
             #calculate TF value
-            tf_value = round(calculateTF(term, value), 5)
+            tf_value = calculateTF(term, value)
             #save TF value for this document
             if term in tweetTfValues:
                 tweetTfValues[term] += [(key[1], tf_value)]
             else:
                 tweetTfValues[term] = [(key[1], tf_value)]
 
-    print("uniqueTerms:")
-    print(uniqueTerms)
+    #calculate IDF for all found unique terms
+    idfValues = {}
+    #iterate by all terms
+    for term in uniqueTerms:
+        idf_value = calculateIDF(term, dictsList)
+        idfValues[term] = idf_value
+
     print("articleTfValues:")
     print(articleTfValues)
     print("tweetTfValues:")
     print(tweetTfValues)
+    print("uniqueTerms:")
+    print(uniqueTerms)
+    print("idfValues:")
+    print(idfValues)
+
 
 
 def buildInvertedIndex():
