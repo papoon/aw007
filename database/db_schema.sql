@@ -1,3 +1,5 @@
+DROP TABLE IF EXISTS Tf_Idf_Articles;
+DROP TABLE IF EXISTS Tf_Idf_Tweets;
 DROP TABLE IF EXISTS Article_Author;
 DROP TABLE IF EXISTS Article;
 DROP TABLE IF EXISTS Photos;
@@ -93,6 +95,21 @@ ADD COLUMN `authors` VARCHAR(500) NULL AFTER `article_revision_date`;
 ALTER TABLE `Article`
 ADD COLUMN `article_id` INT(11) NULL AFTER `did`;
 
-ALTER TABLE `Tweets` 
+ALTER TABLE `Tweets`
 ADD COLUMN `html` TEXT NULL AFTER `country`;
 
+CREATE TABLE Tf_Idf_Articles (
+	term VARCHAR(255),
+	article_id INT(11),
+	tf_idf_value NUMERIC(8, 4),
+	PRIMARY KEY (term, article_id),
+	FOREIGN KEY(article_id) REFERENCES Article(id)
+);
+
+CREATE TABLE Tf_Idf_Tweets (
+	term VARCHAR(255),
+	tweet_id INT(11),
+	tf_idf_value NUMERIC(8, 4),
+	PRIMARY KEY (term, tweet_id),
+	FOREIGN KEY(tweet_id) REFERENCES Tweets(id)
+);

@@ -1,9 +1,9 @@
 #-*- coding: utf-8 -*-
 # Python 3
+from __future__ import division
 import pymysql.cursors
 import subprocess
 import math
-from __future__ import division
 from constants import *
 
 import sys
@@ -134,7 +134,7 @@ def calculateTF(term, docTerms):
         if t == term:
             countTermOccurrences += 1
 
-    #return tF calculation
+    #return TF calculation
     return countTermOccurrences / totalNumberTerms
 
 #NOT TESTED YET
