@@ -1,5 +1,19 @@
 #path to the MER tool
 MER_path = '/home/kezhaya/Tools/MER'
+#MER_path = '/home/aw000/MER'
+
+#path to the DiShIn tool
+DISHIN_path = '/home/kezhaya/Tools/DiShIn'
+DISHIN_py_path = DISHIN_path + '/dishin.py'
+DISHIN_DB_path = DISHIN_path + '/data/disease.db'
+
+#DISHIN_path = '/home/aw000/DiShIn'
+#DISHIN_py_path = DISHIN_path + '/dishin.py'
+#DISHIN_DB_path = DISHIN_path + '/doid.db'
+
+#DiShIn variables
+Dishin_name = 'DiShIn'
+Resnik_name = 'Resnik'
 
 #table names
 Table_Article_Author = 'Article_Author'
