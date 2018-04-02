@@ -25,6 +25,25 @@ def getDatabaseConnection():
                                  cursorclass=pymysql.cursors.DictCursor)
     return connection
 
+def getAllDiseaseInformation():
+    """
+    Gets all information needed for the DiShIn script to compare with terms.
+    Requires: no args.
+    Ensures: queries the database and retrieves disease information for
+    all diseases in a list of dictionaries format (one line, one dictionary).
+    """
+    connection = getDatabaseConnection()
+
+    try:
+        with connection.cursor() as cursor:
+            # Read all article records
+            sql = "SELECT id, name FROM " + Table_Disease
+            cursor.execute(sql)
+            result = cursor.fetchall()
+            return result
+    finally:
+        connection.close()
+
 def getAllArticleInformation():
     """
     Gets all information needed for the MER script to get the entities.
@@ -37,7 +56,7 @@ def getAllArticleInformation():
     try:
         with connection.cursor() as cursor:
             # Read all article records
-            sql = "SELECT id, did, title, abstract FROM Article"
+            sql = "SELECT id, did, title, abstract FROM " + Table_Article
             cursor.execute(sql)
             result = cursor.fetchall()
             return result
@@ -56,7 +75,7 @@ def getAllTweetInformation():
     try:
         with connection.cursor() as cursor:
             # Read all tweet records
-            sql = "SELECT id, did, html FROM Tweets"
+            sql = "SELECT id, did, html FROM " + Table_Tweets
             cursor.execute(sql)
             result = cursor.fetchall()
             return result
@@ -169,7 +188,7 @@ def saveTfIdfInformation(table, term, id, tf_idf_value):
               or Table_Tf_Idf_Tweets constants);
               term, the term associated to the TF-IDF value;
               id, document database id (Articles(id) or Tweets(id) depending on table argument);
-              tf_idf_value, the TF-IDF value to save for the t
+              tf_idf_value, the TF-IDF value to save for the given term and the given document.
     Ensures: saves the TD-IDF value for a given term and a given document in the
     respective table.
     """
@@ -219,3 +238,38 @@ def processDishinOutput(resultText):
             lineParts = line.split('\t')
             #example ['Resnik ', ' DiShIn ', ' intrinsic ', '4.027']
             return float(lineParts[3])
+
+#NOT YET TESTED
+def saveSimilarityInformation(table, disease_id, id, resnik_value):
+    """
+    Save similarity Resnik values from DiShIn in the database.
+    Requires: table, where to save the information (please use Table_Sim_Articles
+              or Table_Sim_Tweets constants);
+              disease_id, the disease id of the disease name associated to the Resnik value;
+              id, document database id (Articles(id) or Tweets(id) depending on table argument);
+              resnik_value, the TF-IDF value to save for the given disease and the given document.
+    Ensures: saves the Resnik value for a given disease and a given document in the
+    respective table.
+    """
+    connection = getDatabaseConnection()
+
+    try:
+        with connection.cursor() as cursor:
+            # create insert query
+            if table == Table_Sim_Articles:
+                sql = "INSERT INTO " + Table_Sim_Articles + \
+                      " (did, article_id, resnik_value) VALUES (" + \
+                      str(did) + ", "  + str(id) + ', ' + str(resnik_value) + ");"
+            elif table == Table_Sim_Tweets:
+                sql = "INSERT INTO " + Table_Sim_Tweets + \
+                      " (did, tweet_id, resnik_value) VALUES (" + \
+                      str(did) + ", "  + str(id) + ', ' + str(resnik_value) + ");"
+            else:
+                raise ValueError('Table name: valid values are Similarity_Articles and Similarity_Tweets (see constants).')
+
+            #execute insert query
+            cursor.execute(sql)
+            #commit explicitly (autocommit is off by default)
+            connection.commit()
+    finally:
+        connection.close()

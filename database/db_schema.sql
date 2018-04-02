@@ -104,7 +104,7 @@ CREATE TABLE Tf_Idf_Articles (
 	article_id INT(11),
 	tf_idf_value NUMERIC(8, 4),
 	PRIMARY KEY (term, article_id),
-	FOREIGN KEY(article_id) REFERENCES Article(id)
+	FOREIGN KEY (article_id) REFERENCES Article(id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE Tf_Idf_Tweets (
@@ -112,5 +112,26 @@ CREATE TABLE Tf_Idf_Tweets (
 	tweet_id INT(11),
 	tf_idf_value NUMERIC(8, 4),
 	PRIMARY KEY (term, tweet_id),
-	FOREIGN KEY(tweet_id) REFERENCES Tweets(id)
+	FOREIGN KEY (tweet_id) REFERENCES Tweets(id) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+DROP TABLE IF EXISTS Similarity_Articles;
+DROP TABLE IF EXISTS Similarity_Tweets;
+
+CREATE TABLE Similarity_Articles (
+	did INT(11),
+	article_id INT(11),
+	resnik_value NUMERIC(8, 4),
+	PRIMARY KEY (did, article_id),
+	FOREIGN KEY (did) REFERENCES Disease(id) ON DELETE CASCADE ON UPDATE CASCADE,
+	FOREIGN KEY (article_id) REFERENCES Article(id) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+CREATE TABLE Similarity_Tweets (
+	did INT(11),
+	tweet_id INT(11),
+	resnik_value NUMERIC(8, 4),
+	PRIMARY KEY (did, tweet_id),
+	FOREIGN KEY (did) REFERENCES Disease(id) ON DELETE CASCADE ON UPDATE CASCADE,
+	FOREIGN KEY (tweet_id) REFERENCES Tweets(id) ON DELETE CASCADE ON UPDATE CASCADE
 );

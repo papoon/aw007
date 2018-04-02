@@ -2,6 +2,12 @@ from utils import *
 from constants import *
 
 def calculateTFIDF():
+    """
+    Calculates TF-IDF for all terms in all documents (articles and tweets).
+    Requires: no args.
+    Ensures: TF-IDF calculation for all terms in all documents and database
+    insertion of the values for posterior use in relevance calculations.
+    """
     #get entity terms from docs
     dictsList = entityAnnotation()
     #just some pointers for name clarification
@@ -85,8 +91,64 @@ def calculateTFIDF():
             #save TF-IDF in Tf_Idf_Tweets table
             saveTfIdfInformation(Table_Tf_Idf_Tweets, key, element[0], tf_idf_value)
 
+    #pass already calculated values to next method
+    return dictsList
+
+#NOT YET TESTED
+def calculateSimilarity(dictsList):
+    """
+    Calculates similarity between all diseases and all terms in all documents
+    (articles and tweets).
+    Requires: no args.
+    Ensures: TF-IDF calculation for all terms in all documents and database
+    insertion of the values for posterior use in relevance calculations.
+    """
+    #just some pointers for name clarification
+    articleTermsDict = dictsList[0]
+    tweetTermsDict = dictsList[1]
+
+    #get disease information
+    diseaseInfo = getAllDiseaseInformation()
+
+    #calculate similarity for article terms and save them
+    #iterate by all diseases
+    for disease in diseaseInfo:
+        #iterate by all articles
+        for key, value in articleTermsDict.items():
+            #articleTermsDict: key is tuple (article['did'], article['id']), value is list of terms
+            #list to keep all Resnik values for a given document
+            resnikValuesInDoc = []
+            #get unique terms from list of terms
+            uniqueTermsInDoc = set(value)
+            #calculate Resnik value between disease name and term and add to list
+            for term in uniqueTermsInDoc:
+                resnikValuesInDoc += [calculateSimilarity(term, disease['name'])]
+            #get minimum Resnik value and round it (rounded to 4 decimal cases)
+            resnik_value = round(min(resnikValuesInDoc), 4)
+            #save minimum Resnik value for this document
+            saveSimilarityInformation(Table_Sim_Articles, disease['id'], key[1], resnik_value)
+
+    #calculate similarity for tweet terms and save them
+    #iterate by all diseases
+    for disease in diseaseInfo:
+        #iterate by all tweets
+        for key, value in tweetTermsDict.items():
+            #tweetTermsDict: key is tuple (tweet['did'], tweet['id']), value is list of terms
+            #list to keep all Resnik values for a given document
+            resnikValuesInDoc = []
+            #get unique terms from list of terms
+            uniqueTermsInDoc = set(value)
+            #calculate Resnik value between disease name and term and add to list
+            for term in uniqueTermsInDoc:
+                resnikValuesInDoc += [calculateSimilarity(term, disease['name'])]
+            #get minimum Resnik value and round it (rounded to 4 decimal cases)
+            resnik_value = round(min(resnikValuesInDoc), 4)
+            #save minimum Resnik value for this document
+            saveSimilarityInformation(Table_Sim_Tweets, disease['id'], key[1], resnik_value)
+
 def buildInvertedIndex():
-    calculateTFIDF()
+    dictsList = calculateTFIDF()
+    calculateSimilarity(dictsList)
 
 #program entry point
 buildInvertedIndex()
