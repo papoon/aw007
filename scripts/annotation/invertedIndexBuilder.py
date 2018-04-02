@@ -122,33 +122,44 @@ def calculateSimilarity(dictsList):
             uniqueTermsInDoc = set(value)
             #calculate Resnik value between disease name and term and add to list
             for term in uniqueTermsInDoc:
-                resnikValuesInDoc += [calculateSimilarity(term, disease['name'])]
-            #get minimum Resnik value and round it (rounded to 4 decimal cases)
-            resnik_value = round(min(resnikValuesInDoc), 4)
-            #save minimum Resnik value for this document
-            saveSimilarityInformation(Table_Sim_Articles, disease['id'], key[1], resnik_value)
-
-    #calculate similarity for tweet terms and save them
-    #iterate by all diseases
-    for disease in diseaseInfo:
-        #iterate by all tweets
-        for key, value in tweetTermsDict.items():
-            #tweetTermsDict: key is tuple (tweet['did'], tweet['id']), value is list of terms
-            #list to keep all Resnik values for a given document
-            resnikValuesInDoc = []
-            #get unique terms from list of terms
-            uniqueTermsInDoc = set(value)
-            #calculate Resnik value between disease name and term and add to list
-            for term in uniqueTermsInDoc:
-                resnikValuesInDoc += [calculateSimilarity(term, disease['name'])]
-            #get minimum Resnik value and round it (rounded to 4 decimal cases)
-            resnik_value = round(min(resnikValuesInDoc), 4)
-            #save minimum Resnik value for this document
-            saveSimilarityInformation(Table_Sim_Tweets, disease['id'], key[1], resnik_value)
+                print(term, disease['name']) 
+                #resnikValuesInDoc += [processDishinOutput(callDishin(term, disease['name']))]
+    #        print(resnikValuesInDoc)
+    #         #get minimum Resnik value and round it (rounded to 4 decimal cases)
+    #         if len(resnikValuesInDoc) > 0:
+    #             resnik_value = round(min(resnikValuesInDoc), 4)
+    #         else:
+    #             resnik_value = 0.0000
+    #         #save minimum Resnik value for this document
+    #         saveSimilarityInformation(Table_Sim_Articles, disease['id'], key[1], resnik_value)
+    #
+    # #calculate similarity for tweet terms and save them
+    # #iterate by all diseases
+    # for disease in diseaseInfo:
+    #     #iterate by all tweets
+    #     for key, value in tweetTermsDict.items():
+    #         #tweetTermsDict: key is tuple (tweet['did'], tweet['id']), value is list of terms
+    #         #list to keep all Resnik values for a given document
+    #         resnikValuesInDoc = []
+    #         #get unique terms from list of terms
+    #         uniqueTermsInDoc = set(value)
+    #         #calculate Resnik value between disease name and term and add to list
+    #         for term in uniqueTermsInDoc:
+    #             resnikValuesInDoc += [processDishinOutput(callDishin(term, disease['name']))]
+    #         #get minimum Resnik value and round it (rounded to 4 decimal cases)
+    #         if len(resnikValuesInDoc) > 0:
+    #             resnik_value = round(min(resnikValuesInDoc), 4)
+    #         else:
+    #             resnik_value = 0.0000
+    #         #save minimum Resnik value for this document
+    #         saveSimilarityInformation(Table_Sim_Tweets, disease['id'], key[1], resnik_value)
 
 def buildInvertedIndex():
+    print("-> Cleaning tables")
     cleanTables()
+    print("-> Calculating TF-IDF")
     dictsList = calculateTFIDF()
+    print("-> Calculating Similarity")
     calculateSimilarity(dictsList)
 
 #program entry point
