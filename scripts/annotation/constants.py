@@ -1,11 +1,15 @@
 #path to the MER tool
 MER_path = '/home/kezhaya/Tools/MER'
 #MER_path = '/home/aw000/MER'
+MER_DB_path = 'data/doid-simple.owl'
 
 #path to the DiShIn tool
 DISHIN_path = '/home/kezhaya/Tools/DiShIn'
 DISHIN_py_path = DISHIN_path + '/dishin.py'
 DISHIN_DB_path = DISHIN_path + '/data/disease.db'
+
+#doid part to remove
+DOID_link = 'http://purl.obolibrary.org/obo/'
 
 #DISHIN_path = '/home/aw000/DiShIn'
 #DISHIN_py_path = DISHIN_path + '/dishin.py'

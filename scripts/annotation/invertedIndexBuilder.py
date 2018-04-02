@@ -23,7 +23,9 @@ def calculateTFIDF():
     #iterate by all articles
     for key, value in articleTermsDict.items():
         #key is tuple (article['did'], article['id'])
-        uniqueTermsInDoc = set(value)
+        #value is tuple (DOID, term)
+        term_list = [tup[1] for tup in value]
+        uniqueTermsInDoc = set(term_list)
         for term in uniqueTermsInDoc:
             #add to unique terms set
             uniqueTerms.add(term)
@@ -41,7 +43,9 @@ def calculateTFIDF():
     #iterate by all tweets
     for key, value in tweetTermsDict.items():
         #key is tuple (tweet['did'], tweet['id'])
-        uniqueTermsInDoc = set(value)
+        #value is tuple (DOID, term)
+        term_list = [tup[1] for tup in value]
+        uniqueTermsInDoc = set(term_list)
         for term in uniqueTermsInDoc:
             #add to unique terms set
             uniqueTerms.add(term)
@@ -115,15 +119,15 @@ def calculateSimilarity(dictsList):
     for disease in diseaseInfo:
         #iterate by all articles
         for key, value in articleTermsDict.items():
-            #articleTermsDict: key is tuple (article['did'], article['id']), value is list of terms
+            #articleTermsDict: key is tuple (article['did'], article['id'])
+            #                  value is list of tuples (DOID, term)
             #list to keep all Resnik values for a given document
             resnikValuesInDoc = []
-            #get unique terms from list of terms
-            uniqueTermsInDoc = set(value)
             #calculate Resnik value between disease name and term and add to list
-            for term in uniqueTermsInDoc:
-                print(term, disease['name']) 
-                #resnikValuesInDoc += [processDishinOutput(callDishin(term, disease['name']))]
+            for doid, term in value:
+                print(term, disease['name'])
+                print(callDishin(term, disease['name']))
+    #           resnikValuesInDoc += [processDishinOutput(callDishin(term, disease['name']))]
     #        print(resnikValuesInDoc)
     #         #get minimum Resnik value and round it (rounded to 4 decimal cases)
     #         if len(resnikValuesInDoc) > 0:
@@ -160,7 +164,7 @@ def buildInvertedIndex():
     print("-> Calculating TF-IDF")
     dictsList = calculateTFIDF()
     print("-> Calculating Similarity")
-    calculateSimilarity(dictsList)
+    #calculateSimilarity(dictsList)
 
 #program entry point
 buildInvertedIndex()
