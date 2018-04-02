@@ -25,6 +25,27 @@ def getDatabaseConnection():
                                  cursorclass=pymysql.cursors.DictCursor)
     return connection
 
+def cleanTables():
+    """
+    Deletes all records from TF-IDF and Similarity tables.
+    Requires: no args.
+    Ensures: clean slate for TF-IDF and Similarity tables.
+    """
+    listTables = [Table_Tf_Idf_Articles, Table_Tf_Idf_Tweets, Table_Sim_Articles, Table_Sim_Tweets]
+    connection = getDatabaseConnection()
+
+    try:
+        with connection.cursor() as cursor:
+            for table in listTables:
+                # create delete query
+                sql = "DELETE FROM  " + table + ";"
+                #execute insert query
+                cursor.execute(sql)
+                #commit explicitly (autocommit is off by default)
+                connection.commit()
+    finally:
+        connection.close()
+
 def getAllDiseaseInformation():
     """
     Gets all information needed for the DiShIn script to compare with terms.

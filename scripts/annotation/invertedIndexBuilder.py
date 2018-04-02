@@ -147,6 +147,7 @@ def calculateSimilarity(dictsList):
             saveSimilarityInformation(Table_Sim_Tweets, disease['id'], key[1], resnik_value)
 
 def buildInvertedIndex():
+    cleanTables()
     dictsList = calculateTFIDF()
     calculateSimilarity(dictsList)
 
