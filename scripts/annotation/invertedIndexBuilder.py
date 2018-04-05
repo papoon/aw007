@@ -131,13 +131,13 @@ def calculateSimilarity(dictsList):
             uniqueTermsInDoc = set(doid_list)
             #calculate Resnik value between disease do_id and term do_id and add to list
             for doid in uniqueTermsInDoc:
-                print('  Calculating similarity between ', disease['do_id'], ' and ' , term_doid)
+                print('  Calculating similarity between ', disease['do_id'], ' and ' , doid)
                 try:
-                    similarity = processDishinOutput(callDishin(disease['do_id'], term_doid))
+                    similarity = processDishinOutput(callDishin(disease['do_id'], doid))
                     if similarity is not None:
                         resnikValuesInDoc += [similarity]
                 except TypeError:
-                    print('  Not possible (None as a result), skipping...')
+                    print('  Not possible (None as a result), skipping...') #doesnt work
                     #catch the error and do nothing
                     pass
             #get minimum Resnik value and round it (rounded to 4 decimal cases)
@@ -163,13 +163,13 @@ def calculateSimilarity(dictsList):
             uniqueTermsInDoc = set(doid_list)
             #calculate Resnik value between disease do_id and term do_id and add to list
             for doid in uniqueTermsInDoc:
-                print('  Calculating similarity between ', disease['do_id'], ' and ' , term_doid)
+                print('  Calculating similarity between ', disease['do_id'], ' and ' , doid)
                 try:
-                    similarity = processDishinOutput(callDishin(disease['do_id'], term_doid))
+                    similarity = processDishinOutput(callDishin(disease['do_id'], doid))
                     if similarity is not None:
                         resnikValuesInDoc += [similarity]
                 except TypeError:
-                    print('  Not possible (None as a result), skipping...')
+                    print('  Not possible (None as a result), skipping...') #doesnt work
                     #catch the error and do nothing
                     pass
             #get minimum Resnik value and round it (rounded to 4 decimal cases)

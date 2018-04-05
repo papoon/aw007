@@ -93,7 +93,7 @@ def getAllTweetInformation():
     try:
         with connection.cursor() as cursor:
             # Read all tweet records
-            sql = "SELECT id, did, html FROM " + Table_Tweets 
+            sql = "SELECT id, did, html FROM " + Table_Tweets
             cursor.execute(sql)
             result = cursor.fetchall()
             return result
@@ -277,7 +277,6 @@ def processDishinOutput(resultText):
             #example ['Resnik ', ' DiShIn ', ' intrinsic ', '4.027']
             return float(lineParts[3])
 
-#NOT YET TESTED
 def saveSimilarityInformation(table, disease_id, id, resnik_value):
     """
     Save similarity Resnik values from DiShIn in the database.

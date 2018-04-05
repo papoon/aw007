@@ -1,11 +1,9 @@
 from utils import *
 from constants import *
-from callMER import *
 
 #program entry point
-diseaseInfo = getAllDiseaseInformation()
-#process information from diseases
-for disease in diseaseInfo:
-    print("Processing disease ", disease['name'])
-    #get list of of tuples (DOID, term) from MER
-    print(getDoidForDisease(disease['name']))
+try:
+    result = subprocess.run(["python3", DISHIN_py_path, DISHIN_DB_path, 'DOID_9970', 'DOID_2938'], \
+                            cwd=DISHIN_path, stdout=subprocess.PIPE)
+except:
+    print('oops')
