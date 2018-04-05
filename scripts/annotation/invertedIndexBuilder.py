@@ -106,6 +106,7 @@ def calculateSimilarity(dictsList):
     Requires: no args.
     Ensures: TF-IDF calculation for all terms in all documents and database
     insertion of the values for posterior use in relevance calculations.
+    TO IMPROVE: get an auxiliary method to process both dicts
     """
     #just some pointers for name clarification
     articleTermsDict = dictsList[0]
@@ -124,10 +125,21 @@ def calculateSimilarity(dictsList):
             #                  value is list of tuples (DOID, term)
             #list to keep all Resnik values for a given document
             resnikValuesInDoc = []
+            #get unique DOIDs
+            #value is tuple (DOID, term)
+            doid_list = [tup[0] for tup in value]
+            uniqueTermsInDoc = set(doid_list)
             #calculate Resnik value between disease do_id and term do_id and add to list
-            for term_doid, term in value:
+            for doid in uniqueTermsInDoc:
                 print('  Calculating similarity between ', disease['do_id'], ' and ' , term_doid)
-                resnikValuesInDoc += [processDishinOutput(callDishin(disease['do_id'], term_doid))]
+                try:
+                    similarity = processDishinOutput(callDishin(disease['do_id'], term_doid))
+                    if similarity is not None:
+                        resnikValuesInDoc += [similarity]
+                except TypeError:
+                    print('  Not possible (None as a result), skipping...')
+                    #catch the error and do nothing
+                    pass
             #get minimum Resnik value and round it (rounded to 4 decimal cases)
             if len(resnikValuesInDoc) > 0:
                 resnik_value = round(min(resnikValuesInDoc), 4)
@@ -145,12 +157,21 @@ def calculateSimilarity(dictsList):
             #tweetTermsDict: key is tuple (tweet['did'], tweet['id']), value is list of terms
             #list to keep all Resnik values for a given document
             resnikValuesInDoc = []
-            #get unique terms from list of terms
-            uniqueTermsInDoc = set(value)
+            #get unique DOIDs
+            #value is tuple (DOID, term)
+            doid_list = [tup[0] for tup in value]
+            uniqueTermsInDoc = set(doid_list)
             #calculate Resnik value between disease do_id and term do_id and add to list
-            for term_doid, term in uniqueTermsInDoc:
+            for doid in uniqueTermsInDoc:
                 print('  Calculating similarity between ', disease['do_id'], ' and ' , term_doid)
-                resnikValuesInDoc += [processDishinOutput(callDishin(disease['do_id'], term_doid))]
+                try:
+                    similarity = processDishinOutput(callDishin(disease['do_id'], term_doid))
+                    if similarity is not None:
+                        resnikValuesInDoc += [similarity]
+                except TypeError:
+                    print('  Not possible (None as a result), skipping...')
+                    #catch the error and do nothing
+                    pass
             #get minimum Resnik value and round it (rounded to 4 decimal cases)
             if len(resnikValuesInDoc) > 0:
                 resnik_value = round(min(resnikValuesInDoc), 4)
