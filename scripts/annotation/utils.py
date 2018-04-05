@@ -55,7 +55,7 @@ def getAllDiseaseInformation():
     try:
         with connection.cursor() as cursor:
             # Read all article records
-            sql = "SELECT id, name FROM " + Table_Disease
+            sql = "SELECT id, name, do_id FROM " + Table_Disease
             cursor.execute(sql)
             result = cursor.fetchall()
             return result
@@ -74,7 +74,7 @@ def getAllArticleInformation():
     try:
         with connection.cursor() as cursor:
             # Read all article records
-            sql = "SELECT id, did, title, abstract FROM " + Table_Article + " LIMIT 7"
+            sql = "SELECT id, did, title, abstract FROM " + Table_Article + " LIMIT 2"
             cursor.execute(sql)
             result = cursor.fetchall()
             return result
@@ -93,7 +93,7 @@ def getAllTweetInformation():
     try:
         with connection.cursor() as cursor:
             # Read all tweet records
-            sql = "SELECT id, did, html FROM " + Table_Tweets + " LIMIT 7"
+            sql = "SELECT id, did, html FROM " + Table_Tweets + " LIMIT 2"
             cursor.execute(sql)
             result = cursor.fetchall()
             return result
@@ -297,11 +297,11 @@ def saveSimilarityInformation(table, disease_id, id, resnik_value):
             if table == Table_Sim_Articles:
                 sql = "INSERT INTO " + Table_Sim_Articles + \
                       " (did, article_id, resnik_value) VALUES (" + \
-                      str(did) + ", "  + str(id) + ', ' + str(resnik_value) + ");"
+                      str(disease_id) + ", "  + str(id) + ', ' + str(resnik_value) + ");"
             elif table == Table_Sim_Tweets:
                 sql = "INSERT INTO " + Table_Sim_Tweets + \
                       " (did, tweet_id, resnik_value) VALUES (" + \
-                      str(did) + ", "  + str(id) + ', ' + str(resnik_value) + ");"
+                      str(disease_id) + ", "  + str(id) + ', ' + str(resnik_value) + ");"
             else:
                 raise ValueError('Table name: valid values are Similarity_Articles and Similarity_Tweets (see constants).')
 
