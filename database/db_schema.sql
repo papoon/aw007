@@ -1,3 +1,7 @@
+DROP TABLE IF EXISTS Tf_Idf_Articles;
+DROP TABLE IF EXISTS Tf_Idf_Tweets;
+DROP TABLE IF EXISTS Similarity_Articles;
+DROP TABLE IF EXISTS Similarity_Tweets;
 DROP TABLE IF EXISTS Article_Author;
 DROP TABLE IF EXISTS Article;
 DROP TABLE IF EXISTS Photos;
@@ -93,6 +97,42 @@ ADD COLUMN `authors` VARCHAR(500) NULL AFTER `article_revision_date`;
 ALTER TABLE `Article`
 ADD COLUMN `article_id` INT(11) NULL AFTER `did`;
 
-ALTER TABLE `Tweets` 
+ALTER TABLE `Tweets`
 ADD COLUMN `html` TEXT NULL AFTER `country`;
 
+ALTER TABLE `Disease`
+ADD COLUMN `do_id` VARCHAR(50) NULL AFTER `dbpedia_revision_id`;
+
+CREATE TABLE Tf_Idf_Articles (
+	term VARCHAR(150),
+	article_id INT(11),
+	tf_idf_value NUMERIC(8, 4),
+	PRIMARY KEY (term, article_id),
+	FOREIGN KEY (article_id) REFERENCES Article(id) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+CREATE TABLE Tf_Idf_Tweets (
+	term VARCHAR(150),
+	tweet_id INT(11),
+	tf_idf_value NUMERIC(8, 4),
+	PRIMARY KEY (term, tweet_id),
+	FOREIGN KEY (tweet_id) REFERENCES Tweets(id) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+CREATE TABLE Similarity_Articles (
+	did INT(11),
+	article_id INT(11),
+	resnik_value NUMERIC(8, 4),
+	PRIMARY KEY (did, article_id),
+	FOREIGN KEY (did) REFERENCES Disease(id) ON DELETE CASCADE ON UPDATE CASCADE,
+	FOREIGN KEY (article_id) REFERENCES Article(id) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+CREATE TABLE Similarity_Tweets (
+	did INT(11),
+	tweet_id INT(11),
+	resnik_value NUMERIC(8, 4),
+	PRIMARY KEY (did, tweet_id),
+	FOREIGN KEY (did) REFERENCES Disease(id) ON DELETE CASCADE ON UPDATE CASCADE,
+	FOREIGN KEY (tweet_id) REFERENCES Tweets(id) ON DELETE CASCADE ON UPDATE CASCADE
+);

@@ -15,6 +15,7 @@
       private $numberDiseases;
       const ARTICLE_FROM_DATE = '2017/01/01';
       const NULL = 'NULL';
+      const MER_Python_path = './callMER.py';
 
       //generic construct
       public function __construct($numberDiseases=10) {
@@ -23,13 +24,47 @@
           $this->numberDiseases = $numberDiseases;
       }
 
+      // get $this->numberDiseases diseases with valid DOIDs
+      public function getDiseasesWithDOID() {
+
+          $diseasesToReturn = [];
+
+          // here lies Mjolnir, the Hammer of Thor
+          // TO IMPROVE: ideally the requests to pubmed should be done iteratively
+          $dbPediaDiseases = new DBPediaDiseases($this->numberDiseases * 2);
+          $diseases = $dbPediaDiseases->getDiseases();
+
+          # only retain diseases with valid DOIDs
+          foreach($diseases as $disease) {
+
+            $command = escapeshellcmd('python3 ' . self::MER_Python_path . ' "' . $disease['label']['value'] . '"');
+            $output = shell_exec($command);
+            # if string does not start with No DOID found
+            if (strpos($output, 'No DOID found') !== 0) {
+               #remove multiple spaces and newlines at the end
+               $output = trim(preg_replace('/\s\s+/', ' ', $output));
+               $diseasesToReturn[$output] = $disease;
+               echo " ".$disease['label']['value'].PHP_EOL;
+            }
+
+            # if we reach the limit of needed diseases, return info
+            if (count($diseasesToReturn) == $this->numberDiseases) {
+               return $diseasesToReturn;
+            }
+          }
+      }
+
       //use this operation when database is empty
       public function getAllData() {
 
           //**************table Disease*****************
           //get the information for the needed number of diseases
-          $dbPediaDiseases = new DBPediaDiseases($this->numberDiseases);
-          $diseases = $dbPediaDiseases->getDiseases();
+          //$dbPediaDiseases = new DBPediaDiseases($this->numberDiseases);
+          //$diseases = $dbPediaDiseases->getDiseases();
+
+          echo "Getting diseases: ".PHP_EOL;
+
+          $diseases = $this->getDiseasesWithDOID();
           $diseaseIdsNames = [];
 
           //get current date
@@ -37,7 +72,7 @@
           $currentDateStr = $currentDate->format('Y-m-d H:i:s');
 
           //insert disease information in the database
-          foreach($diseases as $disease){
+          foreach($diseases as $doid => $disease){
 
             //escape text for apostrofes and other string breakers (security issues)
             $diseaseName = mysqli_real_escape_string($this->dbLink, $disease['label']['value']);
@@ -49,6 +84,7 @@
             $values = array($diseaseName,                             //name
                             $disease['wikiPageID']['value'],          //dbpedia_id
                             $disease['wikiPageRevisionID']['value'],  //dbpedia_revision_id
+                            $doid,                                    //do_id
                             $abstract,                                //abstract
                             $disease['thumbnail']['value'],           //thumbnail
                             $disease['name']['value'],                //uri
@@ -361,7 +397,8 @@
         $twitter_embed = $twitter_embed->getResponse();
 
         //escape text for apostrofes and other string breakers (security issues)
-        $authorName = mysqli_real_escape_string($this->dbLink, $twitter->getAuthorName($tweet));
+        $authorName = str_replace('"', '', $twitter->getAuthorName($tweet)); //remove quotation marks
+        $authorName = mysqli_real_escape_string($this->dbLink, $authorName);
         $userName = mysqli_real_escape_string($this->dbLink, $twitter->getUsername($tweet));
 
         //set default value for location string (what is kept in case of no location
