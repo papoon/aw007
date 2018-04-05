@@ -40,7 +40,7 @@
             return $response;
         }
 
-        public function isPubmedArticle() {  
+        public function isPubmedArticle() {
             return array_key_exists('PubmedArticle', $this->obj);
         }
 
@@ -184,34 +184,40 @@
 
             $article = $this->getArticle();
 
-            $authors = $article['AuthorList']['Author'];
-
             $authorsNames = array();
 
-            if(array_key_exists('ForeName',$authors)){
-                $lastName = $authors['LastName'];
-                $firsName = $authors['ForeName'];
-                $initials = $authors['Initials'];
+            if(array_key_exists('AuthorList',$article)) {
 
-                $authorsNames[] = $lastName.', '.$firsName.', '.$initials;
-            }
-            elseif(array_key_exists('CollectiveName',$authors)){
-                //collective author
-                $authorsNames[] = $authors['CollectiveName'];
-            }
-            else {
-                foreach($authors as $key=>$author){
-                    //collective author
-                    if(!array_key_exists('ForeName',$author)){
-                      $authorsNames[] = $author['CollectiveName'];
-                    } else {
-                      $lastName = $author['LastName'];
-                      $firsName = $author['ForeName'];
-                      $initials = $author['Initials'];
+              $authors = $article['AuthorList']['Author'];
 
-                      $authorsNames[] = $lastName.', '.$firsName.', '.$initials;
-                    }
-                }
+              if(array_key_exists('ForeName',$authors)){
+                  $lastName = $authors['LastName'];
+                  $firsName = $authors['ForeName'];
+                  $initials = $authors['Initials'];
+
+                  $authorsNames[] = $lastName.', '.$firsName.', '.$initials;
+              }
+              else if(array_key_exists('CollectiveName',$authors)){
+                  //collective author
+                  $authorsNames[] = $authors['CollectiveName'];
+              }
+              else if(array_key_exists('LastName',$authors)) {
+                  $authorsNames[] = $authors['LastName'];
+              }
+              else {
+                  foreach($authors as $key=>$author){
+                      //collective author
+                      if(!array_key_exists('ForeName',$author)){
+                        $authorsNames[] = $author['CollectiveName'];
+                      } else {
+                        $lastName = $author['LastName'];
+                        $firsName = $author['ForeName'];
+                        $initials = $author['Initials'];
+
+                        $authorsNames[] = $lastName.', '.$firsName.', '.$initials;
+                      }
+                  }
+              }
             }
 
             return $authorsNames;
