@@ -1,3 +1,7 @@
+DROP TABLE IF EXISTS Tf_Idf_Articles;
+DROP TABLE IF EXISTS Tf_Idf_Tweets;
+DROP TABLE IF EXISTS Similarity_Articles;
+DROP TABLE IF EXISTS Similarity_Tweets;
 DROP TABLE IF EXISTS Article_Author;
 DROP TABLE IF EXISTS Article;
 DROP TABLE IF EXISTS Photos;
@@ -96,8 +100,8 @@ ADD COLUMN `article_id` INT(11) NULL AFTER `did`;
 ALTER TABLE `Tweets`
 ADD COLUMN `html` TEXT NULL AFTER `country`;
 
-DROP TABLE IF EXISTS Tf_Idf_Articles;
-DROP TABLE IF EXISTS Tf_Idf_Tweets;
+ALTER TABLE `Disease`
+ADD COLUMN `do_id` VARCHAR(50) NULL AFTER `dbpedia_revision_id`;
 
 CREATE TABLE Tf_Idf_Articles (
 	term VARCHAR(150),
@@ -114,9 +118,6 @@ CREATE TABLE Tf_Idf_Tweets (
 	PRIMARY KEY (term, tweet_id),
 	FOREIGN KEY (tweet_id) REFERENCES Tweets(id) ON DELETE CASCADE ON UPDATE CASCADE
 );
-
-DROP TABLE IF EXISTS Similarity_Articles;
-DROP TABLE IF EXISTS Similarity_Tweets;
 
 CREATE TABLE Similarity_Articles (
 	did INT(11),

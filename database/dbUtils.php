@@ -74,6 +74,7 @@
           $result[] = array("val"=>$valuesArray[$i++], "type"=>"char");  //name
           $result[] = array("val"=>$valuesArray[$i++], "type"=>"int");   //dbpedia_id
           $result[] = array("val"=>$valuesArray[$i++], "type"=>"int");   //dbpedia_revision_id
+          $result[] = array("val"=>$valuesArray[$i++], "type"=>"char");  //do_id
           $result[] = array("val"=>$valuesArray[$i++], "type"=>"char");  //abstract
           $result[] = array("val"=>$valuesArray[$i++], "type"=>"char");  //thumbnail
           $result[] = array("val"=>$valuesArray[$i++], "type"=>"char");  //uri
@@ -154,6 +155,7 @@
           $valuesStr .= 'name,';
           $valuesStr .= 'dbpedia_id,';
           $valuesStr .= 'dbpedia_revision_id,';
+          $valuesStr .= 'do_id,';
           $valuesStr .= 'abstract,';
           $valuesStr .= 'thumbnail,';
           $valuesStr .= 'uri,';
@@ -247,6 +249,7 @@
             echo '<p>'.$rows['name'].'</p>';
             echo '<p>'.$rows['dbpedia_id'].'</p>';
             echo '<p>'.$rows['dbpedia_revision_id'].'</p>';
+            echo '<p>'.$rows['do_id'].'</p>';
             echo '<p>'.$rows['abstract'].'</p>';
             echo '<p>'.$rows['thumbnail'].'</p>';
             echo '<p>'.$rows['uri'].'</p>';

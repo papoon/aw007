@@ -5,9 +5,6 @@ import pymysql.cursors
 import subprocess
 import math
 from constants import *
-
-import sys
-sys.path.insert(0, '../../private/')
 from pythonPrivate import *
 
 def getDatabaseConnection():
