@@ -159,7 +159,6 @@ def calculateSimilarity(dictsList):
     Requires: no args.
     Ensures: TF-IDF calculation for all terms in all documents and database
     insertion of the values for posterior use in relevance calculations.
-    TO IMPROVE: get an auxiliary method to process both dicts
     """
     #just some pointers for name clarification
     articleTermsDict = dictsList[0]
@@ -170,11 +169,29 @@ def calculateSimilarity(dictsList):
 
     #calculate similarity for article terms and save them
     print(' Calculating similarity between Article terms and Disease names')
+    #call auxiliary method for Articles
+    auxSimilarity(diseaseInfo, articleTermsDict, Table_Sim_Articles)
+
+    #calculate similarity for tweet terms and save them
+    print(' Calculating similarity between Tweet terms and Disease names')
+    #call auxiliary method for Tweets
+    auxSimilarity(diseaseInfo, tweetTermsDict, Table_Sim_Tweets)
+
+def auxSimilarity(diseaseInfo, termsDict, tableToSave):
+    """
+    Auxiliary function to calculate similarity between all diseases and all terms
+    in all documents in a dictionary (articles or tweets).
+    Requires: diseaseInfo, result of getAllDiseaseInformation method;
+              termsDict, dict of article terms or tweet terms;
+              tableToSave, variable Table_Sim_Articles or Table_Sim_Tweets.
+    Ensures: TF-IDF calculation for all terms in all given documents and database
+    insertion of the values for posterior use in relevance calculations.
+    """
     #iterate by all diseases
     for disease in diseaseInfo:
-        #iterate by all articles
-        for key, value in articleTermsDict.items():
-            #articleTermsDict: key is tuple (article['did'], article['id'])
+        #iterate by all docs in dict
+        for key, value in termsDict.items():
+            #termsDict: key is tuple (doc['did'], doc['id'])
             #                  value is list of tuples (DOID, term)
             #list to keep all Resnik values for a given document
             resnikValuesInDoc = []
@@ -199,36 +216,4 @@ def calculateSimilarity(dictsList):
             else:
                 resnik_value = 0.0000
             #save minimum Resnik value for this document
-            saveSimilarityInformation(Table_Sim_Articles, disease['id'], key[1], resnik_value)
-
-    #calculate similarity for tweet terms and save them
-    print(' Calculating similarity between Tweet terms and Disease names')
-    #iterate by all diseases
-    for disease in diseaseInfo:
-        #iterate by all tweets
-        for key, value in tweetTermsDict.items():
-            #tweetTermsDict: key is tuple (tweet['did'], tweet['id']), value is list of terms
-            #list to keep all Resnik values for a given document
-            resnikValuesInDoc = []
-            #get unique DOIDs
-            #value is tuple (DOID, term)
-            doid_list = [tup[0] for tup in value]
-            uniqueTermsInDoc = set(doid_list)
-            #calculate Resnik value between disease do_id and term do_id and add to list
-            for doid in uniqueTermsInDoc:
-                print('  Calculating similarity between ', disease['do_id'], ' and ' , doid)
-                try:
-                    similarity = processDishinOutput(callDishin(disease['do_id'], doid))
-                    if similarity is not None:
-                        resnikValuesInDoc += [similarity]
-                except TypeError:
-                    print('  Not possible (None as a result), skipping...') #doesnt work
-                    #catch the error and do nothing
-                    pass
-            #get minimum Resnik value and round it (rounded to 4 decimal cases)
-            if len(resnikValuesInDoc) > 0:
-                resnik_value = round(min(resnikValuesInDoc), 4)
-            else:
-                resnik_value = 0.0000
-            #save minimum Resnik value for this document
-            saveSimilarityInformation(Table_Sim_Tweets, disease['id'], key[1], resnik_value)
+            saveSimilarityInformation(tableToSave, disease['id'], key[1], resnik_value)
