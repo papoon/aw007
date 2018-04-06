@@ -2,105 +2,99 @@
 
     {% block content %}
     <!-- Page Content -->
-        <div class="container">
+        
 
-            <!-- Page Heading -->
-            <div class="row">
-
-                <div class="page-header">
-                        <h2>Documentation<small> 2017/2018</small></h2>
-
-                         <div class="btn-group pull-right" role="group" aria-label="...">
-                        <a class="github-button btn btn-default" data-size="large" href="https://github.com/papoon/aw007" aria-label="Follow our project!">Check our repository!</a>
-                        </div>
-                </div>
+    
 
 
-            </div>
-
-
-            <div class="row">
-                <!-- git hub button -->
-
-            </div>
-
-            <div class="row">
-
-                    <p>
-
-                    The AW 2017/18 project was developed by Fábio Martins (fc48393), Joana Matos (fc50074), Rodrigo Matos (fc33451) and Sara Gonçalves (fc50254). The project consists in creating a semantic search engine for diseases and scientific articles, with the following components:
-
-                    </p>
-
-                    <ul>
-                      <li><strong>Data Collection:</strong> collecting text and data about diseases (Demo I)</li>
-                      <li><strong>Data Annotation: </strong> create semantic links between the collected data (Demo II)</li>
-                      <li><strong>Data Access: </strong> make the information available as a web service and as dynamic web page</li>
-                    </ul>
-
-                    <p>
-                    This project was mainly developed using the PHP Language and it can be divided in two main modules: data collection and data visualization. The first module (<i>DataCollector</i>) should be run separately by the command line. The <i>DataCollector</i> has two main functions: startCollection and updateCollection. These should be used when the data base is empty or it already has data stored, respectively. The data is stored in a relational database management systems that was designed specifically for this project. The model of this database can be found <a href="https://drive.google.com/file/d/12ylGV0rK8K62BQlt1HvSy_TAsGFAZOma/view?usp=sharing">here</a>.
-                    The project architecture is based on a Model–view–controller (MVC) that is commonly used for developing user interfaces and divides an application into three interconnected parts. This is done to separate internal representations of information from the ways information is presented to and accepted from the user. The MVC design pattern decouples these major components allowing for efficient code reuse and parallel development.
-                    </p>
-            </div>
-
-            <div class="row">
-                <h4> <b> Files Architecture </b> </h4>
-
-                <p></p>
-                    <ul>
-                        <li><h5>dataCollector </h5>
-                            <ul>
-                                <li> <b>dataCollector</b>: starts data collection </li>
-                                <li> <b>startCollection</b>: gathers all data when the table is empty</li>
-                                <li> <b>updateCollection</b>: updates information already stored in the table </li>
-                            </ul>
-                        </li>
-
-                        <li><h5>public_html</h5>
-                            <ul>
-                                <li> <a href="documentation" target="_BLANK">Documentation</a>: this document </li>
-                                <li> <a href="diseases" target="_BLANK">Diseases</a>: displays diseases stored on database </li>
-                            </ul>
-                        </li>
-
-
-                    </ul>
-            </div>
-            <div class="row">
-                <h4><b> API's Used for obtaining data</b></h4>
-
-                <ul>
-                <li><a href="http://dbpedia.org/sparql/"><strong>DBPedia</strong></a>: used to collect related metadata for each disease </li>
-
-                <li><a href="https://developer.twitter.com/en/docs/api-reference-index"><strong>Twitter</strong></a>: used to collect related posts for each disease </li>
-
-                <li><a href="https://www.flickr.com/services/api/"><strong>Flicker</strong></a>: used to collect related pictures for each disease </li>
-
-                <li><a href="https://www.flickr.com/services/api/"><strong>PubMed</strong></a>: used to collect related articles for each disease </li>
-                </ul>
-
-            </div>
-            <div class="row">
-
-                <h4><b> External Resources</b></h4>
-
-                <ul>
-                <li> <a href="https://getbootstrap.com/docs/4.0/getting-started/introduction/"><strong>Bootstrap</strong></a>: Bootstrap is an open source toolkit for developing with HTML, CSS, and JS. It allows to quickly prototype ideas or build entire app with Sass variables and mixins, responsive grid system, extensive prebuilt components, and powerful plugins built on jQuery.</li>
-
-                <li> <a href="https://twig.symfony.com/doc/2.x/intro.html"><strong>Twig</strong></a> A designer and developer friendly by sticking to PHP's principles and adding functionality useful for templating environments. Twig compiles templates down to plain optimized PHP code. The overhead compared to regular PHP code was reduced to the very minimum. Twig has a sandbox mode to evaluate untrusted template code. This allows Twig to be used as a template language for applications where users may modify the template design. Twig is powered by a flexible lexer and parser. This allows the developer to define their own custom tags and filters, and to create their own DSL.</li>
-
-
-                <li> <a href="https://mariadb.org/learn/"><strong>MariaDB</strong></a> MariaDB Server is one of the most popular database servers in the world. It’s made by the original developers of MySQL and guaranteed to stay open source. MariaDB turns data into structured information in a wide array of applications, ranging from banking to websites. It is an enhanced, drop-in replacement for MySQL. MariaDB is used because it is fast, scalable and robust, with a rich ecosystem of storage engines, plugins and many other tools make it very versatile for a wide variety of use cases.</li>
-
-                <li> <a href="http://www.chartjs.org"><strong>Chart.js</strong></a> Simple yet flexible JavaScript charting for designers & developers.</li>
-
-                </ul>
-
-            </div>
-
+    <div class="row">
+        <!-- git hub button -->
 
     </div>
+
+    <div class="row">
+        <div class="col-sm-12">
+            <p>
+
+            The AW 2017/18 project was developed by Fábio Martins (fc48393), Joana Matos (fc50074), Rodrigo Matos (fc33451) and Sara Gonçalves (fc50254). The project consists in creating a semantic search engine for diseases and scientific articles, with the following components:
+
+            </p>
+
+            <ul>
+                <li><strong>Data Collection:</strong> collecting text and data about diseases (Demo I)</li>
+                <li><strong>Data Annotation: </strong> create semantic links between the collected data (Demo II)</li>
+                <li><strong>Data Access: </strong> make the information available as a web service and as dynamic web page</li>
+            </ul>
+
+            <p>
+            This project was mainly developed using the PHP Language and it can be divided in two main modules: data collection and data visualization. The first module (<i>DataCollector</i>) should be run separately by the command line. The <i>DataCollector</i> has two main functions: startCollection and updateCollection. These should be used when the data base is empty or it already has data stored, respectively. The data is stored in a relational database management systems that was designed specifically for this project. The model of this database can be found <a href="https://drive.google.com/file/d/12ylGV0rK8K62BQlt1HvSy_TAsGFAZOma/view?usp=sharing">here</a>.
+            The project architecture is based on a Model–view–controller (MVC) that is commonly used for developing user interfaces and divides an application into three interconnected parts. This is done to separate internal representations of information from the ways information is presented to and accepted from the user. The MVC design pattern decouples these major components allowing for efficient code reuse and parallel development.
+            </p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-12">
+            <h4> <b> Files Architecture </b> </h4>
+
+            <p></p>
+            <ul>
+                <li><h5>dataCollector </h5>
+                    <ul>
+                        <li> <b>dataCollector</b>: starts data collection </li>
+                        <li> <b>startCollection</b>: gathers all data when the table is empty</li>
+                        <li> <b>updateCollection</b>: updates information already stored in the table </li>
+                    </ul>
+                </li>
+
+                <li><h5>public_html</h5>
+                    <ul>
+                        <li> <a href="documentation" target="_BLANK">Documentation</a>: this document </li>
+                        <li> <a href="diseases" target="_BLANK">Diseases</a>: displays diseases stored on database </li>
+                    </ul>
+                </li>
+
+
+            </ul>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <h4><b> API's Used for obtaining data</b></h4>
+
+            <ul>
+            <li><a href="http://dbpedia.org/sparql/"><strong>DBPedia</strong></a>: used to collect related metadata for each disease </li>
+
+            <li><a href="https://developer.twitter.com/en/docs/api-reference-index"><strong>Twitter</strong></a>: used to collect related posts for each disease </li>
+
+            <li><a href="https://www.flickr.com/services/api/"><strong>Flicker</strong></a>: used to collect related pictures for each disease </li>
+
+            <li><a href="https://www.flickr.com/services/api/"><strong>PubMed</strong></a>: used to collect related articles for each disease </li>
+            </ul>
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <h4><b> External Resources</b></h4>
+
+            <ul>
+            <li> <a href="https://getbootstrap.com/docs/4.0/getting-started/introduction/"><strong>Bootstrap</strong></a>: Bootstrap is an open source toolkit for developing with HTML, CSS, and JS. It allows to quickly prototype ideas or build entire app with Sass variables and mixins, responsive grid system, extensive prebuilt components, and powerful plugins built on jQuery.</li>
+
+            <li> <a href="https://twig.symfony.com/doc/2.x/intro.html"><strong>Twig</strong></a> A designer and developer friendly by sticking to PHP's principles and adding functionality useful for templating environments. Twig compiles templates down to plain optimized PHP code. The overhead compared to regular PHP code was reduced to the very minimum. Twig has a sandbox mode to evaluate untrusted template code. This allows Twig to be used as a template language for applications where users may modify the template design. Twig is powered by a flexible lexer and parser. This allows the developer to define their own custom tags and filters, and to create their own DSL.</li>
+
+
+            <li> <a href="https://mariadb.org/learn/"><strong>MariaDB</strong></a> MariaDB Server is one of the most popular database servers in the world. It’s made by the original developers of MySQL and guaranteed to stay open source. MariaDB turns data into structured information in a wide array of applications, ranging from banking to websites. It is an enhanced, drop-in replacement for MySQL. MariaDB is used because it is fast, scalable and robust, with a rich ecosystem of storage engines, plugins and many other tools make it very versatile for a wide variety of use cases.</li>
+
+            <li> <a href="http://www.chartjs.org"><strong>Chart.js</strong></a> Simple yet flexible JavaScript charting for designers & developers.</li>
+
+            </ul>
+        </div>
+
+    </div>
+
+
+    
 
 
 

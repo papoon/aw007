@@ -2,74 +2,40 @@
 
 {% block content %}
 
-
-
-<!-- Page Content -->
-<div class="container">
-
-    <!-- Page Heading -->
-    <div class="row">
-        <div class="page-header">
-            <h1>Web Applications <small> 2017/2018</small></h1>
-        </div>
-
-    </div>
-    <!-- /.row -->
-
     <div class="row">
         <div class="col-md-12">
-                <div class="panel panel-default">
-                    <div class="panel-body">
-                        <h2 style="text-align:center">Introduction</h2>
-                        <div class="row contentText">
-                                The AW 2017/18 project consists in creating a semantic search engine for diseases and scientific articles, with the following components:
-                                <ul>
-                                    <li><b>Data Collection:</b> collecting text and data about diseases (Demo I)</li>
-                                    <li><b>Data Annotation:</b> create semantic links between the collected data (Demo II)</li>
-                                    <li><b>Data Access:</b> make the information available as a web service and as dynamic web page.</li>
-                                </ul>
-                        </div>
-                        <div class="row contentText">
-                            <div class="col-sm-12">
-                                <h3 style="text-align:center">Data Collection</h3>
-                            </div>
-                        </div>
-                        <div class="col-sm-6 col-md-4 text-center">
-                            <div class="thumbnail">
-                                <img src="assets/images/diseases.png" alt="diseases" class="img-responsive" style="min-height:300px; max-height:300px; width:100%;">
-                                <div class="caption">
-                                        <a href="diseases" class="btn btn-primary btn-lg" role="button">Diseases</a>
-                                    <p></p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-6 col-md-4 text-center">
-                            <div class="thumbnail">
-                                <img src="assets/images/statistics.png" alt="statistics" class="img-responsive" style="min-height:300px; max-height:300px; width:100%;">
-                                <div class="caption">
-                                        <a href="statistics" class="btn btn-primary btn-lg" role="button">Statistics</a>
-                                    <p></p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-6 col-md-4 text-center">
-                            <div class="thumbnail">
-                                <img src="assets/images/documentation.png" alt="documentation" class="img-responsive" style="min-height:300px; max-height:300px; width:100%;">
-                                <div class="caption">
-                                        <a href="documentation"  target="_BLANK" class="btn btn-primary btn-lg" role="button">Documentation</a>
-                                    <p></p>
-                                </div>
-                            </div>
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <h2 style="text-align:center">Introduction</h2>
+                    <div class="row contentText">
+                        <div class="col-sm-12">
+                            The AW 2017/18 project consists in creating a semantic search engine for diseases and scientific articles, with the following components:
+                            <ul>
+                                <li><b>Data Collection:</b> collecting text and data about diseases (Demo I)</li>
+                                <li><b>Data Annotation:</b> create semantic links between the collected data (Demo II)</li>
+                                <li><b>Data Access:</b> make the information available as a web service and as dynamic web page.</li>
+                            </ul>
                         </div>
                     </div>
                 </div>
+            </div>
+            <div class="row">
+                
+                <div class="col-sm-12">
+                        
+                    <form onsubmit="return false;" class="pure-form" style="border-top: 1px solid #eee;border-bottom:1px solid #eee;background:#fafafa;margin:30px 0;padding:20px 10px;text-align:center">
+                        <h3> Search <span class="glyphicon glyphicon-search" aria-hidden="true"></span></h3>
+                        <input id="hero-demo" autofocus="" type="text" name="q" placeholder="Diseases..." style="width:100%;max-width:600px;outline:0" autocomplete="off">
+                    </form>
+                </div>
+            </div>
         </div>
-
     </div>
-</div>
+
 
 {% endblock content %}
 
 {% block footer %}
-
+    <!-- autocomplete js -->
+    <script src="/aw007/assets/js/autocomplete_test.js"></script>
 {% endblock footer %}
