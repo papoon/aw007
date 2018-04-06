@@ -97,6 +97,43 @@ def getAllTweetInformation():
     finally:
         connection.close()
 
+def saveMERTermsInformation(table, term, id, pos_start, pos_end):
+    """
+    Save MER terms and respective positions in documents in the database.
+    Requires: table, where to save the information (please use Table_MER_Terms_Articles
+              or Table_MER_Terms_Tweets constants);
+              term, the term associated to the positions and document;
+              id, document database id (Articles(id) or Tweets(id) depending on table argument);
+              pos_start, starting position of the term in the given document;
+              pos_end, end position of the term in the given document.
+    Ensures: saves the positions for given term in a given document in the
+    respective table.
+    """
+    connection = getDatabaseConnection()
+
+    try:
+        with connection.cursor() as cursor:
+            # create insert query
+            if table == Table_MER_Terms_Articles:
+                sql = "INSERT INTO " + Table_MER_Terms_Articles + \
+                      " (term, article_id, pos_start, pos_end) VALUES ('" + \
+                      term + "', "  + str(id) + ', ' + str(pos_start) + \
+                      ', ' + str(pos_end) + ");"
+            elif table == Table_MER_Terms_Tweets:
+                sql = "INSERT INTO " + Table_MER_Terms_Articles + \
+                      " (term, tweet_id, pos_start, pos_end) VALUES ('" + \
+                      term + "', "  + str(id) + ', ' + str(pos_start) + \
+                      ', ' + str(pos_end) + ");"
+            else:
+                raise ValueError('Table name: valid values are Table_MER_Terms_Articles and Table_MER_Terms_Tweets (see constants).')
+
+            #execute insert query
+            cursor.execute(sql)
+            #commit explicitly (autocommit is off by default)
+            connection.commit()
+    finally:
+        connection.close()
+
 def saveTfIdfInformation(table, term, id, tf_idf_value):
     """
     Save TF-IDF values in the database.
