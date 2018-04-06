@@ -2,7 +2,7 @@ from sys import argv
 import sys
 sys.path.insert(0, '../scripts/annotation/')
 
-from utils import processEntitiesMER, callGetLinkEntitiesMER
+from MERUtils import processEntitiesMER, callGetLinkEntitiesMER
 from constants import *
 
 def getDoidForDisease(diseaseName):
