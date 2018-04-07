@@ -19,14 +19,35 @@ def getDatabaseConnection():
                                  cursorclass=pymysql.cursors.DictCursor)
     return connection
 
-def cleanTables():
+def cleanCalculationTables():
     """
-    Deletes all records from TF-IDF and Similarity tables.
+    Deletes all records from MER terms, TF-IDF and Similarity tables.
     Requires: no args.
-    Ensures: clean slate for TF-IDF and Similarity tables.
+    Ensures: clean slate for MER terms, TF-IDF and Similarity tables.
     """
     listTables = [Table_Tf_Idf_Articles, Table_Tf_Idf_Tweets, Table_Sim_Articles, \
                   Table_Sim_Tweets, Table_MER_Terms_Articles, Table_MER_Terms_Tweets]
+    connection = getDatabaseConnection()
+
+    try:
+        with connection.cursor() as cursor:
+            for table in listTables:
+                # create delete query
+                sql = "DELETE FROM  " + table + ";"
+                #execute insert query
+                cursor.execute(sql)
+                #commit explicitly (autocommit is off by default)
+                connection.commit()
+    finally:
+        connection.close()
+
+def cleanIndexTables():
+    """
+    Deletes all records from Inverted Index tables.
+    Requires: no args.
+    Ensures: clean slate for Inverted Index tables.
+    """
+    listTables = []
     connection = getDatabaseConnection()
 
     try:

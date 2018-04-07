@@ -7,12 +7,9 @@ from calcUtils import *
 from constants import *
 
 def buildInvertedIndex():
-    print("-> Cleaning tables")
-    cleanTables()
-    print("-> Calculating TF-IDF")
-    dictsList = calculateTFIDF()
-    print("-> Calculating Similarity")
-    calculateSimilarity(dictsList)
+    print("-> Building Inverted Index")
+    cleanIndexTables()
+
 
 #program entry point
 buildInvertedIndex()
