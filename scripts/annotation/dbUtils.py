@@ -224,6 +224,7 @@ def saveSimilarityInformation(table, disease_id, id, resnik_value):
     finally:
         connection.close()
 
+#NOT YET TESTED
 def saveInvertedIndexInformation(table, disease_id, id, rank, tf_idf_value, resnik_value, imp_feedback, \
                                  exp_feedback, published_at):
     """
@@ -237,7 +238,7 @@ def saveInvertedIndexInformation(table, disease_id, id, rank, tf_idf_value, resn
               imp_feedback, the value for implicit feedback to save (clicks for Articles, nr_likes for Tweets);
               exp_feedback, the value for explicit feedback to save (relevamce for Articles and Tweets);
               published_at, the date of publication of the document.
-    Ensures: saves the Resnik value for a given disease and a given document in the
+    Ensures: saves the Inverted index value for a given disease and a given document in the
     respective table.
     """
     connection = getDatabaseConnection()
@@ -265,6 +266,7 @@ def saveInvertedIndexInformation(table, disease_id, id, rank, tf_idf_value, resn
     finally:
         connection.close()
 
+#NOT YET TESTED
 def getArticleCalcInformation(disease_id):
     """
     Gets all information needed for the inverted index rank calculations for articles.
@@ -289,6 +291,7 @@ def getArticleCalcInformation(disease_id):
     finally:
         connection.close()
 
+#NOT YET TESTED
 def getTweetCalcInformation(disease_id):
     """
     Gets all information needed for the inverted index rank calculations for tweets.
@@ -310,5 +313,55 @@ def getTweetCalcInformation(disease_id):
             cursor.execute(sql)
             result = cursor.fetchall()
             return result
+    finally:
+        connection.close()
+
+#NOT YET TESTED
+def getArticleNormInformation():
+    """
+    Gets normalization values needed for the inverted index rank calculations for articles.
+    Requires: no args.
+    Ensures: returns a dictionary with the minimum and maximum values of TFIDF, Resnik, clicks
+    and relevance values for the rankable articles.
+    """
+    connection = getDatabaseConnection()
+
+    try:
+        with connection.cursor() as cursor:
+            # Get normalization values for Articles
+            sql = "SELECT MIN(TA.tf_idf_value), MAX(TA.tf_idf_value), MIN(SA.resnik_value), MAX(SA.resnik_value), \
+                  MIN(A.clicks), MAX(A.clicks), MIN(A.relevance), MAX(A.relevance) FROM " + \
+                  Table_Tf_Idf_Articles + " AS TA, " + Table_Sim_Articles + " AS SA, " + Table_Article + " AS A, " + \
+                  Table_Disease + " AS D " + \
+                  "WHERE TA.term = D.name AND TA.article_id = A.id AND SA.did = D.id AND SA.article_id = A.id;"
+
+            cursor.execute(sql)
+            result = cursor.fetchall()
+            return result[0]
+    finally:
+        connection.close()
+
+#NOT YET TESTED
+def getTweetNormInformation():
+    """
+    Gets normalization values needed for the inverted index rank calculations for tweets.
+    Requires: no args.
+    Ensures: returns a dictionary with the minimum and maximum values of TFIDF, Resnik, clicks
+    and relevance values for the rankable tweets.
+    """
+    connection = getDatabaseConnection()
+
+    try:
+        with connection.cursor() as cursor:
+            # Get normalization values for Tweets
+            sql = "SELECT MIN(TT.tf_idf_value), MAX(TT.tf_idf_value), MIN(ST.resnik_value), MAX(ST.resnik_value) \
+                  MIN(T.nr_likes), MAX(T.nr_likes), MIN(T.relevance), MAX(T.relevance) FROM " + \
+                  Table_Tf_Idf_Tweets + " AS TT, " + Table_Sim_Tweets + " AS ST, " + Table_Tweets + " AS T, " + \
+                  Table_Disease + " AS D " + \
+                  "WHERE TT.term = D.name AND TT.tweet_id = T.id AND ST.did = D.id AND ST.tweet_id = T.id;"
+
+            cursor.execute(sql)
+            result = cursor.fetchall()
+            return result[0]
     finally:
         connection.close()
