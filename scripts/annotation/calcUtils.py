@@ -219,6 +219,7 @@ def auxSimilarity(diseaseInfo, termsDict, tableToSave):
             #save minimum Resnik value for this document
             saveSimilarityInformation(tableToSave, disease['id'], key[1], resnik_value)
 
+#NOT YET TESTED
 def createInvertedIndexForDisease(disease_id, disease_name):
     """
     Creates inverted index for articles and tweets for the given disease.
@@ -228,16 +229,42 @@ def createInvertedIndexForDisease(disease_id, disease_name):
     information in the database.
     """
     #get calculation information for articles of the given disease
-    articleCalcInfo = getArticleCalcInformation(disease_id)
+    articlesCalcInfo = getArticleCalcInformation(disease_id)
+    #list to contain final values (for posterior ranking)
+    finalValues = []
     #calculate rank for the Articles
-    #TODO
+    for article in articlesCalcInfo:
+        relevanceValue = getRelevanceValue(article['tf_idf_value'], article['resnik_value'], \
+                         article['clicks'], article['relevance'], article['published_at'])
+        finalValues += [(article, relevanceValue)]
+    #sort list by relevanceValue
+    finalValues = sorted(finalValues, key=itemgetter(1))
     #save information in the database
-    #TODO
+    for i in range(1, len(finalValues) + 1):
+        article = finalValues[i][0]
+        saveInvertedIndexInformation(Table_Index_Articles, disease_id, article['id'], i, \
+                                     article['tf_idf_value'], article['resnik_value'], \
+                                     article['clicks'], article['relevance'], \
+                                     article['published_at'])
 
     #get calculation information for tweets of the given disease
-    tweetCalcInfo = getTweetCalcInformation(disease_id)
-
+    tweetsCalcInfo = getTweetCalcInformation(disease_id)
+    #list to contain final values (for posterior ranking)
+    finalValues = []
     #calculate rank for the Tweets
-    #TODO
+    for tweet in tweetsCalcInfo:
+        relevanceValue = getRelevanceValue(tweet['tf_idf_value'], tweet['resnik_value'], \
+                         tweet['nr_likes'], tweet['relevance'], tweet['published_at'])
+        finalValues += [(tweet, relevanceValue)]
+    #sort list by relevanceValue
+    finalValues = sorted(finalValues, key=itemgetter(1))
     #save information in the database
-    #TODO
+    for i in range(1, len(finalValues) + 1):
+        tweet = finalValues[i][0]
+        saveInvertedIndexInformation(Table_Index_Tweets, disease_id, tweet['id'], i, \
+                                     tweet['tf_idf_value'], tweet['resnik_value'], \
+                                     tweet['nr_likes'], tweet['relevance'], \
+                                     tweet['published_at'])
+
+
+def getRelevanceValue(tf_idf_value, resnik_value, imp_feedback, exp_feedback, published_at):
