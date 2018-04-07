@@ -6,10 +6,18 @@ from MERUtils import *
 from calcUtils import *
 from constants import *
 
-def buildInvertedIndex():
-    print("-> Building Inverted Index")
-    cleanIndexTables()
+def createInvertedIndex():
+    #get disease information
+    diseaseInfo = getAllDiseaseInformation()
+    #iterate by all diseases
+    for disease in diseaseInfo:
+        createInvertedIndexForDisease(disease['id'], disease['name'])
 
+def buildInvertedIndex():
+    print("-> Cleaning index tables")
+    cleanIndexTables()
+    print("-> Building inverted index")
+    createInvertedIndex()
 
 #program entry point
 buildInvertedIndex()

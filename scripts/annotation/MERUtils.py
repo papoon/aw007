@@ -80,8 +80,8 @@ def entityAnnotation():
     """
     Get entities from Articles and Tweets.
     Requires: no args.
-    Ensures: returns a list with 2 dictionaries (one with the terms for the articles
-    and another with the terms for the tweets).
+    Ensures: saves MER terms on database and returns a list with 2 dictionaries
+    (one with the terms for the articles and another with the terms for the tweets).
     """
     #dictionary with list of terms per article (title + abstract)
     termsPerArticle = {}

@@ -165,7 +165,6 @@ def calculateSimilarity(dictsList):
     #just some pointers for name clarification
     articleTermsDict = dictsList[0]
     tweetTermsDict = dictsList[1]
-
     #get disease information
     diseaseInfo = getAllDiseaseInformation()
 
@@ -219,3 +218,6 @@ def auxSimilarity(diseaseInfo, termsDict, tableToSave):
                 resnik_value = 0.0000
             #save minimum Resnik value for this document
             saveSimilarityInformation(tableToSave, disease['id'], key[1], resnik_value)
+
+def createInvertedIndexForDisease(disease_id, disease_name):
+    

@@ -264,3 +264,51 @@ def saveInvertedIndexInformation(table, disease_id, id, rank, tf_idf_value, resn
             connection.commit()
     finally:
         connection.close()
+
+def getArticleCalcInformation(disease_id):
+    """
+    Gets all information needed for the inverted index rank calculations for articles.
+    Requires: no args.
+    Ensures: queries the database and retrieves inverted index rank information for articles for
+    one disease in a list of dictionaries format (one line, one dictionary).
+    """
+    connection = getDatabaseConnection()
+
+    try:
+        with connection.cursor() as cursor:
+            # Get all pre-calculated information for Articles
+            sql = "SELECT DISTINCT TA.article_id, TA.tf_idf_value, SA.resnik_value, A.clicks, A.relevance, A.published_at FROM " + \
+                  Table_Tf_Idf_Articles + " AS TA, " + Table_Sim_Articles + " AS SA, " + Table_Article + " AS A, " + \
+                  Table_Disease + " AS D " + \
+                  "WHERE TA.term = D.name AND TA.article_id = A.id AND SA.did = D.id AND SA.article_id = A.id AND D.id = " + \
+                  str(disease_id) + ";"
+
+            cursor.execute(sql)
+            result = cursor.fetchall()
+            return result
+    finally:
+        connection.close()
+
+def getTweetCalcInformation(disease_id):
+    """
+    Gets all information needed for the inverted index rank calculations for tweets.
+    Requires: no args.
+    Ensures: queries the database and retrieves inverted index rank information for tweets for
+    one disease in a list of dictionaries format (one line, one dictionary).
+    """
+    connection = getDatabaseConnection()
+
+    try:
+        with connection.cursor() as cursor:
+            # Get all pre-calculated information for Tweets
+            sql = "SELECT DISTINCT TT.tweet_id, TT.tf_idf_value, ST.resnik_value, T.nr_likes, T.relevance, T.published_at FROM " + \
+                  Table_Tf_Idf_Tweets + " AS TT, " + Table_Sim_Tweets + " AS ST, " + Table_Tweets + " AS T, " + \
+                  Table_Disease + " AS D " + \
+                  "WHERE TT.term = D.name AND TT.tweet_id = T.id AND ST.did = D.id AND ST.tweet_id = T.id AND D.id = " + \
+                  str(disease_id) + ";"
+
+            cursor.execute(sql)
+            result = cursor.fetchall()
+            return result
+    finally:
+        connection.close()
