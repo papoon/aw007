@@ -220,4 +220,24 @@ def auxSimilarity(diseaseInfo, termsDict, tableToSave):
             saveSimilarityInformation(tableToSave, disease['id'], key[1], resnik_value)
 
 def createInvertedIndexForDisease(disease_id, disease_name):
-    
+    """
+    Creates inverted index for articles and tweets for the given disease.
+    Requires: disease_id, id of the disease to process;
+              disease_name, name of the disease for the same id.
+    Ensures: Calculates the rank of associated articles and tweets and saves the
+    information in the database.
+    """
+    #get calculation information for articles of the given disease
+    articleCalcInfo = getArticleCalcInformation(disease_id)
+    #calculate rank for the Articles
+    #TODO
+    #save information in the database
+    #TODO
+
+    #get calculation information for tweets of the given disease
+    tweetCalcInfo = getTweetCalcInformation(disease_id)
+
+    #calculate rank for the Tweets
+    #TODO
+    #save information in the database
+    #TODO
