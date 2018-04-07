@@ -73,7 +73,6 @@ def saveEntitiesMER(table, id, resultText):
         #example of line: 348	354   asthma
         lineParts = line.split('\t')
         if len(lineParts) > 1:
-            print(lineParts)
             saveMERTermsInformation(table, lineParts[2].lower(), id, int(lineParts[0]), \
                                     int(lineParts[1]))
 

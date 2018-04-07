@@ -72,7 +72,7 @@ def getAllArticleInformation():
     try:
         with connection.cursor() as cursor:
             # Read all article records
-            sql = "SELECT id, did, title, abstract FROM " + Table_Article + " LIMIT 2"
+            sql = "SELECT id, did, title, abstract FROM " + Table_Article
             cursor.execute(sql)
             result = cursor.fetchall()
             return result
@@ -91,7 +91,7 @@ def getAllTweetInformation():
     try:
         with connection.cursor() as cursor:
             # Read all tweet records
-            sql = "SELECT id, did, html FROM " + Table_Tweets + " LIMIT 2"
+            sql = "SELECT id, did, html FROM " + Table_Tweets
             cursor.execute(sql)
             result = cursor.fetchall()
             return result
