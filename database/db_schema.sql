@@ -105,6 +105,13 @@ ADD COLUMN `html` TEXT NULL AFTER `country`;
 ALTER TABLE `Disease`
 ADD COLUMN `do_id` VARCHAR(50) NULL AFTER `dbpedia_revision_id`;
 
+ALTER TABLE `Article`
+ADD COLUMN `clicks` INT(11) DEFAULT 0 AFTER `article_revision_date`,
+ADD COLUMN `relevance` INT(11) DEFAULT 0 AFTER `clicks`;
+
+ALTER TABLE `Tweets`
+ADD COLUMN `relevance` INT(11) DEFAULT 0 AFTER `nr_comments`;
+
 CREATE TABLE MER_Terms_Articles (
 	term VARCHAR(150),
 	article_id INT(11),

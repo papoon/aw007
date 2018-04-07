@@ -55,6 +55,8 @@
           $result[] = array("val"=>$valuesArray[$i++], "type"=>"char");  //published_at
           $result[] = array("val"=>$valuesArray[$i++], "type"=>"char");  //article_date
           $result[] = array("val"=>$valuesArray[$i++], "type"=>"char");  //article_revision_date
+          $result[] = array("val"=>$valuesArray[$i++], "type"=>"int");   //clicks
+          $result[] = array("val"=>$valuesArray[$i++], "type"=>"int");   //relevance
           $result[] = array("val"=>$valuesArray[$i++], "type"=>"char");  //authors (TEMP)
           $result[] = array("val"=>$valuesArray[$i++], "type"=>"char");  //inserted_at
           $result[] = array("val"=>$valuesArray[$i++], "type"=>"char");  //updated_at
@@ -104,6 +106,7 @@
           $result[] = array("val"=>$valuesArray[$i++], "type"=>"char");  //username
           $result[] = array("val"=>$valuesArray[$i++], "type"=>"int");   //nr_likes
           $result[] = array("val"=>$valuesArray[$i++], "type"=>"int");   //nr_comments
+          $result[] = array("val"=>$valuesArray[$i++], "type"=>"int");   //relevance
           $result[] = array("val"=>$valuesArray[$i++], "type"=>"int");   //shares
           $result[] = array("val"=>$valuesArray[$i++], "type"=>"char");  //country
           $result[] = array("val"=>$valuesArray[$i++], "type"=>"char");  //html
@@ -136,6 +139,8 @@
           $valuesStr .= 'published_at,';
           $valuesStr .= 'article_date,';
           $valuesStr .= 'article_revision_date,';
+          $valuesStr .= 'clicks,';
+          $valuesStr .= 'relevance,';
           $valuesStr .= 'authors,';  //(TEMP)
           $valuesStr .= 'inserted_at,';
           $valuesStr .= 'updated_at';
@@ -185,6 +190,7 @@
           $valuesStr .= 'username,';
           $valuesStr .= 'nr_likes,';
           $valuesStr .= 'nr_comments,';
+          $valuesStr .= 'relevance,';
           $valuesStr .= 'shares,';
           $valuesStr .= 'country,';
           $valuesStr .= 'html,';
@@ -219,6 +225,8 @@
             echo '<p>'.$rows['published_at'].'</p>';
             echo '<p>'.$rows['article_date'].'</p>';
             echo '<p>'.$rows['article_revision_date'].'</p>';
+            echo '<p>'.$rows['clicks'].'</p>';
+            echo '<p>'.$rows['relevance'].'</p>';
             echo '<p>'.$rows['authors'].'</p>';
             echo '<p>'.$rows['inserted_at'].'</p>';
             echo '<p>'.$rows['updated_at'].'</p>';
@@ -287,6 +295,7 @@
             echo '<p>'.$rows['username'].'</p>';
             echo '<p>'.$rows['nr_likes'].'</p>';
             echo '<p>'.$rows['nr_comments'].'</p>';
+            echo '<p>'.$rows['relevance'].'</p>';
             echo '<p>'.$rows['shares'].'</p>';
             echo '<p>'.$rows['country'].'</p>';
             echo '<p>'.$rows['html'].'</p>';
