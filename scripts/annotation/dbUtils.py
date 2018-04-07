@@ -25,7 +25,8 @@ def cleanTables():
     Requires: no args.
     Ensures: clean slate for TF-IDF and Similarity tables.
     """
-    listTables = [Table_Tf_Idf_Articles, Table_Tf_Idf_Tweets, Table_Sim_Articles, Table_Sim_Tweets]
+    listTables = [Table_Tf_Idf_Articles, Table_Tf_Idf_Tweets, Table_Sim_Articles, \
+                  Table_Sim_Tweets, Table_MER_Terms_Articles, Table_MER_Terms_Tweets]
     connection = getDatabaseConnection()
 
     try:
@@ -71,7 +72,7 @@ def getAllArticleInformation():
     try:
         with connection.cursor() as cursor:
             # Read all article records
-            sql = "SELECT id, did, title, abstract FROM " + Table_Article + " LIMIT 2"
+            sql = "SELECT id, did, title, abstract FROM " + Table_Article
             cursor.execute(sql)
             result = cursor.fetchall()
             return result
@@ -90,7 +91,7 @@ def getAllTweetInformation():
     try:
         with connection.cursor() as cursor:
             # Read all tweet records
-            sql = "SELECT id, did, html FROM " + Table_Tweets + " LIMIT 2"
+            sql = "SELECT id, did, html FROM " + Table_Tweets
             cursor.execute(sql)
             result = cursor.fetchall()
             return result
@@ -120,7 +121,7 @@ def saveMERTermsInformation(table, term, id, pos_start, pos_end):
                       term + "', "  + str(id) + ', ' + str(pos_start) + \
                       ', ' + str(pos_end) + ");"
             elif table == Table_MER_Terms_Tweets:
-                sql = "INSERT INTO " + Table_MER_Terms_Articles + \
+                sql = "INSERT INTO " + Table_MER_Terms_Tweets + \
                       " (term, tweet_id, pos_start, pos_end) VALUES ('" + \
                       term + "', "  + str(id) + ', ' + str(pos_start) + \
                       ', ' + str(pos_end) + ");"

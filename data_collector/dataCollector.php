@@ -355,6 +355,8 @@
                         $publishedAt,                             //published_at
                         $articleDate,                             //article_date
                         $articleRevisionDate,                     //article_revision_date
+                        0,                                        //clicks
+                        0,                                        //relevance
                         $authors,                                 //authors
                         $currentDateStr,                          //inserted_at
                         $currentDateStr);                         //updated_at
@@ -428,6 +430,7 @@
                         $userName,                                //username
                         $twitter->getNumberOfLikes($tweet),       //nr_likes
                         0,                                        //nr_comments
+                        0,                                        //relevance
                         $twitter->getNumberOfShares($tweet),      //shares
                         $location,                                //country
                         $twitter_embed['html'],                   //html
