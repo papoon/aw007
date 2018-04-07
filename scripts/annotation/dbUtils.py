@@ -47,7 +47,7 @@ def cleanIndexTables():
     Requires: no args.
     Ensures: clean slate for Inverted Index tables.
     """
-    listTables = []
+    listTables = [Table_Index_Articles, Table_Index_Tweets]
     connection = getDatabaseConnection()
 
     try:
@@ -138,16 +138,14 @@ def saveMERTermsInformation(table, term, id, pos_start, pos_end):
             # create insert query
             if table == Table_MER_Terms_Articles:
                 sql = "INSERT INTO " + Table_MER_Terms_Articles + \
-                      " (term, article_id, pos_start, pos_end) VALUES ('" + \
-                      term + "', "  + str(id) + ', ' + str(pos_start) + \
-                      ', ' + str(pos_end) + ");"
+                      " (term, article_id, pos_start, pos_end) VALUES ('"
             elif table == Table_MER_Terms_Tweets:
                 sql = "INSERT INTO " + Table_MER_Terms_Tweets + \
-                      " (term, tweet_id, pos_start, pos_end) VALUES ('" + \
-                      term + "', "  + str(id) + ', ' + str(pos_start) + \
-                      ', ' + str(pos_end) + ");"
+                      " (term, tweet_id, pos_start, pos_end) VALUES ('"
             else:
                 raise ValueError('Table name: valid values are Table_MER_Terms_Articles and Table_MER_Terms_Tweets (see constants).')
+
+            sql += term + "', "  + str(id) + ', ' + str(pos_start) + ', ' + str(pos_end) + ");"
 
             #execute insert query
             cursor.execute(sql)
@@ -174,14 +172,15 @@ def saveTfIdfInformation(table, term, id, tf_idf_value):
             # create insert query
             if table == Table_Tf_Idf_Articles:
                 sql = "INSERT INTO " + Table_Tf_Idf_Articles + \
-                      " (term, article_id, tf_idf_value) VALUES ('" + \
-                      term + "', "  + str(id) + ', ' + str(tf_idf_value) + ");"
+                      " (term, article_id, tf_idf_value) VALUES ('"
+
             elif table == Table_Tf_Idf_Tweets:
                 sql = "INSERT INTO " + Table_Tf_Idf_Tweets + \
-                      " (term, tweet_id, tf_idf_value) VALUES ('" + \
-                      term + "', "+ str(id) + ', ' + str(tf_idf_value) + ");"
+                      " (term, tweet_id, tf_idf_value) VALUES ('"
             else:
                 raise ValueError('Table name: valid values are Tf_Idf_Articles and Tf_Idf_Tweets (see constants).')
+
+            sql += term + "', "  + str(id) + ', ' + str(tf_idf_value) + ");"
 
             #execute insert query
             cursor.execute(sql)
@@ -197,7 +196,8 @@ def saveSimilarityInformation(table, disease_id, id, resnik_value):
               or Table_Sim_Tweets constants);
               disease_id, the disease id of the disease name associated to the Resnik value;
               id, document database id (Articles(id) or Tweets(id) depending on table argument);
-              resnik_value, the TF-IDF value to save for the given disease and the given document.
+              resnik_value, the similarity Resnik value to save for the given disease and the
+              given document.
     Ensures: saves the Resnik value for a given disease and a given document in the
     respective table.
     """
@@ -208,14 +208,55 @@ def saveSimilarityInformation(table, disease_id, id, resnik_value):
             # create insert query
             if table == Table_Sim_Articles:
                 sql = "INSERT INTO " + Table_Sim_Articles + \
-                      " (did, article_id, resnik_value) VALUES (" + \
-                      str(disease_id) + ", "  + str(id) + ', ' + str(resnik_value) + ");"
+                      " (did, article_id, resnik_value) VALUES ("
             elif table == Table_Sim_Tweets:
                 sql = "INSERT INTO " + Table_Sim_Tweets + \
-                      " (did, tweet_id, resnik_value) VALUES (" + \
-                      str(disease_id) + ", "  + str(id) + ', ' + str(resnik_value) + ");"
+                      " (did, tweet_id, resnik_value) VALUES ("
             else:
                 raise ValueError('Table name: valid values are Similarity_Articles and Similarity_Tweets (see constants).')
+
+            sql += str(disease_id) + ", "  + str(id) + ', ' + str(resnik_value) + ");"
+
+            #execute insert query
+            cursor.execute(sql)
+            #commit explicitly (autocommit is off by default)
+            connection.commit()
+    finally:
+        connection.close()
+
+def saveInvertedIndexInformation(table, disease_id, id, rank, tf_idf_value, resnik_value, imp_feedback, \
+                                 exp_feedback, published_at):
+    """
+    Save inverted index information in the database.
+    Requires: table, where to save the information (please use Table_Index_Articles
+              or Table_Index_Tweets constants);
+              disease_id, the disease id of the disease name associated to the article being ranked;
+              id, document database id (Articles(id) or Tweets(id) depending on table argument);
+              tf_idf_value, the TF-IDF value to save for the given term and the given document;
+              resnik_value, the similarity Resnik value to save for the given disease and the given document;
+              imp_feedback, the value for implicit feedback to save (clicks for Articles, nr_likes for Tweets);
+              exp_feedback, the value for explicit feedback to save (relevamce for Articles and Tweets);
+              published_at, the date of publication of the document.
+    Ensures: saves the Resnik value for a given disease and a given document in the
+    respective table.
+    """
+    connection = getDatabaseConnection()
+
+    try:
+        with connection.cursor() as cursor:
+            # create insert query
+            if table == Table_Index_Articles:
+                sql = "INSERT INTO " + Table_Index_Articles + \
+                      " (did, article_id, article_rank, tf_idf_value, resnik_value, clicks, relevance, published_at) VALUES ("
+            elif table == Table_Index_Tweets:
+                sql = "INSERT INTO " + Table_Index_Tweets + \
+                      " (did, tweet_id, tweet_rank, tf_idf_value, resnik_value, nr_likes, relevance, published_at) VALUES ("
+            else:
+                raise ValueError('Table name: valid values are Inv_Index_Articles and Inv_Index_Tweets (see constants).')
+
+            sql += str(disease_id) + ", "  + str(id) + ", "  + str(rank) + ", "  + str(tf_idf_value) + ', ' + \
+                   str(resnik_value) + ", "  + str(imp_feedback) + ", "  + str(exp_feedback) + \
+                   ", '"  + str(published_at) + "');"
 
             #execute insert query
             cursor.execute(sql)
