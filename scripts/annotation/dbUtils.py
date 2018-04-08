@@ -224,7 +224,6 @@ def saveSimilarityInformation(table, disease_id, id, resnik_value):
     finally:
         connection.close()
 
-#NOT YET TESTED
 def saveInvertedIndexInformation(table, disease_id, id, rank, tf_idf_value, resnik_value, imp_feedback, \
                                  exp_feedback, published_at):
     """
@@ -266,7 +265,6 @@ def saveInvertedIndexInformation(table, disease_id, id, rank, tf_idf_value, resn
     finally:
         connection.close()
 
-#NOT YET TESTED
 def getArticleCalcInformation(disease_id):
     """
     Gets all information needed for the inverted index rank calculations for articles.
@@ -291,7 +289,6 @@ def getArticleCalcInformation(disease_id):
     finally:
         connection.close()
 
-#NOT YET TESTED
 def getTweetCalcInformation(disease_id):
     """
     Gets all information needed for the inverted index rank calculations for tweets.
@@ -316,7 +313,6 @@ def getTweetCalcInformation(disease_id):
     finally:
         connection.close()
 
-#NOT YET TESTED
 def getArticleNormInformation():
     """
     Gets normalization values needed for the inverted index rank calculations for articles.
@@ -341,7 +337,6 @@ def getArticleNormInformation():
     finally:
         connection.close()
 
-#NOT YET TESTED
 def getTweetNormInformation():
     """
     Gets normalization values needed for the inverted index rank calculations for tweets.
@@ -354,7 +349,7 @@ def getTweetNormInformation():
     try:
         with connection.cursor() as cursor:
             # Get normalization values for Tweets
-            sql = "SELECT MIN(TT.tf_idf_value), MAX(TT.tf_idf_value), MIN(ST.resnik_value), MAX(ST.resnik_value) \
+            sql = "SELECT MIN(TT.tf_idf_value), MAX(TT.tf_idf_value), MIN(ST.resnik_value), MAX(ST.resnik_value), \
                   MIN(T.nr_likes), MAX(T.nr_likes), MIN(T.relevance), MAX(T.relevance) FROM " + \
                   Table_Tf_Idf_Tweets + " AS TT, " + Table_Sim_Tweets + " AS ST, " + Table_Tweets + " AS T, " + \
                   Table_Disease + " AS D " + \

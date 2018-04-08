@@ -1,3 +1,5 @@
+from decimal import *
+
 #path to the MER tool
 MER_path = '/home/kezhaya/Tools/MER'
 #MER_path = '/home/aw000/MER'
@@ -55,8 +57,8 @@ Min_Relev_Tweets = 'MIN(T.relevance)'
 Max_Relev_Tweets = 'MAX(T.relevance)'
 
 #importance values in the relevance formula (all 5 should sum as 1)
-Coef_Tfidf = 0.2
-Coef_Similarity = 0.2
-Coef_Imp_Feedback = 0.2
-Coef_Exp_Feedback = 0.3
-Coef_Pub_date = 0.1
+Coef_Tfidf = Decimal(0.2)
+Coef_Similarity = Decimal(0.2)
+Coef_Imp_Feedback = Decimal(0.2)
+Coef_Exp_Feedback = Decimal(0.3)
+Coef_Pub_date = Decimal(0.1)

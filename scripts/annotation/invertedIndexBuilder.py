@@ -16,7 +16,7 @@ def createInvertedIndex():
 def buildInvertedIndex():
     print("-> Cleaning index tables")
     cleanIndexTables()
-    print("-> Building inverted index")
+    print("-> Building inverted index for all diseases")
     createInvertedIndex()
 
 #program entry point

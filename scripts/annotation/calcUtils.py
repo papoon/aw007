@@ -7,7 +7,9 @@ from DishinUtils import *
 from MERUtils import *
 from calcUtils import *
 from constants import *
+from operator import itemgetter
 from datetime import datetime
+from decimal import *
 
 def calculateTF(term, docTerms):
     """
@@ -220,7 +222,6 @@ def auxSimilarity(diseaseInfo, termsDict, tableToSave):
             #save minimum Resnik value for this document
             saveSimilarityInformation(tableToSave, disease['id'], key[1], resnik_value)
 
-#NOT YET TESTED
 def createInvertedIndexForDisease(disease_id, disease_name):
     """
     Creates inverted index for articles and tweets for the given disease.
@@ -242,11 +243,11 @@ def createInvertedIndexForDisease(disease_id, disease_name):
                          article['published_at'])
         finalValues += [(article, relevanceValue)]
     #sort list by relevanceValue
-    finalValues = sorted(finalValues, key=itemgetter(1))
+    finalValues = sorted(finalValues, key=itemgetter(1), reverse=True)
     #save information in the database
-    for i in range(1, len(finalValues) + 1):
+    for i in range(1, len(finalValues)):
         article = finalValues[i][0]
-        saveInvertedIndexInformation(Table_Index_Articles, disease_id, article['id'], i, \
+        saveInvertedIndexInformation(Table_Index_Articles, disease_id, article['article_id'], i, \
                                      article['tf_idf_value'], article['resnik_value'], \
                                      article['clicks'], article['relevance'], \
                                      article['published_at'])
@@ -264,16 +265,15 @@ def createInvertedIndexForDisease(disease_id, disease_name):
                          tweet['published_at'])
         finalValues += [(tweet, relevanceValue)]
     #sort list by relevanceValue
-    finalValues = sorted(finalValues, key=itemgetter(1))
+    finalValues = sorted(finalValues, key=itemgetter(1), reverse=True)
     #save information in the database
-    for i in range(1, len(finalValues) + 1):
+    for i in range(1, len(finalValues)):
         tweet = finalValues[i][0]
-        saveInvertedIndexInformation(Table_Index_Tweets, disease_id, tweet['id'], i, \
+        saveInvertedIndexInformation(Table_Index_Tweets, disease_id, tweet['tweet_id'], i, \
                                      tweet['tf_idf_value'], tweet['resnik_value'], \
                                      tweet['nr_likes'], tweet['relevance'], \
                                      tweet['published_at'])
 
-#NOT YET TESTED
 def getRelevanceValue(flagArticles, norm_info, tf_idf_value, resnik_value, imp_feedback, exp_feedback, published_at):
     """
     Calculates rankable value for inverted index for articles and tweets.
@@ -288,23 +288,23 @@ def getRelevanceValue(flagArticles, norm_info, tf_idf_value, resnik_value, imp_f
     """
     #variable setting
     if(flagArticles):
-        minTfIdf = norm_info['Min_Tfidf_Articles']
-        maxTfIdf = norm_info['Max_Tfidf_Articles']
-        minSimilarity = norm_info['Min_Resnik_Articles']
-        maxSimilarity = norm_info['Max_Resnik_Articles']
-        minImpFeedback = norm_info['Min_Clicks_Articles']
-        maxImpFeedback = norm_info['Max_Clicks_Articles']
-        minExpFeedback = norm_info['Min_Relev_Articles']
-        maxExpFeedback = norm_info['Max_Relev_Articles']
+        minTfIdf = norm_info[Min_Tfidf_Articles]
+        maxTfIdf = norm_info[Max_Tfidf_Articles]
+        minSimilarity = norm_info[Min_Resnik_Articles]
+        maxSimilarity = norm_info[Max_Resnik_Articles]
+        minImpFeedback = norm_info[Min_Clicks_Articles]
+        maxImpFeedback = norm_info[Max_Clicks_Articles]
+        minExpFeedback = norm_info[Min_Relev_Articles]
+        maxExpFeedback = norm_info[Max_Relev_Articles]
     else:
-        minTfIdf = norm_info['Min_Tfidf_Tweets']
-        maxTfIdf = norm_info['Max_Tfidf_Tweets']
-        minSimilarity = norm_info['Min_Resnik_Tweets']
-        maxSimilarity = norm_info['Max_Resnik_Tweets']
-        minImpFeedback = norm_info['Min_Likes_Tweets']
-        maxImpFeedback = norm_info['Max_Likes_Tweets']
-        minExpFeedback = norm_info['Min_Relev_Tweets']
-        maxExpFeedback = norm_info['Max_Relev_Tweets']
+        minTfIdf = norm_info[Min_Tfidf_Tweets]
+        maxTfIdf = norm_info[Max_Tfidf_Tweets]
+        minSimilarity = norm_info[Min_Resnik_Tweets]
+        maxSimilarity = norm_info[Max_Resnik_Tweets]
+        minImpFeedback = norm_info[Min_Likes_Tweets]
+        maxImpFeedback = norm_info[Max_Likes_Tweets]
+        minExpFeedback = norm_info[Min_Relev_Tweets]
+        maxExpFeedback = norm_info[Max_Relev_Tweets]
 
     #earliest dtae = 1st of January 2017
     minDate = datetime(2017, 1, 1, 0, 0, 0)
@@ -325,7 +325,6 @@ def getRelevanceValue(flagArticles, norm_info, tf_idf_value, resnik_value, imp_f
 
     return relevance
 
-#NOT YET TESTED
 def rescale(value, min, max):
     """
     Rescales a given value to the [0, 1] range.
@@ -334,9 +333,11 @@ def rescale(value, min, max):
               max, the maximum value for the scale;
     Ensures: returns a rescaled version of the value in the [0, 1] range.
     """
-    return (value - min) / (max - min)
+    if (max - min) == 0:
+        return 0
+    else:
+        return Decimal((value - min) / (max - min))
 
-#NOT YET TESTED
 def rescaleDatetime(value, min, max):
     """
     Rescales a given value to the [0, 1] range.
@@ -345,4 +346,7 @@ def rescaleDatetime(value, min, max):
               max, the maximum value for the scale;
     Ensures: returns a rescaled version of the value in the [0, 1] range.
     """
-    return (value - min).days / (max - min).days
+    if (max - min).days == 0:
+        return 0
+    else:
+        return Decimal((value - min).days / (max - min).days)
