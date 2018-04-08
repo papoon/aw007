@@ -1,3 +1,5 @@
+DROP TABLE IF EXISTS Inv_Index_Articles;
+DROP TABLE IF EXISTS Inv_Index_Tweets;
 DROP TABLE IF EXISTS Similarity_Articles;
 DROP TABLE IF EXISTS Similarity_Tweets;
 DROP TABLE IF EXISTS Tf_Idf_Articles;
@@ -159,6 +161,34 @@ CREATE TABLE Similarity_Tweets (
 	did INT(11),
 	tweet_id INT(11),
 	resnik_value NUMERIC(8, 4),
+	PRIMARY KEY (did, tweet_id),
+	FOREIGN KEY (did) REFERENCES Disease(id) ON DELETE CASCADE ON UPDATE CASCADE,
+	FOREIGN KEY (tweet_id) REFERENCES Tweets(id) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+CREATE TABLE Inv_Index_Articles (
+	did INT(11),
+	article_id INT(11),
+	article_rank INT(11),
+	tf_idf_value NUMERIC(8, 4),
+	resnik_value NUMERIC(8, 4),
+	clicks INT(11),
+	relevance INT(11),
+	published_at DATETIME,
+	PRIMARY KEY (did, article_id),
+	FOREIGN KEY (did) REFERENCES Disease(id) ON DELETE CASCADE ON UPDATE CASCADE,
+	FOREIGN KEY (article_id) REFERENCES Article(id) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+CREATE TABLE Inv_Index_Tweets (
+	did INT(11),
+	tweet_id INT(11),
+	tweet_rank INT(11),
+	tf_idf_value NUMERIC(8, 4),
+	resnik_value NUMERIC(8, 4),
+	nr_likes INT(11),
+	relevance INT(11),
+	published_at DATETIME,
 	PRIMARY KEY (did, tweet_id),
 	FOREIGN KEY (did) REFERENCES Disease(id) ON DELETE CASCADE ON UPDATE CASCADE,
 	FOREIGN KEY (tweet_id) REFERENCES Tweets(id) ON DELETE CASCADE ON UPDATE CASCADE
