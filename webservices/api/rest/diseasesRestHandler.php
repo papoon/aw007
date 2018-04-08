@@ -6,8 +6,12 @@ class DiseasesRestHandler extends SimpleRest {
 
 	function getAllDiseases() {	
 
-		$diseses = new Disease();
-		$rawData = $diseses->getDiseases();
+		$diseases = new Disease();
+		$rawData = $diseases->getDiseases();
+
+		array_walk_recursive($rawData, function(&$value) {
+			$value = utf8_decode($value);
+		});
 
 		if(empty($rawData)) {
 			$statusCode = 404;
@@ -17,7 +21,7 @@ class DiseasesRestHandler extends SimpleRest {
 		}
 
 		$requestContentType = $_SERVER['CONTENT_TYPE'];
-		$this ->setHttpHeaders($requestContentType, $statusCode);
+		$this->setHttpHeaders($requestContentType, $statusCode);
 				
 		if(strpos($requestContentType,'application/json') !== false){
 			$response = $this->encodeJson($rawData);
@@ -57,6 +61,7 @@ class DiseasesRestHandler extends SimpleRest {
 	
 	
 	public function encodeJson($responseData) {
+		
 		$jsonResponse = json_encode($responseData);
 		return $jsonResponse;		
 	}

@@ -115,6 +115,7 @@ SELECT ?name where {
 * [BootStrap](https://getbootstrap.com) - CSS FrameWork
 * [Twig](https://twig.symfony.com) - Template Engine for PHP
 * [ChartJs](http://www.chartjs.org) - Simple yet flexible JavaScript charting for designers & developers
+* [autoComplete](https://goodies.pixabay.com/javascript/auto-complete/demo.html) - An extremely lightweight and powerful vanilla JavaScript completion suggester
 
 ## Versioning
 

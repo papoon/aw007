@@ -17,6 +17,7 @@
             $result = $this->connector->selectWhere(TABLE_TWEETS,'did','=',$idDisease,'int');
 
             //$this->connector->disconnect();
+            $data = array();
             while ($row = $result->fetch_assoc()) {
                 $data[] = $row;
             }
