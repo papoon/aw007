@@ -1,4 +1,5 @@
 
+
 var autocmplete = new autoComplete({
     selector: 'input[name="q"]',
     minChars: 2,
@@ -9,10 +10,10 @@ var autocmplete = new autoComplete({
             console.log(data);
             //response(data); 
         });*/
-
+       
         xhr = $.ajax({
             type: "GET",
-            url: 'http://localhost/aw007/rest/diseases',
+            url: api().uri()+'diseases',
             dataType: 'json',
             beforeSend: function(xhr){xhr.setRequestHeader('Content-Type', 'application/json');},
         })

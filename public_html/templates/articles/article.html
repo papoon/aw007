@@ -1,0 +1,44 @@
+{% extends "index.html" %}
+
+    {% block content %}
+        <!-- Page Content -->
+        
+
+            
+        <div class="row">
+            <div class="col-md-12">
+                <a href="/aw007/articles" class="btn btn-info" role="button">< Back</a>
+            </div> 
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <h2 class="text-center">{{article.title}}</h2>
+
+                <p>{{article.abstract}}</p>
+
+                <address>
+                    <strong>Article Id: {{article.article_id}}</strong><br>
+                    <strong>Journal Id: {{article.journal_id}}</strong><br>
+                    <strong><small>Authors: <em>{{article.authors}}</em></small></strong><br>
+                    <strong><small>Published At: {{article.published_at}}</small></strong><br>
+                </address>
+
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-8 col-sm-offset-2">
+                <label for="article_comment">Give us your feedback about this article:</label>
+                <textarea class="form-control" rows="5"></textarea>
+            </div>
+        </div>
+        <div class="row">
+                <div class="col-sm-12">
+                    
+                </div>
+            </div>
+
+        
+            
+    {% endblock content %}
