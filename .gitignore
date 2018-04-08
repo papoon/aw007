@@ -5,3 +5,4 @@ utils/database.php
 public_html/.htaccess
 scripts/annotation/__pycache__
 scripts/annotation/pythonPrivate.py
+*.pyc
