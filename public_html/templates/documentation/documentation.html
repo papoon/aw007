@@ -36,9 +36,12 @@
             The project architecture is based on a Model–view–controller (MVC) that is commonly used for developing user interfaces and divides an application into three interconnected parts. This is done to separate internal representations of information from the ways information is presented to and accepted from the user. The MVC design pattern decouples these major components allowing for efficient code reuse and parallel development.
             </p>
             <p>
-            The second module (<i>DataProcessing or Inverted Index construction</i>) is composed of two Python scripts that should be run separately by the command line using the Python3 command. The first script (<i>invertedIndexCalculator.py</i>) calculates and saves in the database everything needed to build the inverted index for the collected documents (articles and tweets): the TF-IDF values (by using the MER tool) and the Similarity values (Resnik measure, by using the DiShIn tool). The second script (<i>invertedIndexBuilder.py</i>) takes that stored data and creates the ranks of articles and tweets per disease taking into consideration the following components: the TF-IDF values, the Similarity values, implicit user feedbackk (the number of clicks in a given document), explicit user feedback (user relevance rating score) and document date of publishing. These ranks are also stored in the database after their calculation.
+            The second module (<i>DataProcessing or Inverted Index construction</i>) is composed of two Python scripts that should be run separately by the command line using the Python3 command. The first script (<i>invertedIndexCalculator.py</i>) calculates and saves in the database everything needed to build the inverted index for the collected documents (articles and tweets): the TF-IDF values (by using the MER tool) and the Similarity values (Resnik measure, by using the DiShIn tool). The second script (<i>invertedIndexBuilder.py</i>) takes that stored data and creates the ranks of articles and tweets per disease by using a relevance formula that takes into consideration the following components: the TF-IDF values, the Similarity values, implicit user feedback (the number of clicks in a given document), explicit user feedback (user relevance rating score) and document date of publishing. These ranks are also stored in the database after their calculation.
             </p>
-            #TODO ADD RELEVANCE FORMULA
+            <p>
+            <strong>Relevance formula</strong> = (rescaled TF-IDF value for the disease name in the document * 0.2) + (minimum rescaled Resnik Similarity value for the disease name in the document * 0.2) + (rescaled implicit user feedback (the number of clicks in a given document) * 0.2) + (rescaled explicit user feedback (user relevance rating score) * 0.3) + (rescaled document date of publishing * 0.1)
+            </p>
+            <p>
         </div>
     </div>
 
@@ -50,9 +53,9 @@
             <ul>
                 <li><h5>dataCollector </h5>
                     <ul>
-                        <li> <b>dataCollector</b>: starts data collection </li>
-                        <li> <b>startCollection</b>: gathers all data when the table is empty</li>
-                        <li> <b>updateCollection</b>: updates information already stored in the table </li>
+                        <li> <b>dataCollector</b>: script that calls all API's (please see below) and retrieves the information </li>
+                        <li> <b>startCollection</b>: script that starts the information gathering process when there is no data in the database (the first time)</li>
+                        <li> <b>updateCollection</b>: script that updates information already stored in the database (subsequent times)</li>
                     </ul>
                 </li>
 

@@ -278,11 +278,12 @@ def getRelevanceValue(flagArticles, norm_info, tf_idf_value, resnik_value, imp_f
     """
     Calculates rankable value for inverted index for articles and tweets.
     Requires: flagArticles, true for Articles, false for Tweets;
-              norm_info, dictionary with normalization variables (MIN(TFIDF), MAX(TFIDF), MIN(Resnik), MAX(Resnik));
-              tf_idf_value, the TF-IDF value to save for the given term and the given document;
-              resnik_value, the similarity Resnik value to save for the given disease and the given document;
-              imp_feedback, the value for implicit feedback to save (clicks for Articles, nr_likes for Tweets);
-              exp_feedback, the value for explicit feedback to save (relevance for Articles and Tweets);
+              norm_info, dictionary with normalization variables (MIN(TFIDF), MAX(TFIDF), MIN(Resnik), MAX(Resnik),
+              MIN(ImpFeedback), MAX(ImpFeedback), MIN(ExpFeedback), MAX(ExpFeedback));
+              tf_idf_value, the TF-IDF value for the disease name in the given document;
+              resnik_value, the minimum similarity Resnik value for the disease name in the given document;
+              imp_feedback, the value for implicit feedback (clicks for Articles, nr_likes for Tweets);
+              exp_feedback, the value for explicit feedback (relevance for Articles and Tweets);
               published_at, the date of publication of the document.
     Ensures: Calculates the value that will dictate the rank of a given article or tweet.
     """
@@ -340,11 +341,11 @@ def rescale(value, min, max):
 
 def rescaleDatetime(value, min, max):
     """
-    Rescales a given value to the [0, 1] range.
-    Requires: value, the value to rescale;
-              min, the minimum value for the scale;
-              max, the maximum value for the scale;
-    Ensures: returns a rescaled version of the value in the [0, 1] range.
+    Rescales a given datetime value to the [0, 1] range.
+    Requires: value, the datetime value to rescale;
+              min, the minimum datetime value for the scale;
+              max, the maximum datetime value for the scale;
+    Ensures: returns a rescaled version of the datetime value in the [0, 1] range.
     """
     if (max - min).days == 0:
         return 0
