@@ -16,7 +16,7 @@
             parent::__construct();
 
             $this->disease = new Disease();
-            
+
         }
         public function index($id=0){
             if($id == 0){
@@ -34,11 +34,11 @@
 
                 $disease = $this->disease->getDisease($id);
 
-                $articlesDisease = $this->article->getArticlesDisease($id);
+                $articlesDisease = $this->article->getArticlesDiseaseRanked($id);
 
                 $photosDisease = $this->photos->getPhotosDisease($id);
 
-                $tweetsDisease = $this->tweets->getTweetsDisease($id);
+                $tweetsDisease = $this->tweets->getTweetsDiseaseRanked($id);
 
                 unset($this->disease);
                 unset($this->article);
@@ -55,7 +55,7 @@
                 $this->view->message =  array('data' => $data);
                 $this->view->render('diseases/disease.html');
             }
-            
+
         }
     }
 
