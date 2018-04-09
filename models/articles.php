@@ -38,6 +38,7 @@
             $idDisease = mysqli_real_escape_string($this->connector->connect(),$idDisease);
             $result = $this->connector->selectWhere(TABLE_ARTICLE,'did','=',$idDisease,'int');
 
+            $data = array();
             //$this->connector->disconnect();
             while ($row = $result->fetch_assoc()) {
                 $data[] = $row;

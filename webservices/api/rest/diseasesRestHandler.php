@@ -1,5 +1,5 @@
 <?php
-require_once("SimpleRest.php");
+require_once("simpleRest.php");
 require_once("../models/disease.php");
 		
 class DiseasesRestHandler extends SimpleRest {

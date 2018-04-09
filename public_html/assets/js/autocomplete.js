@@ -50,7 +50,7 @@ var autocmplete = new autoComplete({
         return '<div class="autocomplete-suggestion" data-id="'+item[1]+'" data-val="'+search+'"> '+item[0].replace(re, "<b>$1</b>")+'</div>';
     },
     onSelect: function(e, term, item){
-        window.location.href="http://localhost/aw007/diseases/"+item.getAttribute('data-id');
+        window.location.href="/aw007/diseases/"+item.getAttribute('data-id');
         //console.log(term);
         //console.log(item.getAttribute('data-id'));
     }
