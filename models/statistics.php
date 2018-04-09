@@ -18,12 +18,102 @@
             $data['articlesPerDay'] = $this->articlesPerDay();
             $data['articlesPerJournal'] = $this->articlesPerJournal();
             $data['tweetsAuthor'] = $this->tweetsAuthor();
+            $data['mostFreqMERTermsArticles'] = $this->mostFreqMERTermsArticles();
+            $data['mostFreqMERTermsTweets'] = $this->mostFreqMERTermsTweets();
+            $data['maxTfidfArticles'] = $this->maxTfidfArticles();
+            $data['maxTfidfTweets'] = $this->maxTfidfTweets();
+            $data['maxResnikArticles'] = $this->maxResnikArticles();
+            $data['maxResnikTweets'] = $this->maxResnikTweets();
 
             return $data;
 
         }
 
-        #umero de artigos por disease
+        #termos mais frequentes encontrados pelo MER em Artigos
+        public function mostFreqMERTermsArticles(){
+
+            $result = $this->connector->rawQuery('select term, count(*) from MER_Terms_Articles
+            group by term order by count(*) desc
+            limit 10;');
+
+            while ($row = $result->fetch_row()) {
+                $data[] = $row;
+            }
+
+            return $data;
+        }
+
+        #termos mais frequentes encontrados pelo MER em Tweets
+        public function mostFreqMERTermsTweets(){
+
+            $result = $this->connector->rawQuery('select term, count(*) from MER_Terms_Tweets
+            group by term order by count(*) desc
+            limit 10;');
+
+            while ($row = $result->fetch_row()) {
+                $data[] = $row;
+            }
+
+            return $data;
+        }
+
+        #valores de TfIdf mais altos de termos encontrados em artigos
+        public function maxTfidfArticles(){
+
+            $result = $this->connector->rawQuery('select term, article_id, MAX(tf_idf_value) from Tf_Idf_Articles
+            group by term order by MAX(tf_idf_value) desc
+            limit 10;');
+
+            while ($row = $result->fetch_row()) {
+                $data[] = $row;
+            }
+
+            return $data;
+        }
+
+        #valores de TfIdf mais altos de termos encontrados em Tweets
+        public function maxTfidfTweets(){
+
+            $result = $this->connector->rawQuery('select term, tweet_id, MAX(tf_idf_value) from Tf_Idf_Tweets
+            group by term order by MAX(tf_idf_value) desc
+            limit 10;');
+
+            while ($row = $result->fetch_row()) {
+                $data[] = $row;
+            }
+
+            return $data;
+        }
+
+        #valores de Semelhanca Resnik mais altos de termos encontrados em artigos
+        public function maxResnikArticles(){
+
+            $result = $this->connector->rawQuery('select did, article_id, resnik_value from Similarity_Articles
+            order by resnik_value desc
+            limit 10;');
+
+            while ($row = $result->fetch_row()) {
+                $data[] = $row;
+            }
+
+            return $data;
+        }
+
+        #valores de Semelhanca Resnik mais altos de termos encontrados em tweets
+        public function maxResnikTweets(){
+
+            $result = $this->connector->rawQuery('select did, tweet_id, resnik_value from Similarity_Tweets
+            order by resnik_value desc
+            limit 10;');
+
+            while ($row = $result->fetch_row()) {
+                $data[] = $row;
+            }
+
+            return $data;
+        }
+
+        #numero de artigos por disease
         public function articlesPerDisease(){
 
             $result = $this->connector->rawQuery('select a.id,a.name, b.did, count(*) as n_articles from Disease as a inner join Article as b
