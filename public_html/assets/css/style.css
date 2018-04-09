@@ -200,3 +200,7 @@ transition: all 1s ease;
     height: 100%;
 }
 }
+.row.fix{
+    display: flex;
+    flex-wrap: wrap;
+}
