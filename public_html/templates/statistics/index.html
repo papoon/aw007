@@ -8,9 +8,9 @@
         <div class="row margin-bottom-10">
             <div class="col-md-12">
                 <a href="/aw007" class="btn btn-info" role="button">< Back</a>
-            </div> 
+            </div>
         </div>
-    
+
         <div class="row">
             <div class="col-md-12">
                 <div class="panel panel-default">
@@ -24,7 +24,7 @@
             {% for key, statistic in statistics %}
                 <div class="col-sm-6 col-md-4">
                     <div class="thumbnail">
-                    
+
                     <div class="caption">
                         <!-- <h3><a href="statistics/{{key}}" target="_blank" >{{ key }}</a></h3>-->
                         <canvas id="{{key}}" width="400" height="400"></canvas>
@@ -32,14 +32,14 @@
                     </div>
                 </div>
             {% endfor %}
-                
+
         </div>
         <div class="row">
             <div class="col-sm-4">
-                
+
             </div>
         </div>
-    
+
         <!-- /.row -->
 {% endblock content %}
 
@@ -47,7 +47,7 @@
 
 <script>
     var statistics = '{{ statistics|json_encode|raw }}';
-    
+
     //statistics = encodeURIComponent(statistics);
     statistics = JSON.parse(statistics);
 
@@ -60,10 +60,8 @@
 
         labels_graph.push(element[0]);
         data_graph.push(element[1]);
-        
-    }
-    
 
+    }
 
     var ctx = document.getElementById('articlesPerJournal').getContext('2d');
 
@@ -111,12 +109,12 @@
                 xAxes: [{
                     scaleLabel:{
                         display: true,
-                        labelString: '# Artigos'
+                        labelString: '# Articles'
                     },
                     ticks: {
                         display: false
                     }
-                    
+
                 }]
             }
         }
@@ -131,7 +129,7 @@
 
         labels_graph.push(element[1]);
         data_graph.push(element[3]);
-        
+
     }
 
 
@@ -187,7 +185,7 @@
                     ticks: {
                         display: false
                     }
-                    
+
                 }]
             },
             tooltips: {
@@ -210,7 +208,7 @@
 
         labels_graph.push(element[1]);
         data_graph.push(element[3]);
-        
+
     }
     var ctx = document.getElementById('photosPerDisease').getContext('2d');
 
@@ -263,7 +261,7 @@
                     ticks: {
                         display: false
                     }
-                    
+
                 }]
             },
             tooltips: {
@@ -285,7 +283,7 @@
 
         labels_graph.push(element[1]);
         data_graph.push(element[2]);
-        
+
     }
     var ctx = document.getElementById('articlesPerDay').getContext('2d');
 
@@ -333,12 +331,12 @@
                 xAxes: [{
                     scaleLabel:{
                         display: true,
-                        labelString: '# Artigos'
+                        labelString: '# Articles'
                     },
                     ticks: {
                         display: false
                     }
-                    
+
                 }]
             },
             tooltips: {
@@ -350,6 +348,7 @@
             }
         }
     });
+
     var sharesPhotosPerDisease = statistics['sharesPhotosPerDisease'];
 
     var labels_graph = [];
@@ -359,7 +358,7 @@
 
         labels_graph.push(element[1]);
         data_graph.push(element[3]);
-        
+
     }
     var ctx = document.getElementById('sharesPhotosPerDisease').getContext('2d');
 
@@ -412,7 +411,7 @@
                     ticks: {
                         display: false
                     }
-                    
+
                 }]
             },
             tooltips: {
@@ -433,7 +432,7 @@
 
         labels_graph.push(element[1]);
         data_graph.push(element[3]);
-        
+
     }
     var ctx = document.getElementById('sharesTweetsPerDisease').getContext('2d');
 
@@ -486,7 +485,7 @@
                     ticks: {
                         display: false
                     }
-                    
+
                 }]
             },
             tooltips: {
@@ -507,7 +506,7 @@
 
         labels_graph.push(element[0]);
         data_graph.push(element[1]);
-        
+
     }
     var ctx = document.getElementById('tweetsAuthor').getContext('2d');
 
@@ -560,7 +559,83 @@
                     ticks: {
                         display: false
                     }
-                    
+
+                }]
+            },
+            tooltips: {
+                callbacks: {
+                    label: function(tooltipItem) {
+                        return tooltipItem.yLabel;
+                    }
+                }
+            }
+        }
+    });
+
+    var articlesPerDisease = statistics['articlesPerDisease'];
+
+    var labels_graph = [];
+    var data_graph = [];
+    for (let index = 0; index < articlesPerDisease.length; index++) {
+        const element = articlesPerDisease[index];
+
+        labels_graph.push(element[1]);
+        data_graph.push(element[3]);
+
+    }
+
+    var ctx = document.getElementById('articlesPerDisease').getContext('2d');
+
+    var myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: labels_graph,
+            datasets: [{
+                label: '# Articles Per Disease (asc)',
+                data: data_graph,
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(255, 159, 64, 0.2)',
+                    'rgba(237, 192, 199, 0.2)',
+                    'rgba(227, 197, 177, 0.2)',
+                    'rgba(171, 214, 197, 0.2)',
+                    'rgba(77, 37, 16, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(255,99,132,1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)',
+                    'rgba(237, 192, 199, 1)',
+                    'rgba(227, 197, 177, 1)',
+                    'rgba(171, 214, 197, 1)',
+                    'rgba(77, 37, 16, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero:true
+                    }
+                }],
+                xAxes: [{
+                    scaleLabel:{
+                        display: true,
+                        labelString: '# Articles'
+                    },
+                    ticks: {
+                        display: false
+                    }
+
                 }]
             },
             tooltips: {
@@ -574,8 +649,6 @@
     });
 
 
-
-    
 
 </script>
 {% endblock footer %}

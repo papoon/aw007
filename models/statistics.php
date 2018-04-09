@@ -12,24 +12,38 @@
             $data = array();
 
             $data['articlesPerJournal'] = $this->articlesPerJournal();
+            $data['articlesPerDisease'] = $this->articlesPerDisease();
             $data['tweetsPerDisease'] = $this->tweetsPerDisease();
             $data['photosPerDisease'] = $this->photosPerDisease();
             $data['articlesPerDay'] = $this->articlesPerDay();
             $data['sharesPhotosPerDisease'] = $this->sharesPhotosPerDisease();
             $data['sharesTweetsPerDisease'] = $this->sharesTweetsPerDisease();
-            //$data['tweetsAuthor'] = $this->tweetsAuthor();
-            
+            $data['tweetsAuthor'] = $this->tweetsAuthor();
 
             return $data;
 
-
         }
+
+        #umero de artigos por disease
+        public function articlesPerDisease(){
+
+            $result = $this->connector->rawQuery('select a.id,a.name, b.did, count(*) as n_articles from Disease as a inner join Article as b
+            on a.id = b.did
+            group by a.id,b.did order by count(*)  asc limit 10;');
+
+            while ($row = $result->fetch_row()) {
+                $data[] = $row;
+            }
+
+            return $data;
+        }
+
         #numero de artigos por publicados em cada jornal
         public function articlesPerJournal(){
             $result = $this->connector->rawQuery('select journal_id, count(*) as n_articles from Article
             where journal_id != "" group by journal_id order by count(*) desc limit 10;');
 
-            
+
             while ($row = $result->fetch_row()) {
                 $data[] = $row;
             }
@@ -100,7 +114,7 @@
         }
         # numero tweets por author sobre as doenças
         public function tweetsAuthor(){
-            $result = $this->connector->rawQuery('select b.author_name,sum(a.id) as s_tweets from Disease as a inner join Tweets as b 
+            $result = $this->connector->rawQuery('select b.author_name,sum(a.id) as s_tweets from Disease as a inner join Tweets as b
             on a.id = b.did
             group by b.author_name order by sum(a.id)  desc limit 10;');
 

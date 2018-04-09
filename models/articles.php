@@ -1,4 +1,4 @@
-<?php    
+<?php
     require_once 'model.php';
     class Article extends Model{
 
@@ -16,7 +16,7 @@
 
             $this->connector->disconnect();
             return $data;
-            
+
         }
         public function getArticle($id){
             $id = mysqli_real_escape_string($this->connector->connect(),$id);
@@ -25,7 +25,7 @@
             $this->connector->disconnect();
 
             return $data;
-            
+
         }
 
         public function getArticlesDisease($idDisease){
@@ -48,7 +48,38 @@
 
             return $data;
         }
+
+        public function getArticlesDiseaseRanked($idDisease){
+
+            $idDisease = mysqli_real_escape_string($this->connector->connect(),$idDisease);
+            $result = $this->connector->selectWhere(TABLE_ARTICLE,'did','=',$idDisease,'int');
+
+            $data = convertDatasetToArray($result);
+
+            $queryRanks = 'SELECT article_id, article_rank FROM Inv_Index_Articles WHERE did = '.$idDisease;
+            $queryRanks .= ' UNION ';
+            $queryRanks .= 'SELECT id, ~0 >> 45 FROM Article WHERE did = '.$idDisease;
+            $queryRanks .= ' AND id NOT IN (SELECT article_id FROM Inv_Index_Articles WHERE did = '.$idDisease;
+            $queryRanks .= ' ) ORDER BY article_rank;';
+
+            $ranks = $this->connector->rawQuery($queryRanks);
+
+            $ranks = convertDatasetToArray($ranks);
+
+            $newData = [];
+
+            foreach ($ranks as $infoRank) {
+               #var_dump($infoRank);
+               foreach ($data as $key => $value) {
+                  if ($value['id'] == $infoRank['article_id']) {
+                     $newData[$key] = $value;
+                  }
+               }
+            }
+            
+            $this->connector->disconnect();
+
+            return $newData;
+        }
     }
 ?>
-        
-        
