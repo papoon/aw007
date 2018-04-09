@@ -2,13 +2,13 @@
 
     {% block content %}
         <!-- Page Content -->
-        
 
-            
+
+
         <div class="row">
             <div class="col-md-12">
                 <a href="/aw007/articles" class="btn btn-info" role="button">< Back</a>
-            </div> 
+            </div>
         </div>
 
         <div class="row">
@@ -28,6 +28,34 @@
         </div>
 
         <div class="row">
+            <div class="col-md-12">
+                <h4>Article MER Terms</h4>
+
+                {% if articleMERTerms |length > 0 %}
+
+                  <table class="table table-bordered">
+                    <tr>
+                      <th>Term/Entity</th>
+                      <th>Start Position</th>
+                      <th>End Position</th>
+                    </tr>
+                    {% for term in articleMERTerms %}
+                    <tr>
+                      <td>{{term.term}}</td>
+                      <td>{{term.pos_start}}</td>
+                      <td>{{term.pos_end}}</td>
+                    </tr>
+                    {% endfor %}
+                  </table>
+
+                {% else %}
+                  <p>No terms/entities found.</p>
+                {% endif %}
+
+            </div>
+        </div>
+
+        <div class="row">
             <div class="col-sm-8 col-sm-offset-2">
                 <label for="article_comment">Give us your feedback about this article:</label>
                 <textarea class="form-control" rows="5"></textarea>
@@ -35,10 +63,10 @@
         </div>
         <div class="row">
                 <div class="col-sm-12">
-                    
+
                 </div>
             </div>
 
-        
-            
+
+
     {% endblock content %}

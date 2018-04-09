@@ -75,10 +75,22 @@
                   }
                }
             }
-            
+
             $this->connector->disconnect();
 
             return $newData;
+        }
+
+        public function getMERTerms($id){
+            $id = mysqli_real_escape_string($this->connector->connect(),$id);
+            $data = $this->connector->selectWhere(TABLE_MER_ARTICLES,'article_id','=',$id,'int');
+
+            $data = convertDatasetToArray($data);
+
+            $this->connector->disconnect();
+
+            return $data;
+
         }
     }
 ?>

@@ -13,7 +13,7 @@
             parent::__construct();
 
             $this->article = new Article();
-            
+
         }
         public function index($id=0){
             if($id == 0){
@@ -28,13 +28,17 @@
                 $this->article = new Article();
 
                 $article = $this->article->getArticle($id);
+                $articleMERTerms = $this->article->getMERTerms($id);              
 
                 unset($this->article);
-               
-                $this->view->message =  array('article' => $article);
+
+                $this->view->message = [];
+                $this->view->message['articleMERTerms'] = $articleMERTerms;
+                $this->view->message['article'] = $article;
+
                 $this->view->render('articles/article.html');
             }
-            
+
         }
     }
 
