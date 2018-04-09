@@ -21,14 +21,14 @@ body{
     letter-spacing: 1px;
     text-transform: uppercase;
 }
- 
+
 .btn:focus, .btn:active:focus, .btn.active:focus {
     outline: 0 none;
 }
 .btn:focus, .btn:active:focus, .btn.active:focus {
     outline: 0 none;
 }
- 
+
 .btn-primary {
     background: #0099cc;
     color: #ffffff;
@@ -41,7 +41,7 @@ footer{
     height: 10%;
     clear:both;
     padding-top:20px;
-    
+
 }
 footer .footer-copyright{
     color: ivory;
@@ -54,8 +54,8 @@ footer .footer-copyright span{
 }
 .nav-side-menu {
 overflow: auto;
-font-family: verdana;
-font-size: 12px;
+font-family: 'Roboto', sans-serif;
+font-size: 16px;
 font-weight: 200;
 background-color: #2e353d;
 position: fixed;
@@ -81,7 +81,7 @@ padding: 0px;
 margin: 0px;
 line-height: 35px;
 cursor: pointer;
-/*    
+/*
     .collapsed{
         .arrow:before{
                 font-family: FontAwesome;
@@ -103,7 +103,7 @@ cursor: pointer;
     padding-left: 10px;
     padding-right: 10px;
     vertical-align: middle;
-    
+
 }
 .nav-side-menu ul .active,
 .nav-side-menu li .active {
@@ -142,7 +142,7 @@ vertical-align: middle;
 .nav-side-menu li {
 padding-left: 0px;
 border-left: 3px solid #2e353d;
-border-bottom: 1px solid #23282e;
+border-bottom: 1px solid #6a737d;
 }
 .nav-side-menu li a {
 text-decoration: none;
@@ -200,4 +200,3 @@ transition: all 1s ease;
     height: 100%;
 }
 }
-  
