@@ -8,16 +8,15 @@
 
         public function getAll(){
 
-
             $data = array();
 
-            $data['articlesPerJournal'] = $this->articlesPerJournal();
             $data['articlesPerDisease'] = $this->articlesPerDisease();
             $data['tweetsPerDisease'] = $this->tweetsPerDisease();
             $data['photosPerDisease'] = $this->photosPerDisease();
-            $data['articlesPerDay'] = $this->articlesPerDay();
             $data['sharesPhotosPerDisease'] = $this->sharesPhotosPerDisease();
             $data['sharesTweetsPerDisease'] = $this->sharesTweetsPerDisease();
+            $data['articlesPerDay'] = $this->articlesPerDay();
+            $data['articlesPerJournal'] = $this->articlesPerJournal();
             $data['tweetsAuthor'] = $this->tweetsAuthor();
 
             return $data;
