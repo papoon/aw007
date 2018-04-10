@@ -6,6 +6,7 @@
     const TABLE_DISEASE = 'Disease';
     const TABLE_PHOTOS = 'Photos';
     const TABLE_TWEETS = 'Tweets';
+    const TABLE_MER_ARTICLES = 'MER_Terms_Articles';
 
     function getLastInsertId($connection) {
       return mysqli_insert_id($connection);

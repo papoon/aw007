@@ -81,9 +81,9 @@
                                 $controller->index($tokens[3]);
                             }
                             else{
-                                $controller->$tokens[3]();
+                                $controller->{$tokens[3]}();
                             }
-                            
+
                         }
                         else{
                             $controller->index();
