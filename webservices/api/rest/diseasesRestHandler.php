@@ -1,10 +1,10 @@
 <?php
-require_once("SimpleRest.php");
+require_once("simpleRest.php");
 require_once("../models/disease.php");
-		
+
 class DiseasesRestHandler extends SimpleRest {
 
-	function getAllDiseases() {	
+	function getAllDiseases() {
 
 		$diseases = new Disease();
 		$rawData = $diseases->getDiseases();
@@ -15,14 +15,14 @@ class DiseasesRestHandler extends SimpleRest {
 
 		if(empty($rawData)) {
 			$statusCode = 404;
-			$rawData = array('error' => 'No diseases found!');		
+			$rawData = array('error' => 'No diseases found!');
 		} else {
 			$statusCode = 200;
 		}
 
 		$requestContentType = $_SERVER['CONTENT_TYPE'];
 		$this->setHttpHeaders($requestContentType, $statusCode);
-				
+
 		if(strpos($requestContentType,'application/json') !== false){
 			$response = $this->encodeJson($rawData);
 			echo $response;
@@ -34,11 +34,11 @@ class DiseasesRestHandler extends SimpleRest {
 			echo $response;
 		}
 	}
-	
+
 	public function encodeHtml($responseData) {
-	
+
         $htmlResponse = "<table border='1'>";
-        
+
 		foreach($responseData as $key=>$item) {
 
             if (!empty($item)) {
@@ -53,19 +53,19 @@ class DiseasesRestHandler extends SimpleRest {
                 $htmlResponse .= "</tr>";
             }
         }
-        
+
         $htmlResponse .= "</table>";
-		return "<html>".$htmlResponse."</html>";	
+		return "<html>".$htmlResponse."</html>";
 	}
-			
-	
-	
+
+
+
 	public function encodeJson($responseData) {
-		
+
 		$jsonResponse = json_encode($responseData);
-		return $jsonResponse;		
+		return $jsonResponse;
 	}
-	
+
 	public function encodeXml($responseData) {
 		// creating object of SimpleXMLElement
 		$xml = new SimpleXMLElement('<?xml version="1.0"?><disease></disease>');
@@ -76,7 +76,7 @@ class DiseasesRestHandler extends SimpleRest {
 		}
 		return $xml->asXML();
 	}
-	
+
 	public function getDisease($id) {
 
 		$article = new Article();
@@ -84,14 +84,14 @@ class DiseasesRestHandler extends SimpleRest {
 
 		if(empty($rawData)) {
 			$statusCode = 404;
-			$rawData = array('error' => 'No disease found!');		
+			$rawData = array('error' => 'No disease found!');
 		} else {
 			$statusCode = 200;
 		}
 
 		$requestContentType = $_SERVER['HTTP_ACCEPT'];
 		$this ->setHttpHeaders($requestContentType, $statusCode);
-				
+
 		if(strpos($requestContentType,'application/json') !== false){
 			$response = $this->encodeJson($rawData);
 			echo $response;
