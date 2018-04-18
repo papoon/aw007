@@ -193,3 +193,11 @@ CREATE TABLE Inv_Index_Tweets (
 	FOREIGN KEY (did) REFERENCES Disease(id) ON DELETE CASCADE ON UPDATE CASCADE,
 	FOREIGN KEY (tweet_id) REFERENCES Tweets(id) ON DELETE CASCADE ON UPDATE CASCADE
 );
+
+CREATE TABLE `clients_site` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) DEFAULT NULL,
+  `ip_address` varchar(45) DEFAULT NULL COMMENT 'usar o ip como identificador de utilizador - dá para simular utilizadores diferentes',
+  `insert_at` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+);

@@ -7,6 +7,7 @@
     const TABLE_PHOTOS = 'Photos';
     const TABLE_TWEETS = 'Tweets';
     const TABLE_MER_ARTICLES = 'MER_Terms_Articles';
+    const TABLE_CLIENTS_SITE = 'clients_site';
 
     function getLastInsertId($connection) {
       return mysqli_insert_id($connection);
@@ -115,6 +116,11 @@
           $result[] = array("val"=>$valuesArray[$i++], "type"=>"char");  //inserted_at
           $result[] = array("val"=>$valuesArray[$i++], "type"=>"char");  //updated_at
           break;
+        case TABLE_CLIENTS_SITE:
+          $result[] = array("val"=>$valuesArray[$i++], "type"=>"char");   //name
+          $result[] = array("val"=>$valuesArray[$i++], "type"=>"char");  //ip_address
+          $result[] = array("val"=>$valuesArray[$i++], "type"=>"char");  //insert_at
+          break;
         //case 'Comments':
         //  # code...
         //  break;
@@ -198,6 +204,11 @@
           $valuesStr .= 'published_at,';
           $valuesStr .= 'inserted_at,';
           $valuesStr .= 'updated_at';
+          break;
+        case TABLE_CLIENTS_SITE:
+          $valuesStr .= 'name,';
+          $valuesStr .= 'ip_address,';
+          $valuesStr .= 'insert_at';
           break;
         //case 'Comments':
         //  # code...
@@ -303,6 +314,15 @@
             echo '<p>'.$rows['published_at'].'</p>';
             echo '<p>'.$rows['inserted_at'].'</p>';
             echo '<p>'.$rows['updated_at'].'</p>';
+            echo '<br/>';
+          }
+          break;
+        case TABLE_CLIENTS_SITE:
+          while ( $rows = $data->fetch_assoc() ) {
+            echo '<p>'.$rows['id'].'</p>';
+            echo '<p>'.$rows['name'].'</p>';
+            echo '<p>'.$rows['ip_address'].'</p>';
+            echo '<p>'.$rows['insert_at'].'</p>';
             echo '<br/>';
           }
           break;

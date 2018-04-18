@@ -27,6 +27,20 @@
 
             die();*/
 
+            require_once '../utils/helpers.php';
+
+            // Get the client ip address
+            $ip_address = getClientIP();
+            if(!isset($_COOKIE['client'])) {
+                setcookie('client', $ip_address,0);
+                //$_COOKIE['client'] = $ip_address;
+            }
+            #setcookie($key,$value,time() + (86400 * $experie_days)); 
+           
+            //handle new client visit to site
+            addNewClientOfSite();
+
+            
             //route
             $tokens = explode('/',rtrim($_SERVER['REQUEST_URI'],'/'));
 

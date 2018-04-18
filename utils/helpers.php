@@ -1,4 +1,6 @@
 <?php
+    require_once '../database/dbConnector.php';
+    require_once '../database/dbUtils.php';
 
     function buildBaseString($baseURI, $method, $params)
     {
@@ -53,4 +55,52 @@
     function getStringForUrl($dataStr) {
       return str_replace(' ', '%20', $dataStr);
     }
+    // Function to get the client ip address
+    function getClientIP() {
+
+        $ipaddress = '';
+        
+        if($_SERVER['REMOTE_ADDR'])
+            $ipaddress = $_SERVER['REMOTE_ADDR'];
+        else
+            $ipaddress = 'UNKNOWN';
+    
+        return $ipaddress;
+    }
+    function addNewClientOfSite(){
+
+        #VERIFICAMOS DE JÁ EXSITE COOCKIE COMO FORMA DE 
+        #NÃO ESTAR SEMPRE A VERIFICAR SE É NOVO VISTANTE QUNDO O UTILIZADOR USA O SITE
+
+        if(!isset($_COOKIE['client'])) {
+
+            $connector = DbConnector::defaultConnection();
+            $connector->connect();
+
+            $ip_address = getClientIP();
+            //check if ip already exits
+            $exists_ip = $connector->selectWhere(TABLE_CLIENTS_SITE,'ip_address','=',$ip_address,'char')->fetch_row();
+
+            if(count($exists_ip) == 0){
+
+                $currentDate = new DateTime();
+                $currentDateStr = $currentDate->format('Y-m-d H:i:s');
+
+                $values = array('UNKNOWN',
+                                $ip_address,
+                                $currentDateStr
+                            );  
+
+                $toInsert = createInsertArray(TABLE_CLIENTS_SITE, $values);
+                $connector->insertInto(TABLE_CLIENTS_SITE, $toInsert);
+            }
+            
+            $connector->disconnect();
+
+        }
+
+        
+
+    }
+
 ?>
