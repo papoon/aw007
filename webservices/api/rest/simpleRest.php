@@ -6,6 +6,7 @@ Use this as a template and build upon it
 class SimpleRest {
 	
 	private $httpVersion = "HTTP/1.1";
+	private $verbs = array();
 
 	public function setHttpHeaders($contentType, $statusCode){
 		
@@ -59,6 +60,99 @@ class SimpleRest {
 			504 => 'Gateway Timeout',  
 			505 => 'HTTP Version Not Supported');
 		return ($httpStatus[$statusCode]) ? $httpStatus[$statusCode] : $status[500];
+	}
+
+	public function getHttpContentType(){
+
+		if(!array_key_exists('CONTENT_TYPE',$_SERVER)){
+			$requestContentType = 'application/json';
+		}
+		else{
+			$requestContentType = $_SERVER['CONTENT_TYPE'];
+		}
+
+		return $requestContentType;
+		
+	}
+
+	public function getStatusHttpContentType($requestContentType){
+
+		if($requestContentType!='application/json' && $requestContentType!='text/html' && $requestContentType!='application/xml'){
+			$status = 406;
+		}
+		else{
+			$status = 200;
+		}
+
+		return $status;
+	}
+
+	public function getHttpVerb(){
+
+		if(array_key_exists('REQUEST_METHOD',$_SERVER)){
+			return $_SERVER['REQUEST_METHOD'];
+		}
+		else{
+			return 'UNKNOWN';
+		}
+	}
+
+	public function getStatusHttpVerb($listValidVerbs){
+
+		if(!is_array($listValidVerbs)){
+			throw new Excepetion('listValidVerbs is not an array');
+		}
+		$verb = $this->getHttpVerb();
+		if(in_array($verb,$listValidVerbs)){
+			return 200;
+		}else{
+			return 405;
+		}
+	}
+	public function setValidVerbs($listVerbs){
+
+		if(!is_array($listVerbs)){
+			throw new Excepetion('listVerbs is not an array');
+		}
+
+		foreach($listVerbs as $verb){
+			$this->verbs[] = $verb;
+		}
+
+	}
+	public function errorResponse(){
+
+		$requestContentType = $this->getHttpContentType();
+
+		$statusCodeHttpContentType =  $this->getStatusHttpContentType($requestContentType);
+
+		$statusCodeHttpVerb =  $this->getStatusHttpVerb($this->verbs);
+
+		if($statusCodeHttpContentType != 200){
+			$this->setHttpHeaders($requestContentType, $statusCodeHttpContentType);
+			echo json_encode(array('error' => 'Not a valid ContentType -> '.requestContentType));
+			die();
+		}
+
+		if($statusCodeHttpVerb != 200){
+			$this->setHttpHeaders($requestContentType, $statusCodeHttpVerb);
+			echo json_encode(array('error' => 'Not a valid Http verb -> '.$this->getHttpVerb()));
+			die();
+		}
+
+	}
+	public function array_to_xml( $data, &$xml_data ) {
+		foreach( $data as $key => $value ) {
+			if( is_numeric($key) ){
+				$key = 'item'.$key; //dealing with <0/>..<n/> issues
+			}
+			if( is_array($value) ) {
+				$subnode = $xml_data->addChild($key);
+				$this->array_to_xml($value, $subnode);
+			} else {
+				$xml_data->addChild("$key",htmlspecialchars("$value"));
+			}
+		 }
 	}
 }
 ?>

@@ -6,6 +6,12 @@ class DiseasesRestHandler extends SimpleRest {
 
 	function getAllDiseases() {
 
+		$statusCode = 200;
+		$this->setValidVerbs(array('GET'));;
+
+		//verifica erros e retorna-os
+		$this->errorResponse();
+
 		$diseases = new Disease();
 		$rawData = $diseases->getDiseases();
 
@@ -13,15 +19,16 @@ class DiseasesRestHandler extends SimpleRest {
 			$value = utf8_decode($value);
 		});
 
-		if(empty($rawData)) {
+		/*if(empty($rawData)) {
 			$statusCode = 404;
 			$rawData = array('error' => 'No diseases found!');
-		} else {
-			$statusCode = 200;
-		}
+		}*/
 
-		$requestContentType = $_SERVER['CONTENT_TYPE'];
+		$requestContentType = $this->getHttpContentType();
+
 		$this->setHttpHeaders($requestContentType, $statusCode);
+
+		
 
 		if(strpos($requestContentType,'application/json') !== false){
 			$response = $this->encodeJson($rawData);
@@ -68,14 +75,12 @@ class DiseasesRestHandler extends SimpleRest {
 
 	public function encodeXml($responseData) {
 		// creating object of SimpleXMLElement
-		$xml = new SimpleXMLElement('<?xml version="1.0"?><disease></disease>');
-		foreach($responseData as $key=>$item) {
-            foreach($item as $value){
-                $xml->addChild($key, $value);
-            }
-		}
+		$xml = new SimpleXMLElement('<?xml version="1.0"?><diseases></diseases>');
+		$this->array_to_xml( $responseData,$xml);
 		return $xml->asXML();
 	}
+
+	
 
 	public function getDisease($id) {
 
