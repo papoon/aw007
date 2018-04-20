@@ -7,8 +7,8 @@ class DiseasesRestHandler extends SimpleRest {
 	function getAllDiseases() {
 
 		$statusCode = 200;
-		$this->setValidVerbs(array('GET'));;
-
+		$this->setValidVerbs(array('GET'));
+		
 		//verifica erros e retorna-os
 		$this->errorResponse();
 
@@ -18,11 +18,6 @@ class DiseasesRestHandler extends SimpleRest {
 		array_walk_recursive($rawData, function(&$value) {
 			$value = utf8_decode($value);
 		});
-
-		/*if(empty($rawData)) {
-			$statusCode = 404;
-			$rawData = array('error' => 'No diseases found!');
-		}*/
 
 		$requestContentType = $this->getHttpContentType();
 
@@ -84,17 +79,21 @@ class DiseasesRestHandler extends SimpleRest {
 
 	public function getDisease($id) {
 
-		$article = new Article();
-		$rawData = $article->getDisease($id);
+		$statusCode = 200;
+		$this->setValidVerbs(array('GET'));
 
-		if(empty($rawData)) {
-			$statusCode = 404;
-			$rawData = array('error' => 'No disease found!');
-		} else {
-			$statusCode = 200;
-		}
+		//verifica erros e retorna-os
+		$this->errorResponse();
 
-		$requestContentType = $_SERVER['HTTP_ACCEPT'];
+		$disease = new Disease();
+		$rawData = $disease->getDisease($id);
+
+		array_walk_recursive($rawData, function(&$value) {
+			$value = utf8_decode($value);
+		});
+
+		$requestContentType = $this->getHttpContentType();
+
 		$this ->setHttpHeaders($requestContentType, $statusCode);
 
 		if(strpos($requestContentType,'application/json') !== false){

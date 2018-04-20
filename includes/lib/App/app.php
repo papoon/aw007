@@ -41,8 +41,11 @@
             addNewClientOfSite();
 
             
+            //explode ?
+            $route = explode('?',$_SERVER['REQUEST_URI']);
+            $route = $route[0];
             //route
-            $tokens = explode('/',rtrim($_SERVER['REQUEST_URI'],'/'));
+            $tokens = explode('/',rtrim($route,'/'));
 
             //server
             if(count($tokens)==2){
@@ -87,17 +90,18 @@
                     $controller = new $controller;
 
                     if(isset($tokens[2])){
-
-                        $action = $tokens[2];
-
+                        
                         if(isset($tokens[3])){
                             if(is_numeric($tokens[3])){
-                                $controller->index($tokens[3]);
+                                $controller->index($function);
                             }
                             else{
-                                $controller->{$tokens[3]}();
+                                if(count($tokens)== 5){
+                                    $controller->{$function}($param);
+                                }else{
+                                    $controller->{$function}();
+                                } 
                             }
-
                         }
                         else{
                             $controller->index();

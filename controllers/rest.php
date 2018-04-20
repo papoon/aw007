@@ -6,11 +6,20 @@
         public function __construct(){
             parent::__construct();
         }
-        public function diseases(){
+        public function diseases($id=0){
 
-            // to handle REST Url /diseases/list/
-		    $diseasesRestHandler = new DiseasesRestHandler();
-		    $diseasesRestHandler->getAllDiseases();
+            if($id == 0){
+                // to handle REST Url /diseases/
+		        $diseasesRestHandler = new DiseasesRestHandler();
+                $diseasesRestHandler->getAllDiseases();
+            }else{
+                // to handle REST Url /diseases/id
+		        $diseasesRestHandler = new DiseasesRestHandler();
+                $diseasesRestHandler->getDisease($id);
+            }
+            
+            
+
            
         }
     }
