@@ -8,6 +8,11 @@ class SimpleRest {
 	private $httpVersion = "HTTP/1.1";
 	private $verbs = array();
 
+	public function __construct(){
+		//verifica erros e retorna-os
+		$this->errorResponse();
+	}
+
 	public function setHttpHeaders($contentType, $statusCode){
 		
 		$statusMessage = $this -> getHttpStatusMessage($statusCode);

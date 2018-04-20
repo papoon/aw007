@@ -1,8 +1,8 @@
 <?php
 require_once("simpleRest.php");
-require_once("../models/disease.php");
+require_once("../models/articles.php");
 
-class DiseasesRestHandler extends SimpleRest {
+class ArticlesRestHandler extends SimpleRest {
 	private $searchOptions = array('fields,limit');
 
 	public function __construct(){
@@ -10,10 +10,10 @@ class DiseasesRestHandler extends SimpleRest {
 		parent::__construct();
 	}
 
-	function getAllDiseases() {
+	function getAllArticles() {
 
-		$diseases = new Disease();
-		$rawData = $diseases->getDiseases();
+		$article = new Article();
+		$rawData = $article->getArticles();
 
 		array_walk_recursive($rawData, function(&$value) {
 			$value = utf8_decode($value);
@@ -66,15 +66,15 @@ class DiseasesRestHandler extends SimpleRest {
 
 	public function encodeXml($responseData) {
 		// creating object of SimpleXMLElement
-		$xml = new SimpleXMLElement('<?xml version="1.0"?><diseases></diseases>');
+		$xml = new SimpleXMLElement('<?xml version="1.0"?><articles></articles>');
 		$this->array_to_xml( $responseData,$xml);
 		return $xml->asXML();
 	}
 
-	public function getDisease($id) {
+	public function getArticle($id) {
 
-		$disease = new Disease();
-		$rawData = $disease->getDisease($id);
+		$article = new Article();
+		$rawData = $article->getArticle($id);
 
 		array_walk_recursive($rawData, function(&$value) {
 			$value = utf8_decode($value);
