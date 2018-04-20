@@ -6,6 +6,19 @@
             parent::__construct();
         }
 
+        public function getTweets(){
+
+            $result = $this->connector->selectAll(TABLE_TWEETS);
+
+            $data = array();
+            while ($row = $result->fetch_assoc()) {
+                $data[] = $row;
+            }
+
+            $this->connector->disconnect();
+            return $data;
+            
+        }
         public function getTweetsDisease($idDisease){
 
             //$result = $this->connector->rawQuery('select * from Article

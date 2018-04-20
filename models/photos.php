@@ -6,6 +6,20 @@
             parent::__construct();
         }
 
+        public function getPhotos(){
+
+            $result = $this->connector->selectAll(TABLE_PHOTOS);
+
+            $data = array();
+            while ($row = $result->fetch_assoc()) {
+                $data[] = $row;
+            }
+
+            $this->connector->disconnect();
+            return $data;
+            
+        }
+
         public function getPhotosDisease($idDisease){
 
             //$result = $this->connector->rawQuery('select * from Article
