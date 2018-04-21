@@ -10,20 +10,102 @@
         {% include "sidebar.html" %}
         <div class="container" id="main">
             <div class="row">
-                <div class="col-md-12">
-        
-                        {% block content %}{% endblock %}
+                <div class="col-md-12 sub_main">
+                    {% block content %}{% endblock %}
                 </div>
             </div>
         </div>
         <footer>
             {% include "footer.html" %}
-            {% block footer %}
-                
-            {% endblock footer %}
+            <div class="sub_footer">
+                {% block footer %}
+                    
+                {% endblock footer %}
+            </div>
         </footer>
     </body>
-
-    
-    
 </html>
+
+<script>
+$(document).ready(function () {
+
+    window.addEventListener('popstate', function (event) {
+        if (history.state && history.state.id === '') {
+            loadPage('');
+        }
+        if (history.state && history.state.id === 'diseases') {
+            loadPage('diseases');
+        }
+        if (history.state && history.state.id === 'statistics') {
+            loadPage('statistics');
+        }
+        if (history.state && history.state.id === 'documentation') {
+            loadPage('documentation');
+        }
+
+    }, false);
+
+    $('li a').click(function (e) {
+
+        if ($(this).parent().attr('class') != "disabled") {
+
+            console.log($(this).attr('href'));
+            if ($(this).attr('href') == "#home") {
+                loadPage('');
+            }
+            if ($(this).attr('href') == "#diseases") {
+                loadPage('diseases');
+            }
+            if ($(this).attr('href') == "#statistics") {
+                loadPage('statistics');
+            }
+            if ($(this).attr('href') == "#documentation") {
+                loadPage('documentation');
+            }
+        }
+    });
+
+    function loadPage(href)
+    {
+        $.ajax({
+            type: "GET",
+            url: 'http://'+window.location.hostname+'/aw007/'+href,
+            dataType: 'html'
+        })
+        .done(function(result){
+            console.log('oi');
+
+            /*document.open("text/html", "replace");
+            document.write(result);
+            document.close();*/
+
+            var sub_main_content = $('<div></div>').append(result).find('#main .sub_main').html();
+            //console.log($('<div></div>').append(result).find('#main .sub_main').html());
+            
+            //insert the new sub_main content
+            $('#main .sub_main').html(sub_main_content);
+
+            //footer replaces
+
+            var sub_footer_content = $('<div></div>').append(result).find('.sub_footer').html();
+            //console.log(sub_footer_content);
+            
+            //insert the new sub_main content
+            var object_script = $(sub_footer_content).filter('script').prevObject;
+            //console.log(object_script[object_script.length -1 ]);
+
+            var scripts = object_script[object_script.length -1 ];
+            $('.sub_footer').html(scripts);
+            //change url
+            history.pushState({id:href}, '', (href == '' ? ''+href : href));
+        })
+        .fail(function(jqXHR, textStatus) {
+            console.log(jqXHR);
+        })
+        .always(function(){
+            console.log('complete');
+        });
+    }
+
+});
+</script>
