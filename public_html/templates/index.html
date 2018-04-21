@@ -75,10 +75,6 @@ $(document).ready(function () {
         .done(function(result){
             console.log('oi');
 
-            /*document.open("text/html", "replace");
-            document.write(result);
-            document.close();*/
-
             var sub_main_content = $('<div></div>').append(result).find('#main .sub_main').html();
             //console.log($('<div></div>').append(result).find('#main .sub_main').html());
             
@@ -86,15 +82,14 @@ $(document).ready(function () {
             $('#main .sub_main').html(sub_main_content);
 
             //footer replaces
-
             var sub_footer_content = $('<div></div>').append(result).find('.sub_footer').html();
             //console.log(sub_footer_content);
             
             //insert the new sub_main content
-            var object_script = $(sub_footer_content).filter('script').prevObject;
+            var prevObject = $(sub_footer_content).filter('script').prevObject;
             //console.log(object_script[object_script.length -1 ]);
 
-            var scripts = object_script[object_script.length -1 ];
+            var scripts = prevObject[prevObject.length -1 ];
             $('.sub_footer').html(scripts);
             //change url
             history.pushState({id:href}, '', (href == '' ? ''+href : href));

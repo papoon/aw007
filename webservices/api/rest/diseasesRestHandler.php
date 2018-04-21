@@ -95,5 +95,30 @@ class DiseasesRestHandler extends SimpleRest {
 			echo $response;
 		}
 	}
+	//diseases with artilcles and photos and tweets
+	public function getDiseaseMetadata($id){
+
+		$disease = new Disease();
+		$rawData = $disease->getDiseaseMetadata($id);
+
+		array_walk_recursive($rawData, function(&$value) {
+			$value = utf8_decode($value);
+		});
+
+		$requestContentType = $this->getHttpContentType();
+
+		$this ->setHttpHeaders($requestContentType,200);
+
+		if(strpos($requestContentType,'application/json') !== false){
+			$response = $this->encodeJson($rawData);
+			echo $response;
+		} else if(strpos($requestContentType,'text/html') !== false){
+			$response = $this->encodeHtml($rawData);
+			echo $response;
+		} else if(strpos($requestContentType,'application/xml') !== false){
+			$response = $this->encodeXml($rawData);
+			echo $response;
+		}
+	}
 }
 ?>

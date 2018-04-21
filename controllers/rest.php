@@ -18,11 +18,31 @@
 		        $desisesRestHandler = new DiseasesRestHandler();
                 $desisesRestHandler->getAllDiseases();
             }else{
-                // to handle REST Url /diseases/id
-		        $desisesRestHandler = new DiseasesRestHandler();
-                $desisesRestHandler->getDisease($id);
+
+                if(isset($_GET) && array_key_exists('metadata',$_GET)){
+                    $with_metadata = $_GET['metadata'];
+
+                    if($with_metadata == 'true'){
+
+                        // to handle REST Url /diseases/id?metadata=true
+		                $desisesRestHandler = new DiseasesRestHandler();
+                        $desisesRestHandler->getDiseaseMetadata($id);
+                    }
+                    else{
+                        // to handle REST Url /diseases/id
+		                $desisesRestHandler = new DiseasesRestHandler();
+                        $desisesRestHandler->getDisease($id);
+                    }
+                }
+                else{
+
+                    // to handle REST Url /diseases/id
+		            $desisesRestHandler = new DiseasesRestHandler();
+                    $desisesRestHandler->getDisease($id);
+                }   
             }
         }
+
         #/articles/?
         public function articles($id=0){
             if($id == 0){
@@ -36,6 +56,7 @@
             }
             
         }
+
         #/photos/?
         public function photos($id=0){
             if($id == 0){
@@ -49,6 +70,7 @@
             }
             
         }
+
         #/tweets/?
         public function tweets($id=0){
             if($id == 0){

@@ -19,6 +19,8 @@
             
         }
         public function getDisease($id){
+
+
             $id = mysqli_real_escape_string($this->connector->connect(),$id);
             $data = $this->connector->selectWhere(TABLE_DISEASE,'id','=',$id,'int')->fetch_assoc();
 
@@ -26,6 +28,31 @@
 
             return $data;
             
+        }
+
+        public function getDiseaseMetadata($id){
+
+            $disease = $this->getDisease($id);
+
+            $article = new Article();
+            $articles = $article->getArticlesDisease($id);
+
+            $photos = new Photos();
+            $photos = $photos->getPhotosDisease($id);
+
+            $tweets = new Tweets();
+            $tweets = $tweets->getTweetsDisease($id);
+
+
+            #array_push($disease,$articles);
+            #array_push($disease,$photos);
+            #array_push($disease,$tweets);
+
+            $disease['articles'] = $articles;
+            $disease['photos'] = $photos;
+            $disease['tweets'] = $tweets;
+
+            return $disease;
         }
 
     }
