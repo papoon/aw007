@@ -207,3 +207,30 @@ transition: all 1s ease;
     display: flex;
     flex-wrap: wrap;
 }
+
+.rating {
+    unicode-bidi: bidi-override;
+    direction: rtl;
+}
+.rating > span.star_rating {
+    display: inline-block;
+    position: relative;
+    width: 1.4em;
+    font-size: 2.4em;
+}
+.rating > span.star_rating:hover:before,
+.rating > span.star_rating:hover ~ span.star_rating:before {
+    content: "\2605";
+    color: yellow;
+    position: absolute;
+}
+.rating > span {
+    display: inline-block;
+    position: relative;
+    width: 2.485em;
+    font-size: 1.4em;
+}
+
+
+
+

@@ -1,35 +1,33 @@
 {% extends "index/index.html" %}
 
 
-        {% block content %}
-        <!-- Page Content -->
+    {% block content %}
 
-
-
-
-            <div class="row">
-                <div class="col-md-12">
-                    <a href="/aw007" class="btn btn-info" role="button">< Back</a>
-                </div>
+    <!-- Page Content -->
+    <div class="page_content">
+        <div class="row">
+            <div class="col-md-12">
+                <a href="/aw007" class="btn btn-info" role="button">< Back</a>
             </div>
+        </div>
 
-            <h1 class="text-center">Articles</h1>
-            <hr>
+        <h1 class="text-center">Articles</h1>
+        <hr>
 
 
-            <div class="row fix">
-                {% for article in articles %}
-                    <div class="col-sm-6 col-md-4">
-                        <div class="thumbnail">
+        <div class="row fix">
+            {% for article in articles %}
+                <div class="col-sm-6 col-md-4">
+                    <div class="thumbnail">
 
-                            <div class="caption">
-                                <a href="articles/{{article.id}}" ><h3>{{article.title}}</h3></a>
-                            </div>
+                        <div class="caption">
+                            <a class="article_link" href="articles/{{article.id}}" ><h3>{{article.title}}</h3></a>
                         </div>
                     </div>
-                {% endfor %}
+                </div>
+            {% endfor %}
 
-            </div>
-
-            <!-- /.row -->
-        {% endblock content %}
+        </div>
+    </div>
+        <!-- /.row -->
+    {% endblock content %}

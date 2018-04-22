@@ -3,7 +3,7 @@
     {% block content %}
         <!-- Page Content -->
 
-
+        <div class="page_content">
 
             <div class="row">
                 <div class="col-md-12">
@@ -11,11 +11,11 @@
                 </div>
             </div>
 
-            <h1 class="text-center">{{data['disease'].name}}</h1>
+            <h1 class="text-center page_title">{{data['disease'].name}}</h1>
             <hr>
 
-            <h1 class="text-center">Abstract</h1>
-            <p>{{data['disease'].abstract}}</p>
+            <h1 class="text-center abstract_title">Abstract</h1>
+            <p class="abstract_text">{{data['disease'].abstract}}</p>
             <hr>
 
 
@@ -30,7 +30,7 @@
                             <div class="caption">
                                 <h3>{{ articles.name }}</h3>
                                 <p>
-                                    <a href="/aw007/articles/{{article.id}}" class="btn btn-primary " role="button">Ver</a>
+                                    <a href="/aw007/articles/{{article.id}}" class="btn btn-primary article_link" role="button">Ver</a>
                                 </p>
 
                             </div>
@@ -79,7 +79,13 @@
                 </div>
                 {% endfor %}
             </div>
+        </div>
 
 
 
     {% endblock content %}
+
+    {% block footer %}
+        <script src="/aw007/assets/js/articles/main.js"></script>
+    {% endblock footer %}
+

@@ -3,10 +3,7 @@
 
     {% block content %}
     <!-- Page Content -->
-
-
-
-
+    <div class="page_content">
         <div class="row">
             <div class="col-md-12">
                 <a href="/aw007" class="btn btn-info" role="button">< Back</a>
@@ -17,6 +14,7 @@
         <hr>
 
         <div class="body_content">
+
             <div class="row fix">
                 {% for disease in diseases %}
                     <div class="col-xl-2 col-md-3 col-sm-3 col-xs-4 f-category">
@@ -32,12 +30,12 @@
 
             </div>
         </div>
+    </div>
 
         <!-- /.row -->
     {% endblock content %}
 
     {% block footer %}
-
-        <script src="/aw007/assets/js/diseases/index.js"></script>
-        
+        <script src="/aw007/assets/js/diseases/main.js"></script>
+        <script src="/aw007/assets/js/articles/main.js"></script>
     {% endblock footer %}

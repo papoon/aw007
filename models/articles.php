@@ -30,11 +30,6 @@
 
         public function getArticlesDisease($idDisease){
 
-            //$result = $this->connector->rawQuery('select * from Article
-            //where did = '.$idDisease.';');
-
-            //$this->connector->connect();
-
             $idDisease = mysqli_real_escape_string($this->connector->connect(),$idDisease);
             $result = $this->connector->selectWhere(TABLE_ARTICLE,'did','=',$idDisease,'int');
 

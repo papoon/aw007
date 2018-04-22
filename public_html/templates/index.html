@@ -66,13 +66,17 @@ $(document).ready(function () {
     });
 
     function loadPage(href)
-    {
+    {   
+
+        href = 'http://'+window.location.hostname+'/aw007/'+href;
+        
         $.ajax({
             type: "GET",
-            url: 'http://'+window.location.hostname+'/aw007/'+href,
+            url: href,
             dataType: 'html'
         })
         .done(function(result){
+
             console.log('oi');
 
             var sub_main_content = $('<div></div>').append(result).find('#main .sub_main').html();
@@ -83,14 +87,20 @@ $(document).ready(function () {
 
             //footer replaces
             var sub_footer_content = $('<div></div>').append(result).find('.sub_footer').html();
-            //console.log(sub_footer_content);
+            console.log(sub_footer_content);
             
             //insert the new sub_main content
-            var prevObject = $(sub_footer_content).filter('script').prevObject;
-            //console.log(object_script[object_script.length -1 ]);
-
-            var scripts = prevObject[prevObject.length -1 ];
-            $('.sub_footer').html(scripts);
+            var prevObject = $(sub_footer_content).filter('script');
+            console.log(prevObject);
+            
+            $('.sub_footer').html('');
+            //var scripts = prevObject[prevObject.length -1 ];
+            for (let index = 0; index < prevObject.length; index++) {
+                const script = prevObject[index];
+                $('.sub_footer').append(script);
+            }
+            //console.log(scripts);
+            console.log(prevObject);
             //change url
             history.pushState({id:href}, '', (href == '' ? ''+href : href));
         })

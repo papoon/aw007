@@ -3,7 +3,7 @@ require_once("simpleRest.php");
 require_once("../models/articles.php");
 
 class ArticlesRestHandler extends SimpleRest {
-	private $searchOptions = array('fields,limit');
+	private $searchOptions = array('terms','fields','limit');
 
 	public function __construct(){
 		$this->setValidVerbs(array('GET'));
@@ -74,7 +74,25 @@ class ArticlesRestHandler extends SimpleRest {
 	public function getArticle($id) {
 
 		$article = new Article();
+
+		$with_terms = "";
+		if(isset($_GET)){
+
+			$get_keys = array_keys($_GET);
+
+			if(array_key_exists('terms',$_GET)){
+				//verifica se não vem filtros na api que n~são validos
+				if(count(array_diff(array_keys($_GET),$this->searchOptions)) == 0){
+					$with_terms = $_GET['terms'];
+				}
+			}
+		}
+		
 		$rawData = $article->getArticle($id);
+
+		if($with_terms == 'true'){
+			$rawData['terms'] = $article->getMERTerms($id);
+		}
 
 		array_walk_recursive($rawData, function(&$value) {
 			$value = utf8_decode($value);
