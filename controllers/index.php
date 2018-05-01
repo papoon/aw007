@@ -9,7 +9,7 @@
             $this->disease = new Disease();
         }
         public function index(){
-        
+
             $diseases = $this->disease->getDiseases();
 
             $this->view->message = array('diseases' => $diseases);

@@ -13,6 +13,7 @@
         public $dataset;
         private static $instance;
 
+
         //generic construct
         protected function __construct() {
 
@@ -23,6 +24,8 @@
             $this->connection = NULL;
             $this->sqlQuery = NULL;
             $this->dataSet = NULL;
+
+
 
         }
 

@@ -1,8 +1,7 @@
 from decimal import *
 
 #path to the MER tool
-MER_path = '/home/kezhaya/Tools/MER'
-#MER_path = '/home/aw000/MER'
+MER_path = '../../tools/MER_Tool'
 MER_DB_path = 'data/doid-simple.owl'
 
 #path to the DiShIn tool
