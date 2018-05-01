@@ -12,7 +12,7 @@
 
         #diseases/?
         public function diseases($id=0){
-
+            
             if($id == 0){
                 // to handle REST Url /diseases/
 		        $desisesRestHandler = new DiseasesRestHandler();
@@ -21,12 +21,16 @@
 
                 if(isset($_GET) && array_key_exists('metadata',$_GET)){
                     $with_metadata = $_GET['metadata'];
-
+                    
+                    
                     if($with_metadata == 'true'){
-
+                        
                         // to handle REST Url /diseases/id?metadata=true
 		                $desisesRestHandler = new DiseasesRestHandler();
                         $desisesRestHandler->getDiseaseMetadata($id);
+                        
+                
+                        
                     }
                     else{
                         // to handle REST Url /diseases/id

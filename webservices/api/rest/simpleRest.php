@@ -159,5 +159,23 @@ class SimpleRest {
 			}
 		 }
 	}
+    
+    public function convertResponse($requestContentType,$rawData){
+        
+        if(strpos($requestContentType,'application/json') !== false){
+			$response = $this->encodeJson($rawData);
+			echo $response;
+		} else if(strpos($requestContentType,'text/html') !== false){
+			$response = $this->encodeHtml($rawData);
+			echo $response;
+		} else if(strpos($requestContentType,'application/xml') !== false){
+			$response = $this->encodeXml($rawData);
+			echo $response;
+		}
+        
+        
+    }
+    
+    
 }
 ?>

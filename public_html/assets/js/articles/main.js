@@ -108,7 +108,7 @@ function merContent(articleMERTerms){
                 html+='<th>Start Position</th>';
                 html+='<th>End Position</th>';
                 html+='</tr>';
-
+                
                 articleMERTerms.forEach(term => {
                     html+='<tr>';
                     html+='<td>'+term.term+'</td>';
@@ -137,13 +137,13 @@ function ratingContent(){
     html+='<div class="col-sm-6 col-sm-offset-2">';
         
     html+='<div class="rating">';
+    html+='<span class="star_rating" value="5">☆</span>';
+    html+='<span class="star_rating" value="4">☆</span>';
+    html+='<span class="star_rating" value="3">☆</span>';
+    html+='<span class="star_rating" value="2">☆</span>';
+    html+='<span class="star_rating" value="1">☆</span>';
+    html+='<span class="star_rating" value="0">☆</span>';
     html+='<span class="star_rating" value="-1">☆</span>';
-    html+='<span class="star_rating">☆</span>';
-    html+='<span class="star_rating">☆</span>';
-    html+='<span class="star_rating">☆</span>';
-    html+='<span class="star_rating">☆</span>';
-    html+='<span class="star_rating">☆</span>';
-    html+='<span class="star_rating">☆</span>';
     html+='<br>';
     html+='<span>5</span>';
     html+='<span>4</span>';
@@ -171,3 +171,5 @@ function feedbackContent(){
 
     return html;
 }
+
+

@@ -1,10 +1,8 @@
-
-
 $('a.image_link_disease').on('click',function(e) {
 
         e.preventDefault();
 
-        console.log('oi');
+        console.log('oLA');
 
         var endpoint = $(this).attr('href');
         console.log( endpoint);
@@ -13,16 +11,17 @@ $('a.image_link_disease').on('click',function(e) {
 
         var url = window.location.href.split('/');
         url = url[0]+'//'+url[2]+'/'+url[3]+'/'+endpoint;
-        console.log(url);
+        console.log(uri);
         //recebe o id da doença
+        
         $.ajax({
             type: "GET",
             url: uri,
             dataType: 'json',
             data:{'metadata':'true'}
         })
+        
         .done(function(result){
-            console.log('oi');
             console.log(result);
 
             var disease= result;
@@ -43,7 +42,11 @@ $('a.image_link_disease').on('click',function(e) {
 
             html_body_content += abstract_text;
             //articles
+            console.log(disease);
             var articles = disease.articles;
+            
+            
+            
             var html_articles = constructDiseasesArticles(articles);
             html_body_content += html_articles;
             //$('.body_content').html(html_articles);
@@ -61,7 +64,7 @@ $('a.image_link_disease').on('click',function(e) {
             var html_tweets = constructDiseasesTweets(tweets);
             html_body_content += html_tweets;
             //$('.body_content').append(html_photos);
-            //console.log(html_tweets);
+            console.log("html_tweets");
 
 
             //set new html page
