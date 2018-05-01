@@ -19,7 +19,7 @@
 
                 $this->view->message =  array('statistics' => $statistics);
 
-                $this->view->render('statistics/index.html');
+                $this->view->render('statistics/index.html.twig');
             }
             else{
                 $this->view->message =  array('error' => 'Disease Not Found!');

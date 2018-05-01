@@ -24,7 +24,7 @@
                 $diseases = $this->disease->getDiseases();
                 $this->view->message =  array('diseases' => $diseases);
 
-                $this->view->render('diseases/index.html');
+                $this->view->render('diseases/index.html.twig');
             }
             else{
 
@@ -53,7 +53,7 @@
                 );
 
                 $this->view->message =  array('data' => $data);
-                $this->view->render('diseases/disease.html');
+                $this->view->render('diseases/disease.html.twig');
             }
 
         }

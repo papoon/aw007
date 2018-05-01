@@ -1,53 +1,49 @@
-{% extends "index/index.html" %}
-
-
-{% block content %}
-    <!-- Page Content -->
-
-
-        <div class="row margin-bottom-10">
-            <div class="col-md-12">
-                <a href="/aw007" class="btn btn-info" role="button">< Back</a>
-            </div>
+    
+    
+<div class="tab-pane" id="statistics">
+    <div class="row margin-bottom-10">
+        <div class="col-md-12">
+            <a href="/aw007" class="btn btn-info" role="button">< Back</a>
         </div>
+    </div>
 
-        <div class="row">
-            <div class="col-md-12">
-                <div class="panel panel-default">
-                    <div class="panel-body">
-                        <h2 style="text-align:center;">Statistics</h2>
-                    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <h2 style="text-align:center;">Statistics</h2>
                 </div>
             </div>
         </div>
-        <div class="row">
-            {% for key, statistic in statistics %}
-                <div class="col-sm-6 col-md-4">
-                    <div class="thumbnail">
+    </div>
+    <div class="row">
+        <div id="data-statistics" data-statistics='{{ statistics|json_encode|raw }}'></div>
+        {% for key, statistic in statistics %}
+            <div class="col-sm-6 col-md-4">
+                <div class="thumbnail">
 
-                    <div class="caption">
-                        <!-- <h3><a href="statistics/{{key}}" target="_blank" >{{ key }}</a></h3>-->
-                        <canvas id="{{key}}" width="400" height="400"></canvas>
-                    </div>
-                    </div>
+                <div class="caption">
+                    <!-- <h3><a href="statistics/{{key}}" target="_blank" >{{ key }}</a></h3>-->
+                    <canvas id="{{key}}" width="400" height="400"></canvas>
                 </div>
-            {% endfor %}
-
-        </div>
-        <div class="row">
-            <div class="col-sm-4">
-
+                </div>
             </div>
+        {% endfor %}
+
+    </div>
+    <div class="row">
+        <div class="col-sm-4">
+
         </div>
+    </div>
+</div>
 
-        <!-- /.row -->
-{% endblock content %}
-
-{% block footer %}
-
+<!--<script src="/aw007/assets/js/statistics/main.js"></script>-->
+<script src="/aw007/assets/js/Chart.bundle.min.js"></script>
 <script>
     var statistics = '{{ statistics|json_encode|raw }}';
-
+    //var statistics = $('#data-statistics').data('statistics');
+    console.log(statistics);
     //statistics = encodeURIComponent(statistics);
     statistics = JSON.parse(statistics);
 
@@ -1085,6 +1081,4 @@
             }
         }
     });
-
 </script>
-{% endblock footer %}

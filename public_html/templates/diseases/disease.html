@@ -1,91 +1,90 @@
-{% extends "index.html" %}
+<div class="page_content">
 
-    {% block content %}
-        <!-- Page Content -->
+    <div class="row">
+        <div class="col-md-12">
+            <a href="/aw007/diseases" class="btn btn-info" role="button">< Back</a>
+        </div>
+    </div>
 
-        <div class="page_content">
+    <h1 class="text-center page_title">{{data['disease'].name}}</h1>
+    <hr>
 
-            <div class="row">
-                <div class="col-md-12">
-                    <a href="/aw007/diseases" class="btn btn-info" role="button">< Back</a>
-                </div>
-            </div>
-
-            <h1 class="text-center page_title">{{data['disease'].name}}</h1>
-            <hr>
-
-            <h1 class="text-center abstract_title">Abstract</h1>
-            <p class="abstract_text">{{data['disease'].abstract}}</p>
-            <hr>
+    <h1 class="text-center abstract_title">Abstract</h1>
+    <p class="abstract_text">{{data['disease'].abstract}}</p>
+    <hr>
 
 
-            <h2 class="text-center">Articles (by order of relevance)</h2>
-            <div class="row fix">
-                {% for article in data['articlesDisease'] %}
-                    <div class="col-sm-6 col-md-4">
-                        <div class="thumbnail">
+    <h2 class="text-center">Articles (by order of relevance)</h2>
+    <div class="row fix">
+        <div class="articles">
+            {% for article in data['articlesDisease'] %}
+            <div class="article">
+                <div class="col-sm-6 col-md-4">
+                    <div class="thumbnail">
+                        <p>
+                            <h5 class="article_title">{{ article.title }}</h5>
+                        </p>
+                        <div class="caption">
+                            <h3 class="article_name">{{ articles.name }}</h3>
                             <p>
-                                <h5>{{ article.title }}</h5>
+                                <a href="/aw007/articles/{{article.id}}" class="btn btn-primary article_link" role="button">Ver</a>
                             </p>
-                            <div class="caption">
-                                <h3>{{ articles.name }}</h3>
-                                <p>
-                                    <a href="/aw007/articles/{{article.id}}" class="btn btn-primary article_link" role="button">Ver</a>
-                                </p>
-
-                            </div>
 
                         </div>
+
                     </div>
-                {% endfor %}
-
+                </div>
             </div>
+            {% endfor %}
+        </div>
+        
 
-            <h2 class="text-center">Photos</h2>
-            <hr>
-            <div class="row fix">
-                {% for photo in data['photosDisease'] %}
+    </div>
+
+    <h2 class="text-center">Photos</h2>
+    <hr>
+    <div class="row fix">
+        <div class="photos">
+        {% for photo in data['photosDisease'] %}
+            <div class="photo">
                 <div class="col-md-3">
                         <div class="thumbnail">
-                            <img src="{{photo.url}}" alt="{{photo.url}}" class="img-responsive" style="min-height:150px; max-height:150px; width:100%;">
+                            <img src="{{photo.url}}" alt="{{photo.url}}" class="img-responsive photo_url" style="min-height:150px; max-height:150px; width:100%;">
                             <div class="caption">
-                                <h3>{{photo.username}}</h3>
-                                <p>Likes: {{photo.nr_likes}}</p>
-                                <p>Comments: {{photo.nr_comments}}</p>
-                                <p>Shares: {{photo.shares}}</p>
-                                <p>Published At: {{photo.published_at}}</p>
+                                <h3 class="photo_username">{{photo.username}}</h3>
+                                <p class="photo_nr_like">Likes: {{photo.nr_likes}}</p>
+                                <p class="photo_nr_comment">Comments: {{photo.nr_comments}}</p>
+                                <p class="photo_nr_share">Shares: {{photo.shares}}</p>
+                                <p class="photo_published_at">Published At: {{photo.published_at}}</p>
                             </div>
                         </div>
                 </div>
-                {% endfor %}
             </div>
-            <h2 class="text-center">Tweets (by order of relevance)</h2>
-            <hr>
-            <div class="row fix">
-                {% for tweet in data['tweetsDisease'] %}
-                <div class="col-md-4">
-                        <div class="thumbnail">
-                            {{tweet.html | raw}}
-                            <!-- <img src="{{tweet.url}}" alt="{{tweet.url}}" class="img-responsive" style="min-height:150px; max-height:150px; width:100%;">-->
-                            <div class="caption">
-                                <h3>{{tweet.usernmae}}</h3>
-                                <p>Likes: {{tweet.nr_likes}}</p>
-                                <p>Comments: {{tweet.nr_comments}}</p>
-                                <p>Shares: {{tweet.shares}}</p>
-                                <p>Published At: {{tweet.published_at}}</p>
-                            </div>
-                            <a href="{{tweet.url}}" target="_blank" class="btn btn-primary" role="button">Tweet</a>
+        {% endfor %}
+        </div>
+    </div>
+    <h2 class="text-center">Tweets (by order of relevance)</h2>
+    <hr>
+    <div class="row fix">
+        <div class="tweets">
+        {% for tweet in data['tweetsDisease'] %}
+        <div class="tweet">
+            <div class="col-md-4">
+                    <div class="thumbnail">
+                        <span class="tweet_html">{{tweet.html | raw}}</span>
+                        <!-- <img src="{{tweet.url}}" alt="{{tweet.url}}" class="img-responsive" style="min-height:150px; max-height:150px; width:100%;">-->
+                        <div class="caption">
+                            <h3 class="tweet_username">{{tweet.usernmae}}</h3>
+                            <p class="tweet_nr_likes">Likes: {{tweet.nr_likes}}</p>
+                            <p class="tweet_comment">Comments: {{tweet.nr_comments}}</p>
+                            <p class="tweet_share">Shares: {{tweet.shares}}</p>
+                            <p class="tweet_published_at">Published At: {{tweet.published_at}}</p>
                         </div>
-                </div>
-                {% endfor %}
+                        <a href="{{tweet.url}}" target="_blank" class="btn btn-primary tweet_url" role="button">Tweet</a>
+                    </div>
             </div>
         </div>
-
-
-
-    {% endblock content %}
-
-    {% block footer %}
-        <script src="/aw007/assets/js/articles/main.js"></script>
-    {% endblock footer %}
-
+        {% endfor %}
+        </div>
+    </div>
+</div>

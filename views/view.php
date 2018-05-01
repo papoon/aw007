@@ -8,6 +8,7 @@
 
             $loader = new Twig_Loader_Filesystem('templates');
             $this->twig = new Twig_Environment($loader);
+            $this->twig->addGlobal('session', $_SESSION);
         
         }
         public function render($view){

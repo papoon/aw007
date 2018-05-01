@@ -1,41 +1,30 @@
-{% extends "index/index.html" %}
 
 
-    {% block content %}
-    <!-- Page Content -->
-    <div class="page_content">
-        <div class="row">
-            <div class="col-md-12">
-                <a href="/aw007" class="btn btn-info" role="button">< Back</a>
-            </div>
-        </div>
-
-        <h1 class="text-center page_title">Diseases</h1>
-        <hr>
-
-        <div class="body_content">
-
-            <div class="row fix">
-                {% for disease in diseases %}
-                    <div class="col-xl-2 col-md-3 col-sm-3 col-xs-4 f-category">
-                        <div class="thumbnail">
-                        <a class="image_link_disease" href="diseases/{{disease.id}}" ><img src="{{ disease.thumbnail }}" alt="..." class="img-responsive" style="min-height:200px; max-height:200px; width:100%;"></a>
-                        <div class="caption">
-                            <h3>{{ disease.name }}</h3>
-                            <p><a href="{{ disease.uri }}" target="_blank" class="btn btn-primary" role="button">Link</a>
-                        </div>
-                        </div>
-                    </div>
-                {% endfor %}
-
-            </div>
+<div class="tab-pane" id="diseases">
+    <div class="row">
+        <div class="col-md-12">
+            <a href="/aw007" class="btn btn-info" role="button">< Back</a>
         </div>
     </div>
 
-        <!-- /.row -->
-    {% endblock content %}
+    <h1 class="text-center page_title">Diseases</h1>
+    <hr>
 
-    {% block footer %}
-        <script src="/aw007/assets/js/diseases/main.js"></script>
-        <script src="/aw007/assets/js/articles/main.js"></script>
-    {% endblock footer %}
+    <div class="body_content">
+
+        <div class="row fix">
+            {% for disease in diseases %}
+                <div class="col-xl-2 col-md-3 col-sm-3 col-xs-4 f-category">
+                    <div class="thumbnail">
+                    <a class="image_link_disease" href="diseases/{{disease.id}}" ><img src="{{ disease.thumbnail }}" alt="..." class="img-responsive" style="min-height:200px; max-height:200px; width:100%;"></a>
+                    <div class="caption">
+                        <h3>{{ disease.name }}</h3>
+                        <p><a href="{{ disease.uri }}" target="_blank" class="btn btn-primary" role="button">Link</a>
+                    </div>
+                    </div>
+                </div>
+            {% endfor %}
+
+        </div>
+    </div>
+</div>

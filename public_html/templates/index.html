@@ -7,11 +7,14 @@
     </head>
     
     <body>
-        {% include "sidebar.html" %}
-        <div class="container" id="main">
-            <div class="row">
-                <div class="col-md-12 sub_main">
-                    {% block content %}{% endblock %}
+            <div id="data-user" data-user="{{ session.user | json_encode()}}"></div>
+            <div class="wrapper">
+            {% include "sidebar.html" %}
+            <div class="container" id="main">
+                <div class="row">
+                    <div class="col-md-12 sub_main">
+                        {% block content %}{% endblock %}
+                    </div>
                 </div>
             </div>
         </div>
@@ -41,6 +44,7 @@ $(document).ready(function () {
         }
         if (history.state && history.state.id === 'documentation') {
             loadPage('documentation');
+            
         }
 
     }, false);
@@ -68,7 +72,30 @@ $(document).ready(function () {
     function loadPage(href)
     {   
 
-        href = 'http://'+window.location.hostname+'/aw007/'+href;
+        
+
+
+        if(href ==  "home"){
+            console.log(href);
+        }
+        if(href ==  "diseases"){
+            console.log(href);
+        }
+        if(href ==  "statistics"){
+            console.log(href);
+        }
+        if(href ==  "documentation"){
+            console.log(href);
+            //$('.page_content').html('documentation/documentation.html');
+        }
+
+        var base_url = window.location.protocol + '//' + window.location.hostname + '/' + window.location.pathname.split('/')[1]
+        console.log(base_url);
+
+        history.pushState({id:base_url+'/'+href}, '', base_url+'/'+href);
+        
+
+        /*href = 'http://'+window.location.hostname+'/aw007/'+href;
         
         $.ajax({
             type: "GET",
@@ -109,8 +136,12 @@ $(document).ready(function () {
         })
         .always(function(){
             console.log('complete');
-        });
+        });*/
     }
 
 });
 </script>
+<script src="/aw007/assets/js/diseases/main.js"></script>
+<script src="/aw007/assets/js/articles/main.js"></script>
+
+

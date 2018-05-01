@@ -21,7 +21,7 @@
                 $articles = $this->article->getArticles();
                 $this->view->message =  array('articles' => $articles);
 
-                $this->view->render('articles/index.html');
+                $this->view->render('articles/index.html.twig');
             }
             else{
 
@@ -36,7 +36,7 @@
                 $this->view->message['articleMERTerms'] = $articleMERTerms;
                 $this->view->message['article'] = $article;
 
-                $this->view->render('articles/article.html');
+                $this->view->render('articles/article.html.twig');
             }
 
         }

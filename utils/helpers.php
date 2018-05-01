@@ -103,4 +103,23 @@
 
     }
 
+    function sessionHandling(){
+
+        session_start();
+
+        if(!isset($_SESSION['user'])) {
+
+            $connector = DbConnector::defaultConnection();
+            $connector->connect();
+
+            $ip_address = getClientIP();
+
+            $user = $connector->selectWhere(TABLE_CLIENTS_SITE,'ip_address','=',$ip_address,'char')->fetch_assoc();
+
+            $_SESSION['user'] = $user;
+
+            $connector->disconnect();
+        }
+    }
+
 ?>

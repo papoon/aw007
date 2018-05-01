@@ -9,11 +9,11 @@
             $this->disease = new Disease();
         }
         public function index(){
-        
+
             $diseases = $this->disease->getDiseases();
 
             $this->view->message = array('diseases' => $diseases);
-            $this->view->render('index/index.html');
+            $this->view->render('index/index.html.twig');
            
         }
     }

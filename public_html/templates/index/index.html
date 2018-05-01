@@ -1,42 +1,37 @@
-{% extends "index.html" %}
 
-{% block content %}
-
-    <div class="row">
-        <div class="col-md-12">
-            <div class="panel panel-default">
-                <div class="panel-body">
-                    <h2 style="text-align:center">Introduction</h2>
-                    <div class="row contentText">
-                        <div class="col-sm-12">
-                            The AW 2017/18 project consists in creating a semantic search engine for diseases and scientific articles, with the following components:
-                            <ul>
-                                <li><b>Data Collection:</b> collecting text and data about diseases (Demo I)</li>
-                                <li><b>Data Annotation:</b> create semantic links between the collected data (Demo II)</li>
-                                <li><b>Data Access:</b> make the information available as a web service and as dynamic web page.</li>
-                            </ul>
+<div class="tab-content page_content">
+    <div class="tab-pane active" id="home">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <h2 style="text-align:center">Introduction</h2>
+                        <div class="row contentText">
+                            <div class="col-sm-12">
+                                The AW 2017/18 project consists in creating a semantic search engine for diseases and scientific articles, with the following components:
+                                <ul>
+                                    <li><b>Data Collection:</b> collecting text and data about diseases (Demo I)</li>
+                                    <li><b>Data Annotation:</b> create semantic links between the collected data (Demo II)</li>
+                                    <li><b>Data Access:</b> make the information available as a web service and as dynamic web page.</li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="row">
-                
-                <div class="col-sm-12">
-                        
-                    <form onsubmit="return false;" class="pure-form" style="border-top: 1px solid #eee;border-bottom:1px solid #eee;background:#fafafa;margin:30px 0;padding:20px 10px;text-align:center">
-                        <h3> Search <span class="glyphicon glyphicon-search" aria-hidden="true"></span></h3>
-                        <input id="hero-demo" autofocus="" type="text" name="q" placeholder="Diseases..." style="width:100%;max-width:600px;outline:0" autocomplete="off">
-                    </form>
+                <div class="row">
+                    
+                    <div class="col-sm-12">
+                            
+                        <form onsubmit="return false;" class="pure-form" style="border-top: 1px solid #eee;border-bottom:1px solid #eee;background:#fafafa;margin:30px 0;padding:20px 10px;text-align:center">
+                            <h3> Search <span class="glyphicon glyphicon-search" aria-hidden="true"></span></h3>
+                            <input id="hero-demo" autofocus="" type="text" name="q" placeholder="Diseases..." style="width:100%;max-width:600px;outline:0" autocomplete="off">
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-
-
-{% endblock content %}
-
-{% block footer %}
-    <!-- autocomplete js -->
-    <script src="/aw007/assets/js/autocomplete.js"></script>
-    
-{% endblock footer %}
+    {% include 'diseases/index.html' %}
+    {% include 'statistics/index.html' %}
+    {% include 'documentation/documentation.html' %}
+</div>

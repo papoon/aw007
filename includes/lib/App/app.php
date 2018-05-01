@@ -40,6 +40,10 @@
             //handle new client visit to site
             addNewClientOfSite();
 
+            //criar sessao de user
+            sessionHandling();
+
+
             
             //explode ?
             $route = explode('?',$_SERVER['REQUEST_URI']);

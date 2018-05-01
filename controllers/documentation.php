@@ -12,7 +12,7 @@
         public function index(){
             
             $this->view->message =  array('doc' => 'Documentation');
-            $this->view->render('documentation/documentation.html');
+            $this->view->render('documentation/documentation.html.twig');
         }
         
     }
