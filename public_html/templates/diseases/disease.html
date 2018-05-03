@@ -14,8 +14,34 @@
             <h1 class="text-center page_title">{{data['disease'].name}}</h1>
             <hr>
 
-            <h1 class="text-center abstract_title">Abstract</h1>
+            <h2 class="text-center abstract_title">Description</h2>
             <p class="abstract_text">{{data['disease'].abstract}}</p>
+            <hr>
+
+            <h2 class="text-center">Metadata</h2>
+            <div class="row">
+                <div class="col-md-12">
+                      <table class="table table-bordered">
+                        <tr>
+                          <th>DBpedia ID</th>
+                          <th>DBpedia Revision ID</th>
+                          <th>DBpedia link</th>
+                          <th>Disease Ontology ID</th>
+                          <th>Created At</th>
+                          <th>Updated At</th>
+                        </tr>
+
+                        <tr>
+                          <td>{{data['disease'].dbpedia_id}}</td>
+                          <td>{{data['disease'].dbpedia_revision_id}}</td>
+                          <td><a target="_blank" href="{{data['disease'].uri}}">{{data['disease'].uri}}</a></td>
+                          <td>{{data['disease'].do_id}}</td>
+                          <td>{{data['disease'].created_at}}</td>
+                          <td>{{data['disease'].updated_at}}</td>
+                        </tr>
+                      </table>
+                </div>
+            </div>
             <hr>
 
 
@@ -88,4 +114,3 @@
     {% block footer %}
         <script src="/aw007/assets/js/articles/main.js"></script>
     {% endblock footer %}
-
