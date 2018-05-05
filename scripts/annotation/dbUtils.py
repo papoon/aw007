@@ -81,6 +81,8 @@ def getAllDiseaseInformation():
     finally:
         connection.close()
 
+
+
 def getAllArticleInformation():
     """
     Gets all information needed for the MER script to get the entities.
@@ -119,7 +121,7 @@ def getAllTweetInformation():
     finally:
         connection.close()
 
-def saveMERTermsInformation(table, term, id, pos_start, pos_end):
+def saveMERTermsInformation(table, term, id, pos_start, pos_end, doid, disease_id):
     """
     Save MER terms and respective positions in documents in the database.
     Requires: table, where to save the information (please use Table_MER_Terms_Articles
@@ -138,14 +140,15 @@ def saveMERTermsInformation(table, term, id, pos_start, pos_end):
             # create insert query
             if table == Table_MER_Terms_Articles:
                 sql = "INSERT INTO " + Table_MER_Terms_Articles + \
-                      " (term, article_id, pos_start, pos_end) VALUES ('"
+                      " (term, article_id, pos_start, pos_end,disease_id,do_id) VALUES ('"
             elif table == Table_MER_Terms_Tweets:
                 sql = "INSERT INTO " + Table_MER_Terms_Tweets + \
-                      " (term, tweet_id, pos_start, pos_end) VALUES ('"
+                      " (term, tweet_id, pos_start, pos_end, disease_id, do_id) VALUES ('"
             else:
                 raise ValueError('Table name: valid values are Table_MER_Terms_Articles and Table_MER_Terms_Tweets (see constants).')
 
-            sql += term + "', "  + str(id) + ', ' + str(pos_start) + ', ' + str(pos_end) + ");"
+            sql += term + "', "  + str(id) + ', ' + str(pos_start) + ', ' + str(pos_end) + ', ' +                       str(disease_id) + ", '" + str(doid)+ "' );"
+
 
             #execute insert query
             cursor.execute(sql)
@@ -264,7 +267,6 @@ def saveInvertedIndexInformation(table, disease_id, id, rank, tf_idf_value, resn
             connection.commit()
     finally:
         connection.close()
-
 def getArticleCalcInformation(disease_id):
     """
     Gets all information needed for the inverted index rank calculations for articles.
