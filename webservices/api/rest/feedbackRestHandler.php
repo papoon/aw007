@@ -2,9 +2,11 @@
 require_once("simpleRest.php");
 require_once("../models/articles.php");
 
-class ArticlesRestHandler extends SimpleRest {
-	private $searchOptions = array('terms','fields','limit');
-
+class FeedbackRestHandler extends SimpleRest {
+    
+    //parametros permitidos nesta API 
+    private $searchOptions = array('terms','fields','limit');
+    
 	public function __construct(){
 		$this->setValidVerbs(array('GET'));
 		parent::__construct();
@@ -22,20 +24,10 @@ class ArticlesRestHandler extends SimpleRest {
 		$requestContentType = $this->getHttpContentType();
 
 		$this->setHttpHeaders($requestContentType, 200);//200 ok
+        
 
-		if(strpos($requestContentType,'application/json') !== false){
-			$response = $this->encodeJson($rawData);
-			echo $response;
-		} else if(strpos($requestContentType,'text/html') !== false){
-			$response = $this->encodeHtml($rawData);
-			echo $response;
-		} else if(strpos($requestContentType,'application/xml') !== false){
-			$response = $this->encodeXml($rawData);
-			echo $response;
-		}
 	}
-    
-    
+
 	public function encodeHtml($responseData) {
 
         $htmlResponse = "<table border='1'>";
@@ -61,7 +53,7 @@ class ArticlesRestHandler extends SimpleRest {
 
 	public function encodeJson($responseData) {
 
-		$jsonResponse = json_encode($responseData,JSON_PARTIAL_OUTPUT_ON_ERROR);
+		$jsonResponse = json_encode($responseData);
 		return $jsonResponse;
 	}
 

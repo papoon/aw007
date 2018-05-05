@@ -120,6 +120,7 @@
             on a.id = b.did
             group by a.id,b.did order by count(*)  asc limit 10;');
 
+            $data = array();
             while ($row = $result->fetch_row()) {
                 $data[] = $row;
             }

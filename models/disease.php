@@ -33,7 +33,8 @@
         public function getDiseaseMetadata($id){
 
             $disease = $this->getDisease($id);
-
+            
+            
             $article = new Article();
             $articles = $article->getArticlesDisease($id);
 
@@ -51,10 +52,25 @@
             $disease['articles'] = $articles;
             $disease['photos'] = $photos;
             $disease['tweets'] = $tweets;
-
+            
             return $disease;
         }
 
+        
+        
+        //this is used because we are not saving Diseases ID on runing the mer terms finding
+        public function getDiseaseID ($name) {
+            
+            $data = $this->connector->selectWhere(TABLE_DISEASE,'name','=',$id,'int')->fetch_assoc();
+
+            $this->connector->disconnect();
+
+            return $data;
+            
+            
+        }
+        
+        
     }
 
 

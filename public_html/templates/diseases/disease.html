@@ -15,7 +15,7 @@
 
 
     <h2 class="text-center">Articles (by order of relevance)</h2>
-    <div class="row fix">
+    <div class="row">
         <div class="articles">
             {% for article in data['articlesDisease'] %}
             <div class="article">
@@ -43,11 +43,11 @@
 
     <h2 class="text-center">Photos</h2>
     <hr>
-    <div class="row fix">
+    <div class="row">
         <div class="photos">
         {% for photo in data['photosDisease'] %}
             <div class="photo">
-                <div class="col-md-3">
+                <div class="col-sm-6 col-md-3">
                         <div class="thumbnail">
                             <img src="{{photo.url}}" alt="{{photo.url}}" class="img-responsive photo_url" style="min-height:150px; max-height:150px; width:100%;">
                             <div class="caption">
@@ -65,11 +65,11 @@
     </div>
     <h2 class="text-center">Tweets (by order of relevance)</h2>
     <hr>
-    <div class="row fix">
+    <div class="row">
         <div class="tweets">
         {% for tweet in data['tweetsDisease'] %}
         <div class="tweet">
-            <div class="col-md-4">
+            <div class="col-sm-6 col-md-4">
                     <div class="thumbnail">
                         <span class="tweet_html">{{tweet.html | raw}}</span>
                         <!-- <img src="{{tweet.url}}" alt="{{tweet.url}}" class="img-responsive" style="min-height:150px; max-height:150px; width:100%;">-->

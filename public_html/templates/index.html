@@ -28,7 +28,7 @@
         </footer>
     </body>
 </html>
-
+<script src="/aw007/assets/js/JavaScript-autoComplete-master/auto-complete.min.js"></script>
 <script>
 $(document).ready(function () {
 
@@ -74,14 +74,18 @@ $(document).ready(function () {
 
         
 
+       
+        if(href == ""){
+            console.log('href');
+            home();
 
-        if(href ==  "home"){
-            console.log(href);
         }
         if(href ==  "diseases"){
+            //diseases();
             console.log(href);
         }
         if(href ==  "statistics"){
+            //statistics(href);
             console.log(href);
         }
         if(href ==  "documentation"){
@@ -139,7 +143,115 @@ $(document).ready(function () {
         });*/
     }
 
+    function home(){
+        //$('.sub_main').hide();
+        /*$('.sub_main').load('templates/index/index.html',function(data){
+            
+            console.log(data);
+        });*/
+        $.get("../templates/index/index.html", function(data) {
+
+            console.log(data);
+
+            var home = $('<div></div>').append(data).find('#home')[0].outerHTML;
+
+            //console.log(temp.html());
+            console.log(home);
+            $('.page_content').html(home);
+
+            //console.log(data);
+        });
+
+        
+
+
+        return false; 
+    }
+    function diseases(){
+        $('.sub_main').load('templates/diseases/index.html',function(data){
+            
+            console.log(data);
+        });
+
+        return false; 
+    }
+    function statistics(endpoint){
+        
+        /*$('.sub_main').load('templates/statistics/index.html',function(data){
+            //console.log(data);
+            var script = $('<div></div>').append(data).find('script')[1].remove();
+            console.log(script);
+            requestApiStatistics(endpoint)
+        });*/
+        var data = requestApiStatistics(endpoint);
+        $.get("templates/statistics/index.html", function(data) {
+
+            console.log(data);
+
+            var script = $('<div></div>').append(data).find('script')[1].outerHTML.replace("statistics",statistics);
+            var temp = $(data);
+         
+            //console.log(temp.html());
+            
+            console.log(script);
+            //console.log(data);
+        });
+        //console.log(html);
+
+        return false; 
+    }
+
 });
+
+function requestApiStatistics(endpoint){
+
+    var base_url = window.location.protocol + '//' + window.location.hostname + '/' + window.location.pathname.split('/')[1]
+    console.log(base_url);
+    //var url = "http://localhost/aw007/"+endpoint;
+    var uri = api().uri()+endpoint;
+    //console.log(uri)
+
+    $.ajax({
+        type: "GET",
+        url: uri,
+        dataType: 'json'
+    })
+    .done(function(result){
+
+        console.log('oi');
+        //console.log(result);
+        //var html = constructStatistics(result);
+        //console.log(html);
+
+    })
+    .fail(function(jqXHR, textStatus) {
+        console.log(jqXHR);
+    })
+    .always(function(){
+        console.log('complete');
+    });
+}
+function constructStatistics(statistics){
+    var html ='';
+    var statistic;
+
+    for (let index = 0; index < statistics.length; index++) {
+        const element = statistics[index];
+        console.log(element);
+    }
+
+
+    /*statistics.forEach(statistic => {
+        console.log(statistic);
+        $(canvas).prop('id',index);
+
+        statistic = $('.statistic').html();
+        html += statistic;
+    });*/
+
+
+    return html;
+}
 </script>
 <script src="/aw007/assets/js/diseases/main.js"></script>
 <script src="/aw007/assets/js/articles/main.js"></script>

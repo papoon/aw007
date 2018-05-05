@@ -11,7 +11,7 @@
             $this->connector->connect();
         }
         public function __destruct(){
-            //$this->connector->disconnect();
+            #$this->connector->disconnect();
         }
     }
 

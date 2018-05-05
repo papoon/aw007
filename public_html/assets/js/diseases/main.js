@@ -1,10 +1,8 @@
-
-
 $('a.image_link_disease').on('click',function(e) {
 
         e.preventDefault();
 
-        console.log('oi');
+        console.log('oLA');
 
         var endpoint = $(this).attr('href');
         console.log( endpoint);

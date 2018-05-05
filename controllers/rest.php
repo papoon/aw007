@@ -4,6 +4,7 @@
     require_once '../webservices/api/rest/articlesRestHandler.php';
     require_once '../webservices/api/rest/photosRestHandler.php';
     require_once '../webservices/api/rest/tweetsRestHandler.php';
+    require_once '../webservices/api/rest/statisticsRestHandler.php';
 
     class Rest extends Controller{
         public function __construct(){
@@ -12,7 +13,7 @@
 
         #diseases/?
         public function diseases($id=0){
-
+            
             if($id == 0){
                 // to handle REST Url /diseases/
 		        $desisesRestHandler = new DiseasesRestHandler();
@@ -21,12 +22,16 @@
 
                 if(isset($_GET) && array_key_exists('metadata',$_GET)){
                     $with_metadata = $_GET['metadata'];
-
+                    
+                    
                     if($with_metadata == 'true'){
-
+                        
                         // to handle REST Url /diseases/id?metadata=true
 		                $desisesRestHandler = new DiseasesRestHandler();
                         $desisesRestHandler->getDiseaseMetadata($id);
+                        
+                
+                        
                     }
                     else{
                         // to handle REST Url /diseases/id
@@ -83,6 +88,14 @@
                 $tweetsRestHandler->getTweetsDisease($id);
             }
             
+        }
+        #/statistics
+        public function Statistics($id=0){
+            if($id == 0){
+                // to handle REST Url /tweets/
+		        $statisticsRestHandler = new StatisticsRestHandler();
+                $statisticsRestHandler->getStatistics();
+            }
         }
     }
 

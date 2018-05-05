@@ -59,8 +59,8 @@ class DiseasesRestHandler extends SimpleRest {
 	}
 
 	public function encodeJson($responseData) {
-
-		$jsonResponse = json_encode($responseData);
+        
+        $jsonResponse = json_encode($responseData,JSON_PARTIAL_OUTPUT_ON_ERROR);
 		return $jsonResponse;
 	}
 
@@ -75,9 +75,9 @@ class DiseasesRestHandler extends SimpleRest {
 
 		$disease = new Disease();
 		$rawData = $disease->getDisease($id);
-
+        
 		array_walk_recursive($rawData, function(&$value) {
-			$value = utf8_decode($value);
+			$value = utf8_encode($value);
 		});
 
 		$requestContentType = $this->getHttpContentType();
@@ -86,6 +86,7 @@ class DiseasesRestHandler extends SimpleRest {
 
 		if(strpos($requestContentType,'application/json') !== false){
 			$response = $this->encodeJson($rawData);
+            
 			echo $response;
 		} else if(strpos($requestContentType,'text/html') !== false){
 			$response = $this->encodeHtml($rawData);
@@ -97,7 +98,9 @@ class DiseasesRestHandler extends SimpleRest {
 	}
 	//diseases with artilcles and photos and tweets
 	public function getDiseaseMetadata($id){
-
+        
+        
+        
 		$disease = new Disease();
 		$rawData = $disease->getDiseaseMetadata($id);
 
@@ -111,6 +114,7 @@ class DiseasesRestHandler extends SimpleRest {
 
 		if(strpos($requestContentType,'application/json') !== false){
 			$response = $this->encodeJson($rawData);
+
 			echo $response;
 		} else if(strpos($requestContentType,'text/html') !== false){
 			$response = $this->encodeHtml($rawData);

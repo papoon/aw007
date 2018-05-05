@@ -201,3 +201,28 @@ CREATE TABLE `clients_site` (
   `insert_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
 );
+
+
+CREATE TABLE articles_comment (
+	id int PRIMARY KEY AUTO_INCREMENT, 
+	article_id int, 	
+	client_id int DEFAULT NULL, 
+	comment text(1000), 
+	created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+	FOREIGN KEY (article_id) REFERENCES article (id) ON DELETE CASCADE ON UPDATE CASCADE,  
+	FOREIGN KEY (client_id) REFERENCES clients_site (id) ON DELETE CASCADE ON UPDATE CASCADE  
+
+);
+
+
+CREATE TABLE articles_rating (
+	id int PRIMARY KEY AUTO_INCREMENT, 
+	article_id int, 	
+	client_id int DEFAULT NULL, 
+	rating tinyint(3), 
+	created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+	FOREIGN KEY (article_id) REFERENCES article (id) ON DELETE CASCADE ON UPDATE CASCADE,  
+	FOREIGN KEY (client_id) REFERENCES clients_site (id) ON DELETE CASCADE ON UPDATE CASCADE 
+
+);
+
