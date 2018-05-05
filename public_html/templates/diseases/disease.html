@@ -1,4 +1,7 @@
-<div class="page_content">
+<div class="page_content" vocab="http://schema.org/" typeof="MedicalCondition">
+
+    <div property="sameAs" style="display:none">http://purl.obolibrary.org/obo/{{data['disease'].do_id}}</div>
+    <div property="sameAs" style="display:none">{{data['disease'].uri}}</div>
 
     <div class="row">
         <div class="col-md-12">
@@ -6,11 +9,11 @@
         </div>
     </div>
 
-    <h1 class="text-center page_title">{{data['disease'].name}}</h1>
+    <h1 class="text-center page_title" property="name">{{data['disease'].name}}</h1>
     <hr>
 
     <h1 class="text-center abstract_title">Abstract</h1>
-    <p class="abstract_text">{{data['disease'].abstract}}</p>
+    <p class="abstract_text" property="description">{{data['disease'].abstract}}</p>
     <hr>
 
     <h2 class="text-center">Metadata</h2>
@@ -27,7 +30,7 @@
                 </tr>
 
                 <tr>
-                    <td>{{data['disease'].dbpedia_id}}</td>
+                    <td property="identifier">{{data['disease'].dbpedia_id}}</td>
                     <td>{{data['disease'].dbpedia_revision_id}}</td>
                     <td><a target="_blank" href="{{data['disease'].uri}}">{{data['disease'].uri}}</a></td>
                     <td>{{data['disease'].do_id}}</td>
@@ -43,11 +46,12 @@
     <div class="row">
         <div class="articles">
             {% for article in data['articlesDisease'] %}
-            <div class="article">
+            <div class="article" vocab="http://schema.org/" typeof="MedicalScholarlyArticle">
+                <div property="about" style="display:none">{{data['disease'].name}}</div>
                 <div class="col-sm-6 col-md-4">
                     <div class="thumbnail">
                         <p>
-                            <h5 class="article_title">{{ article.title }}</h5>
+                            <h5 class="article_title" property="headline">{{ article.title }}</h5>
                         </p>
                         <div class="caption">
                             <h3 class="article_name">{{ articles.name }}</h3>
@@ -71,10 +75,11 @@
     <div class="row">
         <div class="photos">
         {% for photo in data['photosDisease'] %}
-            <div class="photo">
+            <div class="photo" vocab="http://schema.org/" typeof="photo">
+                <div property="about" style="display:none">{{data['disease'].name}}</div>
                 <div class="col-sm-6 col-md-3">
                         <div class="thumbnail">
-                            <img src="{{photo.url}}" alt="{{photo.url}}" class="img-responsive photo_url" style="min-height:150px; max-height:150px; width:100%;">
+                            <img property="image" src="{{photo.url}}" alt="{{photo.url}}" class="img-responsive photo_url" style="min-height:150px; max-height:150px; width:100%;">
                             <div class="caption">
                                 <h3 class="photo_username">{{photo.username}}</h3>
                                 <p class="photo_nr_like">Likes: {{photo.nr_likes}}</p>
@@ -93,19 +98,20 @@
     <div class="row">
         <div class="tweets">
         {% for tweet in data['tweetsDisease'] %}
-        <div class="tweet">
+        <div class="tweet" vocab="http://schema.org/" typeof="SocialMediaPosting">
+            <div property="about" style="display:none">{{data['disease'].name}}</div>
             <div class="col-sm-6 col-md-4">
                     <div class="thumbnail">
                         <span class="tweet_html">{{tweet.html | raw}}</span>
                         <!-- <img src="{{tweet.url}}" alt="{{tweet.url}}" class="img-responsive" style="min-height:150px; max-height:150px; width:100%;">-->
                         <div class="caption">
-                            <h3 class="tweet_username">{{tweet.usernmae}}</h3>
+                            <h3 class="tweet_username" property="creator">{{tweet.username}}</h3>
                             <p class="tweet_nr_likes">Likes: {{tweet.nr_likes}}</p>
-                            <p class="tweet_comment">Comments: {{tweet.nr_comments}}</p>
+                            <p class="tweet_comment" property="commentCount">Comments: {{tweet.nr_comments}}</p>
                             <p class="tweet_share">Shares: {{tweet.shares}}</p>
-                            <p class="tweet_published_at">Published At: {{tweet.published_at}}</p>
+                            <p class="tweet_published_at" property="datePublished">Published At: {{tweet.published_at}}</p>
                         </div>
-                        <a href="{{tweet.url}}" target="_blank" class="btn btn-primary tweet_url" role="button">Tweet</a>
+                        <a property="url" href="{{tweet.url}}" target="_blank" class="btn btn-primary tweet_url" role="button">Tweet</a>
                     </div>
             </div>
         </div>
