@@ -5,7 +5,7 @@ from constants import *
 from dbUtils import *
 
 
-#TODO FIX ERROR ON TWEETS - ARTICLES ARE ALREADY SAVING CORRECTLY IN DB WITH NEW FIELDS 
+#TODO FIX ERROR ON TWEETS - ARTICLES ARE ALREADY SAVING CORRECTLY IN DB WITH NEW FIELDS
 
 def entityAnnotation():
     """
@@ -30,7 +30,6 @@ def entityAnnotation():
     #process information from articles
     for article in articleInfo:
 
-
         print("Processing article ", article['id'])
 
         #result text from MER
@@ -42,6 +41,8 @@ def entityAnnotation():
 
         # get list of dics from MER
         listTerms = processEntitiesMER(resultText)
+
+
 
         #only continues if finds entities otherwise jumps to tweet's process
         if entityPositions != '':
@@ -78,6 +79,7 @@ def entityAnnotation():
 
     #dictionary with list of terms per tweet (html)
     termsPerTweet = {}
+
     #get tweet info
     tweetInfo = getAllTweetInformation()
 
@@ -117,14 +119,14 @@ def entityAnnotation():
                     elem['doid'] = doid
                     elem['disease_id'] = disease_id
 
-                    # save MER terms
-                    saveEntitiesMER(Table_MER_Terms_Tweets, tweet['id'], entity_list)
+                # save MER terms
+                saveEntitiesMER(Table_MER_Terms_Tweets, tweet['id'], entity_list)
 
-                    # result text from MER
-                    resultText = callGetLinkEntitiesMER(tweet['html'])
+                # result text from MER
+                resultText = callGetLinkEntitiesMER(tweet['html'])
 
-                    # get list of of tuples (DOID, term) from MER
-                    listTerms = processEntitiesMER(resultText)
+                # get list of of tuples (DOID, term) from MER
+                listTerms = processEntitiesMER(resultText)
 
                 #keep did and tweet id in the dict key as a tuple
                 termsPerTweet[(tweet['did'], tweet['id'])] = listTerms
@@ -248,7 +250,6 @@ def saveEntitiesMER(table,id, data):
               resultText, the output text from callGetLinkEntitiesMER.
     Ensures: saves the ocurrences of terms in docs (including positions) in the database.
     """
-    print("table: ", table, "id: ",id,"result  ", data)
 
 
     for i in data:

@@ -8,8 +8,12 @@ $(document).ready(function(){
     
         //url of article page - needs id of articles
         uri_article = url[0]+'//'+url[2]+'/'+url[3]+'/'+url[4]+'/';
-               
-        
+
+        //url of diseases page - needs id of disease
+        uri_disease = url[0]+'//'+url[2]+'/'+url[3]+'/'+"diseases"+'/';
+
+
+
         $.ajax({
             
             type: "GET",
@@ -22,73 +26,43 @@ $(document).ready(function(){
         .done(function(result){
                         
             var article = result;
+            var abstract = article['abstract'];
             var terms = article.terms;
-            
-            console.log(terms);
+
+            var replacementDict = {};
 
             $(terms).each(function() {
-               
-                
-                
+
+                term = this['term'];
+                var disease_id = this['disease_id'];
+                var do_id = this['do_id'];
+                var pos_start = this['pos_start'];
+                var pos_end = this['pos_end'];
+
+                link = '<a href='+ uri_disease + disease_id + '>' + term + '</a>';
+
+                if (term in replacementDict == false){
+
+                    replacementDict[term] = link;
+                }
+
             });
 
-            
-            /*
-            var disease= result;
-            var disease_name = disease.name;
-            var disease_abstract_text = disease.abstract;
-            
-
-            $('.page_title').html(disease_name);
+            //console.log(replacementDict);
 
 
-            $('.abstract_title').html('Abstract');
-            $('.abstract_text').html(disease_abstract_text);
+            $.each(replacementDict,function(key, value){
 
-            var abstract_text = '<h1 class="text-center abstract_title">Abstract</h1>';
-            abstract_text += '<p class="abstract_text">'+disease_abstract_text+'</p><hr>';
+                var re = new RegExp(key, 'g');
+                abstract = abstract.replace(re,value);
 
-            var html_body_content = '';
+            });
 
-            html_body_content += abstract_text;
-            //articles
-            console.log(disease);
-            var articles = disease.articles;
-            
-            
-            
-            var html_articles = constructDiseasesArticles(articles);
-            html_body_content += html_articles;
-            //$('.body_content').html(html_articles);
-            //console.log(html_articles);
+            $('.article_abstract').html(abstract);  
 
-            //photos
-            var photos = disease.photos;
-            var html_photos = constructDiseasesPhotos(photos);
-            html_body_content += html_photos;
-            //$('.body_content').append(html_photos);
-            //console.log(html_photos);
-
-            //tweets
-            var tweets = disease.tweets;
-            var html_tweets = constructDiseasesTweets(tweets);
-            html_body_content += html_tweets;
-            //$('.body_content').append(html_photos);
-            console.log("html_tweets");
-
-
-            //set new html page
-            $('.body_content').html(html_body_content);
-
-
-            //change url
-            history.pushState({id:url}, '', (url == '' ? ''+url : url));
-            */
-            
             
         })
         .fail(function(jqXHR, textStatus) {
-            console.log("Uups, something failed");
             console.log(jqXHR);
         })
         .always(function(){

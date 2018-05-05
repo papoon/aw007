@@ -3,6 +3,7 @@ private/*
 utils/database.php
 .htaccess
 .idea
+tools
 public_html/.htaccess
 scripts/annotation/__pycache__
 scripts/annotation/pythonPrivate.py
