@@ -1,4 +1,9 @@
-<div class="article_content" vocab="http://schema.org/" typeof="MedicalScholarlyArticle" publicationType="Classical Article">
+<div class="article_content" vocab="http://schema.org/" typeof="MedicalScholarlyArticle">
+    <div property="publicationType" style="display:none">Classical Article</div>
+    <div property="inLanguage" typeof="Language" style="display:none">
+      <span property="name">English</span>
+    </div>
+
     <div class="row">
         <div class="col-md-12">
             <a href="/aw007/articles" class="btn btn-info" role="button">< Back</a>
@@ -7,20 +12,24 @@
 
     <div class="row">
         <div class="col-md-12">
-            <h2 class="text-center article_title">{{article.title}}</h2>
+            <h2 class="text-center article_title" property="headline">{{article.title}}</h2>
 
-            <p class="article_abstract">{{article.abstract}}</p>
+            <p class="article_abstract" property="about">{{article.abstract}}</p>
 
             <address>
-                <strong>Article Id: <span class="article_id">{{article.article_id}}</span></strong><br>
-                <strong>Journal Id: <span class="article_journal_id">{{article.journal_id}}</span></strong><br>
+                <strong>Article Id: <span class="article_id" property="identifier">{{article.article_id}}</span></strong><br>
+                <strong typeof="Periodical">Journal Id:
+                    <span class="article_journal_id" property="issn">{{article.journal_id}}</span>
+                </strong>
+                <br>
                 <strong>
                   <small>Authors:
                     {% for author_name in article.authors %}
-                    <em><span class="article_authors" property="author">{{author_name}};</span></em>
+                    <em><span class="article_authors" property="author">{{author_name}}</span>;</em>
                     {% endfor %}
                   </small>
-                </strong><br>
+                </strong>
+                <br>
                 <strong><small>Published At: <span class="article_published_At" property="datePublished">{{article.published_at}}</span></small></strong><br>
             </address>
 
