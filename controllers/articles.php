@@ -28,9 +28,11 @@
                 $this->article = new Article();
 
                 $article = $this->article->getArticle($id);
-                $articleMERTerms = $this->article->getMERTerms($id);              
+                $articleMERTerms = $this->article->getMERTerms($id);
 
                 unset($this->article);
+
+                $article['authors'] = explode("|", $article['authors']);
 
                 $this->view->message = [];
                 $this->view->message['articleMERTerms'] = $articleMERTerms;
@@ -40,8 +42,8 @@
             }
 
         }
-        
-        
+
+
     }
 
 ?>

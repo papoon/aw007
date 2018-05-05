@@ -1,4 +1,4 @@
-<div class="article_content">
+<div class="article_content" vocab="http://schema.org/" typeof="MedicalScholarlyArticle" publicationType="Classical Article">
     <div class="row">
         <div class="col-md-12">
             <a href="/aw007/articles" class="btn btn-info" role="button">< Back</a>
@@ -14,8 +14,14 @@
             <address>
                 <strong>Article Id: <span class="article_id">{{article.article_id}}</span></strong><br>
                 <strong>Journal Id: <span class="article_journal_id">{{article.journal_id}}</span></strong><br>
-                <strong><small>Authors: <em><span class="article_authors">{{article.authors}}</span></em></small></strong><br>
-                <strong><small>Published At: <span class="article_published_At">{{article.published_at}}</span></small></strong><br>
+                <strong>
+                  <small>Authors:
+                    {% for author_name in article.authors %}
+                    <em><span class="article_authors" property="author">{{author_name}};</span></em>
+                    {% endfor %}
+                  </small>
+                </strong><br>
+                <strong><small>Published At: <span class="article_published_At" property="datePublished">{{article.published_at}}</span></small></strong><br>
             </address>
 
         </div>
@@ -26,8 +32,8 @@
             <h4>Article MER Terms</h4>
             <div class="term_table">
                 {% if articleMERTerms |length > 0 %}
-                
-                
+
+
                     <table class="articles_terms_table table table-bordered">
                     <tr>
                             <th>Term/Entity</th>
@@ -36,17 +42,17 @@
                     </tr>
                     <div class="terms">
                     {% for term in articleMERTerms %}
-                    
+
                         <tr>
-                            <td class="article_term">{{term.term}}</td>
+                            <td class="article_term" property="keywords">{{term.term}}</td>
                             <td class="article_term_pos_start">{{term.pos_start}}</td>
                             <td class="article_term_pos_end">{{term.pos_end}}</td>
                         </tr>
-                   
+
                     {% endfor %}
                     </div>
                     </table>
-                
+
 
                 {% else %}
                     <p class="article_no_terms">No terms/entities found.</p>
@@ -59,7 +65,7 @@
         <div class="row" >
             <h2 class="text-center">Star Rating</h2>
             <div class="col-sm-6 col-sm-offset-2">
-                
+
                 <div class="rating" id="star-rating">
                     <span class="star_rating" value="5">☆</span>
                     <span class="star_rating" value="4">☆</span>
@@ -85,8 +91,8 @@
                 <label for="article_comment">Give us your feedback about this article:</label>
                 <textarea class="form-control" rows="6" placeholder="Write a comment..."></textarea>
                 <a href="#" id = "feedback-submit" class="btn btn-info" role="button">Save</a>
-                
-            </div> 
+
+            </div>
         </div>
     </div>
     <div class="row">
