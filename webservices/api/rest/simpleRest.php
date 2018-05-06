@@ -10,7 +10,7 @@ class SimpleRest {
 
 	public function __construct(){
 		//verifica erros e retorna-os
-		$this->errorResponse();
+		//$this->errorResponse();
 	}
 
 	public function setHttpHeaders($contentType, $statusCode){
@@ -82,7 +82,7 @@ class SimpleRest {
 
 	public function getStatusHttpContentType($requestContentType){
 
-		if($requestContentType!='application/json' && $requestContentType!='text/html' && $requestContentType!='application/xml'){
+		if($requestContentType!='application/json' && $requestContentType!='text/html' && $requestContentType!='application/xml' && $requestContentType !='application/x-www-form-urlencoded'){
 			$status = 406;
 		}
 		else{
@@ -135,7 +135,7 @@ class SimpleRest {
 
 		if($statusCodeHttpContentType != 200){
 			$this->setHttpHeaders($requestContentType, $statusCodeHttpContentType);
-			echo json_encode(array('error' => 'Not a valid ContentType -> '.requestContentType));
+			echo json_encode(array('error' => 'Not a valid ContentType -> '.$requestContentType));
 			die();
 		}
 
@@ -160,7 +160,11 @@ class SimpleRest {
 		 }
 	}
     
-    public function convertResponse($requestContentType,$rawData){
+    public function convertResponse($rawData){
+
+		$requestContentType = $this->getHttpContentType();
+
+		$this->setHttpHeaders($requestContentType, 200);//200 ok
         
         if(strpos($requestContentType,'application/json') !== false){
 			$response = $this->encodeJson($rawData);
@@ -170,6 +174,9 @@ class SimpleRest {
 			echo $response;
 		} else if(strpos($requestContentType,'application/xml') !== false){
 			$response = $this->encodeXml($rawData);
+			echo $response;
+		}else if(strpos($requestContentType,'application/x-www-form-urlencoded') !== false){
+			$response = $this->encodeJson($rawData);
 			echo $response;
 		}
         

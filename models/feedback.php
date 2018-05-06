@@ -1,6 +1,6 @@
 <?php
     require_once 'model.php';
-    class feedback extends Model{
+    class Feedback extends Model{
 
         public function __construct(){
             parent::__construct();
@@ -18,6 +18,36 @@
                 echo "Couldn't update... please try again later";
                 die();
             }
+        }
+
+        public function ratingArticle($id,$value,$id_client_site){
+
+            try {
+                
+                $query = "INSERT INTO ".TABLE_ARTICLES_RATING."
+                (
+                `article_id`,
+                `client_id`,
+                `rating`,
+                `created_at`)
+                VALUES
+                (
+                '$id',
+                '$id_client_site',
+                '$value',
+                NOW());";
+
+                $result = $this->connector->rawQuery($query);
+                $this->connector->disconnect();
+
+                return $result;
+            }
+            catch(Exception $e){
+                $this->connector->disconnect();
+                echo "Couldn't rating... please try again later";
+                die();
+            }
+
         }
         
     }

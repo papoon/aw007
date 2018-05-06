@@ -5,6 +5,7 @@
     require_once '../webservices/api/rest/photosRestHandler.php';
     require_once '../webservices/api/rest/tweetsRestHandler.php';
     require_once '../webservices/api/rest/statisticsRestHandler.php';
+    require_once '../webservices/api/rest/feedbackRestHandler.php';
 
     class Rest extends Controller{
         public function __construct(){
@@ -98,7 +99,17 @@
             }
         }
 
-        public function 
+        public function feedback($id=0){
+            if($id == 0){
+                // to handle REST Url /feedback/article
+		        $feedbackRestHandler = new FeedbackRestHandler();
+                $feedbackRestHandler->rating();
+            }
+            else{
+                $feedbackRestHandler = new FeedbackRestHandler();
+                $feedbackRestHandler->rating();
+            }
+        }
     }
 
 
