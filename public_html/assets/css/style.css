@@ -13,11 +13,28 @@ body{
     padding: 0px;
     height: 100%;
 }
+
+p {
+     text-align: justify;
+
+}
+
+.row.fix{
+    display: flex;
+    flex-wrap: wrap;
+}
+
 .contentText{
     text-align: left;
     margin-bottom: 10px;
     margin: 10px;
 }
+
+
+
+
+/* -------------- BUTTONS ------------------------ */
+
 .btn {
     padding: 0x 0x;
     border: 0 none;
@@ -38,6 +55,21 @@ body{
     color: #ffffff;
     margin: 2px;
 }
+
+.btn-pretty {
+
+    background: #666666;
+    color: #ffffff;
+    margin: 2px;
+
+
+}
+
+
+/* -------------- FOOTER ------------------------ */
+
+
+
 footer{
     background-color: #2e353d;
     width: 100%;
@@ -54,9 +86,13 @@ footer .footer-copyright{
 footer .footer-copyright span{
     font-size: 10px;
 }
-.margin-bottom-10{
-    margin-bottom: 10px;
-}
+
+
+
+/* -------------- NAVIGATION BAR ------------------------ */
+
+
+
 .nav-side-menu {
 overflow: auto;
 font-family: 'Roboto', sans-serif;
@@ -194,23 +230,14 @@ transition: all 1s ease;
 }
 }
 @media (min-width: 767px) {
-.nav-side-menu .menu-list .menu-content {
-    display: block;
-}
-#main {
-    width:calc(100% - 200px);
-    float: right;
-    margin-bottom: 10%;
-    min-height: 100%;
-    height: 100%;
-}
-      
+    .nav-side-menu .menu-list .menu-content {
+        display: block;
+    }
+
 
 }
-.row.fix{
-    display: flex;
-    flex-wrap: wrap;
-}
+
+/* -------------- RATING  ------------------------ */
 
 .rating {
     unicode-bidi: bidi-override;
@@ -234,6 +261,47 @@ transition: all 1s ease;
     width: 2.485em;
     font-size: 1.4em;
 }
+
+.
+
+
+
+/* -------------- SPECIFIC ELEMENTS  ------------------------ */
+
+
+
+#article_mer_terms {
+
+    display: none;
+
+}
+
+#main {
+    width:calc(100% - 200px);
+    float: right;
+    margin-bottom: 10%;
+    min-height: 100%;
+    height: 100%;
+}
+
+
+
+/* -------------- MARGINS ------------------------ */
+
+
+.top5 { margin-top:5px; }
+.top7 { margin-top:7px; }
+.top10 { margin-top:10px; }
+.top15 { margin-top:15px; }
+.top17 { margin-top:17px; }
+.top20 { margin-top:20px; }
+.top30 { margin-top:30px; }
+.margin-bottom-10{
+    margin-bottom: 10px;
+}
+.side5 {margin-left:5px; margin-right:5px};
+
+
 .wrapper {
     min-height: 100%;
     height: auto !important;
@@ -243,6 +311,28 @@ transition: all 1s ease;
 
 
 
+
+/* ---------------- TABLES ---------------------- */
+
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+/* Zebra striping */
+tr:nth-of-type(odd) {
+  background: #eee;
+}
+th {
+  background: #333;
+  color: white;
+  font-weight: bold;
+}
+td, th {
+  padding: 6px;
+  border: 1px solid #ccc;
+  text-align: left;
+}
 
 
 

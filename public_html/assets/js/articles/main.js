@@ -1,9 +1,19 @@
+/* ---------- CLICK EVENTS ---------- */
 
-$('a.article_link').on('click',function(e) {
+$(document).ready(function(){
+
+    /* Button that displays mer terms table */
+    $("#btn_term_table_display").click(function() {
+
+        $("#article_mer_terms").toggle();
+
+    });
+
+    /* Button that displays articles */
+    $('a.article_link').on('click',function(e) {
 
     e.preventDefault();
 
-    console.log('oi2');
 
     var endpoint = $(this).attr('href').split('/');
     endpoint = endpoint[2] +'/'+ endpoint[3];
@@ -12,13 +22,65 @@ $('a.article_link').on('click',function(e) {
 
     //$('.sub_main').hide();
     $('.sub_main').load('../templates/articles/article.html',function(data){
-        
+
         requestApiArticle(endpoint);
     });
 
-    return false; 
+    return false;
 
 });
+
+    /* Button like and dislike of diseases feedback */
+    /*$('i.glyphicon-thumbs-up, i.glyphicon-thumbs-down').click(function(){
+        var $this = $(this),
+        c = $this.data('count');
+        if (!c) c = 0;
+        c++;
+        $this.data('count',c);
+        $('#'+this.id+'-bs3').html(c);
+    });
+        $(document).delegate('*[data-toggle="lightbox"]', 'click', function(event) {
+            event.preventDefault();
+            $(this).ekkoLightbox();
+
+
+
+        });*/
+
+
+        // todo on success update the content of the span with count of likes/dislikes
+        // todo fix ajax request that calls function MER_terms_update_likes
+
+      $('#art_mer_like').click(function(){
+            $.ajax({
+                type: "POST",
+                url: '../models/articles.php',
+                dataType: 'json',
+                data: {functionname: 'MER_terms_update_likes'},
+                    success: function (obj, textstatus) {
+
+                                  if( !('error' in obj) ) {
+
+                                      yourVariable = obj.result;
+
+                                  }
+                                  else {
+                                      console.log(obj.error);
+                                  }
+                            }
+                });
+
+
+            });
+
+
+      /*$('i.glyphicon-thumbs-down').click(function(){
+
+    });*/
+
+});
+
+
 
 function requestApiArticle(endpoint){
 
@@ -60,7 +122,7 @@ function requestApiArticle(endpoint){
         }
         else{
             $('.term_table').html('<p class="article_no_terms">No terms/entities found.</p>')
-        }  
+        }
 
         //change url
         history.pushState({id:url}, '', (url == '' ? ''+url : url));
@@ -75,13 +137,13 @@ function requestApiArticle(endpoint){
 function merContent(articleMERTerms){
 
     var html = '';
-    
+
     var term_t = '';
     articleMERTerms.forEach(term => {
         $('.article_term').html(term.term);
         $('.article_term_pos_start').html(term.pos_start);
         $('.article_term_pos_end').html(term.pos_end);
-        
+
         html += $('.articles_terms_table').html();
     });
 
@@ -103,4 +165,5 @@ function merContent(articleMERTerms){
     return table_html;
 
 }
+
 

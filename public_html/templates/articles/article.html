@@ -4,17 +4,28 @@
       <span property="name">English</span>
     </div>
 
-    <div class="row">
+    <div class="row top5" >
         <div class="col-md-12">
-            <a href="/aw007/articles" class="btn btn-info" role="button">< Back</a>
+            <a href="/aw007/articles" class="btn btn-info btn-pretty" role="button">< Back</a>
         </div>
     </div>
 
-    <div class="row">
+      <div class="row">
         <div class="col-md-12">
-            <h2 class="text-center article_title" property="headline">{{article.title}}</h2>
+            <h3 id= "article_title" class="text-center article_title" property="headline">{{article.title}}</h3>
+        </div>
+      </div>
+
+    <div class="row top15" >
+        <div class="col-md-12">
 
             <p class="article_abstract" property="about">{{article.abstract}}</p>
+
+        </div>
+    </div>
+
+    <div class="row top10">
+        <div class="col-md-12">
 
             <address>
                 <strong>Article Id: <span class="article_id" property="identifier">{{article.article_id}}</span></strong><br>
@@ -32,36 +43,54 @@
                 <br>
                 <strong><small>Published At: <span class="article_published_At" property="datePublished">{{article.published_at}}</span></small></strong><br>
             </address>
-
         </div>
     </div>
 
+
     <div class="row">
         <div class="col-md-12">
+            <a id = "btn_term_table_display" class="btn btn-info btn-pretty " role="button">Terms Table</a>
+        </div>
+    </div>
+
+    <div id= "article_mer_terms" class="row">
+        <div class="col-md-12">
             <h4>Article MER Terms</h4>
-            <div class="term_table">
+
+            <div class="term_table" >
                 {% if articleMERTerms |length > 0 %}
 
-
-                    <table class="articles_terms_table table table-bordered">
-                    <tr>
-                            <th>Term/Entity</th>
-                            <th>Start Position</th>
-                            <th>End Position</th>
-                    </tr>
-                    <div class="terms">
-                    {% for term in articleMERTerms %}
-
+                        <table class="articles_terms_table table table-bordered">
                         <tr>
-                            <td class="article_term" property="keywords">{{term.term}}</td>
-                            <td class="article_term_pos_start">{{term.pos_start}}</td>
-                            <td class="article_term_pos_end">{{term.pos_end}}</td>
+                                <th>Term/Entity</th>
+                                <th>DO_ID</th>
+                                <th>Start Position</th>
+                                <th>End Position</th>
+                                <th>Feedback </th>
                         </tr>
+                        <div class="terms">
+                        {% for term in articleMERTerms %}
 
-                    {% endfor %}
-                    </div>
-                    </table>
 
+                            <tr>
+                                <td class="article_term" property="keywords">{{term.term}}</td>
+                                <td class="article_do_id"> {{term.do_id}}</td>
+                                <td class="article_term_pos_start">{{term.pos_start}}</td>
+                                <td class="article_term_pos_end">{{term.pos_end}}</td>
+                                <td class="article_feedback">
+                                    <i id="art_mer_like" class="glyphicon glyphicon-thumbs-up"> </i>
+                                    <span class="side5">{{term.likes}}</span>
+                                    <i id="art_mer_dislike" class="glyphicon glyphicon-thumbs-down"></i>
+                                    <span class="side5">{{term.dislikes}}</span>
+                                </td>
+
+
+
+                            </tr>
+
+                        {% endfor %}
+                        </div>
+                        </table>
 
                 {% else %}
                     <p class="article_no_terms">No terms/entities found.</p>
@@ -72,7 +101,7 @@
     </div>
 
         <div class="row" >
-            <h2 class="text-center">Star Rating</h2>
+            <h3 class="text-center">Star Rating</h3>
             <div class="col-sm-6 col-sm-offset-2">
 
                 <div class="rating" id="star-rating">
@@ -95,18 +124,15 @@
                 </div>
             </div>
         </div>
-        <div class="row" id="article-comment">
+
+        <div class="row top20" id="article-comment">
             <div class="col-sm-10 col-sm-offset-1">
                 <label for="article_comment">Give us your feedback about this article:</label>
                 <textarea class="form-control" rows="6" placeholder="Write a comment..."></textarea>
-                <a href="#" id = "feedback-submit" class="btn btn-info" role="button">Save</a>
+                <a href="#" id = "feedback-submit" class="btn btn-info top5 btn-pretty" role="button">Save</a>
 
             </div>
         </div>
     </div>
-    <div class="row">
-        <div class="col-sm-12">
 
-        </div>
-    </div>
 </div>
