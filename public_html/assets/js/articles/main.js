@@ -109,6 +109,7 @@ function requestApiArticle(endpoint){
         var article_published_at = article.published_at;
 
         $('.article_title').html(article_title);
+        $('.id_article').html(article.id);
         $('.article_abstract').html(article_abstract);
         $('.article_id').html(article_id);
         $('.article_journal_id').html(article_journal_id);

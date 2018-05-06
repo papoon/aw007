@@ -1,6 +1,6 @@
 //click in star rating
 
-$('.star_rating').on('click',function(){
+$('#main').on('click','.star_rating',function(){
 
     
     var user = $('#data-user').data('user');
