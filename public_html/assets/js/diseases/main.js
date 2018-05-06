@@ -41,6 +41,15 @@ function requestApi(endpoint){
         var articles = disease.articles;
         var photos = disease.photos;
         var tweets = disease.tweets;
+        var metadata = [];
+        var element = {};
+        element.dbpedia_id = disease.dbpedia_id;
+        element.dbpedia_revision_id =  disease.dbpedia_revision_id;
+        element.do_id = disease.do_id;
+        element.uri = disease.uri;
+        element.created_at = disease.created_at;
+        element.updated_at = disease.updated_at;
+        metadata.push(element);
         
 
         /*$('.page_title').html(disease_name);
@@ -80,6 +89,7 @@ function requestApi(endpoint){
         //set new html page
         $('.body_content').html(html_body_content);*/
         $('.page_title').html(disease_name);
+        constructMetadata(metadata);
         $('.abstract_text').html(disease_abstract_text);
         var html_articles = constructDiseasesArticles(articles);
         $('.articles').html(html_articles);
@@ -234,4 +244,39 @@ function constructDiseasesTweets(tweets){
 
     return html;
 
+}
+
+function constructMetadata(metadata){
+    var html = '';
+
+    console.log(metadata);
+    metadata.forEach(data => {
+        console.log(data.dbpedia_id);
+        $('.disease_dbpedia_id').html(data.dbpedia_id);
+        $('.dbpedia_revision_id').html(data.dbpedia_revision_id);
+        $('.disease_uri a').prop('href',data.uri);
+        $('.disease_uri a').html(data.uri);
+        $('.disease_do_id').html(data.do_id);
+        $('.disease_created_at').html(data.created_at);
+        $('.disease_updated_at').html(data.updated_at);
+
+        html += $('.metadata_table').html();
+    });
+    /*console.log(html);
+    var header_table = $('.metadata_table tr').html();
+    var table_tr = "";
+    $($.parseHTML(html)).find('tr').each(function(i){
+        if(i%2 != 0){
+            table_tr += '<tr>'+$(this).html()+'</tr>';
+        }
+    });
+
+    $('.metadata_table').find('tr').eq(0).html(header_table);
+    $('.metadata_table').find('tr').eq(1).html(table_tr);
+    //var table_html = $('.articles_terms_table').html();
+    var table_html = $('.metadata_table').html();
+
+    table_html = $('.metadata').html();
+    
+    return table_html;*/
 }

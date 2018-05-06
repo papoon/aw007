@@ -5,10 +5,10 @@ require_once("../models/articles.php");
 class FeedbackRestHandler extends SimpleRest {
     
     //parametros permitidos nesta API 
-    private $searchOptions = array('terms','fields','limit');
+    private $searchOptions = array('fields','limit');
     
 	public function __construct(){
-		$this->setValidVerbs(array('GET'));
+		//$this->setValidVerbs(array('GET'));
 		parent::__construct();
 	}
 
@@ -105,6 +105,31 @@ class FeedbackRestHandler extends SimpleRest {
 			$response = $this->encodeXml($rawData);
 			echo $response;
 		}
+	}
+	//recive GET/POST
+	public function rating($id){
+
+		$request_method = $this->getHttpVerb();
+		
+		if($request_method == "GET"){
+
+			if(isset($_GET)){
+
+			}
+		}
+
+		if($request_method == "POST"){
+
+
+			$this->ratingArticle($id);
+
+		}
+
+
+
+	}
+	public function ratingArticle($id){
+
 	}
 }
 ?>

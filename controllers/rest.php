@@ -90,13 +90,15 @@
             
         }
         #/statistics
-        public function Statistics($id=0){
+        public function statistics($id=0){
             if($id == 0){
                 // to handle REST Url /tweets/
 		        $statisticsRestHandler = new StatisticsRestHandler();
                 $statisticsRestHandler->getStatistics();
             }
         }
+
+        public function 
     }
 
 

@@ -12,23 +12,23 @@ $(document).ready(function(){
     /* Button that displays articles */
     $('a.article_link').on('click',function(e) {
 
-    e.preventDefault();
+        e.preventDefault();
 
 
-    var endpoint = $(this).attr('href').split('/');
-    endpoint = endpoint[2] +'/'+ endpoint[3];
-    console.log( endpoint);
+        var endpoint = $(this).attr('href').split('/');
+        endpoint = endpoint[2] +'/'+ endpoint[3];
+        console.log( endpoint);
 
 
-    //$('.sub_main').hide();
-    $('.sub_main').load('../templates/articles/article.html',function(data){
+        //$('.sub_main').hide();
+        $('.sub_main').load('../templates/articles/article.html',function(data){
 
-        requestApiArticle(endpoint);
+            requestApiArticle(endpoint);
+        });
+
+        return false;
+
     });
-
-    return false;
-
-});
 
     /* Button like and dislike of diseases feedback */
     /*$('i.glyphicon-thumbs-up, i.glyphicon-thumbs-down').click(function(){
@@ -139,10 +139,15 @@ function merContent(articleMERTerms){
     var html = '';
 
     var term_t = '';
+    console.log(articleMERTerms);
     articleMERTerms.forEach(term => {
         $('.article_term').html(term.term);
         $('.article_term_pos_start').html(term.pos_start);
         $('.article_term_pos_end').html(term.pos_end);
+        $('.article_do_id').html(term.do_id);
+        $('.article_feedback_likes').html(term.article_feedback_likes);
+        $('.article_feedback_dislikes').html(term.article_feedback_dislikes);
+
 
         html += $('.articles_terms_table').html();
     });
