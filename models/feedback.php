@@ -20,7 +20,7 @@
             }
         }
 
-        public function ratingArticle($id,$value,$id_client_site){
+        public function ratingArticleSave($id,$value,$id_client_site){
 
             try {
                 
@@ -44,10 +44,56 @@
             }
             catch(Exception $e){
                 $this->connector->disconnect();
-                echo "Couldn't rating... please try again later";
+                echo "Couldn't save rating... please try again later";
                 die();
             }
 
+        }
+
+        public function ratingArticleUpdate($id,$value,$id_client_site){
+            try {
+
+                $query = "UPDATE ".TABLE_ARTICLES_RATING."
+                SET
+                `rating` = $value
+                WHERE `article_id` = $id and `client_id`= $id_client_site;
+                ";
+
+                $result = $this->connector->rawQuery($query);
+                $this->connector->disconnect();
+
+                return $result;
+            }
+            catch(Exception $e){
+                $this->connector->disconnect();
+                echo "Couldn't update rating... please try again later";
+                die();
+            }
+            
+        }
+        public function ratingArticleGet($id,$id_client_site){
+            try {
+
+                $query = "SELECT *
+                FROM ".TABLE_ARTICLES_RATING." where `article_id` = $id and `client_id` = $id_client_site;";
+
+                $result = $this->connector->rawQuery($query);
+                
+                $data = array();
+                while ($row = $result->fetch_assoc()) {
+                    $data[] = $row;
+                }
+
+                $this->connector->disconnect();
+
+                return $data;
+            }
+            catch(Exception $e){
+                $this->connector->disconnect();
+                echo "Couldn't get rating... please try again later";
+                die();
+            }
+            
         }
         
     }

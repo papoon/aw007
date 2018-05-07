@@ -261,8 +261,13 @@ transition: all 1s ease;
     width: 2.485em;
     font-size: 1.4em;
 }
+.rating > span.star_rating.selected:before,
+.rating > span.star_rating.selected ~ span.star_rating.selected:before {
+    content: "\2605";
+    color: yellow;
+    position: absolute;
+}
 
-.
 
 
 

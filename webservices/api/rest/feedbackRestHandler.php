@@ -53,38 +53,76 @@ class FeedbackRestHandler extends SimpleRest {
 	//recive GET/POST
 	public function rating(){
 		
-		$this->setValidVerbs(array('GET','POST'));
+		$this->setValidVerbs(array('GET','POST','PUT'));
 		$this->errorResponse();
 
 		$request_method = $this->getHttpVerb();
-		
-		if($request_method == "GET"){
-
-			if(isset($_GET)){
-
-			}
-		}
 
 		if($request_method == "POST"){
-		
-			$article_id = $_POST['article_id'];
-			$client_id = $_POST['client_id'];
-			$rating = $_POST['rating'];
 
-			$response = $this->ratingArticle($article_id,$rating,$client_id);
+			$data = json_decode(file_get_contents("php://input"),true);
+		
+			$article_id = $data['article_id'];
+			$client_id = $data['client_id'];
+			$rating = $data['rating'];
+
+			$response = $this->ratingArticleSave($article_id,$rating,$client_id);
 
 
 			$this->convertResponse($response);
 
 		}
+		if($request_method == "PUT"){
+
+			$data = json_decode(file_get_contents("php://input"),true);
+			
+
+			$article_id = $data['article_id'];
+			$client_id = $data['client_id'];
+			$rating = $data['rating'];
+
+			$response = $this->ratingArticleUpdate($article_id,$rating,$client_id);
+
+
+			$this->convertResponse($response);
+		}
+
+		if($request_method == "GET"){
+		
+			$article_id = $_GET['article_id'];
+			$client_id = $_GET['client_id'];
+
+			$response = $this->ratingArticleGet($article_id,$client_id);
+
+
+			$this->convertResponse($response);
+
+		}
+
+
 	}
-	public function ratingArticle($id,$value,$client_id){
+	public function ratingArticleSave($id,$value,$client_id){
 
 		$feedback = new Feedback();
-		$response = $feedback->ratingArticle($id,$value,$client_id);
+		$response = $feedback->ratingArticleSave($id,$value,$client_id);
 
 		return $response;
 
+	}
+	public function ratingArticleUpdate($id,$value,$client_id){
+
+		$feedback = new Feedback();
+		$response = $feedback->ratingArticleUpdate($id,$value,$client_id);
+
+		return $response;
+
+	}
+	public function ratingArticleGet($id,$client_id){
+
+		$feedback = new Feedback();
+		$response = $feedback->ratingArticleGet($id,$client_id);
+
+		return $response;
 	}
 }
 ?>
