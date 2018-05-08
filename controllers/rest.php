@@ -117,6 +117,12 @@
             $feedbackRestHandler->ratingArticle($id);
             
         }
+        public function ratingDisease($id){
+
+            $feedbackRestHandler = new FeedbackRestHandler();
+            $feedbackRestHandler->ratingDisease($id);
+            
+        }
     }
 
 

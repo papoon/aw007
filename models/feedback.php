@@ -95,6 +95,81 @@
             }
             
         }
+        public function ratingDiseaseSave($id,$value,$id_client_site){
+
+            try {
+                
+                $query = "INSERT INTO ".TABLE_DISEASES_RATING."
+                (
+                `disease_id`,
+                `client_id`,
+                `rating`,
+                `created_at`)
+                VALUES
+                (
+                '$id',
+                '$id_client_site',
+                '$value',
+                NOW());";
+
+                $result = $this->connector->rawQuery($query);
+                $this->connector->disconnect();
+
+                return $result;
+            }
+            catch(Exception $e){
+                $this->connector->disconnect();
+                echo "Couldn't save rating... please try again later";
+                die();
+            }
+
+        }
+
+        public function ratingDiseaseUpdate($id,$value,$id_client_site){
+            try {
+
+                $query = "UPDATE ".TABLE_DISEASES_RATING."
+                SET
+                `rating` = $value
+                WHERE `disease_id` = $id and `client_id`= $id_client_site;
+                ";
+
+                $result = $this->connector->rawQuery($query);
+                $this->connector->disconnect();
+
+                return $result;
+            }
+            catch(Exception $e){
+                $this->connector->disconnect();
+                echo "Couldn't update rating... please try again later";
+                die();
+            }
+            
+        }
+        public function ratingDiseaseGet($id,$id_client_site){
+            try {
+
+                $query = "SELECT *
+                FROM ".TABLE_DISEASES_RATING." where `disease_id` = $id and `client_id` = $id_client_site;";
+
+                $result = $this->connector->rawQuery($query);
+                
+                $data = array();
+                while ($row = $result->fetch_assoc()) {
+                    $data[] = $row;
+                }
+
+                $this->connector->disconnect();
+
+                return $data;
+            }
+            catch(Exception $e){
+                $this->connector->disconnect();
+                echo "Couldn't get rating... please try again later";
+                die();
+            }
+            
+        }
         
     }
 

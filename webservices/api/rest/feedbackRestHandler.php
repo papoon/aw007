@@ -101,6 +101,56 @@ class FeedbackRestHandler extends SimpleRest {
 
 
 	}
+	public function ratingDisease($id){
+		
+		$this->setValidVerbs(array('GET','POST','PUT'));
+		$this->errorResponse();
+
+		$request_method = $this->getHttpVerb();
+
+		if($request_method == "POST"){
+
+			$data = json_decode(file_get_contents("php://input"),true);
+		
+			$disease_id = $id;
+			$client_id = $data['client_id'];
+			$rating = $data['rating'];
+
+			$response = $this->ratingDiseaseSave($disease_id,$rating,$client_id);
+
+
+			$this->convertResponse($response);
+
+		}
+		if($request_method == "PUT"){
+
+			$data = json_decode(file_get_contents("php://input"),true);
+			
+
+			$disease_id = $id;
+			$client_id = $data['client_id'];
+			$rating = $data['rating'];
+
+			$response = $this->ratingDiseaseUpdate($disease_id,$rating,$client_id);
+
+
+			$this->convertResponse($response);
+		}
+
+		if($request_method == "GET"){
+		
+			$disease_id = $id;
+			$client_id = $_GET['client_id'];
+
+			$response = $this->ratingDiseaseGet($disease_id,$client_id);
+
+
+			$this->convertResponse($response);
+
+		}
+
+
+	}
 	public function ratingArticleSave($id,$value,$client_id){
 
 		$feedback = new Feedback();
@@ -121,6 +171,29 @@ class FeedbackRestHandler extends SimpleRest {
 
 		$feedback = new Feedback();
 		$response = $feedback->ratingArticleGet($id,$client_id);
+
+		return $response;
+	}
+	public function ratingDiseaseSave($id,$value,$client_id){
+
+		$feedback = new Feedback();
+		$response = $feedback->ratingDiseaseSave($id,$value,$client_id);
+
+		return $response;
+
+	}
+	public function ratingDiseaseUpdate($id,$value,$client_id){
+
+		$feedback = new Feedback();
+		$response = $feedback->ratingDiseaseUpdate($id,$value,$client_id);
+
+		return $response;
+
+	}
+	public function ratingDiseaseGet($id,$client_id){
+
+		$feedback = new Feedback();
+		$response = $feedback->ratingDiseaseGet($id,$client_id);
 
 		return $response;
 	}

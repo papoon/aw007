@@ -241,3 +241,16 @@ ALTER TABLE MER_Terms_Tweets ADD COLUMN disease_id int,
      ADD COLUMN updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP;
 
 ALTER TABLE MER_Terms_Articles ADD COLUMN likes int, ADD COLUMN dislikes int;
+
+CREATE TABLE `diseases_rating` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `disease_id` int(11) DEFAULT NULL,
+  `client_id` int(11) DEFAULT NULL,
+  `rating` tinyint(3) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `disease_id` (`disease_id`),
+  KEY `client_id` (`client_id`),
+  CONSTRAINT `diseases_rating_ibfk_1` FOREIGN KEY (`disease_id`) REFERENCES `disease` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `diseases_rating_ibfk_2` FOREIGN KEY (`client_id`) REFERENCES `clients_site` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;

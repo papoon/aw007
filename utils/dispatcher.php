@@ -17,7 +17,8 @@ class Dispatcher{
         if(strpos($matcher, '{$id}') !== false){
 
             $route_to_match = $matcher;
-            if(!preg_match('#/(\d+)$#',$url,$matcher) && $route !== str_replace('{$id}',$matcher[1],$route_to_match)){
+            //$route_to_match = str_replace('{$id}',$matcher[1],$route_to_match);
+            if(!preg_match('#/(\d+)$#',$url,$matcher) || $url !== str_replace('{$id}',$matcher[1],$route_to_match)){
                 return;
             }
 

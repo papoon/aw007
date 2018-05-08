@@ -1,17 +1,17 @@
 
 //get rating if exists
-$('#star-rating-article').ready(function(){
+$('#star-rating-disease').ready(function(){
 
     console.log('ready');
     var user = $('#data-user').data('user');
-    var id_article = $('.id_article').html();
+    var id_disease = $('.id_disease').html();
     var user_id = user.id;
 
     var data = {"client_id":user_id};
 
     //api to save rating
     $.ajax({
-        url: api().uri()+'feedback/rating/article/'+id_article,
+        url: api().uri()+'feedback/rating/disease/'+id_disease,
         type: 'GET',
         data: data,
         contentType: "application/json",
@@ -25,16 +25,13 @@ $('#star-rating-article').ready(function(){
         if(result.length > 0){
             var rating = result[0].rating;
 
-            $('#star-rating-article').children('span.star_rating').each(function () {
+            $('#star-rating-disease').children('span.star_rating').each(function () {
                 let rating_value = ($(this).attr('value'));
                 if(rating_value == rating){
                     $(this).addClass('selected');
                 }
             });
         }
-
-        
-
     })
     .fail(function(jqXHR, textStatus) {
         console.log(jqXHR);
@@ -48,14 +45,13 @@ $('#star-rating-article').ready(function(){
 
 //click in star rating
 
-$('#main').on('click','#star-rating-article > .star_rating',function(){
+$('#main').on('click','#star-rating-disease > .star_rating',function(){
 
     
     var user = $('#data-user').data('user');
-    var article_id = $('.article_id').html();
-    var id_article = $('.id_article').html();
-    console.log('article_id: '+article_id);
-    console.log('id_article: '+id_article);
+    var id_disease = $('.id_disease').html();
+    
+    console.log('id_disease: '+id_disease);
     console.log('user.id: '+user.id);
     var user_id = user.id;
     
@@ -92,7 +88,7 @@ $('#main').on('click','#star-rating-article > .star_rating',function(){
     var data = {"client_id":user_id,"rating":valor};
 
     $.ajax({
-        url: api().uri()+'feedback/rating/article/'+id_article,
+        url: api().uri()+'feedback/rating/disease/'+id_disease,
         type: type,
         data: JSON.stringify(data),
         contentType: "application/json",

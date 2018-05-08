@@ -10,6 +10,7 @@
     const TABLE_CLIENTS_SITE = 'clients_site';
     const TABLE_ARTICLES_COMMET = 'articles_comment';
     const TABLE_ARTICLES_RATING = 'articles_rating';
+    const TABLE_DISEASES_RATING = 'diseases_rating';
 
     function getLastInsertId($connection) {
       return mysqli_insert_id($connection);
