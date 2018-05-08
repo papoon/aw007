@@ -51,7 +51,7 @@ class FeedbackRestHandler extends SimpleRest {
 
 	
 	//recive GET/POST
-	public function rating(){
+	public function ratingArticle($id){
 		
 		$this->setValidVerbs(array('GET','POST','PUT'));
 		$this->errorResponse();
@@ -62,7 +62,7 @@ class FeedbackRestHandler extends SimpleRest {
 
 			$data = json_decode(file_get_contents("php://input"),true);
 		
-			$article_id = $data['article_id'];
+			$article_id = $id;
 			$client_id = $data['client_id'];
 			$rating = $data['rating'];
 
@@ -77,7 +77,7 @@ class FeedbackRestHandler extends SimpleRest {
 			$data = json_decode(file_get_contents("php://input"),true);
 			
 
-			$article_id = $data['article_id'];
+			$article_id = $id;
 			$client_id = $data['client_id'];
 			$rating = $data['rating'];
 
@@ -89,7 +89,7 @@ class FeedbackRestHandler extends SimpleRest {
 
 		if($request_method == "GET"){
 		
-			$article_id = $_GET['article_id'];
+			$article_id = $id;
 			$client_id = $_GET['client_id'];
 
 			$response = $this->ratingArticleGet($article_id,$client_id);

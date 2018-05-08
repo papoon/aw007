@@ -28,6 +28,7 @@
             die();*/
 
             require_once '../utils/helpers.php';
+            require_once '../utils/dispatcher.php';
 
             // Get the client ip address
             $ip_address = getClientIP();
@@ -70,7 +71,7 @@
                 $page = $tokens[2];
                 $function = $tokens[3];
             }
-            else if(count($tokens)==5){
+            else if(count($tokens)>=5){
                 $server = $tokens[0];
                 $domain = $tokens[1];
                 //$public = $tokens[2];
@@ -78,12 +79,12 @@
                 $function = $tokens[3];
                 $param = $tokens[4];
             }
-            else{
+            /*else{
                 require_once('../controllers/index.php');
                 $controller = new Index();
                 $controller->index();
                 die();
-            }
+            }*/
 
             if(count($tokens)>2){
 
@@ -100,8 +101,15 @@
                                 $controller->index($function);
                             }
                             else{
-                                if(count($tokens)== 5){
-                                    $controller->{$function}($param);
+                                if(count($tokens)>= 5){
+                                    if(count($tokens)== 5){
+                                        $controller->{$function}($param);
+                                    }
+                                    else{
+                                        //dispatcher for url like rest/feedback/article/1 and so on..
+                                        Dispatcher::route('rest@ratingArticle',$route,'rest/feedback/rating/article/{$id}');
+                                    }
+                                    
                                 }else{
                                     $controller->{$function}();
                                 } 

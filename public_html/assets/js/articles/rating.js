@@ -7,11 +7,11 @@ $(document).ready(function(){
     var id_article = $('.id_article').html();
     var user_id = user.id;
 
-    var data = {"client_id":user_id,"article_id":id_article};
+    var data = {"client_id":user_id};
 
     //api to save rating
     $.ajax({
-        url: api().uri()+'feedback',
+        url: api().uri()+'feedback/rating/article/'+id_article,
         type: 'GET',
         data: data,
         contentType: "application/json",
@@ -89,10 +89,10 @@ $('#main').on('click','.star_rating',function(){
         var type = 'POST';
     }
 
-    var data = {"client_id":user_id,"article_id":id_article,"rating":valor};
+    var data = {"client_id":user_id,"rating":valor};
 
     $.ajax({
-        url: api().uri()+'feedback',
+        url: api().uri()+'feedback/rating/article/'+id_article,
         type: type,
         data: JSON.stringify(data),
         contentType: "application/json",

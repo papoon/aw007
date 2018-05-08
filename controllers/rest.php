@@ -100,6 +100,7 @@
         }
 
         public function feedback($id=0){
+
             if($id == 0){
                 // to handle REST Url /feedback/article
 		        $feedbackRestHandler = new FeedbackRestHandler();
@@ -109,6 +110,12 @@
                 $feedbackRestHandler = new FeedbackRestHandler();
                 $feedbackRestHandler->rating();
             }
+        }
+        public function ratingArticle($id){
+
+            $feedbackRestHandler = new FeedbackRestHandler();
+            $feedbackRestHandler->ratingArticle($id);
+            
         }
     }
 
