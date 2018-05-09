@@ -1,45 +1,50 @@
 
 //get rating if exists
-$('#star-rating-disease').ready(function(){
+$(document).ready(function(){
 
-    console.log('ready');
-    var user = $('#data-user').data('user');
-    var id_disease = $('.id_disease').html();
-    var user_id = user.id;
+    if($('#star-rating-disease').length){
 
-    var data = {"client_id":user_id};
+        console.log('ready');
+        var user = $('#data-user').data('user');
+        var id_disease = $('.id_disease').html();
+        var user_id = user.id;
 
-    //api to save rating
-    $.ajax({
-        url: api().uri()+'feedback/rating/disease/'+id_disease,
-        type: 'GET',
-        data: data,
-        contentType: "application/json",
-        dataType: 'json'
-    })
-    .done(function(result){
+        var data = {"client_id":user_id};
+        console.log(id_disease);
+        console.log(user_id);
+        //api to save rating
+        $.ajax({
+            url: api().uri()+'feedback/rating/disease/'+id_disease,
+            type: 'GET',
+            data: data,
+            contentType: "application/json",
+            dataType: 'json'
+        })
+        .done(function(result){
 
-        console.log('oi get');
-        console.log(result);
+            console.log('oi get');
+            console.log(result);
 
-        if(result.length > 0){
-            var rating = result[0].rating;
+            if(result.length > 0){
+                var rating = result[0].rating;
 
-            $('#star-rating-disease').children('span.star_rating').each(function () {
-                let rating_value = ($(this).attr('value'));
-                if(rating_value == rating){
-                    $(this).addClass('selected');
-                }
-            });
-        }
-    })
-    .fail(function(jqXHR, textStatus) {
-        console.log(jqXHR);
-        console.log(textStatus);
-    })
-    .always(function(){
-        console.log('complete');
-    });
+                $('#star-rating-disease').children('span.star_rating').each(function () {
+                    let rating_value = ($(this).attr('value'));
+                    if(rating_value == rating){
+                        $(this).addClass('selected');
+                    }
+                });
+            }
+        })
+        .fail(function(jqXHR, textStatus) {
+            console.log(jqXHR);
+            console.log(textStatus);
+        })
+        .always(function(){
+            console.log('complete');
+        });
+
+    }
 
 });
 

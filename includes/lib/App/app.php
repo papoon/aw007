@@ -109,6 +109,7 @@
                                         //dispatcher for url like rest/feedback/article/1 and so on..
                                         Dispatcher::route('rest@ratingArticle',$route,'rest/feedback/rating/article/{$id}');
                                         Dispatcher::route('rest@ratingDisease',$route,'rest/feedback/rating/disease/{$id}');
+                                        Dispatcher::route('rest@commentArticle',$route,'rest/feedback/comment/article/{$id}');
                                     }
                                     
                                 }else{

@@ -123,6 +123,12 @@
             $feedbackRestHandler->ratingDisease($id);
             
         }
+        public function commentArticle($id){
+
+            $feedbackRestHandler = new FeedbackRestHandler();
+            $feedbackRestHandler->commentArticle($id);
+            
+        }
     }
 
 

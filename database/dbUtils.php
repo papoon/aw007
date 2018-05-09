@@ -8,9 +8,10 @@
     const TABLE_TWEETS = 'Tweets';
     const TABLE_MER_ARTICLES = 'MER_Terms_Articles';
     const TABLE_CLIENTS_SITE = 'clients_site';
-    const TABLE_ARTICLES_COMMET = 'articles_comment';
+    const TABLE_ARTICLES_COMMENT = 'articles_comment';
     const TABLE_ARTICLES_RATING = 'articles_rating';
     const TABLE_DISEASES_RATING = 'diseases_rating';
+    const TABLE_DISEASES_COMMENT = 'diseases_comment';
 
     function getLastInsertId($connection) {
       return mysqli_insert_id($connection);

@@ -49,7 +49,9 @@ class FeedbackRestHandler extends SimpleRest {
 		return $xml->asXML();
 	}
 
-	
+
+	#####################################################################################
+	#ARTICLES
 	//recive GET/POST
 	public function ratingArticle($id){
 		
@@ -101,6 +103,105 @@ class FeedbackRestHandler extends SimpleRest {
 
 
 	}
+	public function commentArticle($id){
+		
+		$this->setValidVerbs(array('GET','POST'));
+		$this->errorResponse();
+
+		$request_method = $this->getHttpVerb();
+
+		if($request_method == "POST"){
+
+			$data = json_decode(file_get_contents("php://input"),true);
+		
+			$article_id = $id;
+			$client_id = $data['client_id'];
+			$comment = $data['comment'];
+
+			$response = $this->commentArticleSave($article_id,$comment,$client_id);
+
+
+			$this->convertResponse($response);
+
+		}
+		if($request_method == "PUT"){
+
+			$data = json_decode(file_get_contents("php://input"),true);
+			
+
+			$article_id = $id;
+			$client_id = $data['client_id'];
+			$comment = $data['comment'];
+
+			$response = $this->commentArticleUpdate($article_id,$comment,$client_id);
+
+
+			$this->convertResponse($response);
+		}
+
+		if($request_method == "GET"){
+		
+			$article_id = $id;
+			$client_id = $_GET['client_id'];
+
+			$response = $this->commentArticleGet($article_id,$client_id);
+
+
+			$this->convertResponse($response);
+
+		}
+	}
+	public function ratingArticleSave($id,$value,$client_id){
+
+		$feedback = new Feedback();
+		$response = $feedback->ratingArticleSave($id,$value,$client_id);
+
+		return $response;
+
+	}
+	public function ratingArticleUpdate($id,$value,$client_id){
+
+		$feedback = new Feedback();
+		$response = $feedback->ratingArticleUpdate($id,$value,$client_id);
+
+		return $response;
+
+	}
+	public function ratingArticleGet($id,$client_id){
+
+		$feedback = new Feedback();
+		$response = $feedback->ratingArticleGet($id,$client_id);
+
+		return $response;
+	}
+	public function commentArticleSave($id,$value,$client_id){
+
+		$feedback = new Feedback();
+		$response = $feedback->commentArticleSave($id,$value,$client_id);
+
+		return $response;
+
+	}
+	public function commentArticleUpdate($id,$value,$client_id){
+
+		$feedback = new Feedback();
+		$response = $feedback->commentArticleUpdate($id,$value,$client_id);
+
+		return $response;
+
+	}
+	public function commentArticleGet($id,$client_id){
+
+		$feedback = new Feedback();
+		$response = $feedback->commentArticleGet($id,$client_id);
+
+		return $response;
+	}
+
+
+
+	#####################################################################################
+	#DISEASES
 	public function ratingDisease($id){
 		
 		$this->setValidVerbs(array('GET','POST','PUT'));
@@ -151,29 +252,7 @@ class FeedbackRestHandler extends SimpleRest {
 
 
 	}
-	public function ratingArticleSave($id,$value,$client_id){
-
-		$feedback = new Feedback();
-		$response = $feedback->ratingArticleSave($id,$value,$client_id);
-
-		return $response;
-
-	}
-	public function ratingArticleUpdate($id,$value,$client_id){
-
-		$feedback = new Feedback();
-		$response = $feedback->ratingArticleUpdate($id,$value,$client_id);
-
-		return $response;
-
-	}
-	public function ratingArticleGet($id,$client_id){
-
-		$feedback = new Feedback();
-		$response = $feedback->ratingArticleGet($id,$client_id);
-
-		return $response;
-	}
+	
 	public function ratingDiseaseSave($id,$value,$client_id){
 
 		$feedback = new Feedback();

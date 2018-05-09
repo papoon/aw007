@@ -36,6 +36,7 @@ function requestApi(endpoint){
         console.log(result);
 
         var disease= result;
+        var disease_id = disease.id;
         var disease_name = disease.name;
         var disease_abstract_text = disease.abstract;
         var articles = disease.articles;
@@ -91,6 +92,7 @@ function requestApi(endpoint){
         $('.page_title').html(disease_name);
         constructMetadata(metadata);
         $('.abstract_text').html(disease_abstract_text);
+        $('.id_disease').html(disease_id);
         var html_articles = constructDiseasesArticles(articles);
         $('.articles').html(html_articles);
         var html_photos = constructDiseasesPhotos(photos);
@@ -99,6 +101,7 @@ function requestApi(endpoint){
         $('.tweets').html(html_tweets);
 
         $('.sub_footer').append('<script src="/aw007/assets/js/articles/main.js"></script>');
+        $('.sub_footer').append('<script src="/aw007/assets/js/diseases/rating.js"></script>');
 
 
         //change url

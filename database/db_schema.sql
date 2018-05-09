@@ -254,3 +254,16 @@ CREATE TABLE `diseases_rating` (
   CONSTRAINT `diseases_rating_ibfk_1` FOREIGN KEY (`disease_id`) REFERENCES `disease` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `diseases_rating_ibfk_2` FOREIGN KEY (`client_id`) REFERENCES `clients_site` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `diseases_comment` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `disease_id` int(11) DEFAULT NULL,
+  `client_id` int(11) DEFAULT NULL,
+  `comment` text,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `disease_id` (`disease_id`),
+  KEY `client_id` (`client_id`),
+  CONSTRAINT `diseases_comment_ibfk_1` FOREIGN KEY (`disease_id`) REFERENCES `disease` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `diseases_comment_ibfk_2` FOREIGN KEY (`client_id`) REFERENCES `clients_site` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;

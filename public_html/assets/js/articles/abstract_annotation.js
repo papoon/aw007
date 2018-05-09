@@ -1,10 +1,12 @@
 $(document).ready(function(){
 
+    if($('.article_abstract').length){
+
         url = window.location.href.split('/');
-    
+
         // url of API getArticleWithTerms
         uri_rest = url[0]+'//'+url[2]+'/'+url[3]+'/rest/'+url[4]+'/'+url[5];
-    
+
         //url of article page - needs id of articles
         uri_article = url[0]+'//'+url[2]+'/'+url[3]+'/'+url[4]+'/';
 
@@ -19,15 +21,15 @@ $(document).ready(function(){
             data:{'terms':'true'}
             
         })
-    
+
         .done(function(result){
                         
 
             /* Function that replaces MER Terms with links of specific disease
 
-               It needs to replace text with links on both title and abstract at the same time since MER function calculates positions on title and abstract as one text only. This function then separates title from abstract and replaces the content on html page on the specific container
+                It needs to replace text with links on both title and abstract at the same time since MER function calculates positions on title and abstract as one text only. This function then separates title from abstract and replaces the content on html page on the specific container
 
-             */
+                */
 
             var article = result;
             var abstract = article['abstract'];
@@ -42,7 +44,7 @@ $(document).ready(function(){
 
             // sorts terms by ascendent position
             terms.sort(function(a, b){
-              return a.pos_start - b.pos_start;
+                return a.pos_start - b.pos_start;
             });
 
             $(terms).each(function() {
@@ -63,7 +65,7 @@ $(document).ready(function(){
 
                 // determines size of new title so it can divide the content after
 
-                  if (end <= title.length) {
+                    if (end <= title.length) {
                     new_title_length += link.length - term.length;
 
                 }
@@ -95,7 +97,7 @@ $(document).ready(function(){
             console.log('complete');
         });
 
-        return false; 
-    } 
-);
+        return false;
+    }
+});
 

@@ -339,5 +339,13 @@ td, th {
   text-align: left;
 }
 
+/* ------------------- COMMENTS -------------------*/
+.article_comment .publicated_at{
+    font-size: 12px;
+}
+.article_comment .comment{
+    font-size: 15px;
+}
+
 
 
