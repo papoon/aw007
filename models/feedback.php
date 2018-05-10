@@ -150,7 +150,8 @@
             try {
 
                 $query = "SELECT *
-                FROM ".TABLE_ARTICLES_COMMENT." where `article_id` = $id and `client_id` = $id_client_site;";
+                FROM ".TABLE_ARTICLES_COMMENT." where `article_id` = $id and `client_id` = $id_client_site 
+                order by `created_at` desc";
 
                 $result = $this->connector->rawQuery($query);
                 
@@ -248,6 +249,84 @@
             }
             
         }
+        public function commentDiseaseSave($id,$value,$id_client_site){
+
+            try {
+                
+                $query = "INSERT INTO ".TABLE_DISEASES_COMMENT."
+                (
+                `disease_id`,
+                `client_id`,
+                `comment`,
+                `created_at`)
+                VALUES
+                (
+                '$id',
+                '$id_client_site',
+                '$value',
+                NOW());";
+
+                $result = $this->connector->rawQuery($query);
+                $this->connector->disconnect();
+
+                return $result;
+            }
+            catch(Exception $e){
+                $this->connector->disconnect();
+                echo "Couldn't save comment... please try again later";
+                die();
+            }
+
+        }
+
+        public function commentDiseaseUpdate($id,$value,$id_client_site){
+            try {
+
+                $query = "UPDATE ".TABLE_DISEASES_COMMENT."
+                SET
+                `comment` = $value
+                WHERE `disease_id` = $id and `client_id`= $id_client_site;
+                ";
+
+                $result = $this->connector->rawQuery($query);
+                $this->connector->disconnect();
+
+                return $result;
+            }
+            catch(Exception $e){
+                $this->connector->disconnect();
+                echo "Couldn't update comment... please try again later";
+                die();
+            }
+            
+        }
+        public function commentDiseaseGet($id,$id_client_site){
+            try {
+
+                $query = "SELECT *
+                FROM ".TABLE_DISEASES_COMMENT." where `disease_id` = $id and `client_id` = $id_client_site 
+                order by `created_at` desc";
+
+                $result = $this->connector->rawQuery($query);
+                
+                $data = array();
+                while ($row = $result->fetch_assoc()) {
+                    $data[] = $row;
+                }
+
+                $this->connector->disconnect();
+
+                return $data;
+            }
+            catch(Exception $e){
+                $this->connector->disconnect();
+                echo "Couldn't get comment... please try again later";
+                die();
+            }
+            
+        }
+
+
         
     }
 

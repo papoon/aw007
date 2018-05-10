@@ -346,6 +346,12 @@ td, th {
 .article_comment .comment{
     font-size: 15px;
 }
+.disease_comment .publicated_at{
+    font-size: 12px;
+}
+.disease_comment .comment{
+    font-size: 15px;
+}
 
 
 

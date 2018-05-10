@@ -129,6 +129,12 @@
             $feedbackRestHandler->commentArticle($id);
             
         }
+        public function commentDisease($id){
+
+            $feedbackRestHandler = new FeedbackRestHandler();
+            $feedbackRestHandler->commentDisease($id);
+            
+        }
     }
 
 
