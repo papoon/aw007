@@ -1,5 +1,6 @@
 
-<div class="tab-content page_content">
+<div class="tab-content page_content" vocab="http://schema.org/" typeof="WebApplication">
+    <div property="url" style="display:none">http://appserver.alunos.di.fc.ul.pt/~aw007/aw007/</div>
     <div class="tab-pane active" id="home">
         <div class="row">
             <div class="col-md-12">
@@ -8,8 +9,8 @@
                         <h2 style="text-align:center">Introduction</h2>
                         <div class="row contentText">
                             <div class="col-sm-12">
-                                The AW 2017/18 project consists in creating a semantic search engine for diseases and scientific articles, with the following components:
-                                <ul>
+                                The <span property="name">AW 2017/18 project</span> consists in creating a <span property="applicationCategory">semantic search engine for diseases and scientific articles</span>, with the following components:
+                                <ul property="featureList">
                                     <li><b>Data Collection:</b> collecting text and data about diseases (Demo I)</li>
                                     <li><b>Data Annotation:</b> create semantic links between the collected data (Demo II)</li>
                                     <li><b>Data Access:</b> make the information available as a web service and as dynamic web page.</li>
@@ -19,9 +20,9 @@
                     </div>
                 </div>
                 <div class="row">
-                    
-                    <div class="col-sm-12">
-                            
+
+                    <div class="col-sm-12" vocab="http://schema.org/" typeof="SearchResultsPage">
+                        <div property="about" style="display:none">http://schema.org/MedicalCondition</div>
                         <form onsubmit="return false;" class="pure-form" style="border-top: 1px solid #eee;border-bottom:1px solid #eee;background:#fafafa;margin:30px 0;padding:20px 10px;text-align:center">
                             <h3> Search <span class="glyphicon glyphicon-search" aria-hidden="true"></span></h3>
                             <input id="hero-demo" autofocus="" type="text" name="q" placeholder="Diseases..." style="width:100%;max-width:600px;outline:0" autocomplete="off">
