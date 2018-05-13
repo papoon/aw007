@@ -4,6 +4,9 @@ import subprocess
 from constants import *
 from dbUtils import *
 
+import percache
+
+cache = percache.Cache("../cache/MERUtils")
 
 #TODO FIX ERROR ON TWEETS - ARTICLES ARE ALREADY SAVING CORRECTLY IN DB WITH NEW FIELDS
 
@@ -138,7 +141,7 @@ def entityAnnotation():
 
     return [termsPerArticle, termsPerTweet]
 
-
+@cache
 def callGetEntitiesMER(text):
     """
     Calls MER getEntities.sh script and retrieves the console result.
@@ -156,6 +159,7 @@ def callGetEntitiesMER(text):
 
     return output
 
+@cache
 def callGetLinkEntitiesMER(text):
     """
     Calls MER getEntities.sh and linkEntities.sh scripts and retrieves the console result.
@@ -266,4 +270,3 @@ def saveEntitiesMER(table,id, data):
 
 
         saveMERTermsInformation(table, term, id, start, stop, doid, disease_id)
-
