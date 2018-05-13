@@ -16,7 +16,7 @@
 
             $this->connector->disconnect();
             return $data;
-            
+
         }
         public function getDisease($id){
 
@@ -27,14 +27,14 @@
             $this->connector->disconnect();
 
             return $data;
-            
+
         }
 
         public function getDiseaseMetadata($id){
 
             $disease = $this->getDisease($id);
-            
-            
+
+
             $article = new Article();
             $articles = $article->getArticlesDisease($id);
 
@@ -52,12 +52,12 @@
             $disease['articles'] = $articles;
             $disease['photos'] = $photos;
             $disease['tweets'] = $tweets;
-            
+
             return $disease;
         }
 
-        
-        
+
+
         //this is used because we are not saving Diseases ID on runing the mer terms finding
         public function getDiseaseID ($name) {
 
@@ -67,13 +67,13 @@
 
             return $data;
 
-            
-            
+
+
         }
 
         public function getSimilarDisease($id) {
 
-            $query = "SELECT disease_id, resnik_value FROM " . TABLE_SIM_DISEASES . " WHERE did = ". $id . " ORDER BY resnik_value DESC;";
+            $query = "SELECT disease_id, resnik_value FROM " . TABLE_SIM_DISEASES . " WHERE did = ". $id . " and resnik_value > 0 ORDER BY resnik_value DESC;";
 
             $result = $this->connector->rawQuery($query);
 
@@ -89,8 +89,8 @@
 
         }
 
-        
-        
+
+
     }
 
 
