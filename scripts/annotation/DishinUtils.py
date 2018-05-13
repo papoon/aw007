@@ -2,7 +2,11 @@
 # Python 3
 import subprocess
 from constants import *
+import percache
 
+cache = percache.Cache("../cache/DishinUtils")
+
+@cache
 def callDishin(term1, term2):
     """
     Calls DiShIn python script and retrieves the console result.
@@ -53,12 +57,9 @@ def getDishinDetailedOutput(resultText):
 
         }
 
-
         return data
 
-
     except:
-
         print("Ups, couldn't find that doid")
 
 
