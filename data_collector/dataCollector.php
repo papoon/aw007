@@ -31,7 +31,7 @@
 
           // here lies Mjolnir, the Hammer of Thor
           // TO IMPROVE: ideally the requests to pubmed should be done iteratively
-          $dbPediaDiseases = new DBPediaDiseases($this->numberDiseases * 2);
+          $dbPediaDiseases = new DBPediaDiseases($this->numberDiseases * 3);
           $diseases = $dbPediaDiseases->getDiseases();
 
           # only retain diseases with valid DOIDs
@@ -65,6 +65,7 @@
           echo "Getting diseases: ".PHP_EOL;
 
           $diseases = $this->getDiseasesWithDOID();
+          //var_dump($diseases);
           $diseaseIdsNames = [];
 
           //get current date
