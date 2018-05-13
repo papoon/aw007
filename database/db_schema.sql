@@ -207,66 +207,60 @@ CREATE TABLE `clients_site` (
 
 
 CREATE TABLE articles_comment (
-	id int PRIMARY KEY AUTO_INCREMENT, 
-	article_id int, 	
-	client_id int DEFAULT NULL, 
-	comment text(1000), 
+	id int PRIMARY KEY AUTO_INCREMENT,
+	article_id int,
+	client_id int DEFAULT NULL,
+	comment text(1000),
 	created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 	FOREIGN KEY (article_id) REFERENCES Article (id) ON DELETE CASCADE ON UPDATE CASCADE,
-	FOREIGN KEY (client_id) REFERENCES clients_site (id) ON DELETE CASCADE ON UPDATE CASCADE  
+	FOREIGN KEY (client_id) REFERENCES clients_site (id) ON DELETE CASCADE ON UPDATE CASCADE
 
 );
 
 
 CREATE TABLE articles_rating (
-	id int PRIMARY KEY AUTO_INCREMENT, 
-	article_id int, 	
-	client_id int DEFAULT NULL, 
-	rating tinyint(3), 
+	id int PRIMARY KEY AUTO_INCREMENT,
+	article_id int,
+	client_id int DEFAULT NULL,
+	rating tinyint(3),
 	created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 	FOREIGN KEY (article_id) REFERENCES Article (id) ON DELETE CASCADE ON UPDATE CASCADE,
-	FOREIGN KEY (client_id) REFERENCES clients_site (id) ON DELETE CASCADE ON UPDATE CASCADE 
+	FOREIGN KEY (client_id) REFERENCES clients_site (id) ON DELETE CASCADE ON UPDATE CASCADE
 
 );
 
 
 ALTER TABLE MER_Terms_Articles ADD COLUMN disease_id int,
-    ADD CONSTRAINT fk FOREIGN KEY (disease_id) REFERENCES Disease(id) ON DELETE CASCADE ON UPDATE CASCADE,
+    ADD CONSTRAINT fk_terms_articles FOREIGN KEY (disease_id) REFERENCES Disease(id) ON DELETE CASCADE ON UPDATE CASCADE,
     ADD COLUMN do_id varchar(55) DEFAULT NULL,
     ADD COLUMN updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP;
 
 ALTER TABLE MER_Terms_Tweets ADD COLUMN disease_id int,
-    ADD CONSTRAINT fk FOREIGN KEY (disease_id) REFERENCES Disease(id) ON DELETE CASCADE ON UPDATE CASCADE,
+    ADD CONSTRAINT fk_terms_tweets FOREIGN KEY (disease_id) REFERENCES Disease(id) ON DELETE CASCADE ON UPDATE CASCADE,
     ADD COLUMN do_id varchar(55) DEFAULT NULL,
      ADD COLUMN updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP;
 
 ALTER TABLE MER_Terms_Articles ADD COLUMN likes int, ADD COLUMN dislikes int;
 
 CREATE TABLE `diseases_rating` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) PRIMARY KEY AUTO_INCREMENT,
   `disease_id` int(11) DEFAULT NULL,
   `client_id` int(11) DEFAULT NULL,
   `rating` tinyint(3) DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`),
-  KEY `disease_id` (`disease_id`),
-  KEY `client_id` (`client_id`),
-  CONSTRAINT `diseases_rating_ibfk_1` FOREIGN KEY (`disease_id`) REFERENCES `disease` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `diseases_rating_ibfk_2` FOREIGN KEY (`client_id`) REFERENCES `clients_site` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  FOREIGN KEY (`disease_id`) REFERENCES `Disease` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  FOREIGN KEY (`client_id`) REFERENCES `clients_site` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+);
 
 CREATE TABLE `diseases_comment` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) PRIMARY KEY AUTO_INCREMENT,
   `disease_id` int(11) DEFAULT NULL,
   `client_id` int(11) DEFAULT NULL,
   `comment` text,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`),
-  KEY `disease_id` (`disease_id`),
-  KEY `client_id` (`client_id`),
-  CONSTRAINT `diseases_comment_ibfk_1` FOREIGN KEY (`disease_id`) REFERENCES `disease` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `diseases_comment_ibfk_2` FOREIGN KEY (`client_id`) REFERENCES `clients_site` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  FOREIGN KEY (`disease_id`) REFERENCES `Disease` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  FOREIGN KEY (`client_id`) REFERENCES `clients_site` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+);
 
 
 CREATE TABLE Similarity_Diseases (
