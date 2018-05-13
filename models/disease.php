@@ -44,6 +44,8 @@
             $tweets = new Tweets();
             $tweets = $tweets->getTweetsDisease($id);
 
+            $similarDiseases = $this->getSimilarDisease($id);
+
 
             #array_push($disease,$articles);
             #array_push($disease,$photos);
@@ -52,6 +54,7 @@
             $disease['articles'] = $articles;
             $disease['photos'] = $photos;
             $disease['tweets'] = $tweets;
+            $disease['similarDiseases'] = $similarDiseases;
 
             return $disease;
         }
@@ -72,8 +75,8 @@
         }
 
         public function getSimilarDisease($id) {
-
-            $query = "SELECT disease_id, resnik_value FROM " . TABLE_SIM_DISEASES . " WHERE did = ". $id . " and resnik_value > 0 ORDER BY resnik_value DESC;";
+            $this->connector->connect();
+            $query = "SELECT disease_id, name, resnik_value FROM " . TABLE_SIM_DISEASES . " INNER JOIN " . TABLE_DISEASE . " ON " . TABLE_DISEASE . ".id = " . TABLE_SIM_DISEASES . ".disease_id WHERE did = ". $id . " and resnik_value > 0 ORDER BY resnik_value DESC;";
 
             $result = $this->connector->rawQuery($query);
 
@@ -82,9 +85,7 @@
                 $data[] = $row;
             }
 
-            $this->connector->disconnect();
-
-            return $result;
+            return $data;
 
 
         }

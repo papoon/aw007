@@ -32,13 +32,13 @@ function requestApi(endpoint){
         data:{'metadata':'true'}
     })
     .done(function(result){
-        console.log('oi');
         console.log(result);
 
         var disease= result;
         var disease_id = disease.id;
         var disease_name = disease.name;
         var disease_abstract_text = disease.abstract;
+        var similarDiseases = disease.similarDiseases;
         var articles = disease.articles;
         var photos = disease.photos;
         var tweets = disease.tweets;
@@ -52,7 +52,7 @@ function requestApi(endpoint){
         element.created_at = disease.created_at;
         element.updated_at = disease.updated_at;
         metadata.push(element);
-        
+
 
         /*$('.page_title').html(disease_name);
 
@@ -94,6 +94,8 @@ function requestApi(endpoint){
         constructMetadata(metadata);
         $('.abstract_text').html(disease_abstract_text);
         $('.id_disease').html(disease_id);
+        var html_similarDiseases = constructSimilarDiseases(similarDiseases);
+        $('.similar-diseases').html(html_similarDiseases);
         var html_articles = constructDiseasesArticles(articles);
         $('.articles').html(html_articles);
         var html_photos = constructDiseasesPhotos(photos);
@@ -115,6 +117,24 @@ function requestApi(endpoint){
         $('.sub_main').show();
         console.log('complete');
     });
+}
+
+function constructSimilarDiseases(similarDiseases){
+    var html = '';
+
+    similarDiseases.slice(0, 4).forEach(similarDisease => {
+
+        $('.sim_dis').prop('href','/aw007/diseases/' + similarDisease.disease_id);
+        $('.sim_dis').html(similarDisease.name);
+        $('.sim_dis_resnik').html(similarDisease.resnik_value);
+
+
+        //articles = $('.photo').html();
+        html += $('.similar-disease').html();
+    });
+
+
+    return html;
 }
 
 function constructDiseasesArticles(articles){
@@ -157,10 +177,10 @@ function constructDiseasesPhotos(photos){
     /*var html ='';
 
     html += '<h2 class="text-center">Photos</h2>';
-    
+
 
     html += '<div class="row fix">';
-    photos.forEach(photo => { 
+    photos.forEach(photo => {
         html += '<div class="col-md-3">';
         html += '<div class="thumbnail">';
         html +='<img src="'+photo.url+'" alt="'+photo.url+'" class="img-responsive" style="min-height:150px; max-height:150px; width:100%;">';
@@ -181,7 +201,7 @@ function constructDiseasesPhotos(photos){
     var html ='';
 
     photos.forEach(photo => {
-        
+
         $('.photo_url').prop('src',photo.url);
         $('.photo_nr_like').html(photo.nr_likes);
         $('.photo_username').html(photo.username);
@@ -211,7 +231,7 @@ function constructDiseasesTweets(tweets){
         html +='<div class="col-md-4">';
         html +='<div class="thumbnail">';
         html +=''+tweet.html;
-                    
+
         html +='<div class="caption">';
         html +='<h3>'+tweet.username+'</h3>';
         html +='<p>Likes: '+tweet.nr_likes+'</p>';
@@ -230,12 +250,12 @@ function constructDiseasesTweets(tweets){
     var html ='';
 
     tweets.forEach(tweet => {
-        
+
         $('.tweet_url').prop('src',tweet.url);
         $('.tweet_html').html(tweet.html);
         $('.tweet_username').html(tweet.username);
         $('.tweet_nr_likes').html(tweet.nr_likes);
-        
+
         $('.tweet_comment').html(tweet.nr_comments);
         $('.tweet_share').html(tweet.shares);
         $('.tweet_published_at').html(tweet.published_at);
@@ -281,6 +301,6 @@ function constructMetadata(metadata){
     var table_html = $('.metadata_table').html();
 
     table_html = $('.metadata').html();
-    
+
     return table_html;*/
 }
