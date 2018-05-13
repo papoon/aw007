@@ -7,9 +7,29 @@ $('a.image_link_disease').on('click',function(e) {
         var endpoint = $(this).attr('href');
         console.log( endpoint);
 
-        $('.sub_main').hide();
-        $('.sub_main').load('templates/diseases/disease.html',function(data){
+        //$('.sub_main').hide();
+        /*$('.sub_main').load('templates/diseases/disease.html',function(data){
             requestApi(endpoint);
+        });*/
+
+        $.get("templates/diseases/disease.html", function(data) {
+
+           
+
+            //console.log(data);
+
+            requestApi(endpoint);
+
+            //$('.sub_main').hide();
+            $('.sub_main').html(data);
+
+            //var home = $('<div></div>').append(data).find('#home')[0].outerHTML;
+
+            //console.log(temp.html());
+            //console.log(home);
+            //$('.page_content').html(home);
+
+            //console.log(data);
         });
 
         
@@ -17,6 +37,10 @@ $('a.image_link_disease').on('click',function(e) {
         return false; 
     } 
 );
+function loadPage(){
+    requestApi(endpoint);
+    $('.sub_main').html(data);
+}
 function requestApi(endpoint){
 
     var uri = api().uri()+endpoint;
@@ -42,6 +66,7 @@ function requestApi(endpoint){
         var articles = disease.articles;
         var photos = disease.photos;
         var tweets = disease.tweets;
+        var similarDiseases = disease.similarDiseases;
         var metadata = [];
         var element = {};
 
@@ -94,6 +119,8 @@ function requestApi(endpoint){
         constructMetadata(metadata);
         $('.abstract_text').html(disease_abstract_text);
         $('.id_disease').html(disease_id);
+        var html_similar_diseases = constructSimilarDiseases(similarDiseases);
+        $('#similarDiseases').html(html_similar_diseases);
         var html_articles = constructDiseasesArticles(articles);
         $('.articles').html(html_articles);
         var html_photos = constructDiseasesPhotos(photos);
@@ -103,6 +130,7 @@ function requestApi(endpoint){
 
         $('.sub_footer').append('<script src="/aw007/assets/js/articles/main.js"></script>');
         $('.sub_footer').append('<script src="/aw007/assets/js/diseases/rating.js"></script>');
+        $('.sub_footer').append('<script src="/aw007/assets/js/diseases/comment.js"></script>');
 
 
         //change url
@@ -143,7 +171,7 @@ function constructDiseasesArticles(articles){
     articles.forEach(article => {
         $('.article_title').html(article.title);
         $('.article_name').html('');
-        $('.article_link').prop('href',"/aw007/articles/"+article.id);
+        $('.article_link').prop('id',article.id);
 
         articles = $('.article').html();
         html += articles;
@@ -283,4 +311,22 @@ function constructMetadata(metadata){
     table_html = $('.metadata').html();
     
     return table_html;*/
+}
+
+function constructSimilarDiseases(diseases){
+    var html ='';
+
+    diseases.forEach(disease => {
+        
+        $('.sim_dis').prop('href',"/aw007/diseases/"+disease.disease_id);
+        $('.sim_dis').html(disease.disease_id);
+        $('.article_title').html('Resnink Value: '+disease.resnik_value);
+
+
+        //articles = $('.photo').html();
+        html += $('.similarDiseases').html();
+    });
+
+
+    return html;
 }

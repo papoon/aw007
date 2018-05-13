@@ -12,13 +12,14 @@ $(document).ready(function(){
     });
 
     /* Button that displays articles */
-    $('a.article_link').on('click',function(e) {
+    $('button.article_link').on('click',function(e) {
 
         e.preventDefault();
 
 
-        var endpoint = $(this).attr('href').split('/');
-        endpoint = endpoint[2] +'/'+ endpoint[3];
+        var id_article = $(this).attr('id');
+
+        var endpoint = 'articles/'+id_article;
         console.log( endpoint);
 
 
@@ -42,6 +43,7 @@ function requestApiArticle(endpoint){
     console.log(base_url);
     var url = "http://localhost/aw007/"+endpoint;
     var uri = api().uri()+endpoint;
+    console.log(uri);
 
     $.ajax({
         type: "GET",
@@ -80,6 +82,9 @@ function requestApiArticle(endpoint){
         else{
             $('.term_table').html('<p class="article_no_terms">No terms/entities found.</p>')
         }
+
+        $('.sub_footer').append('<script src="/aw007/assets/js/articles/comment.js"></script>');
+        $('.sub_footer').append('<script src="/aw007/assets/js/articles/rating.js"></script>');
 
         //change url
         history.pushState({id:url}, '', (url == '' ? ''+url : url));

@@ -278,6 +278,32 @@ class FeedbackRestHandler extends SimpleRest {
 			$this->convertResponse($response);
 
 		}
+		if($request_method == "PUT"){
+
+			$data = json_decode(file_get_contents("php://input"),true);
+			
+
+			$disease_id = $id;
+			$client_id = $data['client_id'];
+			$comment = $data['comment'];
+
+			$response = $this->commentDiseaseUpdate($disease_id,$comment,$client_id);
+
+
+			$this->convertResponse($response);
+		}
+
+		if($request_method == "GET"){
+		
+			$disease_id = $id;
+			$client_id = $_GET['client_id'];
+
+			$response = $this->commentDiseaseGet($disease_id,$client_id);
+
+
+			$this->convertResponse($response);
+
+		}
 
 
 	}

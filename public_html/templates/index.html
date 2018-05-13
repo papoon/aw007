@@ -168,9 +168,23 @@ $(document).ready(function () {
         return false; 
     }
     function diseases(){
-        $('.sub_main').load('templates/diseases/index.html',function(data){
+
+        /*$('.sub_main').load('templates/diseases/index.html',function(data){
             
             console.log(data);
+        });*/
+
+        $.get("../templates/diseases/index.html", function(data) {
+
+            console.log(data);
+
+            //var home = $('<div></div>').append(data).find('#home')[0].outerHTML;
+
+            //console.log(temp.html());
+            //console.log(home);
+            //$('.page_content').html(home);
+
+            //console.log(data);
         });
 
         return false; 
@@ -256,10 +270,6 @@ function constructStatistics(statistics){
 <script src="/aw007/assets/js/diseases/main.js"></script>
 <script src="/aw007/assets/js/articles/main.js"></script>
 <script src="/aw007/assets/js/JavaScript-autoComplete-master/auto-complete.min.js"></script>
-<script src="/aw007/assets/js/articles/rating.js"></script>
-<script src="/aw007/assets/js/diseases/rating.js"></script>
-<script src="/aw007/assets/js/articles/comment.js"></script>
-<script src="/aw007/assets/js/diseases/comment.js"></script>
 <script src="/aw007/assets/js/articles/abstract_annotation.js"></script>
 <script src="/aw007/assets/js/diseases/similardiseases.js"></script>
 

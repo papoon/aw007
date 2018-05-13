@@ -33,6 +33,8 @@
         public function getDiseaseMetadata($id){
 
             $disease = $this->getDisease($id);
+
+            //$similarDiseases = $this->getSimilarDisease($id);
             
             
             $article = new Article();
@@ -52,6 +54,7 @@
             $disease['articles'] = $articles;
             $disease['photos'] = $photos;
             $disease['tweets'] = $tweets;
+            $disease['similarDiseases'] = array();
             
             return $disease;
         }
@@ -77,14 +80,17 @@
 
             $result = $this->connector->rawQuery($query);
 
-
-            while ($row = $result->fetch_assoc()) {
-                $data[] = $row;
+            $data = array();
+            if($result != null)
+            {
+                while ($row = $result->fetch_assoc()) {
+                    $data[] = $row;
+                }
             }
 
             $this->connector->disconnect();
 
-            return $result;
+            return $data;
 
 
         }
