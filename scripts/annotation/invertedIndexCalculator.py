@@ -11,8 +11,14 @@ def calculateInvertedIndex():
     cleanCalculationTables()
     print("-> Calculating TF-IDF")
     dictsList = calculateTFIDF()
+
     print("-> Calculating Similarity")
     calculateSimilarity(dictsList)
+
+    print("-> getting data for diseases")
+    dic = diseaseSimilarity()
+    print("-> Calculating Similarity for diseases")
+    #calculateSimilarity(dic)
 
 #program entry point
 calculateInvertedIndex()

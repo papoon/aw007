@@ -67,6 +67,7 @@ def calculateTFIDF():
     """
     #get entity terms from docs
     dictsList = entityAnnotation()
+
     #just some pointers for name clarification
     articleTermsDict = dictsList[0]
     tweetTermsDict = dictsList[1]
@@ -106,7 +107,6 @@ def calculateTFIDF():
 
     #pass already calculated values to next method
     return dictsList
-
 
 def auxTFCalculation(docDictTerms, uniqueTerms):
     """
@@ -191,6 +191,7 @@ def auxSimilarity(diseaseInfo, termsDict, tableToSave):
     Ensures: Semantic similarity calculation for all terms in all given documents
     and database insertion of the values for posterior use in relevance calculations.
     """
+
     #iterate by all diseases
     for disease in diseaseInfo:
         #iterate by all docs in dict
@@ -222,6 +223,29 @@ def auxSimilarity(diseaseInfo, termsDict, tableToSave):
             #save minimum Resnik value for this document
             saveSimilarityInformation(tableToSave, disease['id'], key[1], resnik_value)
 
+
+def diseaseSimilarity():
+
+    diseases = getAllDiseaseInformation()
+
+
+    for this in diseases:
+
+        # iterates over others diseases in list
+        for other in diseases:
+
+            # skips the same do_id
+            if this['do_id'] != other['do_id']:
+
+                result = getDishinDetailedOutput(callDishin(this['do_id'], other['do_id']))
+
+                disease_id = this['id']
+                id = other['id']
+
+                resnik_value = result['resnik_dishin']
+
+                saveSimilarityInformation(Table_Sim_Diseases, disease_id, id, resnik_value)
+
 def createInvertedIndexForDisease(disease_id, disease_name):
     """
     Creates inverted index for articles and tweets for the given disease.
@@ -236,6 +260,7 @@ def createInvertedIndexForDisease(disease_id, disease_name):
     articlesNormInfo = getArticleNormInformation()
     #list to contain final values (for posterior ranking)
     finalValues = []
+
     #calculate rank for the Articles
     for article in articlesCalcInfo:
         relevanceValue = getRelevanceValue(True, articlesNormInfo, article['tf_idf_value'], \
@@ -264,8 +289,10 @@ def createInvertedIndexForDisease(disease_id, disease_name):
                          tweet['resnik_value'], tweet['nr_likes'], tweet['relevance'], \
                          tweet['published_at'])
         finalValues += [(tweet, relevanceValue)]
+
     #sort list by relevanceValue
     finalValues = sorted(finalValues, key=itemgetter(1), reverse=True)
+
     #save information in the database
     for i in range(1, len(finalValues)):
         tweet = finalValues[i][0]

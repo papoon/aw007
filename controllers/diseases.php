@@ -32,6 +32,8 @@
                 $this->photos = new Photos();
                 $this->tweets = new Tweets();
 
+                $similarDisease = $this->disease->getSimilarDisease($id);
+
                 $disease = $this->disease->getDisease($id);
 
                 $articlesDisease = $this->article->getArticlesDiseaseRanked($id);
@@ -40,6 +42,7 @@
 
                 $tweetsDisease = $this->tweets->getTweetsDiseaseRanked($id);
 
+
                 unset($this->disease);
                 unset($this->article);
                 unset($this->photos);
@@ -47,6 +50,7 @@
 
                 $data = array(
                     'disease'=>$disease,
+                    'similarDisease' => $similarDisease,
                     'articlesDisease' => $articlesDisease,
                     'photosDisease'=>$photosDisease,
                     'tweetsDisease'=>$tweetsDisease

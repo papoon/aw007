@@ -23,9 +23,12 @@ def entityAnnotation():
     # raw disease info
     diseaseInfo = getAllDiseaseInformation()
 
+    print("DEBUG: diseaseinfo", diseaseInfo)
+
     # processed disease info - easier to access in next steps
     diseaseInfo = process_diseasesInfo(diseaseInfo)
 
+    print("DEBUG: diseaseinfo", diseaseInfo)
 
     #process information from articles
     for article in articleInfo:
@@ -45,6 +48,7 @@ def entityAnnotation():
 
 
         #only continues if finds entities otherwise jumps to tweet's process
+
         if entityPositions != '':
 
 
@@ -259,6 +263,7 @@ def saveEntitiesMER(table,id, data):
         start = i['start']
         stop = i['stop']
         term = i['term']
+
 
         saveMERTermsInformation(table, term, id, start, stop, doid, disease_id)
 

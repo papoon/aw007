@@ -12,6 +12,8 @@
     const TABLE_ARTICLES_RATING = 'articles_rating';
     const TABLE_DISEASES_RATING = 'diseases_rating';
     const TABLE_DISEASES_COMMENT = 'diseases_comment';
+    const TABLE_SIM_DISEASES = 'Similarity_Diseases';
+    const TABLE_SIM_ARTICLES = 'Similarity_Articles';
 
     function getLastInsertId($connection) {
       return mysqli_insert_id($connection);

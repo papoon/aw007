@@ -3,21 +3,63 @@
     <div property="sameAs" style="display:none">http://purl.obolibrary.org/obo/{{data['disease'].do_id}}</div>
     <div property="sameAs" style="display:none">{{data['disease'].uri}}</div>
 
+
+
+    <!------- BACK BUTTON ---------->
+
     <div class="row">
         <div class="col-md-12">
             <a href="/aw007/diseases" class="btn btn-info" role="button">< Back</a>
         </div>
     </div>
 
-    <h1 class="text-center page_title" property="name">{{data['disease'].name}}</h1>
-    <span class="id_disease text-center" style="display:none;">{{data['disease'].id}}</span>
-    <hr>
+    <!------- DISEASE TITLE --------->
 
-    <h1 class="text-center abstract_title">Abstract</h1>
+        <h1 class="text-center page_title" property="name">{{data['disease'].name}}</h1>
+        <span class="id_disease text-center bottom10" style="display:none;">{{data['disease'].id}}</span>
+
+
+    </div>
+
+
+    <!------- DISEASE ABSTRACT --------->
+    <h3 class="text-center abstract_title">Abstract</h3>
+    <hr>
     <p class="abstract_text" property="description">{{data['disease'].abstract}}</p>
     <hr>
 
-    <h2 class="text-center">Metadata</h2>
+     <!------- DISEASE RELATED DISEASES --------->
+
+    <h3 class="text-center abstract_title">Related diseases</h3>
+
+    <hr>
+
+    <div class="row">
+        <div id="similarDiseases">
+
+            {% for d in data['similarDisease']|slice(0, 4)%}
+
+            <div class="col-6 col-sm-3">
+                <div class="thumbnail" >
+
+                    <div class="caption">
+
+                        <a href="/aw007/diseases/{{d.disease_id}}" class="sim_dis" >{{ d.disease_id }}</a>               <h5 class="article_title" property="headline">Resnink Value: {{ d.resnik_value }}</h5>
+                    </div>
+
+                </div>
+            </div>
+
+            {% endfor %}
+
+        </div>
+    </div>
+    <hr>
+
+    <!------- DISEASE METADATA --------->
+
+    <h3 class="text-center">Metadata</h3>
+    <hr>
     <div class="row">
         <div class="col-md-12">
                 <div class="metadata">
@@ -44,8 +86,11 @@
         </div>
     </div>
     <hr>
+
+    <!------- DISEASE STAR RATING --------->
     <div class="row" >
         <h3 class="text-center">Star Rating</h3>
+        <hr>
         <div class="col-sm-6 col-sm-offset-2">
 
             <div class="rating" id="star-rating-disease">
@@ -69,7 +114,11 @@
         </div>
     </div>
 
-    <div class="row top20" id="disease-comment">
+    <hr>
+
+    <!------- DISEASE COMMENT --------->
+
+    <div class="row top10" id="disease-comment">
         <div class="col-sm-10 col-sm-offset-1">
             <label for="disease_comment">Give us your feedback about this disease:</label>
             <textarea id="comment_disease_textarea" class=" form-control" rows="6" placeholder="Write a comment..."></textarea>
@@ -77,12 +126,12 @@
         </div>
     </div>
     <hr>
-    <div class="row top20">
+    <div class="row top10">
         <div class="col-sm-10 col-sm-offset-1">
             <div class="comment_feedback_response"></div>
         </div>
     </div>
-    <div class="row top20">
+    <div class="row top5">
         
         <div class="col-sm-10 col-sm-offset-1">
             <h2 class="text-center"> Comments </h2>
@@ -93,9 +142,11 @@
                         <div class="media-left media-middle">
                             
                         </div>
+
+                        <!--
                         <div class="media-body">
                             <h4 class="media-heading publicated_at">Middle aligned media</h4>
-                            <div class="comment">
+                            <div class="comment"> -->
 
                             </div>
                             
@@ -107,7 +158,11 @@
         </div>
     </div>
 
-    <h2 class="text-center">Articles (by order of relevance)</h2>
+    <!--------------- ARTICLES ------------>
+
+    <h3 class="text-center">Articles </h3>
+    <h6 class="text-center subtitle">by order of relevance </h6>
+    <hr>
     <div class="row">
         <div class="articles">
             {% for article in data['articlesDisease'] %}
@@ -135,7 +190,7 @@
 
     </div>
 
-    <h2 class="text-center">Photos</h2>
+    <h3 class="text-center">Photos</h3>
     <hr>
     <div class="row">
         <div class="photos">
@@ -158,7 +213,9 @@
         {% endfor %}
         </div>
     </div>
-    <h2 class="text-center">Tweets (by order of relevance)</h2>
+    <h3 class="text-center">Tweets </h3>
+    <h6 class="text-center subtitle">by order of relevance </h6>
+
     <hr>
     <div class="row">
         <div class="tweets">

@@ -22,7 +22,6 @@ $(document).ready(function(){
         })
         .done(function(result){
 
-            console.log('oi get');
             console.log(result);
            
             var comment_html = '';
@@ -47,13 +46,15 @@ $(document).ready(function(){
 
             }
 
-            
-
         })
+
         .fail(function(jqXHR, textStatus) {
+
             console.log(jqXHR);
             console.log(textStatus);
+
         })
+
         .always(function(){
             console.log('complete');
         });

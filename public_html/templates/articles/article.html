@@ -5,18 +5,24 @@
       <span property="name">English</span>
     </div>
 
+    <!------- BACK BUTTON ---------->
+
     <div class="row top5" >
         <div class="col-md-12">
             <a href="/aw007/articles" class="btn btn-info btn-pretty" role="button">< Back</a>
         </div>
     </div>
 
+
+    <!------- ARTICLE TITLE --------->
     <div class="row">
         <div class="col-md-12">
             <h3 id="article_title" class="text-center article_title" property="headline">{{article.title}}</h3>
             <span class="id_article text-center" style="display:none;">{{article.id}}</span>
         </div>
     </div>
+
+    <!------- ARTICLE ABSTRACT --------->
 
     <div class="row top15" >
         <div class="col-md-12">
@@ -25,6 +31,8 @@
 
         </div>
     </div>
+
+    <!------- ARTICLE METADATA ---------->
 
     <div class="row top10">
         <div class="col-md-12">
@@ -48,7 +56,7 @@
         </div>
     </div>
 
-
+    <!-- ----- MER TERMS BUTTON AND TABLE  -------- -->
     <div class="row">
         <div class="col-md-12">
             <a id = "btn_term_table_display" class="btn btn-info btn-pretty " role="button">Terms Table</a>
@@ -58,6 +66,9 @@
     <div id= "article_mer_terms" class="row">
         <div class="col-md-12">
             <h4>Article MER Terms</h4>
+
+        </div>
+
 
             <div class="term_table" >
                 {% if articleMERTerms |length > 0 %}
@@ -71,19 +82,21 @@
                                 <th>Feedback </th>
                         </tr>
                         <div class="terms">
+
                         {% for term in articleMERTerms %}
 
 
                             <tr>
+
                                 <td class="article_term" property="keywords">{{term.term}}</td>
                                 <td class="article_do_id"> {{term.do_id}}</td>
                                 <td class="article_term_pos_start">{{term.pos_start}}</td>
                                 <td class="article_term_pos_end">{{term.pos_end}}</td>
                                 <td class="article_feedback">
-                                    <i id="art_mer_like" class="glyphicon glyphicon-thumbs-up"> </i>
-                                    <span class="article_feedback_likes side5">{{term.likes}}</span>
-                                    <i id="art_mer_dislike" class="glyphicon glyphicon-thumbs-down"></i>
-                                    <span class="article_feedback_dislikes side5">{{term.dislikes}}</span>
+                                    <button id="art_mer_like" class="glyphicon glyphicon-thumbs-up" value = "{{ term.article_id }},{{ term.term }},{{ term.pos_start}}" > </button>
+                                    <span id="art_mer_like_nr" class="article_feedback_likes side5">{{term.likes}}</span>
+                                    <button id="art_mer_dislike" class="glyphicon glyphicon-thumbs-down" value = "{{ term.article_id }},{{ term.term }},{{ term.pos_start}} "></button>
+                                    <span id = "art_mer_dislike_nr" class="article_feedback_dislikes side5">{{term.dislikes}} </span>
                                 </td>
 
 
@@ -99,9 +112,12 @@
                 {% endif %}
             </div>
 
+
+
         </div>
     </div>
 
+    <!-- ----- ARTICLE STAR RATING -------- -->
     <div class="row" >
         <h3 class="text-center">Star Rating</h3>
         <div class="col-sm-6 col-sm-offset-2">
@@ -127,6 +143,9 @@
         </div>
     </div>
 
+
+    <!------- ARTICLE COMMENT ---------->
+
     <div class="row top20" id="article-comment">
         <div class="col-sm-10 col-sm-offset-1">
             <label for="article_comment">Give us your feedback about this article:</label>
@@ -142,7 +161,7 @@
     <div class="row top20">
         
         <div class="col-sm-10 col-sm-offset-1">
-            <h2 class="text-center"> Comments </h2>
+            <h3 class="text-center"> Comments </h3>
             <hr>
             <div class="article_comments">
                 <div class="article_comment top10">

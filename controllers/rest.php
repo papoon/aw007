@@ -19,11 +19,14 @@
                 // to handle REST Url /diseases/
 		        $desisesRestHandler = new DiseasesRestHandler();
                 $desisesRestHandler->getAllDiseases();
+
             }else{
 
                 if(isset($_GET) && array_key_exists('metadata',$_GET)){
+
+
                     $with_metadata = $_GET['metadata'];
-                    
+
                     
                     if($with_metadata == 'true'){
                         
@@ -135,6 +138,17 @@
             $feedbackRestHandler->commentDisease($id);
             
         }
+
+        public function ratingDiseaseArticle($id){
+
+            $feedbackRestHandler = new FeedbackRestHandler();
+            $feedbackRestHandler-> ratingDiseaseArticle($id);
+
+        }
+
+
+
+
     }
 
 

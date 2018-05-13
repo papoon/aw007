@@ -111,6 +111,7 @@
                                         Dispatcher::route('rest@ratingDisease',$route,'rest/feedback/rating/disease/{$id}');
                                         Dispatcher::route('rest@commentArticle',$route,'rest/feedback/comment/article/{$id}');
                                         Dispatcher::route('rest@commentDisease',$route,'rest/feedback/comment/disease/{$id}');
+                                        Dispatcher::route('rest@ratingDiseaseArticle',$route,'rest/feedback/rating/diseaseinarticle/{$id}');
                                     }
                                     
                                 }else{

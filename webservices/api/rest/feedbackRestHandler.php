@@ -5,7 +5,8 @@ require_once("../models/feedback.php");
 
 class FeedbackRestHandler extends SimpleRest {
     
-    //parametros permitidos nesta API 
+    //parametros permitidos nesta API
+
     private $searchOptions = array('fields','limit');
     
 	public function __construct(){
@@ -16,6 +17,7 @@ class FeedbackRestHandler extends SimpleRest {
 	public function encodeHtml($responseData) {
 
         $htmlResponse = "<table border='1'>";
+
 
 		foreach($responseData as $key=>$item) {
 
@@ -151,6 +153,8 @@ class FeedbackRestHandler extends SimpleRest {
 
 		}
 	}
+
+
 	public function ratingArticleSave($id,$value,$client_id){
 
 		$feedback = new Feedback();
@@ -202,6 +206,8 @@ class FeedbackRestHandler extends SimpleRest {
 
 	#####################################################################################
 	#DISEASES
+
+
 	public function ratingDisease($id){
 		
 		$this->setValidVerbs(array('GET','POST','PUT'));
@@ -269,39 +275,13 @@ class FeedbackRestHandler extends SimpleRest {
 
 			$response = $this->commentDiseaseSave($disease_id,$comment,$client_id);
 
-
-			$this->convertResponse($response);
-
-		}
-		if($request_method == "PUT"){
-
-			$data = json_decode(file_get_contents("php://input"),true);
-			
-
-			$disease_id = $id;
-			$client_id = $data['client_id'];
-			$comment = $data['comment'];
-
-			$response = $this->commentDiseaseUpdate($disease_id,$comment,$client_id);
-
-
-			$this->convertResponse($response);
-		}
-
-		if($request_method == "GET"){
-		
-			$disease_id = $id;
-			$client_id = $_GET['client_id'];
-
-			$response = $this->commentDiseaseGet($disease_id,$client_id);
-
-
 			$this->convertResponse($response);
 
 		}
 
 
 	}
+
 	public function ratingDiseaseSave($id,$value,$client_id){
 
 		$feedback = new Feedback();
@@ -348,5 +328,65 @@ class FeedbackRestHandler extends SimpleRest {
 
 		return $response;
 	}
+
+	#####################################################################################
+	#MER TERMS
+
+
+     public function ratingDiseaseArticle($id) {
+
+        $this->setValidVerbs(array('GET','POST','PUT'));
+		$this->errorResponse();
+
+		$request_method = $this->getHttpVerb();
+
+		if($request_method == "PUT"){
+
+			$data = json_decode(file_get_contents("php://input"),true);
+
+			$article_id = $id;
+			$term = $data['term'];
+			$pos_start = $data['pos_start'];
+            $type = $data['type'];
+
+
+            if ($type == "like") {
+
+			 $response = $this->ratingDiseaseArticleLike($article_id, $term, $pos_start);
+             $this->convertResponse($response);
+
+            }
+
+            else {
+
+			    $response = $this->ratingDiseaseArticleDislike($article_id, $term, $pos_start);
+                $this->convertResponse($response);
+            }
+
+		}
+	}
+
+
+    public function ratingDiseaseArticleLike($article_id, $term,$pos_start){
+
+		$feedback = new Feedback();
+		$response = $feedback->ratingDiseaseArticleLike($article_id, $term,$pos_start);
+
+		return $response;
+
+	}
+
+
+    public function ratingDiseaseArticleDislike($article_id, $term,$pos_start){
+
+		$feedback = new Feedback();
+		$response = $feedback->ratingDiseaseArticleDislike($article_id, $term,$pos_start);
+
+		return $response;
+
+	}
+
+
+
 }
 ?>

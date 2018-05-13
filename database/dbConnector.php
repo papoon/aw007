@@ -130,13 +130,17 @@
                   $this->sqlQuery .= ',';
               }
             }
+
             $this->sqlQuery .= ')';
             #echo $this->sqlQuery;
             mysqli_query($this->connection, $this->sqlQuery);
             return $this->sqlQuery;
+
+
         }
 
         public function rawQuery($query){
+
             $this->sqlQuery = $query;
             $this->dataSet = mysqli_query($this->connection, $this->sqlQuery);
             $this->sqlQuery = NULL;

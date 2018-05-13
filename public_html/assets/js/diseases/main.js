@@ -44,6 +44,7 @@ function requestApi(endpoint){
         var tweets = disease.tweets;
         var metadata = [];
         var element = {};
+
         element.dbpedia_id = disease.dbpedia_id;
         element.dbpedia_revision_id =  disease.dbpedia_revision_id;
         element.do_id = disease.do_id;

@@ -61,7 +61,6 @@ $(document).ready(function(){
                 tmp = raw_text.substring(start,end);
                 clean_text += tmp + link;
 
-                // debugg console.log(" "+ start +" ->  " + end + " ** " + term + "( " + term.length + ") ** text s:e " + tmp );
 
                 // determines size of new title so it can divide the content after
 
@@ -101,3 +100,104 @@ $(document).ready(function(){
     }
 });
 
+
+$('#main').on('click','#art_mer_like',function(){
+
+    var raw_data = $(this).val().split(',');
+    var span_to_update = $(this).next();
+
+    var article_id = raw_data[0];
+    var term = raw_data[1];
+    var pos_start = raw_data[2];
+
+    var data = {"article_id": article_id, "pos_start": pos_start, "term" : term, 'type' : 'like'}
+
+    var id_article = $('.id_article').html();
+
+  $.ajax({
+
+        url: api().uri() +'feedback/rating/diseaseinarticle/'+id_article,
+        type: 'PUT',
+        data: JSON.stringify(data),
+        contentType: "application/json",
+
+    })
+    .done(function(result){
+
+        var value = parseInt(span_to_update.html());
+
+        // updating span with nr of likes
+        span_to_update.html(value + 1);
+
+    /* ------- SUCCESS / ERROR ALERT ----- */
+
+    $('#alert-success').html(' <strong>Success!</strong> Feedback added.');
+    $('#alert-success').show();
+      setTimeout(function(){
+        $('#alert-success').hide();
+      }, 1500);
+
+
+
+    })
+    /* - end success */
+    .fail(function(jqXHR, textStatus) {
+        console.log(jqXHR);
+        console.log(textStatus);
+
+           $('#alert-fail').html(' <strong>Ups!</strong> Feedback not saved.');
+           $('#alert-fail').show();
+              setTimeout(function(){
+                $('#alert-fail').hide();
+              }, 1500);
+
+
+    })
+    .always(function(){
+        console.log('complete');
+    });
+
+
+});
+
+$('#main').on('click','#art_mer_dislike',function(){
+
+    var raw_data = $(this).val().split(',');
+    var span_to_update = $(this).next();
+
+    var article_id = raw_data[0];
+    var term = raw_data[1];
+    var pos_start = raw_data[2];
+
+    var data = {"article_id": article_id, "pos_start": pos_start, "term" : term, 'type' : 'dislike'}
+
+    var id_article = $('.id_article').html();
+
+  $.ajax({
+
+        url: api().uri() +'feedback/rating/diseaseinarticle/'+id_article,
+        type: 'PUT',
+        data: JSON.stringify(data),
+        contentType: "application/json",
+        dataType: 'json'
+
+
+    })
+    .done(function(result){
+
+        var value = parseInt(span_to_update.html());
+
+        // updating span with nr of likes
+        span_to_update.html(value + 1);
+
+    })
+    .fail(function(jqXHR, textStatus) {
+        console.log(jqXHR);
+        console.log(textStatus);
+    })
+    .always(function(){
+        console.log('complete');
+    });
+
+
+});

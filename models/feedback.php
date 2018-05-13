@@ -172,6 +172,7 @@
             
         }
 
+
         #####################################################################################
 	    #DISEASES
         public function ratingDiseaseSave($id,$value,$id_client_site){
@@ -327,8 +328,72 @@
         }
 
 
-        
+
+
+        ###################################################################################
+	    #MER TERMS
+
+
+        public function ratingDiseaseArticleLike($article_id, $term,$pos_start) {
+
+
+            try {
+
+                $query = "UPDATE ".TABLE_MER_ARTICLES."
+                SET
+                likes = likes + 1 " . "
+                WHERE term = '" . $term .  "' and article_id = " .  $article_id . " and pos_start = " .  $pos_start ;
+
+
+                $result = $this->connector->rawQuery($query);
+                $this->connector->disconnect();
+
+                return $result;
+
+
+            }
+
+             catch(Exception $e){
+
+                $this->connector->disconnect();
+                echo "Couldn't save rating... please try again later";
+                die();
+            }
+
+        }
+
+
+
+    public function ratingDiseaseArticleDislike($article_id, $term,$pos_start) {
+
+
+            try {
+
+                $query = "UPDATE ".TABLE_MER_ARTICLES."
+                SET
+                dislikes = dislikes + 1 " . "
+                WHERE term = '" . $term .  "' and article_id = " .  $article_id . " and pos_start = " .  $pos_start ;
+
+
+                $result = $this->connector->rawQuery($query);
+                $this->connector->disconnect();
+
+                return $result;
+
+
+            }
+
+             catch(Exception $e){
+
+                $this->connector->disconnect();
+                echo "Couldn't save rating... please try again later";
+                die();
+            }
+
+        }
+
     }
+
 
 
 ?>

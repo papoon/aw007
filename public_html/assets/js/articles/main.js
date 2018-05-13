@@ -2,6 +2,8 @@
 
 $(document).ready(function(){
 
+
+
     /* Button that displays mer terms table */
     $("#btn_term_table_display").click(function() {
 
@@ -30,56 +32,8 @@ $(document).ready(function(){
 
     });
 
-    /* Button like and dislike of diseases feedback */
-    /*$('i.glyphicon-thumbs-up, i.glyphicon-thumbs-down').click(function(){
-        var $this = $(this),
-        c = $this.data('count');
-        if (!c) c = 0;
-        c++;
-        $this.data('count',c);
-        $('#'+this.id+'-bs3').html(c);
-    });
-        $(document).delegate('*[data-toggle="lightbox"]', 'click', function(event) {
-            event.preventDefault();
-            $(this).ekkoLightbox();
-
-
-
-        });*/
-
-
-        // todo on success update the content of the span with count of likes/dislikes
-        // todo fix ajax request that calls function MER_terms_update_likes
-
-      $('#art_mer_like').click(function(){
-            $.ajax({
-                type: "POST",
-                url: '../models/articles.php',
-                dataType: 'json',
-                data: {functionname: 'MER_terms_update_likes'},
-                    success: function (obj, textstatus) {
-
-                                  if( !('error' in obj) ) {
-
-                                      yourVariable = obj.result;
-
-                                  }
-                                  else {
-                                      console.log(obj.error);
-                                  }
-                            }
-                });
-
-
-            });
-
-
-      /*$('i.glyphicon-thumbs-down').click(function(){
-
-    });*/
 
 });
-
 
 
 function requestApiArticle(endpoint){
@@ -115,7 +69,9 @@ function requestApiArticle(endpoint){
         $('.article_journal_id').html(article_journal_id);
         $('.article_authors').html(article_authors);
         $('.article_published_At').html(article_published_at);
+
         console.log('oi');
+
         if(terms.length>0){
 
             var terms_table_html = merContent(terms);

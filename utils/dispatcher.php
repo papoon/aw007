@@ -14,7 +14,8 @@ class Dispatcher{
 
         list($controller,$method) = explode('@',$controller_method);
 
-        if(strpos($matcher, '{$id}') !== false){
+
+             if(strpos($matcher, '{$id}') !== false){
 
             $route_to_match = $matcher;
             //$route_to_match = str_replace('{$id}',$matcher[1],$route_to_match);
@@ -26,7 +27,9 @@ class Dispatcher{
             $controller = new $controller;
             $controller->{$method}($id);
 
-        }else{
+        }
+
+        else {
 
             if($route !== $route_to_match){
                 return;

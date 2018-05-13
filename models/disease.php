@@ -60,15 +60,35 @@
         
         //this is used because we are not saving Diseases ID on runing the mer terms finding
         public function getDiseaseID ($name) {
-            
+
             $data = $this->connector->selectWhere(TABLE_DISEASE,'name','=',$id,'int')->fetch_assoc();
 
             $this->connector->disconnect();
 
             return $data;
+
             
             
         }
+
+        public function getSimilarDisease($id) {
+
+            $query = "SELECT disease_id, resnik_value FROM " . TABLE_SIM_DISEASES . " WHERE did = ". $id . " ORDER BY resnik_value DESC;";
+
+            $result = $this->connector->rawQuery($query);
+
+
+            while ($row = $result->fetch_assoc()) {
+                $data[] = $row;
+            }
+
+            $this->connector->disconnect();
+
+            return $result;
+
+
+        }
+
         
         
     }

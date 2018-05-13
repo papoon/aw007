@@ -3,7 +3,7 @@ $(document).ready(function(){
 
     //check if element exists
     if($('.disease_comments').length){
-        
+
         console.log('ready comments');
         var user = $('#data-user').data('user');
         var id_disease = $('.id_disease').html();
@@ -23,7 +23,7 @@ $(document).ready(function(){
 
             console.log('oi get');
             console.log(result);
-           
+
             var comment_html = '';
             if(result.length > 0){
 
@@ -40,13 +40,13 @@ $(document).ready(function(){
                     $('.comment').html('<b>'+comment+'</b>');
                     $('.publicated_at').html('Publicated at :' + created_at);
                     comment_html += $('.disease_comments').html();
-                    
+
                 }
                 $('.disease_comments').html(comment_html);
 
             }
 
-            
+
 
         })
         .fail(function(jqXHR, textStatus) {

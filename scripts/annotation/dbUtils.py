@@ -26,7 +26,7 @@ def cleanCalculationTables():
     Ensures: clean slate for MER terms, TF-IDF and Similarity tables.
     """
     listTables = [Table_Tf_Idf_Articles, Table_Tf_Idf_Tweets, Table_Sim_Articles, \
-                  Table_Sim_Tweets, Table_MER_Terms_Articles, Table_MER_Terms_Tweets]
+                  Table_Sim_Tweets, Table_Sim_Diseases, Table_MER_Terms_Articles, Table_MER_Terms_Tweets]
     connection = getDatabaseConnection()
 
     try:
@@ -193,6 +193,7 @@ def saveTfIdfInformation(table, term, id, tf_idf_value):
         connection.close()
 
 def saveSimilarityInformation(table, disease_id, id, resnik_value):
+
     """
     Save similarity Resnik values from DiShIn in the database.
     Requires: table, where to save the information (please use Table_Sim_Articles
@@ -215,6 +216,10 @@ def saveSimilarityInformation(table, disease_id, id, resnik_value):
             elif table == Table_Sim_Tweets:
                 sql = "INSERT INTO " + Table_Sim_Tweets + \
                       " (did, tweet_id, resnik_value) VALUES ("
+            elif table == Table_Sim_Diseases:
+                sql = "INSERT INTO " + Table_Sim_Diseases + \
+                      " (did, disease_id, resnik_value) VALUES ("
+
             else:
                 raise ValueError('Table name: valid values are Similarity_Articles and Similarity_Tweets (see constants).')
 
@@ -226,6 +231,7 @@ def saveSimilarityInformation(table, disease_id, id, resnik_value):
             connection.commit()
     finally:
         connection.close()
+
 
 def saveInvertedIndexInformation(table, disease_id, id, rank, tf_idf_value, resnik_value, imp_feedback, \
                                  exp_feedback, published_at):

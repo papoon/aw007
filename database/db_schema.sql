@@ -267,3 +267,16 @@ CREATE TABLE `diseases_comment` (
   CONSTRAINT `diseases_comment_ibfk_1` FOREIGN KEY (`disease_id`) REFERENCES `disease` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `diseases_comment_ibfk_2` FOREIGN KEY (`client_id`) REFERENCES `clients_site` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+CREATE TABLE Similarity_Diseases (
+	id int auto_increment primary key ,
+	did INT(11),
+	disease_id INT(11),
+	resnik_value NUMERIC(8, 4),
+	FOREIGN KEY (did) REFERENCES Disease(id) ON DELETE CASCADE ON UPDATE CASCADE,
+	FOREIGN KEY (disease_id) REFERENCES Disease(id) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+
+ALTER TABLE MER_Terms_Articles ALTER likes SET DEFAULT 0, ALTER dislikes SET DEFAULT 0;

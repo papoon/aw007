@@ -2,8 +2,13 @@
     require_once 'model.php';
     class Article extends Model{
 
+
+
         public function __construct(){
             parent::__construct();
+
+
+
         }
         public function getArticles(){
 
@@ -89,44 +94,6 @@
 
         }
 
-        public function MER_terms_update_likes($mer_id) {
-
-            // Updates and return updated value
-
-            $query = 'UPDATE ' . TABLE_MER_ARTICLES . " SET likes = likes + 1 " . " WHERE id = " .  $mer_id;
-
-            $data = $this->connector->rawQuery();
-
-             $this->connector->rawQuery($query);
-
-            $query = 'SELECT likes FROM ' . TABLE_MER_ARTICLES . "WHERE id = " . $mer_id;
-
-            $result = $this->connector->rawQuery($query);
-
-
-            return $result;
-
-
-
-        }
-
-        public function MER_terms_update_dislikes($mer_id) {
-
-
-            // Updates and return updated value
-
-            $query = 'UPDATE ' . TABLE_MER_ARTICLES . " SET dislikes = dislikes + 1 " . "WHERE id = ". $mer_id;
-
-            $this->connector->rawQuery($query);
-
-            $query = 'SELECT dislikes FROM ' . TABLE_MER_ARTICLES . "WHERE id = " . $mer_id;
-
-            $result = $this->connector->rawQuery($query);
-
-
-            return $result;
-
-        }
 
         
     
