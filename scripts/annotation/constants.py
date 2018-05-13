@@ -1,13 +1,13 @@
 from decimal import *
 
 #path to the MER tool
-MER_path = 'tools/MER_Tool'
+MER_path = '../tools/MER_Tool'
 MER_DB_path = 'data/doid-simple.owl'
 
 #path to the DiShIn tool
-DISHIN_path = 'tools/DiShIn-master'
-DISHIN_py_path = DISHIN_path + '/dishin.py'
-DISHIN_DB_path = DISHIN_path + '/data/doid.db'
+DISHIN_path = '../tools/DiShIn-master'
+DISHIN_py_path = 'dishin.py'
+DISHIN_DB_path = 'data/disease.db'
 
 #doid part to remove
 DOID_link = 'http://purl.obolibrary.org/obo/'

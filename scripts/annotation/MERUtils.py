@@ -41,19 +41,14 @@ def entityAnnotation():
         #result text from MER
         entityPositions = callGetEntitiesMER(article['title'] + article['abstract'])
 
-
         #result text from MER
         resultText = callGetLinkEntitiesMER(article['title'] + article['abstract'])
 
         # get list of dics from MER
-        listTerms = processEntitiesMER(resultText)
-
-
+        listTerms, dictTerms = processEntitiesMER(resultText)
 
         #only continues if finds entities otherwise jumps to tweet's process
-
         if entityPositions != '':
-
 
             #processed entityPosition (from str to list) - faster access
             entity_list = process_callGetEntitiesMER(entityPositions)
@@ -63,20 +58,16 @@ def entityAnnotation():
                 doid = ''
                 disease_id = "NULL"
 
-
-                #compares terms in entityPositions and listTerms to get do_id of term
-                if elem['term'].lower() in listTerms:
-                    doid = listTerms[elem['term'].lower()]
+                #compares terms in entityPositions and dictTerms to get do_id of term
+                if elem['term'].lower() in dictTerms:
+                    doid = dictTerms[elem['term'].lower()]
 
                     if doid in diseaseInfo:
                         disease_id = diseaseInfo[doid]
 
-
                 # sets doid to the current term
                 elem['doid'] = doid
                 elem['disease_id'] = disease_id
-
-
 
             #save MER terms
             saveEntitiesMER(Table_MER_Terms_Articles,  article['id'], entity_list)
@@ -103,7 +94,7 @@ def entityAnnotation():
             resultText = callGetLinkEntitiesMER(tweet['html'])
 
             # get list of of tuples (DOID, term) from MER
-            listTerms = processEntitiesMER(resultText)
+            listTerms, dictTerms = processEntitiesMER(resultText)
 
             if entityPositions != '':
 
@@ -114,9 +105,9 @@ def entityAnnotation():
                     doid = ''
                     disease_id = "NULL"
 
-                    # compares terms in entityPositions and listTerms to get do_id of term
-                    if elem['term'].lower() in listTerms:
-                        doid = listTerms[elem['term'].lower()]
+                    # compares terms in entityPositions and dictTerms to get do_id of term
+                    if elem['term'].lower() in dictTerms:
+                        doid = dictTerms[elem['term'].lower()]
 
                         if doid in diseaseInfo:
                             disease_id = diseaseInfo[doid]
@@ -129,15 +120,11 @@ def entityAnnotation():
                 # save MER terms
                 saveEntitiesMER(Table_MER_Terms_Tweets, tweet['id'], entity_list)
 
-                # result text from MER
-                resultText = callGetLinkEntitiesMER(tweet['html'])
-
-                # get list of of tuples (DOID, term) from MER
-                listTerms = processEntitiesMER(resultText)
-
                 #keep did and tweet id in the dict key as a tuple
                 termsPerTweet[(tweet['did'], tweet['id'])] = listTerms
 
+    #print(termsPerArticle)
+    #print(termsPerTweet)
 
     return [termsPerArticle, termsPerTweet]
 
@@ -191,9 +178,10 @@ def processEntitiesMER(resultText):
     """
     Processes the output of callGetLinkEntitiesMER.
     Requires: resultText, the output text from callGetLinkEntitiesMER.
-    Ensures: returns a list of tuples (DOID, term) for all found terms.
+    Ensures: returns a dictionary of term/DOID for all found terms.
     """
-    result = {}
+    resultList = []
+    resultDict = {}
     lines = resultText.split('\n')
     for line in lines:
 
@@ -203,10 +191,10 @@ def processEntitiesMER(resultText):
 
             doid = lineParts[0].split('/')[-1]
 
-            #doid = lineParts[0].replace(DOID_link, '')
-            result[lineParts[1].lower()] = doid
+            resultList.append((doid, lineParts[1].lower()))
+            resultDict[lineParts[1].lower()] = doid
 
-    return result
+    return resultList, resultDict
 
 def process_callGetEntitiesMER(resultText):
     """

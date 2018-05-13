@@ -228,7 +228,6 @@ def diseaseSimilarity():
 
     diseases = getAllDiseaseInformation()
 
-
     for this in diseases:
 
         # iterates over others diseases in list

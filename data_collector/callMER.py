@@ -12,7 +12,7 @@ def getDoidForDisease(diseaseName):
     Ensures: returns string with the DOID and the name of the most complete
     entity found for the disease name.
     """
-    dictEntities = processEntitiesMER(callGetLinkEntitiesMER(diseaseName))
+    listEntities, dictEntities = processEntitiesMER(callGetLinkEntitiesMER(diseaseName))
 
     if len(dictEntities) == 0:
         print("No DOID found")
