@@ -241,7 +241,7 @@ def diseaseSimilarity():
                 disease_id = this['id']
                 id = other['id']
 
-                resnik_value = result['resnik_dishin']
+                resnik_value = round(float(result['resnik_dishin']), 4)
 
                 saveSimilarityInformation(Table_Sim_Diseases, disease_id, id, resnik_value)
 
