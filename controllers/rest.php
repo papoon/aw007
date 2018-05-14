@@ -165,6 +165,12 @@
             $desisesRestHandler->relatedDiseases($id);
         }
 
+        public function hidePhoto($id){
+
+            $desisesRestHandler = new DiseasesRestHandler();
+            $desisesRestHandler->hidePhoto($id);
+        }
+
     }
 
 

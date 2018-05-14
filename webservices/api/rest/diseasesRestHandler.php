@@ -175,5 +175,14 @@ class DiseasesRestHandler extends SimpleRest {
 			echo $response;
 		}
 	}
+
+	public function hidePhoto($photo_id){
+
+    $feedback = new Feedback();
+    $response = $feedback->hidePhoto($photo_id);
+
+    return $response;
+
+  }
 }
 ?>

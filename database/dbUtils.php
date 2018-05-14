@@ -14,6 +14,7 @@
     const TABLE_DISEASES_COMMENT = 'diseases_comment';
     const TABLE_SIM_DISEASES = 'Similarity_Diseases';
     const TABLE_SIM_ARTICLES = 'Similarity_Articles';
+    const TABLE_PHOTOS_HIDE = 'Photos_To_Hide';
 
     function getLastInsertId($connection) {
       return mysqli_insert_id($connection);

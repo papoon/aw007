@@ -1,6 +1,6 @@
 <?php
     require_once 'controller.php';
-    class Error extends Controller{
+    class ErrorController extends Controller{
 
         public function index(){
             $this->view->message =  array('error' => 'Page Not Found');

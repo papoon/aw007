@@ -179,7 +179,7 @@
                         <div class="caption">
                             <h3 class="article_name">{{ articles.name }}</h3>
                             <p>
-                                <a id="button_open_article" href="/aw007/articles/{{article.id}}" class="btn btn-primary article_link" role="button">Ver</a>
+                                <a id="button_open_article" href="/aw007/articles/{{article.id}}" class="btn btn-primary article_link" role="button">Show</a>
                             </p>
 
                         </div>
@@ -209,6 +209,9 @@
                                 <p>Comments: <span class="photo_nr_comment">{{photo.nr_comments}}</span></p>
                                 <p>Shares: <span class="photo_nr_share">{{photo.shares}}</span></p>
                                 <p>Published At: <span class="photo_published_at">{{photo.published_at}}</span></p>
+                                <p>
+                                    <button id="button_hide_photo" data-id="{{photo.id}}" class="btn btn-primary" role="button">Hide</button>
+                                </p>
                             </div>
                         </div>
                 </div>
@@ -216,6 +219,10 @@
         {% endfor %}
         </div>
     </div>
+    <p>
+        <a id="button_show_all_photos" href="" class="btn btn-primary " role="button">Show All Photos</a>
+    </p>
+
     <h3 class="text-center">Tweets </h3>
     <h6 class="text-center subtitle">by order of relevance </h6>
 
@@ -235,8 +242,10 @@
                             <p property="commentCount">Comments: <span class="tweet_comment">{{tweet.nr_comments}}</span></p>
                             <p>Shares: <span class="tweet_share">{{tweet.shares}}</span></p>
                             <p property="datePublished">Published At: <span class="tweet_published_at">{{tweet.published_at}}</span></p>
+                            <p>
+                                <a property="url" href="{{tweet.url}}" target="_blank" class="btn btn-primary tweet_url" role="button">Tweet</a>
+                            </p>
                         </div>
-                        <a property="url" href="{{tweet.url}}" target="_blank" class="btn btn-primary tweet_url" role="button">Tweet</a>
                     </div>
             </div>
         </div>

@@ -12,6 +12,7 @@ DROP TABLE IF EXISTS articles_comment;
 DROP TABLE IF EXISTS articles_rating;
 DROP TABLE IF EXISTS diseases_rating;
 DROP TABLE IF EXISTS diseases_comment;
+DROP TABLE IF EXISTS Photos_To_Hide;
 DROP TABLE IF EXISTS Article;
 DROP TABLE IF EXISTS Photos;
 DROP TABLE IF EXISTS Tweets;
@@ -275,5 +276,9 @@ CREATE TABLE Similarity_Diseases (
 	FOREIGN KEY (disease_id) REFERENCES Disease(id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
-
 ALTER TABLE MER_Terms_Articles ALTER likes SET DEFAULT 0, ALTER dislikes SET DEFAULT 0;
+
+CREATE TABLE Photos_To_Hide (
+	photo_id INT(11),
+  FOREIGN KEY (photo_id) REFERENCES Photos(id) ON DELETE CASCADE ON UPDATE CASCADE
+);

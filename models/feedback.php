@@ -418,7 +418,29 @@
 
         }
 
+        public function hidePhoto($photo_id) {
 
+          try {
+
+              $query = "INSERT INTO ".TABLE_PHOTOS_HIDE."
+              (photo_id)
+              VALUES (" . $photo_id . ");";
+
+              $result = $this->connector->rawQuery($query);
+              $this->connector->disconnect();
+
+              return $result;
+
+          }
+
+           catch(Exception $e){
+
+              $this->connector->disconnect();
+              echo "Couldn't save photo feedback... please try again later";
+              die();
+          }
+
+        }
 
     }
 
