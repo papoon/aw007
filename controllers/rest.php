@@ -153,6 +153,11 @@
 
         }
 
+        public function diseaseRelatedArticles($id){
+
+            $desisesRestHandler = new DiseasesRestHandler();
+            $desisesRestHandler->diseaseRelatedArticles($id);
+        }
 
     }
 
