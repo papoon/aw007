@@ -159,6 +159,12 @@
             $desisesRestHandler->diseaseRelatedArticles($id);
         }
 
+        public function relatedDiseases($id){
+
+            $desisesRestHandler = new DiseasesRestHandler();
+            $desisesRestHandler->relatedDiseases($id);
+        }
+
     }
 
 

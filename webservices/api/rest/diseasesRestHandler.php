@@ -150,5 +150,30 @@ class DiseasesRestHandler extends SimpleRest {
 			echo $response;
 		}
 	}
+
+	public function relatedDiseases($id) {
+
+		$disease = new Disease();
+		$rawData = $disease->getSimilarDisease($id);
+
+		array_walk_recursive($rawData, function(&$value) {
+			$value = utf8_decode($value);
+		});
+
+		$requestContentType = $this->getHttpContentType();
+
+		$this->setHttpHeaders($requestContentType, 200);//200 ok
+
+		if(strpos($requestContentType,'application/json') !== false){
+			$response = $this->encodeJson($rawData);
+			echo $response;
+		} else if(strpos($requestContentType,'text/html') !== false){
+			$response = $this->encodeHtml($rawData);
+			echo $response;
+		} else if(strpos($requestContentType,'application/xml') !== false){
+			$response = $this->encodeXml($rawData);
+			echo $response;
+		}
+	}
 }
 ?>
