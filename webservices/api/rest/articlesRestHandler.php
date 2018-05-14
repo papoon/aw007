@@ -34,8 +34,8 @@ class ArticlesRestHandler extends SimpleRest {
 			echo $response;
 		}
 	}
-    
-    
+
+
 	public function encodeHtml($responseData) {
 
         $htmlResponse = "<table border='1'>";
@@ -88,12 +88,14 @@ class ArticlesRestHandler extends SimpleRest {
 				}
 			}
 		}
-		
+
 		$rawData = $article->getArticle($id);
 
 		if($with_terms == 'true'){
 			$rawData['terms'] = $article->getMERTerms($id);
 		}
+
+		$rawData['authors'] = explode("|", $rawData['authors']);
 
 		array_walk_recursive($rawData, function(&$value) {
 			$value = utf8_decode($value);
