@@ -12,10 +12,10 @@ $('a.image_link_disease').on('click',function(e) {
             requestApi(endpoint);
         });
 
-        
 
-        return false; 
-    } 
+
+        return false;
+    }
 );
 function requestApi(endpoint){
 
@@ -304,3 +304,38 @@ function constructMetadata(metadata){
 
     return table_html;*/
 }
+
+$('#main').on('click','#button_open_article',function(){
+
+    var raw_data = $(this).val().split(',');
+
+    var article_id = raw_data[0];
+
+    var data = {"article_id": article_id}
+
+    var id_article = $('.id_article').html();
+
+  $.ajax({
+
+        url: api().uri() +'feedback/impfeedback/'+id_article,
+        type: 'PUT',
+        data: JSON.stringify(data),
+        contentType: "application/json",
+        dataType: 'json'
+
+
+    })
+    .done(function(result){
+
+
+    })
+    .fail(function(jqXHR, textStatus) {
+        console.log(jqXHR);
+        console.log(textStatus);
+    })
+    .always(function(){
+        console.log('complete');
+    });
+
+
+});

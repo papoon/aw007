@@ -7,9 +7,9 @@
         }
 
         public function setClicksDiseaseId($diseaseId){
-            
+
             try {
-                $query = "UPDATE ".TABLE_ARTICLE."SET clicks = clicks + 1 where did = ".$diseaseId;          
+                $query = "UPDATE ".TABLE_ARTICLE."SET clicks = clicks + 1 where did = ".$diseaseId;
 
                 $result = $this->connector->rawQuery($query);
                 $this->connector->disconnect();
@@ -23,7 +23,7 @@
         public function ratingArticleSave($id,$value,$id_client_site){
 
             try {
-                
+
                 $query = "INSERT INTO ".TABLE_ARTICLES_RATING."
                 (
                 `article_id`,
@@ -69,7 +69,7 @@
                 echo "Couldn't update rating... please try again later";
                 die();
             }
-            
+
         }
         public function ratingArticleGet($id,$id_client_site){
             try {
@@ -78,7 +78,7 @@
                 FROM ".TABLE_ARTICLES_RATING." where `article_id` = $id and `client_id` = $id_client_site;";
 
                 $result = $this->connector->rawQuery($query);
-                
+
                 $data = array();
                 while ($row = $result->fetch_assoc()) {
                     $data[] = $row;
@@ -93,12 +93,12 @@
                 echo "Couldn't get rating... please try again later";
                 die();
             }
-            
+
         }
         public function commentArticleSave($id,$value,$id_client_site){
 
             try {
-                
+
                 $query = "INSERT INTO ".TABLE_ARTICLES_COMMENT."
                 (
                 `article_id`,
@@ -144,17 +144,17 @@
                 echo "Couldn't update comment... please try again later";
                 die();
             }
-            
+
         }
         public function commentArticleGet($id,$id_client_site){
             try {
 
                 $query = "SELECT *
-                FROM ".TABLE_ARTICLES_COMMENT." where `article_id` = $id and `client_id` = $id_client_site 
+                FROM ".TABLE_ARTICLES_COMMENT." where `article_id` = $id and `client_id` = $id_client_site
                 order by `created_at` desc";
 
                 $result = $this->connector->rawQuery($query);
-                
+
                 $data = array();
                 while ($row = $result->fetch_assoc()) {
                     $data[] = $row;
@@ -169,7 +169,7 @@
                 echo "Couldn't get comment... please try again later";
                 die();
             }
-            
+
         }
 
 
@@ -178,7 +178,7 @@
         public function ratingDiseaseSave($id,$value,$id_client_site){
 
             try {
-                
+
                 $query = "INSERT INTO ".TABLE_DISEASES_RATING."
                 (
                 `disease_id`,
@@ -224,7 +224,7 @@
                 echo "Couldn't update rating... please try again later";
                 die();
             }
-            
+
         }
         public function ratingDiseaseGet($id,$id_client_site){
             try {
@@ -233,7 +233,7 @@
                 FROM ".TABLE_DISEASES_RATING." where `disease_id` = $id and `client_id` = $id_client_site;";
 
                 $result = $this->connector->rawQuery($query);
-                
+
                 $data = array();
                 while ($row = $result->fetch_assoc()) {
                     $data[] = $row;
@@ -248,12 +248,12 @@
                 echo "Couldn't get rating... please try again later";
                 die();
             }
-            
+
         }
         public function commentDiseaseSave($id,$value,$id_client_site){
 
             try {
-                
+
                 $query = "INSERT INTO ".TABLE_DISEASES_COMMENT."
                 (
                 `disease_id`,
@@ -299,17 +299,17 @@
                 echo "Couldn't update comment... please try again later";
                 die();
             }
-            
+
         }
         public function commentDiseaseGet($id,$id_client_site){
             try {
 
                 $query = "SELECT *
-                FROM ".TABLE_DISEASES_COMMENT." where `disease_id` = $id and `client_id` = $id_client_site 
+                FROM ".TABLE_DISEASES_COMMENT." where `disease_id` = $id and `client_id` = $id_client_site
                 order by `created_at` desc";
 
                 $result = $this->connector->rawQuery($query);
-                
+
                 $data = array();
                 while ($row = $result->fetch_assoc()) {
                     $data[] = $row;
@@ -324,7 +324,7 @@
                 echo "Couldn't get comment... please try again later";
                 die();
             }
-            
+
         }
 
 
@@ -394,6 +394,32 @@
 
     }
 
+    public function implicitFeedbackArticle($article_id) {
 
+
+            try {
+
+                $query = "UPDATE ".TABLE_ARTICLE."
+                SET
+                clicks = clicks + 1 " . "
+                WHERE article_id = " .  $article_id;
+
+                $result = $this->connector->rawQuery($query);
+                $this->connector->disconnect();
+
+                return $result;
+
+            }
+
+             catch(Exception $e){
+
+                $this->connector->disconnect();
+                echo "Couldn't save implicit feedback... please try again later";
+                die();
+            }
+
+        }
+
+    }
 
 ?>

@@ -4,11 +4,11 @@ require_once("../models/articles.php");
 require_once("../models/feedback.php");
 
 class FeedbackRestHandler extends SimpleRest {
-    
+
     //parametros permitidos nesta API
 
     private $searchOptions = array('fields','limit');
-    
+
 	public function __construct(){
 		//$this->setValidVerbs(array('GET'));
 		parent::__construct();
@@ -56,7 +56,7 @@ class FeedbackRestHandler extends SimpleRest {
 	#ARTICLES
 	//recive GET/POST
 	public function ratingArticle($id){
-		
+
 		$this->setValidVerbs(array('GET','POST','PUT'));
 		$this->errorResponse();
 
@@ -65,7 +65,7 @@ class FeedbackRestHandler extends SimpleRest {
 		if($request_method == "POST"){
 
 			$data = json_decode(file_get_contents("php://input"),true);
-		
+
 			$article_id = $id;
 			$client_id = $data['client_id'];
 			$rating = $data['rating'];
@@ -79,7 +79,7 @@ class FeedbackRestHandler extends SimpleRest {
 		if($request_method == "PUT"){
 
 			$data = json_decode(file_get_contents("php://input"),true);
-			
+
 
 			$article_id = $id;
 			$client_id = $data['client_id'];
@@ -92,7 +92,7 @@ class FeedbackRestHandler extends SimpleRest {
 		}
 
 		if($request_method == "GET"){
-		
+
 			$article_id = $id;
 			$client_id = $_GET['client_id'];
 
@@ -106,7 +106,7 @@ class FeedbackRestHandler extends SimpleRest {
 
 	}
 	public function commentArticle($id){
-		
+
 		$this->setValidVerbs(array('GET','POST'));
 		$this->errorResponse();
 
@@ -115,7 +115,7 @@ class FeedbackRestHandler extends SimpleRest {
 		if($request_method == "POST"){
 
 			$data = json_decode(file_get_contents("php://input"),true);
-		
+
 			$article_id = $id;
 			$client_id = $data['client_id'];
 			$comment = $data['comment'];
@@ -129,7 +129,7 @@ class FeedbackRestHandler extends SimpleRest {
 		if($request_method == "PUT"){
 
 			$data = json_decode(file_get_contents("php://input"),true);
-			
+
 
 			$article_id = $id;
 			$client_id = $data['client_id'];
@@ -142,7 +142,7 @@ class FeedbackRestHandler extends SimpleRest {
 		}
 
 		if($request_method == "GET"){
-		
+
 			$article_id = $id;
 			$client_id = $_GET['client_id'];
 
@@ -209,7 +209,7 @@ class FeedbackRestHandler extends SimpleRest {
 
 
 	public function ratingDisease($id){
-		
+
 		$this->setValidVerbs(array('GET','POST','PUT'));
 		$this->errorResponse();
 
@@ -218,7 +218,7 @@ class FeedbackRestHandler extends SimpleRest {
 		if($request_method == "POST"){
 
 			$data = json_decode(file_get_contents("php://input"),true);
-		
+
 			$disease_id = $id;
 			$client_id = $data['client_id'];
 			$rating = $data['rating'];
@@ -232,7 +232,7 @@ class FeedbackRestHandler extends SimpleRest {
 		if($request_method == "PUT"){
 
 			$data = json_decode(file_get_contents("php://input"),true);
-			
+
 
 			$disease_id = $id;
 			$client_id = $data['client_id'];
@@ -245,7 +245,7 @@ class FeedbackRestHandler extends SimpleRest {
 		}
 
 		if($request_method == "GET"){
-		
+
 			$disease_id = $id;
 			$client_id = $_GET['client_id'];
 
@@ -259,7 +259,7 @@ class FeedbackRestHandler extends SimpleRest {
 
 	}
 	public function commentDisease($id){
-		
+
 		$this->setValidVerbs(array('GET','POST','PUT'));
 		$this->errorResponse();
 
@@ -268,7 +268,7 @@ class FeedbackRestHandler extends SimpleRest {
 		if($request_method == "POST"){
 
 			$data = json_decode(file_get_contents("php://input"),true);
-		
+
 			$disease_id = $id;
 			$client_id = $data['client_id'];
 			$comment = $data['comment'];
@@ -385,6 +385,15 @@ class FeedbackRestHandler extends SimpleRest {
 		return $response;
 
 	}
+
+  public function implicitFeedbackArticle($article_id){
+
+    $feedback = new Feedback();
+    $response = $feedback->implicitFeedbackArticle($article_id);
+
+    return $response;
+
+  }
 
 
 
