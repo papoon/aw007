@@ -305,21 +305,18 @@ function constructMetadata(metadata){
     return table_html;*/
 }
 
-$('#main').on('click','#button_open_article',function(){
+$('#main').on('mousedown','#button_open_article',function(){
 
-    var raw_data = $(this).val().split(',');
+    //console.log('xxx', $(this)[0].href);
 
-    var article_id = raw_data[0];
+    var raw_data = $(this)[0].href.split('/');
 
-    var data = {"article_id": article_id}
-
-    var id_article = $('.id_article').html();
+    var article_id = raw_data[raw_data.length-1];
 
   $.ajax({
 
-        url: api().uri() +'feedback/impfeedback/'+id_article,
+        url: api().uri() +'feedback/implicit/'+article_id,
         type: 'PUT',
-        data: JSON.stringify(data),
         contentType: "application/json",
         dataType: 'json'
 
@@ -336,6 +333,5 @@ $('#main').on('click','#button_open_article',function(){
     .always(function(){
         console.log('complete');
     });
-
 
 });

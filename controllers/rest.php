@@ -146,7 +146,7 @@
 
         }
 
-        public function implicitFeedbackArticle($id){
+        public function implicitFeedback($id){
 
             $feedbackRestHandler = new FeedbackRestHandler();
             $feedbackRestHandler-> implicitFeedbackArticle($id);

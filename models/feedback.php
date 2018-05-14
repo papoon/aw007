@@ -364,7 +364,7 @@
 
 
 
-    public function ratingDiseaseArticleDislike($article_id, $term,$pos_start) {
+        public function ratingDiseaseArticleDislike($article_id, $term,$pos_start) {
 
 
             try {
@@ -392,34 +392,36 @@
 
         }
 
-    }
-
-    public function implicitFeedbackArticle($article_id) {
+        public function implicitFeedbackArticle($article_id) {
 
 
-            try {
+                try {
 
-                $query = "UPDATE ".TABLE_ARTICLE."
-                SET
-                clicks = clicks + 1 " . "
-                WHERE article_id = " .  $article_id;
+                    $query = "UPDATE ".TABLE_ARTICLE."
+                    SET
+                    clicks = clicks + 1 " . "
+                    WHERE id = " .  $article_id;
 
-                $result = $this->connector->rawQuery($query);
-                $this->connector->disconnect();
+                    $result = $this->connector->rawQuery($query);
+                    $this->connector->disconnect();
 
-                return $result;
+                    return $result;
 
-            }
+                }
 
-             catch(Exception $e){
+                 catch(Exception $e){
 
-                $this->connector->disconnect();
-                echo "Couldn't save implicit feedback... please try again later";
-                die();
-            }
+                    $this->connector->disconnect();
+                    echo "Couldn't save implicit feedback... please try again later";
+                    die();
+                }
 
         }
 
+
+
     }
+
+
 
 ?>
