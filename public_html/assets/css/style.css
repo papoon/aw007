@@ -250,6 +250,10 @@ transition: all 1s ease;
 
 }
 
+.nav-side-menu .menu-list .menu-content > li > a {
+    display: block;
+}
+
 /* -------------- RATING  ------------------------ */
 
 .rating {
