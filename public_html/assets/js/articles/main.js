@@ -69,7 +69,8 @@ function requestApiArticle(endpoint){
         $('.article_abstract').html(article_abstract);
         $('.article_id').html(article_id);
         $('.article_journal_id').html(article_journal_id);
-        $('.article_authors').html(article_authors);
+        var html_article_authors = constructArticleAuthors(article_authors);
+        $('.article_authors').html(html_article_authors);
         $('.article_published_At').html(article_published_at);
 
         console.log('oi');
@@ -96,6 +97,20 @@ function requestApiArticle(endpoint){
         console.log('complete');
     });
 }
+
+function constructArticleAuthors(article_authors){
+    var html = '';
+
+    article_authors.forEach(author => {
+
+        $('.article_author').html(author);
+
+        html += $('.article_author').html();
+    });
+
+    return html;
+}
+
 function merContent(articleMERTerms){
 
     var html = '';
@@ -132,5 +147,3 @@ function merContent(articleMERTerms){
     return table_html;
 
 }
-
-

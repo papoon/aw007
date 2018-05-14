@@ -45,9 +45,13 @@
                 <br>
                 <strong>
                   <small>Authors:
-                    {% for author_name in article.authors %}
-                    <em><span class="article_authors" property="author">{{author_name}}</span>;</em>
-                    {% endfor %}
+                    <span class="article_authors">
+                      {% for author_name in article.authors %}
+                        <span class="article_author">
+                          <em><span property="author">{{author_name}}</span>;</em>
+                        </span>
+                      {% endfor %}
+                    </span>
                   </small>
                 </strong>
                 <br>
@@ -159,7 +163,7 @@
         </div>
     </div>
     <div class="row top20">
-        
+
         <div class="col-sm-10 col-sm-offset-1">
             <h3 class="text-center"> Comments </h3>
             <hr>
@@ -167,14 +171,14 @@
                 <div class="article_comment top10">
                     <div class="media">
                         <div class="media-left media-middle">
-                            
+
                         </div>
                         <div class="media-body">
                             <h4 class="media-heading publicated_at">Middle aligned media</h4>
                             <div class="comment">
 
                             </div>
-                            
+
                         </div>
                     </div>
                     <hr>
@@ -183,5 +187,3 @@
         </div>
     </div>
 </div>
-
-

@@ -373,7 +373,7 @@ def rescaleDatetime(value, min, max):
               max, the maximum datetime value for the scale;
     Ensures: returns a rescaled version of the datetime value in the [0, 1] range.
     """
-    if (max - min).days == 0:
+    if (max - min).days == 0 or type(value) is str:
         return 0
     else:
         return Decimal((value - min).days / (max - min).days)
