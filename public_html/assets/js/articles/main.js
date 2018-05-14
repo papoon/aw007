@@ -12,7 +12,7 @@ $(document).ready(function(){
     });
 
     /* Button that displays articles */
-    $('button.article_link').on('click',function(e) {
+    $('a.article_link').on('click',function(e) {
 
         e.preventDefault();
 

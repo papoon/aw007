@@ -14,7 +14,7 @@
 
         #diseases/?
         public function diseases($id=0){
-            
+
             if($id == 0){
                 // to handle REST Url /diseases/
 		        $desisesRestHandler = new DiseasesRestHandler();
@@ -27,15 +27,15 @@
 
                     $with_metadata = $_GET['metadata'];
 
-                    
+
                     if($with_metadata == 'true'){
-                        
+
                         // to handle REST Url /diseases/id?metadata=true
 		                $desisesRestHandler = new DiseasesRestHandler();
                         $desisesRestHandler->getDiseaseMetadata($id);
-                        
-                
-                        
+
+
+
                     }
                     else{
                         // to handle REST Url /diseases/id
@@ -48,7 +48,7 @@
                     // to handle REST Url /diseases/id
 		            $desisesRestHandler = new DiseasesRestHandler();
                     $desisesRestHandler->getDisease($id);
-                }   
+                }
             }
         }
 
@@ -63,7 +63,7 @@
 		        $articlesRestHandler = new ArticlesRestHandler();
                 $articlesRestHandler->getArticle($id);
             }
-            
+
         }
 
         #/photos/?
@@ -77,7 +77,7 @@
 		        $photosRestHandler = new PhotosRestHandler();
                 $photosRestHandler->getPhotosDisease($id);
             }
-            
+
         }
 
         #/tweets/?
@@ -91,7 +91,7 @@
 		        $tweetsRestHandler = new TweetsRestHandler();
                 $tweetsRestHandler->getTweetsDisease($id);
             }
-            
+
         }
         #/statistics
         public function statistics($id=0){
@@ -118,25 +118,25 @@
 
             $feedbackRestHandler = new FeedbackRestHandler();
             $feedbackRestHandler->ratingArticle($id);
-            
+
         }
         public function ratingDisease($id){
 
             $feedbackRestHandler = new FeedbackRestHandler();
             $feedbackRestHandler->ratingDisease($id);
-            
+
         }
         public function commentArticle($id){
 
             $feedbackRestHandler = new FeedbackRestHandler();
             $feedbackRestHandler->commentArticle($id);
-            
+
         }
         public function commentDisease($id){
 
             $feedbackRestHandler = new FeedbackRestHandler();
             $feedbackRestHandler->commentDisease($id);
-            
+
         }
 
         public function ratingDiseaseArticle($id){
@@ -146,7 +146,12 @@
 
         }
 
+        public function implicitFeedback($id){
 
+            $feedbackRestHandler = new FeedbackRestHandler();
+            $feedbackRestHandler-> implicitFeedbackArticle($id);
+
+        }
 
 
     }

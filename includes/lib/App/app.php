@@ -36,8 +36,8 @@
                 setcookie('client', $ip_address,0);
                 //$_COOKIE['client'] = $ip_address;
             }
-            #setcookie($key,$value,time() + (86400 * $experie_days)); 
-           
+            #setcookie($key,$value,time() + (86400 * $experie_days));
+
             //handle new client visit to site
             addNewClientOfSite();
 
@@ -45,7 +45,7 @@
             sessionHandling();
 
 
-            
+
             //explode ?
             $route = explode('?',$_SERVER['REQUEST_URI']);
             $route = $route[0];
@@ -95,7 +95,7 @@
                     $controller = new $controller;
 
                     if(isset($tokens[2])){
-                        
+
                         if(isset($tokens[3])){
                             if(is_numeric($tokens[3])){
                                 $controller->index($function);
@@ -112,11 +112,12 @@
                                         Dispatcher::route('rest@commentArticle',$route,'rest/feedback/comment/article/{$id}');
                                         Dispatcher::route('rest@commentDisease',$route,'rest/feedback/comment/disease/{$id}');
                                         Dispatcher::route('rest@ratingDiseaseArticle',$route,'rest/feedback/rating/diseaseinarticle/{$id}');
+                                        Dispatcher::route('rest@implicitFeedback',$route,'rest/feedback/implicit/{$id}');
                                     }
-                                    
+
                                 }else{
                                     $controller->{$function}();
-                                } 
+                                }
                             }
                         }
                         else{

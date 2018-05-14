@@ -94,6 +94,35 @@
 
         }
 
+        public function getRelatedArticlesDisease($id_disease,$top=0){
+
+            try{
+
+                $query = "select * from ".TABLE_ARTICLE." 
+                where did = $id_disease order by relevance desc limit $top";
+
+            
+                $result = $this->connector->rawQuery($query);
+
+                $data = array();
+                while ($row = $result->fetch_assoc()) {
+                    $data[] = $row;
+                }
+
+                $this->connector->disconnect();
+
+                return $data;
+
+            }catch(Exception $e){
+                $this->connector->disconnect();
+                echo "Couldn't get top-n related articles for disease... please try again later";
+                die();
+            }
+
+            
+
+        }
+
 
         
     

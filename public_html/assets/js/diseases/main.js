@@ -32,10 +32,10 @@ $('a.image_link_disease').on('click',function(e) {
             //console.log(data);
         });
 
-        
 
-        return false; 
-    } 
+
+        return false;
+    }
 );
 function loadPage(){
     requestApi(endpoint);
@@ -330,3 +330,34 @@ function constructMetadata(metadata){
 
     return table_html;*/
 }
+
+$('#main').on('mousedown','#button_open_article',function(){
+
+    //console.log('xxx', $(this)[0].href);
+
+    var raw_data = $(this)[0].href.split('/');
+
+    var article_id = raw_data[raw_data.length-1];
+
+  $.ajax({
+
+        url: api().uri() +'feedback/implicit/'+article_id,
+        type: 'PUT',
+        contentType: "application/json",
+        dataType: 'json'
+
+
+    })
+    .done(function(result){
+
+
+    })
+    .fail(function(jqXHR, textStatus) {
+        console.log(jqXHR);
+        console.log(textStatus);
+    })
+    .always(function(){
+        console.log('complete');
+    });
+
+});
