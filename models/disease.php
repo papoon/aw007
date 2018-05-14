@@ -16,7 +16,7 @@
 
             $this->connector->disconnect();
             return $data;
-            
+
         }
         public function getDisease($id){
 
@@ -27,16 +27,13 @@
             $this->connector->disconnect();
 
             return $data;
-            
+
         }
 
         public function getDiseaseMetadata($id){
 
             $disease = $this->getDisease($id);
 
-            //$similarDiseases = $this->getSimilarDisease($id);
-            
-            
             $article = new Article();
             $articles = $article->getArticlesDisease($id);
 
@@ -46,6 +43,8 @@
             $tweets = new Tweets();
             $tweets = $tweets->getTweetsDisease($id);
 
+            $similarDiseases = $this->getSimilarDisease($id);
+
 
             #array_push($disease,$articles);
             #array_push($disease,$photos);
@@ -54,13 +53,13 @@
             $disease['articles'] = $articles;
             $disease['photos'] = $photos;
             $disease['tweets'] = $tweets;
-            $disease['similarDiseases'] = array();
-            
+            $disease['similarDiseases'] = $similarDiseases;
+
             return $disease;
         }
 
-        
-        
+
+
         //this is used because we are not saving Diseases ID on runing the mer terms finding
         public function getDiseaseID ($name) {
 
@@ -70,13 +69,13 @@
 
             return $data;
 
-            
-            
+
+
         }
 
         public function getSimilarDisease($id) {
-
-            $query = "SELECT disease_id, resnik_value FROM " . TABLE_SIM_DISEASES . " WHERE did = ". $id . " ORDER BY resnik_value DESC;";
+            $this->connector->connect();
+            $query = "SELECT disease_id, name, resnik_value FROM " . TABLE_SIM_DISEASES . " INNER JOIN " . TABLE_DISEASE . " ON " . TABLE_DISEASE . ".id = " . TABLE_SIM_DISEASES . ".disease_id WHERE did = ". $id . " and resnik_value > 0 ORDER BY resnik_value DESC;";
 
             $result = $this->connector->rawQuery($query);
 
@@ -88,15 +87,13 @@
                 }
             }
 
-            $this->connector->disconnect();
-
             return $data;
 
 
         }
 
-        
-        
+
+
     }
 
 
