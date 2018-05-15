@@ -39,84 +39,23 @@ $(document).ready(function () {
 
     function loadPage(href)
     {
+
         if(href == ""){
-            console.log('href');
-            home();
-        }
-        if(href ==  "diseases"){
+            loadStatic('index');
+        } else if(href ==  "diseases"){
             diseases();
-            console.log(href);
-        }
-        if(href ==  "statistics"){
+        } else if(href ==  "statistics"){
             //statistics(href);
             console.log(href);
+        } else if(href ==  "documentation"){
+          loadStatic('documentation');
         }
-        if(href ==  "documentation"){
-            console.log(href);
-            //$('.page_content').html('documentation/documentation.html');
-        }
-
-
         var targetUrl = baseHref;
         if (href) {
           targetUrl += href;
         }
 
         history.pushState({id:targetUrl}, '', targetUrl);
-
-
-        /*href = 'http://'+window.location.hostname+'/aw007/'+href;
-
-        $.ajax({
-            type: "GET",
-            url: href,
-            dataType: 'html'
-        })
-        .done(function(result){
-
-            console.log('oi');
-
-            var sub_main_content = $('<div></div>').append(result).find('#main .sub_main').html();
-            //console.log($('<div></div>').append(result).find('#main .sub_main').html());
-
-            //insert the new sub_main content
-            $('#main .sub_main').html(sub_main_content);
-
-            //footer replaces
-            var sub_footer_content = $('<div></div>').append(result).find('.sub_footer').html();
-            console.log(sub_footer_content);
-
-            //insert the new sub_main content
-            var prevObject = $(sub_footer_content).filter('script');
-            console.log(prevObject);
-
-            $('.sub_footer').html('');
-            //var scripts = prevObject[prevObject.length -1 ];
-            for (let index = 0; index < prevObject.length; index++) {
-                const script = prevObject[index];
-                $('.sub_footer').append(script);
-            }
-            //console.log(scripts);
-            console.log(prevObject);
-            //change url
-            history.pushState({id:href}, '', (href == '' ? ''+href : href));
-        })
-        .fail(function(jqXHR, textStatus) {
-            console.log(jqXHR);
-        })
-        .always(function(){
-            console.log('complete');
-        });*/
-    }
-
-    function home(){
-        $('.sub_main').hide();
-        $.get('templates/index/index.html', function(data) {
-          // No templating needed
-          $('.sub_main').html(cleanTemplate(data));
-          $('.sub_main').show();
-        });
-        return false;
     }
 
     function diseases(){
@@ -189,6 +128,16 @@ $(document).ready(function () {
         //console.log(html);
 
         return false;
+    }
+
+    function loadStatic(template) {
+      $('.sub_main').hide();
+      $.get('templates/' + template + '/index.html', function(data) {
+        // No templating needed
+        $('.sub_main').html(cleanTemplate(data));
+        $('.sub_main').show();
+      });
+      return false;
     }
 
 });
