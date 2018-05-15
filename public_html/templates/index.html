@@ -174,9 +174,19 @@ $(document).ready(function () {
             console.log(data);
         });*/
 
-        $.get("../templates/diseases/index.html", function(data) {
+        $.get("templates/diseases/index.html", function(data) {
 
             console.log(data);
+
+            var diseases = $('<div></div>').append(data).find('#diseases')[0].outerHTML;
+
+            //console.log(temp.html());
+            console.log(diseases);
+
+
+
+            
+            $('.sub_main').html(diseases);
 
             //var home = $('<div></div>').append(data).find('#home')[0].outerHTML;
 

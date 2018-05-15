@@ -5,9 +5,9 @@ $(document).ready(function(){
 
 
     /* Button that displays mer terms table */
-    $("#btn_term_table_display").click(function() {
-
-        $("#article_mer_terms").toggle();
+    $("#main").on('click','#btn_term_table_display',function() {
+        console.log('toggle');
+        $('#article_mer_terms').toggle();
 
     });
 
