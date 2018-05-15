@@ -38,7 +38,6 @@ $(document).ready(function () {
 
   function loadPage(href)
   {
-
     if(href == ""){
       loadStatic('index');
     } else if(href ==  "diseases"){
@@ -48,6 +47,7 @@ $(document).ready(function () {
     } else if(href ==  "documentation"){
       loadStatic('documentation');
     }
+
     var targetUrl = baseHref;
     if (href) {
       targetUrl += href;
@@ -56,106 +56,69 @@ $(document).ready(function () {
     history.pushState({id:targetUrl}, '', targetUrl);
   }
 
-
   function loadStatic(template) {
     $('.sub_main').hide();
-    $.get('templates/' + template + '/index.html', function(data) {
-      // No templating needed
-      $('.sub_main').html(cleanTemplate(data));
+    loadTwigTemplate('templates/' + template + '/index.html', function(template) {
+      var output = template.render({});
+
+      $('.sub_main').html(output);
       $('.sub_main').show();
     });
-    return false;
   }
 
-  function diseases(){
+  function diseases() {
     $('.sub_main').hide();
-    $('.sub_main').load('templates/diseases/index.html',function(data){
-      var endpoint = 'diseases/0';
-      var uri = api().uri()+endpoint;
-
-      $.ajax({
-        type: "GET",
-        url: uri,
-        dataType: 'json',
-      })
-      .done(function(result){
-        //set new html page
-        var html_diseases = constructDiseases(result);
-        $('.diseases').html(html_diseases);
-
-        //change url
-        var url = baseHref + 'diseases';
-        history.pushState({id:url}, '', (url == '' ? ''+url : url));
-      })
-      .fail(function(jqXHR, textStatus) {
-      })
-      .always(function(){
-        $('.sub_main').show();
-      });
-    });
-
-    return false;
+    loadTwigTemplate('templates/diseases/index.html', loadDiseasesData);
   }
 
-  function constructDiseases(diseases) {
-    var html = '';
-    // Remove twig stuff
-    var template = cleanTemplate($('.disease_template').parent().html());
+  function loadDiseasesData(template) {
+    var endpoint = 'diseases/0';
+    var uri = api().uri()+endpoint;
 
-    diseases.forEach(disease => {
-      html += applyTemplate(template, { disease: disease });
+    $.ajax({
+      type: "GET",
+      url: uri,
+      dataType: 'json',
+    })
+    .done(function(result) {
+      var output = template.render({
+        diseases: result
+      });
+
+      $('.sub_main').html(output);
+    })
+    .fail(function(jqXHR, textStatus) {
+    })
+    .always(function(){
+      $('.sub_main').show();
     });
-
-    return html;
   }
 
   function statistics(){
     $('.sub_main').hide();
-    $.get('templates/statistics/index.html',function(template){
-      var endpoint = 'statistics';
-      var uri = api().uri()+endpoint;
-
-      $.ajax({
-        type: "GET",
-        url: uri,
-        dataType: 'json',
-      })
-      .done(function(data) {
-        //set new html page
-        var html = applyStatistics(template, data);
-        $('.sub_main').html(html);
-
-        //change url
-        var url = baseHref + 'statistics';
-        history.pushState({id:url}, '', (url == '' ? ''+url : url));
-      })
-      .fail(function(jqXHR, textStatus) {
-      })
-      .always(function(){
-        $('.sub_main').show();
-      });
-    });
-
-    return false;
+    loadTwigTemplate('templates/statistics/index.html', loadStatisticsData);
   }
 
+  function loadStatisticsData(template) {
+    var endpoint = 'statistics';
+    var uri = api().uri()+endpoint;
 
-  function applyStatistics(template, data){
-    // apply webservice data to template
-    var html = template.replace('{{ statistics|json_encode|raw }}', JSON.stringify(data));
-    var statisticTemplateRegex = /\{%[^%]+%\}((?:[^\{]|(\{\{))+)\{% endfor %\}/g;
+    $.ajax({
+      type: "GET",
+      url: uri,
+      dataType: 'json',
+    })
+    .done(function(statistics) {
+      var output = template.render({
+        statistics: statistics
+      });
 
-    html = html.replace(statisticTemplateRegex, function(match, statisticTemplate) {
-      var innerHtml = '';
-      for(var key in data) {
-        var statistic = data[key];
-
-        innerHtml += applyTemplate(statisticTemplate, { key: key, statistic: statistic });
-      }
-
-      return innerHtml;
+      $('.sub_main').html(output);
+    })
+    .fail(function(jqXHR, textStatus) {
+    })
+    .always(function(){
+      $('.sub_main').show();
     });
-
-    return html;
   }
 });
