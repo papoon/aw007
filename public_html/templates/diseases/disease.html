@@ -1,255 +1,250 @@
 <div class="page_content" vocab="http://schema.org/" typeof="MedicalCondition">
 
-    <div property="sameAs" style="display:none">http://purl.obolibrary.org/obo/{{data['disease'].do_id}}</div>
-    <div property="sameAs" style="display:none">{{data['disease'].uri}}</div>
+  <div property="sameAs" style="display:none">http://purl.obolibrary.org/obo/{{data['disease'].do_id}}</div>
+  <div property="sameAs" style="display:none">{{data['disease'].uri}}</div>
 
 
 
-    <!------- BACK BUTTON ---------->
+  <!------- BACK BUTTON ---------->
 
-    <div class="row">
-        <div class="col-md-12">
-            <a href="/aw007/diseases" class="btn btn-info" role="button">< Back</a>
-        </div>
+  <div class="row">
+    <div class="col-md-12">
+      <a href="/aw007/diseases" class="btn btn-info" role="button">< Back</a>
     </div>
+  </div>
 
-    <!------- DISEASE TITLE --------->
+  <!------- DISEASE TITLE --------->
 
-        <h1 class="text-center page_title" property="name">{{data['disease'].name}}</h1>
-        <span class="id_disease text-center bottom10" style="display:none;">{{data['disease'].id}}</span>
-
-
-    </div>
+  <h1 class="text-center page_title" property="name">{{data['disease'].name}}</h1>
+  <span class="id_disease text-center bottom10" style="display:none;">{{data['disease'].id}}</span>
 
 
-    <!------- DISEASE ABSTRACT --------->
-    <h3 class="text-center abstract_title">Abstract</h3>
-    <hr>
-    <p class="abstract_text" property="description">{{data['disease'].abstract}}</p>
-    <hr>
+</div>
 
-     <!------- DISEASE RELATED DISEASES --------->
 
-    <h3 class="text-center abstract_title">Related diseases</h3>
+<!------- DISEASE ABSTRACT --------->
+<h3 class="text-center abstract_title">Abstract</h3>
+<hr>
+<p class="abstract_text" property="description">{{data['disease'].abstract}}</p>
+<hr>
 
-    <hr>
+<!------- DISEASE RELATED DISEASES --------->
 
-    <div class="row">
-        <div class="similar-diseases">
+<h3 class="text-center abstract_title">Related diseases</h3>
 
-            {% for d in data['similarDisease']|slice(0, 4)%}
+<hr>
 
-            <div class="similar-disease">
-              <div class="col-6 col-sm-3">
-                  <div class="thumbnail" >
+<div class="row">
+  <div class="similar-diseases">
 
-                      <div class="caption">
+    {% for d in data['similarDisease']|slice(0, 4)%}
 
-                          <a href="/aw007/diseases/{{d.disease_id}}" class="sim_dis" >{{ d.disease_id }}</a>
-                          <h5 property="headline">Resnik Value: <span class="sim_dis_resnik">{{ d.resnik_value }}</span></h5>
-                      </div>
+    <div class="similar-disease">
+      <div class="col-6 col-sm-3">
+        <div class="thumbnail" >
 
-                  </div>
-              </div>
-            </div>
+          <div class="caption">
 
-            {% endfor %}
+            <a href="/aw007/diseases/{{d.disease_id}}" class="sim_dis" >{{ d.disease_id }}</a>
+            <h5 property="headline">Resnik Value: <span class="sim_dis_resnik">{{ d.resnik_value }}</span></h5>
+          </div>
 
         </div>
+      </div>
+    </div>
+
+    {% endfor %}
+
+  </div>
+</div>
+<hr>
+
+<!------- DISEASE METADATA --------->
+
+<h3 class="text-center">Metadata</h3>
+<hr>
+<div class="row">
+  <div class="col-md-12">
+    <div class="metadata">
+      <table class="metadata_table table table-bordered">
+        <tr>
+          <th>DBpedia ID</th>
+          <th>DBpedia Revision ID</th>
+          <th>DBpedia link</th>
+          <th>Disease Ontology ID</th>
+          <th>Created At</th>
+          <th>Updated At</th>
+        </tr>
+
+        <tr>
+          <td class="disease_dbpedia_id" property="identifier">{{data['disease'].dbpedia_id}}</td>
+          <td class="dbpedia_revision_id">{{data['disease'].dbpedia_revision_id}}</td>
+          <td class="disease_uri"><a target="_blank" href="{{data['disease'].uri}}">{{data['disease'].uri}}</a></td>
+          <td class="disease_do_id">{{data['disease'].do_id}}</td>
+          <td class="disease_created_at">{{data['disease'].created_at}}</td>
+          <td class="disease_updated_at">{{data['disease'].updated_at}}</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>
+<hr>
+
+<!------- DISEASE STAR RATING --------->
+<div class="row" >
+  <h3 class="text-center">Star Rating</h3>
+  <hr>
+  <div class="col-sm-6 col-sm-offset-2">
+
+    <div class="rating" id="star-rating-disease">
+      <span class="star_rating" value="5">☆</span>
+      <span class="star_rating" value="4">☆</span>
+      <span class="star_rating" value="3">☆</span>
+      <span class="star_rating" value="2">☆</span>
+      <span class="star_rating" value="1">☆</span>
+      <span class="star_rating" value="0">☆</span>
+      <span class="star_rating" value="-1">☆</span>
+      <br>
+      <span>5</span>
+      <span>4</span>
+      <span>3</span>
+      <span>2</span>
+      <span>1</span>
+      <span>0</span>
+      <span>1-</span>
+      <br>
+    </div>
+  </div>
+</div>
+
+<hr>
+
+<!------- DISEASE COMMENT --------
+
+<div class="row top10" id="disease-comment">
+  <div class="col-sm-10 col-sm-offset-1">
+    <label for="disease_comment">Give us your feedback about this disease:</label>
+    <textarea id="comment_disease_textarea" class=" form-control" rows="6" placeholder="Write a comment..."></textarea>
+    <button  id="feedback-submit-disease" class="btn btn-info top5 btn-pretty" role="button">Save</button>
+  </div>
+</div>
+<hr>
+<div class="row top10">
+  <div class="col-sm-10 col-sm-offset-1">
+    <div class="comment_feedback_response"></div>
+  </div>
+</div>
+<div class="row top5">
+
+  <div class="col-sm-10 col-sm-offset-1">
+    <h2 class="text-center"> Comments </h2>
+    <hr>
+    <div class="disease_comments">
+      <div class="disease_comment top10">
+        <div class="media">
+          <div class="media-left media-middle">
+
+          </div>
+
+
+        </div>
+
+      </div>
     </div>
     <hr>
+  </div>
+</div> -->
 
-    <!------- DISEASE METADATA --------->
 
-    <h3 class="text-center">Metadata</h3>
-    <hr>
-    <div class="row">
-        <div class="col-md-12">
-                <div class="metadata">
-                    <table class="metadata_table table table-bordered">
-                    <tr>
-                        <th>DBpedia ID</th>
-                        <th>DBpedia Revision ID</th>
-                        <th>DBpedia link</th>
-                        <th>Disease Ontology ID</th>
-                        <th>Created At</th>
-                        <th>Updated At</th>
-                    </tr>
+<!--------------- ARTICLES ------------>
 
-                    <tr>
-                        <td class="disease_dbpedia_id" property="identifier">{{data['disease'].dbpedia_id}}</td>
-                        <td class="dbpedia_revision_id">{{data['disease'].dbpedia_revision_id}}</td>
-                        <td class="disease_uri"><a target="_blank" href="{{data['disease'].uri}}">{{data['disease'].uri}}</a></td>
-                        <td class="disease_do_id">{{data['disease'].do_id}}</td>
-                        <td class="disease_created_at">{{data['disease'].created_at}}</td>
-                        <td class="disease_updated_at">{{data['disease'].updated_at}}</td>
-                    </tr>
-                    </table>
-                </div>
+<h3 class="text-center">Articles </h3>
+<h6 class="text-center subtitle">by order of relevance </h6>
+<hr>
+<div class="row">
+  <div class="articles">
+    {% for article in data['articlesDisease'] %}
+    <div class="article" vocab="http://schema.org/" typeof="MedicalScholarlyArticle">
+      <div property="about" style="display:none">{{data['disease'].name}}</div>
+      <div class="col-sm-6 col-md-4">
+        <div class="thumbnail">
+          <p>
+            <h5 class="article_title" property="headline">{{ article.title }}</h5>
+          </p>
+          <div class="caption">
+            <h3 class="article_name">{{ articles.name }}</h3>
+            <p>
+              <a id="button_open_article" href="/aw007/articles/{{article.id}}" class="btn btn-primary article_link" role="button">Show</a>
+            </p>
+
+          </div>
+
         </div>
+      </div>
     </div>
-    <hr>
+    {% endfor %}
+  </div>
 
-    <!------- DISEASE STAR RATING --------->
-    <div class="row" >
-        <h3 class="text-center">Star Rating</h3>
-        <hr>
-        <div class="col-sm-6 col-sm-offset-2">
 
-            <div class="rating" id="star-rating-disease">
-                <span class="star_rating" value="5">☆</span>
-                <span class="star_rating" value="4">☆</span>
-                <span class="star_rating" value="3">☆</span>
-                <span class="star_rating" value="2">☆</span>
-                <span class="star_rating" value="1">☆</span>
-                <span class="star_rating" value="0">☆</span>
-                <span class="star_rating" value="-1">☆</span>
-                <br>
-                <span>5</span>
-                <span>4</span>
-                <span>3</span>
-                <span>2</span>
-                <span>1</span>
-                <span>0</span>
-                <span>1-</span>
-                <br>
-            </div>
+</div>
+
+<h3 class="text-center">Photos</h3>
+<hr>
+<div class="row">
+  <div class="photos">
+    {% for photo in data['photosDisease'] %}
+    <div class="photo" vocab="http://schema.org/" typeof="photo">
+      <div property="about" style="display:none">{{data['disease'].name}}</div>
+      <div class="col-sm-6 col-md-3">
+        <div class="thumbnail">
+          <img property="image" src="{{photo.url}}" alt="{{photo.url}}" class="img-responsive photo_url" style="min-height:150px; max-height:150px; width:100%;">
+          <div class="caption">
+            <h3 class="photo_username">{{photo.username}}</h3>
+            <p>Likes: <span class="photo_nr_like">{{photo.nr_likes}}</span></p>
+            <p>Comments: <span class="photo_nr_comment">{{photo.nr_comments}}</span></p>
+            <p>Shares: <span class="photo_nr_share">{{photo.shares}}</span></p>
+            <p>Published At: <span class="photo_published_at">{{photo.published_at}}</span></p>
+            <p>
+              <button id="button_hide_photo" data-id="{{photo.id}}" class="btn btn-primary" role="button">Hide</button>
+            </p>
+          </div>
         </div>
+      </div>
     </div>
+    {% endfor %}
+  </div>
+</div>
+<p>
+  <button id="button_reset_photos" data-id="{{data['disease'].id}}" class="btn btn-primary" role="button">Show All Photos</button>
+</p>
 
-    <hr>
+<h3 class="text-center">Tweets </h3>
+<h6 class="text-center subtitle">by order of relevance </h6>
 
-    <!------- DISEASE COMMENT --------->
-
-    <div class="row top10" id="disease-comment">
-        <div class="col-sm-10 col-sm-offset-1">
-            <label for="disease_comment">Give us your feedback about this disease:</label>
-            <textarea id="comment_disease_textarea" class=" form-control" rows="6" placeholder="Write a comment..."></textarea>
-            <button  id="feedback-submit-disease" class="btn btn-info top5 btn-pretty" role="button">Save</button>
+<hr>
+<div class="row">
+  <div class="tweets">
+    {% for tweet in data['tweetsDisease'] %}
+    <div class="tweet" vocab="http://schema.org/" typeof="SocialMediaPosting">
+      <div property="about" style="display:none">{{data['disease'].name}}</div>
+      <div class="col-sm-6 col-md-4">
+        <div class="thumbnail">
+          <span class="tweet_html">{{tweet.html | raw}}</span>
+          <!-- <img src="{{tweet.url}}" alt="{{tweet.url}}" class="img-responsive" style="min-height:150px; max-height:150px; width:100%;">-->
+          <div class="caption">
+            <h3 class="tweet_username" property="creator">{{tweet.username}}</h3>
+            <p>Likes: <span class="tweet_nr_likes">{{tweet.nr_likes}}</span></p>
+            <p property="commentCount">Comments: <span class="tweet_comment">{{tweet.nr_comments}}</span></p>
+            <p>Shares: <span class="tweet_share">{{tweet.shares}}</span></p>
+            <p property="datePublished">Published At: <span class="tweet_published_at">{{tweet.published_at}}</span></p>
+            <p>
+              <a property="url" href="{{tweet.url}}" target="_blank" class="btn btn-primary tweet_url" role="button">Tweet</a>
+            </p>
+          </div>
         </div>
+      </div>
     </div>
-    <hr>
-    <div class="row top10">
-        <div class="col-sm-10 col-sm-offset-1">
-            <div class="comment_feedback_response"></div>
-        </div>
-    </div>
-    <div class="row top5">
-
-        <div class="col-sm-10 col-sm-offset-1">
-            <h2 class="text-center"> Comments </h2>
-            <hr>
-            <div class="disease_comments">
-                <div class="disease_comment top10">
-                    <div class="media">
-                        <div class="media-left media-middle">
-
-                        </div>
-
-                        <!--
-                        <div class="media-body">
-                            <h4 class="media-heading publicated_at">Middle aligned media</h4>
-                            <div class="comment"> -->
-
-                            </div>
-
-                        </div>
-                    </div>
-                    <hr>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!--------------- ARTICLES ------------>
-
-    <h3 class="text-center">Articles </h3>
-    <h6 class="text-center subtitle">by order of relevance </h6>
-    <hr>
-    <div class="row">
-        <div class="articles">
-            {% for article in data['articlesDisease'] %}
-            <div class="article" vocab="http://schema.org/" typeof="MedicalScholarlyArticle">
-                <div property="about" style="display:none">{{data['disease'].name}}</div>
-                <div class="col-sm-6 col-md-4">
-                    <div class="thumbnail">
-                        <p>
-                            <h5 class="article_title" property="headline">{{ article.title }}</h5>
-                        </p>
-                        <div class="caption">
-                            <h3 class="article_name">{{ articles.name }}</h3>
-                            <p>
-                                <a id="button_open_article" href="/aw007/articles/{{article.id}}" class="btn btn-primary article_link" role="button">Show</a>
-                            </p>
-
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-            {% endfor %}
-        </div>
-
-
-    </div>
-
-    <h3 class="text-center">Photos</h3>
-    <hr>
-    <div class="row">
-        <div class="photos">
-        {% for photo in data['photosDisease'] %}
-            <div class="photo" vocab="http://schema.org/" typeof="photo">
-                <div property="about" style="display:none">{{data['disease'].name}}</div>
-                <div class="col-sm-6 col-md-3">
-                        <div class="thumbnail">
-                            <img property="image" src="{{photo.url}}" alt="{{photo.url}}" class="img-responsive photo_url" style="min-height:150px; max-height:150px; width:100%;">
-                            <div class="caption">
-                                <h3 class="photo_username">{{photo.username}}</h3>
-                                <p>Likes: <span class="photo_nr_like">{{photo.nr_likes}}</span></p>
-                                <p>Comments: <span class="photo_nr_comment">{{photo.nr_comments}}</span></p>
-                                <p>Shares: <span class="photo_nr_share">{{photo.shares}}</span></p>
-                                <p>Published At: <span class="photo_published_at">{{photo.published_at}}</span></p>
-                                <p>
-                                    <button id="button_hide_photo" data-id="{{photo.id}}" class="btn btn-primary" role="button">Hide</button>
-                                </p>
-                            </div>
-                        </div>
-                </div>
-            </div>
-        {% endfor %}
-        </div>
-    </div>
-    <p>
-        <button id="button_reset_photos" data-id="{{data['disease'].id}}" class="btn btn-primary" role="button">Show All Photos</button>
-    </p>
-
-    <h3 class="text-center">Tweets </h3>
-    <h6 class="text-center subtitle">by order of relevance </h6>
-
-    <hr>
-    <div class="row">
-        <div class="tweets">
-        {% for tweet in data['tweetsDisease'] %}
-        <div class="tweet" vocab="http://schema.org/" typeof="SocialMediaPosting">
-            <div property="about" style="display:none">{{data['disease'].name}}</div>
-            <div class="col-sm-6 col-md-4">
-                    <div class="thumbnail">
-                        <span class="tweet_html">{{tweet.html | raw}}</span>
-                        <!-- <img src="{{tweet.url}}" alt="{{tweet.url}}" class="img-responsive" style="min-height:150px; max-height:150px; width:100%;">-->
-                        <div class="caption">
-                            <h3 class="tweet_username" property="creator">{{tweet.username}}</h3>
-                            <p>Likes: <span class="tweet_nr_likes">{{tweet.nr_likes}}</span></p>
-                            <p property="commentCount">Comments: <span class="tweet_comment">{{tweet.nr_comments}}</span></p>
-                            <p>Shares: <span class="tweet_share">{{tweet.shares}}</span></p>
-                            <p property="datePublished">Published At: <span class="tweet_published_at">{{tweet.published_at}}</span></p>
-                            <p>
-                                <a property="url" href="{{tweet.url}}" target="_blank" class="btn btn-primary tweet_url" role="button">Tweet</a>
-                            </p>
-                        </div>
-                    </div>
-            </div>
-        </div>
-        {% endfor %}
-        </div>
-    </div>
+    {% endfor %}
+  </div>
+</div>
 </div>
