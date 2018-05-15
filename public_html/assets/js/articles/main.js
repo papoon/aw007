@@ -53,7 +53,7 @@ function requestApiArticle(endpoint){
     .done(function(result){
 
         console.log('oi');
-        //console.log(result);
+        console.log(result);
 
         var article = result;
         var terms = article.terms;
@@ -86,6 +86,8 @@ function requestApiArticle(endpoint){
 
         $('.sub_footer').append('<script src="/aw007/assets/js/articles/comment.js"></script>');
         $('.sub_footer').append('<script src="/aw007/assets/js/articles/rating.js"></script>');
+        $('.sub_footer').append('<script src="/aw007/assets/js/articles/abstract_annotation.js"></script>');
+        
 
         //change url
         history.pushState({id:url}, '', (url == '' ? ''+url : url));

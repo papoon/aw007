@@ -16,9 +16,9 @@ class DiseasesRestHandler extends SimpleRest {
 		$diseases = new Disease();
 		$rawData = $diseases->getDiseases();
 
-		array_walk_recursive($rawData, function(&$value) {
-			$value = utf8_decode($value);
-		});
+		// array_walk_recursive($rawData, function(&$value) {
+		// 	$value = utf8_decode($value);
+		// });
 
 		$requestContentType = $this->getHttpContentType();
 
@@ -62,7 +62,8 @@ class DiseasesRestHandler extends SimpleRest {
 	public function encodeJson($responseData) {
 
         $jsonResponse = json_encode($responseData,JSON_PARTIAL_OUTPUT_ON_ERROR);
-		return $jsonResponse;
+				$jsonResponse = $this->prettyPrint($jsonResponse);
+				return $jsonResponse;
 	}
 
 	public function encodeXml($responseData) {
@@ -211,5 +212,23 @@ class DiseasesRestHandler extends SimpleRest {
 			echo $response;
 		}
 	}
+
+	public function hidePhoto($photo_id){
+
+    $feedback = new Feedback();
+    $response = $feedback->hidePhoto($photo_id);
+
+    return $response;
+
+  }
+
+	public function resetDiseasePhotos($id){
+
+    $feedback = new Feedback();
+    $response = $feedback->resetDiseasePhotos($id);
+
+    return $response;
+
+  }
 }
 ?>

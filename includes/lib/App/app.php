@@ -115,6 +115,8 @@
                                         Dispatcher::route('rest@implicitFeedback',$route,'rest/feedback/implicit/{$id}');
                                         Dispatcher::route('rest@diseaseRelatedArticles',$route,'rest/disease/relatedArticlesRanked/{$id}');
                                         Dispatcher::route('rest@relatedDiseases',$route,'rest/disease/relatedDiseases/{$id}');
+                                        Dispatcher::route('rest@hidePhoto',$route,'rest/photos/hide/{$id}');
+                                        Dispatcher::route('rest@resetDiseasePhotos',$route,'rest/disease/photos/reset/{$id}');
                                     }
 
                                 }else{
@@ -136,7 +138,7 @@
                 else{
                     require_once '../controllers/error.php';
                     $controller = 'Error';
-                    $controller = new $controller;
+                    $controller = new ErrorController();
                     $controller->index();
                 }
             }

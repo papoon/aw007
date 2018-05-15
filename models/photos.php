@@ -1,4 +1,4 @@
-<?php    
+<?php
     require_once 'model.php';
     class Photos extends Model{
 
@@ -17,7 +17,7 @@
 
             $this->connector->disconnect();
             return $data;
-            
+
         }
 
         public function getPhotosDisease($idDisease){
@@ -28,7 +28,10 @@
             //$this->connector->connect();
 
             $idDisease = mysqli_real_escape_string($this->connector->connect(),$idDisease);
-            $result = $this->connector->selectWhere(TABLE_PHOTOS,'did','=',$idDisease,'int');
+
+            $query = "SELECT * FROM " . TABLE_PHOTOS . " P WHERE P.did = ".$idDisease." AND P.id NOT IN (SELECT photo_id FROM " . TABLE_PHOTOS_HIDE . " );";
+
+            $result = $this->connector->rawQuery($query);
 
             $data = array();
             //$this->connector->disconnect();

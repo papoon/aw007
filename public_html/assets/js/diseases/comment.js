@@ -36,13 +36,21 @@ $(document).ready(function(){
 
                     console.log(comment);
 
+                    var html = $('.disease_comment').last().clone();
 
-                    $('.comment').html('<b>'+comment+'</b>');
-                    $('.publicated_at').html('Publicated at :' + created_at);
-                    comment_html += $('.disease_comments').html();
+                    $(html).find('.comment').html('<b>'+comment+'</b>');
+                    $(html).find('.publicated_at').html('Publicated at :' + created_at);
+                    
+                    $('.disease_comments').prepend(html);
+
+                   
+
+                    //$('.disease_comment').html('<b>'+comment+'</b>');
+                    //$('.publicated_at').html('Publicated at :' + created_at);
+                    //comment_html += $('.disease_comments').html();
 
                 }
-                $('.disease_comments').html(comment_html);
+                //$('.disease_comments').html(comment_html);
 
             }
 
@@ -66,7 +74,7 @@ $(document).ready(function(){
 
 $('#main').on('click','#feedback-submit-disease',function(){
 
-    console.log('comment article');
+    console.log('comment disease');
     var user = $('#data-user').data('user');
     //var disease_id = $('.disease_id').html();
     var id_disease = $('.id_disease').html();
