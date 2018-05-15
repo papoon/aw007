@@ -184,5 +184,14 @@ class DiseasesRestHandler extends SimpleRest {
     return $response;
 
   }
+
+	public function resetDiseasePhotos($id){
+
+    $feedback = new Feedback();
+    $response = $feedback->resetDiseasePhotos($id);
+
+    return $response;
+
+  }
 }
 ?>

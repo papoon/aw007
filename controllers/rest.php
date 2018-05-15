@@ -171,6 +171,12 @@
             $desisesRestHandler->hidePhoto($id);
         }
 
+        public function resetDiseasePhotos($id){
+
+            $desisesRestHandler = new DiseasesRestHandler();
+            $desisesRestHandler->resetDiseasePhotos($id);
+        }
+
     }
 
 
