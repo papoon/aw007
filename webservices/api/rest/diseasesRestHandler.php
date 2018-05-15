@@ -78,9 +78,9 @@ class DiseasesRestHandler extends SimpleRest {
 		$disease = new Disease();
 		$rawData = $disease->getDisease($id);
 
-		array_walk_recursive($rawData, function(&$value) {
-			$value = utf8_encode($value);
-		});
+		// array_walk_recursive($rawData, function(&$value) {
+		// 	$value = utf8_encode($value);
+		// });
 
 		$requestContentType = $this->getHttpContentType();
 
@@ -106,9 +106,9 @@ class DiseasesRestHandler extends SimpleRest {
 		$disease = new Disease();
 		$rawData = $disease->getDiseaseMetadata($id);
 
-		array_walk_recursive($rawData, function(&$value) {
-			$value = utf8_decode($value);
-		});
+		// array_walk_recursive($rawData, function(&$value) {
+		// 	$value = utf8_decode($value);
+		// });
 
 		$requestContentType = $this->getHttpContentType();
 
@@ -132,9 +132,9 @@ class DiseasesRestHandler extends SimpleRest {
 		$article = new Article();
 		$rawData = $article->getArticlesDiseaseRanked($id);
 
-		array_walk_recursive($rawData, function(&$value) {
-			$value = utf8_decode($value);
-		});
+		// array_walk_recursive($rawData, function(&$value) {
+		// 	$value = utf8_decode($value);
+		// });
 
 		$requestContentType = $this->getHttpContentType();
 
@@ -157,9 +157,9 @@ class DiseasesRestHandler extends SimpleRest {
 		$disease = new Disease();
 		$rawData = $disease->getSimilarDisease($id);
 
-		array_walk_recursive($rawData, function(&$value) {
-			$value = utf8_decode($value);
-		});
+		// array_walk_recursive($rawData, function(&$value) {
+		// 	$value = utf8_decode($value);
+		// });
 
 		$requestContentType = $this->getHttpContentType();
 
@@ -182,6 +182,8 @@ class DiseasesRestHandler extends SimpleRest {
     $feedback = new Feedback();
     $response = $feedback->hidePhoto($photo_id);
 
+		$this->convertResponse($this->successResponse);
+
     return $response;
 
   }
@@ -190,6 +192,8 @@ class DiseasesRestHandler extends SimpleRest {
 
     $feedback = new Feedback();
     $response = $feedback->resetDiseasePhotos($id);
+
+		$this->convertResponse($this->successResponse);
 
     return $response;
 

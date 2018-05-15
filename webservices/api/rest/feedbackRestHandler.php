@@ -392,8 +392,9 @@ class FeedbackRestHandler extends SimpleRest {
     $feedback = new Feedback();
     $response = $feedback->implicitFeedbackArticle($article_id);
 
-    return $response;
+    $this->convertResponse($this->successResponse);
 
+    return $response;
   }
 
 

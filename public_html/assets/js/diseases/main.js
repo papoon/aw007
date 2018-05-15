@@ -327,8 +327,7 @@ $('#main').on('mousedown','#button_open_article',function(){
 
     })
     .fail(function(jqXHR, textStatus) {
-        console.log(jqXHR);
-        console.log(textStatus);
+      console.error(jqXHR, textStatus);
     })
     .always(function(){
         console.log('complete');
