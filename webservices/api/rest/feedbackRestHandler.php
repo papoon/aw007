@@ -40,7 +40,7 @@ class FeedbackRestHandler extends SimpleRest {
 
 	public function encodeJson($responseData) {
 
-		$jsonResponse = json_encode($responseData);
+		$jsonResponse = json_encode($responseData, JSON_PRETTY_PRINT);
 		return $jsonResponse;
 	}
 
