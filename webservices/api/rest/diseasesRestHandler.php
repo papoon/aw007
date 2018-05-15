@@ -16,9 +16,9 @@ class DiseasesRestHandler extends SimpleRest {
 		$diseases = new Disease();
 		$rawData = $diseases->getDiseases();
 
-		array_walk_recursive($rawData, function(&$value) {
-			$value = utf8_decode($value);
-		});
+		// array_walk_recursive($rawData, function(&$value) {
+		// 	$value = utf8_decode($value);
+		// });
 
 		$requestContentType = $this->getHttpContentType();
 
