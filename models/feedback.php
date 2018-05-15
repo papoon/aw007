@@ -442,6 +442,28 @@
 
         }
 
+        public function resetDiseasePhotos($id) {
+
+          try {
+
+              $query = "DELETE FROM ".TABLE_PHOTOS_HIDE." WHERE photo_id IN (SELECT P.id FROM ".TABLE_PHOTOS." P WHERE P.did = ".$id.")";
+
+              $result = $this->connector->rawQuery($query);
+              $this->connector->disconnect();
+
+              return $result;
+
+          }
+
+           catch(Exception $e){
+
+              $this->connector->disconnect();
+              echo "Couldn't reset photos for disease... please try again later";
+              die();
+          }
+
+        }
+
     }
 
 

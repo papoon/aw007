@@ -338,7 +338,7 @@ $('#main').on('mousedown','#button_open_article',function(){
 
 $('#main').on('mousedown','#button_hide_photo',function(){
 
-  debugger;
+    //debugger;
     //console.log('xxx', $(this)[0].href);
 
     var photo_id = $(this)[0].getAttribute('data-id');
@@ -362,6 +362,38 @@ $('#main').on('mousedown','#button_hide_photo',function(){
     })
     .always(function(){
         console.log('complete');
+        location.reload();
+    });
+
+});
+
+$('#main').on('mousedown','#button_reset_photos',function(){
+
+    //debugger;
+    //console.log('xxx', $(this)[0].href);
+
+    var disease_id = $(this)[0].getAttribute('data-id');
+
+  $.ajax({
+
+        url: api().uri() +'disease/photos/reset/'+disease_id,
+        type: 'PUT',
+        contentType: "application/json",
+        dataType: 'json'
+
+
+    })
+    .done(function(result){
+
+
+    })
+    .fail(function(jqXHR, textStatus) {
+        console.log(jqXHR);
+        console.log(textStatus);
+    })
+    .always(function(){
+        console.log('complete');
+        location.reload();
     });
 
 });
