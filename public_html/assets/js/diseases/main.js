@@ -103,8 +103,8 @@ function requestApi(endpoint){
         var html_tweets = constructDiseasesTweets(tweets);
         $('.tweets').html(html_tweets);
 
-        $('.sub_footer').append('<script src="/aw007/assets/js/articles/main.js"></script>');
-        $('.sub_footer').append('<script src="/aw007/assets/js/diseases/rating.js"></script>');
+//        $('.sub_footer').append('<script src="/aw007/assets/js/articles/main.js"></script>');
+//        $('.sub_footer').append('<script src="/aw007/assets/js/diseases/rating.js"></script>');
 
 
         //change url
@@ -124,7 +124,7 @@ function constructSimilarDiseases(similarDiseases){
 
     similarDiseases.slice(0, 4).forEach(similarDisease => {
 
-        $('.sim_dis').prop('href','/aw007/diseases/' + similarDisease.disease_id);
+        $('.sim_dis').prop('href','diseases/' + similarDisease.disease_id);
         $('.sim_dis').html(similarDisease.name);
         $('.sim_dis_resnik').html(similarDisease.resnik_value);
 
@@ -163,7 +163,7 @@ function constructDiseasesArticles(articles){
     articles.forEach(article => {
         $('.article_title').html(article.title);
         $('.article_name').html('');
-        $('.article_link').prop('href',"/aw007/articles/"+article.id);
+        $('.article_link').prop('href',"articles/"+article.id);
 
         articles = $('.article').html();
         html += articles;

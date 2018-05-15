@@ -30,8 +30,43 @@ p {
     margin: 10px;
 }
 
+.center  {
+    text-align: center;
+}
 
+.thumbnail.art-content {
+    height: 200px;
+    display:  flex;
+    flex-direction: column;
 
+}
+
+.thumbnail.art-content .caption {
+    flex-grow: 1;
+    align-self: center;
+    display:  flex;
+}
+
+.thumbnail.twe-content {
+    height: 800px;
+    display:  flex;
+    flex-direction: column;
+}
+
+.thumbnail.twe-content .caption {
+    flex-grow: 1;
+    align-self: center;
+    display:  flex;
+}
+
+.extra-div  {
+    align-self: flex-end;
+}
+
+.article_title {
+    text-align: justify;
+    padding: 0px 5px 0px 5px;
+}
 
 /* -------------- BUTTONS ------------------------ */
 
@@ -285,9 +320,6 @@ transition: all 1s ease;
     position: absolute;
 }
 
-
-
-
 /* -------------- SPECIFIC ELEMENTS  ------------------------ */
 
 
@@ -411,6 +443,3 @@ td, th {
 .disease_comment .comment{
     font-size: 15px;
 }
-
-
-
