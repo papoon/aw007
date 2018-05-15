@@ -61,7 +61,8 @@ class ArticlesRestHandler extends SimpleRest {
 
 	public function encodeJson($responseData) {
 
-		$jsonResponse = json_encode($responseData,JSON_PRETTY_PRINT);
+		$jsonResponse = json_encode($responseData,JSON_PARTIAL_OUTPUT_ON_ERROR);
+		$jsonResponse = $this->prettyPrint($jsonResponse);
 		return $jsonResponse;
 	}
 

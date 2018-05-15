@@ -1,10 +1,10 @@
-<?php 
+<?php
 /*
 A simple RESTful webservices base class
 Use this as a template and build upon it
 */
 class SimpleRest {
-	
+
 	private $httpVersion = "HTTP/1.1";
 	private $verbs = array();
 
@@ -14,55 +14,55 @@ class SimpleRest {
 	}
 
 	public function setHttpHeaders($contentType, $statusCode){
-		
+
 		$statusMessage = $this -> getHttpStatusMessage($statusCode);
-		
-		header($this->httpVersion. " ". $statusCode ." ". $statusMessage);		
+
+		header($this->httpVersion. " ". $statusCode ." ". $statusMessage);
 		header("Content-Type:". $contentType);
 	}
-	
+
 	public function getHttpStatusMessage($statusCode){
 		$httpStatus = array(
-			100 => 'Continue',  
-			101 => 'Switching Protocols',  
+			100 => 'Continue',
+			101 => 'Switching Protocols',
 			200 => 'OK',
-			201 => 'Created',  
-			202 => 'Accepted',  
-			203 => 'Non-Authoritative Information',  
-			204 => 'No Content',  
-			205 => 'Reset Content',  
-			206 => 'Partial Content',  
-			300 => 'Multiple Choices',  
-			301 => 'Moved Permanently',  
-			302 => 'Found',  
-			303 => 'See Other',  
-			304 => 'Not Modified',  
-			305 => 'Use Proxy',  
-			306 => '(Unused)',  
-			307 => 'Temporary Redirect',  
-			400 => 'Bad Request',  
-			401 => 'Unauthorized',  
-			402 => 'Payment Required',  
-			403 => 'Forbidden',  
-			404 => 'Not Found',  
-			405 => 'Method Not Allowed',  
-			406 => 'Not Acceptable',  
-			407 => 'Proxy Authentication Required',  
-			408 => 'Request Timeout',  
-			409 => 'Conflict',  
-			410 => 'Gone',  
-			411 => 'Length Required',  
-			412 => 'Precondition Failed',  
-			413 => 'Request Entity Too Large',  
-			414 => 'Request-URI Too Long',  
-			415 => 'Unsupported Media Type',  
-			416 => 'Requested Range Not Satisfiable',  
-			417 => 'Expectation Failed',  
-			500 => 'Internal Server Error',  
-			501 => 'Not Implemented',  
-			502 => 'Bad Gateway',  
-			503 => 'Service Unavailable',  
-			504 => 'Gateway Timeout',  
+			201 => 'Created',
+			202 => 'Accepted',
+			203 => 'Non-Authoritative Information',
+			204 => 'No Content',
+			205 => 'Reset Content',
+			206 => 'Partial Content',
+			300 => 'Multiple Choices',
+			301 => 'Moved Permanently',
+			302 => 'Found',
+			303 => 'See Other',
+			304 => 'Not Modified',
+			305 => 'Use Proxy',
+			306 => '(Unused)',
+			307 => 'Temporary Redirect',
+			400 => 'Bad Request',
+			401 => 'Unauthorized',
+			402 => 'Payment Required',
+			403 => 'Forbidden',
+			404 => 'Not Found',
+			405 => 'Method Not Allowed',
+			406 => 'Not Acceptable',
+			407 => 'Proxy Authentication Required',
+			408 => 'Request Timeout',
+			409 => 'Conflict',
+			410 => 'Gone',
+			411 => 'Length Required',
+			412 => 'Precondition Failed',
+			413 => 'Request Entity Too Large',
+			414 => 'Request-URI Too Long',
+			415 => 'Unsupported Media Type',
+			416 => 'Requested Range Not Satisfiable',
+			417 => 'Expectation Failed',
+			500 => 'Internal Server Error',
+			501 => 'Not Implemented',
+			502 => 'Bad Gateway',
+			503 => 'Service Unavailable',
+			504 => 'Gateway Timeout',
 			505 => 'HTTP Version Not Supported');
 		return ($httpStatus[$statusCode]) ? $httpStatus[$statusCode] : $status[500];
 	}
@@ -77,7 +77,7 @@ class SimpleRest {
 		}
 
 		return $requestContentType;
-		
+
 	}
 
 	public function getStatusHttpContentType($requestContentType){
@@ -159,13 +159,13 @@ class SimpleRest {
 			}
 		 }
 	}
-    
+
     public function convertResponse($rawData){
 
 		$requestContentType = $this->getHttpContentType();
 
 		$this->setHttpHeaders($requestContentType, 200);//200 ok
-        
+
         if(strpos($requestContentType,'application/json') !== false){
 			$response = $this->encodeJson($rawData);
 			echo $response;
@@ -179,10 +179,64 @@ class SimpleRest {
 			$response = $this->encodeJson($rawData);
 			echo $response;
 		}
-        
-        
+
+
     }
-    
-    
+
+		public function prettyPrint( $json ) {
+	    $result = '';
+	    $level = 0;
+	    $in_quotes = false;
+	    $in_escape = false;
+	    $ends_line_level = NULL;
+	    $json_length = strlen( $json );
+
+	    for( $i = 0; $i < $json_length; $i++ ) {
+	        $char = $json[$i];
+	        $new_line_level = NULL;
+	        $post = "";
+	        if( $ends_line_level !== NULL ) {
+	            $new_line_level = $ends_line_level;
+	            $ends_line_level = NULL;
+	        }
+	        if ( $in_escape ) {
+	            $in_escape = false;
+	        } else if( $char === '"' ) {
+	            $in_quotes = !$in_quotes;
+	        } else if( ! $in_quotes ) {
+	            switch( $char ) {
+	                case '}': case ']':
+	                    $level--;
+	                    $ends_line_level = NULL;
+	                    $new_line_level = $level;
+	                    break;
+
+	                case '{': case '[':
+	                    $level++;
+	                case ',':
+	                    $ends_line_level = $level;
+	                    break;
+
+	                case ':':
+	                    $post = " ";
+	                    break;
+
+	                case " ": case "\t": case "\n": case "\r":
+	                    $char = "";
+	                    $ends_line_level = $new_line_level;
+	                    $new_line_level = NULL;
+	                    break;
+	            }
+	        } else if ( $char === '\\' ) {
+	            $in_escape = true;
+	        }
+	        if( $new_line_level !== NULL ) {
+	            $result .= "\n".str_repeat( "\t", $new_line_level );
+	        }
+	        $result .= $char.$post;
+	    }
+
+	    return $result;
+	}
 }
 ?>
