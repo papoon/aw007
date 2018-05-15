@@ -22,8 +22,6 @@ $(document).ready(function () {
     $('li a').click(function (e) {
 
         if ($(this).parent().attr('class') != "disabled") {
-
-            console.log('»»» link click', $(this).attr('href'));
             if ($(this).attr('href') == "#home") {
                 loadPage('');
             }
@@ -113,8 +111,10 @@ $(document).ready(function () {
 
     function home(){
         $('.sub_main').hide();
-        $('.sub_main').load('templates/index/index.html', function(data) {
+        $.get('templates/index/index.html', function(data) {
           // No templating needed
+          $('.sub_main').html(cleanTemplate(data));
+          $('.sub_main').show();
         });
         return false;
     }
@@ -137,18 +137,13 @@ $(document).ready(function () {
 
               //change url
               var url = baseHref + 'diseases';
-              console.log(url);
               history.pushState({id:url}, '', (url == '' ? ''+url : url));
           })
           .fail(function(jqXHR, textStatus) {
-              console.log(jqXHR);
           })
           .always(function(){
               $('.sub_main').show();
-              console.log('complete');
           });
-
-            console.log(data);
         });
 
         return false;
@@ -157,7 +152,7 @@ $(document).ready(function () {
     function constructDiseases(diseases) {
         var html = '';
         // Remove twig stuff
-        var template = $('.disease_template').parent().html().replace(/\{\%.*\%\}/g,'');
+        var template = cleanTemplate($('.disease_template').parent().html());
 
         diseases.forEach(disease => {
             var replacer = function(match, field) {
