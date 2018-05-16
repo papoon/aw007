@@ -42,7 +42,7 @@
             $photos = $photos->getPhotosDisease($id);
 
             $tweets = new Tweets();
-            $tweets = $tweets->getTweetsDisease($id);
+            $tweets = $tweets->getTweetsDiseaseRanked($id);
 
             $similarDiseases = $this->getSimilarDisease($id);
 
