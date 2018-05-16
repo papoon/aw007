@@ -36,6 +36,8 @@ function loadDiseaseData(template, id) {
 
     $('.sub_main').html(output);
 
+    refreshStarRatingDisease();
+
     //change url
     var url = "diseases/" + id;
     history.pushState({id:url}, '', (url == '' ? ''+url : url));
