@@ -36,7 +36,7 @@
 
 
             $article = new Article();
-            $articles = $article->getArticlesDisease($id);
+            $articles = $article->getArticlesDiseaseRanked($id);
 
             $photos = new Photos();
             $photos = $photos->getPhotosDisease($id);
