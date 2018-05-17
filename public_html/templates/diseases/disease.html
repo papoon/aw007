@@ -9,7 +9,7 @@
 
   <div class="row">
     <div class="col-md-12">
-      <a href="/aw007/diseases" class="btn btn-info" role="button">< Back</a>
+      <a href="diseases" class="btn btn-info" role="button">< Back</a>
     </div>
   </div>
 
@@ -43,9 +43,9 @@
       <div class="col-6 col-sm-3">
         <div class="thumbnail" >
 
-          <div class="caption">
+          <div class="caption center">
 
-            <a href="/aw007/diseases/{{d.disease_id}}" class="sim_dis" >{{ d.disease_id }}</a>
+            <a href="diseases/{{d.disease_id}}" class="sim_dis" >{{ d.name }}</a>
             <h5 property="headline">Resnik Value: <span class="sim_dis_resnik">{{ d.resnik_value }}</span></h5>
           </div>
 
@@ -94,7 +94,7 @@
 <div class="row" >
   <h3 class="text-center">Star Rating</h3>
   <hr>
-  <div class="col-sm-6 col-sm-offset-2">
+  <div class="col-sm-6 col-sm-offset-3 center">
 
     <div class="rating" id="star-rating-disease">
       <span class="star_rating" value="5">☆</span>
@@ -170,19 +170,19 @@
     {% for article in data['articlesDisease'] %}
     <div class="article" vocab="http://schema.org/" typeof="MedicalScholarlyArticle">
       <div property="about" style="display:none">{{data['disease'].name}}</div>
-      <div class="col-sm-6 col-md-4">
-        <div class="thumbnail">
+      <div class="col-sm-6 col-md-3">
+        <div class="thumbnail art-content">
           <p>
             <h5 class="article_title" property="headline">{{ article.title }}</h5>
           </p>
           <div class="caption">
-            <h3 class="article_name">{{ articles.name }}</h3>
-            <p>
-              <a id="button_open_article" href="/aw007/articles/{{article.id}}" class="btn btn-primary article_link" role="button">Show</a>
-            </p>
-
+             <div class="extra-div">
+                <!--<h3 class="article_name">{{ article.name }}</h3>-->
+                <p>
+                  <a id="button_open_article" href="articles/{{article.id}}" class="btn btn-primary article_link" role="button">Show</a>
+                </p>
+             </div>
           </div>
-
         </div>
       </div>
     </div>
@@ -203,14 +203,14 @@
         <div class="thumbnail">
           <img property="image" src="{{photo.url}}" alt="{{photo.url}}" class="img-responsive photo_url" style="min-height:150px; max-height:150px; width:100%;">
           <div class="caption">
-            <h3 class="photo_username">{{photo.username}}</h3>
-            <p>Likes: <span class="photo_nr_like">{{photo.nr_likes}}</span></p>
-            <p>Comments: <span class="photo_nr_comment">{{photo.nr_comments}}</span></p>
-            <p>Shares: <span class="photo_nr_share">{{photo.shares}}</span></p>
-            <p>Published At: <span class="photo_published_at">{{photo.published_at}}</span></p>
-            <p>
-              <button id="button_hide_photo" data-id="{{photo.id}}" class="btn btn-primary" role="button">Hide</button>
-            </p>
+              <h3 class="photo_username">{{photo.username}}</h3>
+              <p>Likes: <span class="photo_nr_like">{{photo.nr_likes}}</span></p>
+              <p>Comments: <span class="photo_nr_comment">{{photo.nr_comments}}</span></p>
+              <p>Shares: <span class="photo_nr_share">{{photo.shares}}</span></p>
+              <p>Published At: <span class="photo_published_at">{{photo.published_at}}</span></p>
+              <p class="center">
+                <button id="button_hide_photo" data-id="{{photo.id}}" class="btn btn-primary" role="button">Hide</button>
+              </p>
           </div>
         </div>
       </div>
@@ -232,18 +232,20 @@
     <div class="tweet" vocab="http://schema.org/" typeof="SocialMediaPosting">
       <div property="about" style="display:none">{{data['disease'].name}}</div>
       <div class="col-sm-6 col-md-4">
-        <div class="thumbnail">
+        <div class="thumbnail twe-content">
           <span class="tweet_html">{{tweet.html | raw}}</span>
           <!-- <img src="{{tweet.url}}" alt="{{tweet.url}}" class="img-responsive" style="min-height:150px; max-height:150px; width:100%;">-->
           <div class="caption">
-            <h3 class="tweet_username" property="creator">{{tweet.username}}</h3>
-            <p>Likes: <span class="tweet_nr_likes">{{tweet.nr_likes}}</span></p>
-            <p property="commentCount">Comments: <span class="tweet_comment">{{tweet.nr_comments}}</span></p>
-            <p>Shares: <span class="tweet_share">{{tweet.shares}}</span></p>
-            <p property="datePublished">Published At: <span class="tweet_published_at">{{tweet.published_at}}</span></p>
-            <p>
-              <a property="url" href="{{tweet.url}}" target="_blank" class="btn btn-primary tweet_url" role="button">Tweet</a>
-            </p>
+            <div class="extra-div">
+              <h3 class="tweet_username" property="creator">{{tweet.username}}</h3>
+              <p>Likes: <span class="tweet_nr_likes">{{tweet.nr_likes}}</span></p>
+              <p property="commentCount">Comments: <span class="tweet_comment">{{tweet.nr_comments}}</span></p>
+              <p>Shares: <span class="tweet_share">{{tweet.shares}}</span></p>
+              <p property="datePublished">Published At: <span class="tweet_published_at">{{tweet.published_at}}</span></p>
+              <p class="center">
+                <a property="url" href="{{tweet.url}}" target="_blank" class="btn btn-primary tweet_url" role="button">Tweet</a>
+              </p>
+            </div>
           </div>
         </div>
       </div>

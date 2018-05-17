@@ -35,13 +35,13 @@
             $disease = $this->getDisease($id);
 
             $article = new Article();
-            $articles = $article->getArticlesDisease($id);
+            $articles = $article->getArticlesDiseaseRanked($id);
 
             $photos = new Photos();
             $photos = $photos->getPhotosDisease($id);
 
             $tweets = new Tweets();
-            $tweets = $tweets->getTweetsDisease($id);
+            $tweets = $tweets->getTweetsDiseaseRanked($id);
 
             $similarDiseases = $this->getSimilarDisease($id);
 

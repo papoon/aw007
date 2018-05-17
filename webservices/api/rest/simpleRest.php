@@ -7,6 +7,7 @@ class SimpleRest {
 
 	private $httpVersion = "HTTP/1.1";
 	private $verbs = array();
+	protected $successResponse = array('status'=>'OK');
 
 	public function __construct(){
 		//verifica erros e retorna-os

@@ -15,9 +15,9 @@ class ArticlesRestHandler extends SimpleRest {
 		$article = new Article();
 		$rawData = $article->getArticles();
 
-		array_walk_recursive($rawData, function(&$value) {
-			$value = utf8_decode($value);
-		});
+		// array_walk_recursive($rawData, function(&$value) {
+		// 	$value = utf8_decode($value);
+		// });
 
 		$requestContentType = $this->getHttpContentType();
 
@@ -98,9 +98,9 @@ class ArticlesRestHandler extends SimpleRest {
 
 		$rawData['authors'] = explode("|", $rawData['authors']);
 
-		array_walk_recursive($rawData, function(&$value) {
-			$value = utf8_decode($value);
-		});
+		// array_walk_recursive($rawData, function(&$value) {
+		// 	$value = utf8_decode($value);
+		// });
 
 		$requestContentType = $this->getHttpContentType();
 

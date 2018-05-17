@@ -153,10 +153,16 @@
 
         }
 
-        public function diseaseRelatedArticles($id){
+        public function diseaseRelatedArticlesRanked($id){
 
             $desisesRestHandler = new DiseasesRestHandler();
-            $desisesRestHandler->diseaseRelatedArticles($id);
+            $desisesRestHandler->diseaseRelatedArticlesRanked($id);
+        }
+
+        public function diseaseRelatedTweetsRanked($id){
+
+            $desisesRestHandler = new DiseasesRestHandler();
+            $desisesRestHandler->diseaseRelatedTweetsRanked($id);
         }
 
         public function relatedDiseases($id){

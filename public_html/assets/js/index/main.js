@@ -88,6 +88,7 @@ $(document).ready(function () {
       $('.sub_main').html(output);
     })
     .fail(function(jqXHR, textStatus) {
+      console.error(jqXHR, textStatus);
     })
     .always(function(){
       $('.sub_main').show();
@@ -116,6 +117,7 @@ $(document).ready(function () {
       $('.sub_main').html(output);
     })
     .fail(function(jqXHR, textStatus) {
+      console.error(jqXHR, textStatus);
     })
     .always(function(){
       $('.sub_main').show();

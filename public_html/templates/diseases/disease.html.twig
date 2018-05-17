@@ -3,15 +3,14 @@
     {% block content %}
         <!-- Page Content -->
 
-       
+
     {% include 'diseases/disease.html' %}
 
 
     {% endblock content %}
 
     {% block footer %}
+        <!-- This is loading the main.js twice
         <script src="/aw007/assets/js/articles/main.js"></script>
-        <script src="/aw007/assets/js/diseases/rating.js"></script>
-        <script src="/aw007/assets/js/diseases/comment.js"></script>
+        -->
     {% endblock footer %}
-
