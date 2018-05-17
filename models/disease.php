@@ -15,19 +15,17 @@
             }
 
             $this->connector->disconnect();
-            return $data;
 
+            return $this->utf8magic($data);
         }
+
         public function getDisease($id){
-
-
             $id = mysqli_real_escape_string($this->connector->connect(),$id);
             $data = $this->connector->selectWhere(TABLE_DISEASE,'id','=',$id,'int')->fetch_assoc();
 
             $this->connector->disconnect();
 
-            return $data;
-
+            return $this->utf8magic($data);
         }
 
         public function getDiseaseMetadata($id){
@@ -56,22 +54,18 @@
             $disease['tweets'] = $tweets;
             $disease['similarDiseases'] = $similarDiseases;
 
-            return $disease;
+            return $this->utf8magic($disease);
         }
 
 
 
         //this is used because we are not saving Diseases ID on runing the mer terms finding
         public function getDiseaseID ($name) {
-
             $data = $this->connector->selectWhere(TABLE_DISEASE,'name','=',$id,'int')->fetch_assoc();
 
             $this->connector->disconnect();
 
             return $data;
-
-
-
         }
 
         public function getSimilarDisease($id) {
@@ -85,14 +79,8 @@
                 $data[] = $row;
             }
 
-            return $data;
-
-
+            return $this->utf8magic($data);
         }
-
-
-
     }
-
 
 ?>

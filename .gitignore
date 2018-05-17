@@ -9,3 +9,4 @@ scripts/annotation/__pycache__
 scripts/annotation/pythonPrivate.py
 data_collector/cache
 *.pyc
+dist
