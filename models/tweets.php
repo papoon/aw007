@@ -63,7 +63,7 @@
                #var_dump($infoRank);
                foreach ($data as $key => $value) {
                   if ($value['id'] == $infoRank['tweet_id']) {
-                     $newData[$key] = $value;
+                     $newData[] = $value;
                   }
                }
             }

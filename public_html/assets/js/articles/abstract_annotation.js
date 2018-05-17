@@ -30,13 +30,15 @@ function refreshMERTermsAbstract(article, uri_disease) {
       var isSubstring = false;
       for(var j = 0; j < terms.length; j++) {
         if (j != i) {
-          if (terms[j]['term'].indexOf(term) > 0) {
+          if (terms[j]['term'].indexOf(term) >= 0 && terms[j]['term'].length != term.length) {
             isSubstring = true;
           }
         }
       }
 
       if(!isSubstring) {
+
+        //debugger;
 
         var disease_id = currentTerm['disease_id'];
         var do_id = currentTerm['do_id'];

@@ -72,7 +72,7 @@
                #var_dump($infoRank);
                foreach ($data as $key => $value) {
                   if ($value['id'] == $infoRank['article_id']) {
-                     $newData[$key] = $value;
+                     $newData[] = $value;
                   }
                }
             }
