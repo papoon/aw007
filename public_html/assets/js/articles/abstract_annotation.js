@@ -55,14 +55,14 @@ function refreshMERTermsAbstract(article, uri_disease) {
 
         clean_text += tmp + link;
 
-        console.log(clean_text);
+        //console.log(clean_text);
 
         // determines size of new title so it can divide the content after
         if (end < title.length) {
             new_title_length += link.length - term.length;
         }
 
-        console.log(new_title_length);
+        //console.log(new_title_length);
 
         start = pos_end;
       }
@@ -142,7 +142,7 @@ $('#main').on('click','#art_mer_like',function(){
   $.ajax({
 
         url: api().uri() +'feedback/rating/diseaseinarticle/'+id_article,
-        type: 'PUT',
+        type: 'POST',
         data: JSON.stringify(data),
         contentType: "application/json",
 
@@ -201,7 +201,7 @@ $('#main').on('click','#art_mer_dislike',function(){
   $.ajax({
 
         url: api().uri() +'feedback/rating/diseaseinarticle/'+id_article,
-        type: 'PUT',
+        type: 'POST',
         data: JSON.stringify(data),
         contentType: "application/json",
         dataType: 'json'

@@ -86,12 +86,7 @@ $('#main').on('click','#star-rating-disease > .star_rating',function(){
     console.log(selected);
 
 
-    if(selected === true){
-        var type = 'PUT';
-    }
-    else{
-        var type = 'POST';
-    }
+    var type = 'POST';
 
     var data = {"client_id":user_id,"rating":valor};
 

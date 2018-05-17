@@ -58,7 +58,7 @@ $('#main').on('mousedown','#button_open_article',function(){
   $.ajax({
 
     url: api().uri() +'feedback/implicit/'+article_id,
-    type: 'PUT',
+    type: 'POST',
     contentType: "application/json",
     dataType: 'json'
 
@@ -87,7 +87,7 @@ $('#main').on('mousedown','#button_hide_photo',function(){
   $.ajax({
 
     url: api().uri() +'photos/hide/'+photo_id,
-    type: 'PUT',
+    type: 'POST',
     contentType: "application/json",
     dataType: 'json'
 
@@ -118,7 +118,7 @@ $('#main').on('mousedown','#button_reset_photos',function(){
   $.ajax({
 
     url: api().uri() +'disease/photos/reset/'+disease_id,
-    type: 'PUT',
+    type: 'POST',
     contentType: "application/json",
     dataType: 'json'
 
