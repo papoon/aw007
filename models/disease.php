@@ -74,7 +74,7 @@
 
             $result = $this->connector->rawQuery($query);
 
-
+            $data = array();
             while ($row = $result->fetch_assoc()) {
                 $data[] = $row;
             }

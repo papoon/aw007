@@ -36,6 +36,7 @@
             group by term order by count(*) desc
             limit 10;');
 
+            $data = array();
             while ($row = $result->fetch_row()) {
                 $data[] = $row;
             }
@@ -50,6 +51,7 @@
             group by term order by count(*) desc
             limit 10;');
 
+            $data = array();
             while ($row = $result->fetch_row()) {
                 $data[] = $row;
             }
@@ -64,6 +66,7 @@
             group by term order by MAX(tf_idf_value) desc
             limit 10;');
 
+            $data = array();
             while ($row = $result->fetch_row()) {
                 $data[] = $row;
             }
@@ -78,6 +81,7 @@
             group by term order by MAX(tf_idf_value) desc
             limit 10;');
 
+            $data = array();
             while ($row = $result->fetch_row()) {
                 $data[] = $row;
             }
@@ -92,6 +96,7 @@
             order by resnik_value desc
             limit 10;');
 
+            $data = array();
             while ($row = $result->fetch_row()) {
                 $data[] = $row;
             }
@@ -106,6 +111,7 @@
             order by resnik_value desc
             limit 10;');
 
+            $data = array();
             while ($row = $result->fetch_row()) {
                 $data[] = $row;
             }
@@ -133,7 +139,7 @@
             $result = $this->connector->rawQuery('select journal_id, count(*) as n_articles from Article
             where journal_id != "" group by journal_id order by count(*) desc limit 10;');
 
-
+            $data = array();
             while ($row = $result->fetch_row()) {
                 $data[] = $row;
             }
@@ -147,6 +153,7 @@
             on a.id = b.did
             group by a.id,b.did order by count(*)  asc limit 10;');
 
+            $data = array();
             while ($row = $result->fetch_row()) {
                 $data[] = $row;
             }
@@ -159,6 +166,7 @@
             on a.id = b.did
             group by a.id,b.did order by count(*)  asc limit 10;');
 
+            $data = array();
             while ($row = $result->fetch_row()) {
                 $data[] = $row;
             }
@@ -171,6 +179,7 @@
             where a.`article_date` != "0000-00-00 00:00:00"
             group by article_date order by count(*) desc limit 10;');
 
+            $data = array();
             while ($row = $result->fetch_row()) {
                 $data[] = $row;
             }
@@ -184,6 +193,7 @@
             on a.id = b.did
             group by a.id,b.did order by sum(shares)  desc limit 10;');
 
+            $data = array();
             while ($row = $result->fetch_row()) {
                 $data[] = $row;
             }
@@ -196,6 +206,7 @@
             on a.id = b.did
             group by a.id,b.did order by sum(shares) desc limit 10;');
 
+            $data = array();
             while ($row = $result->fetch_row()) {
                 $data[] = $row;
             }
@@ -208,6 +219,7 @@
             on a.id = b.did
             group by b.author_name order by sum(a.id)  desc limit 10;');
 
+            $data = array();
             while ($row = $result->fetch_row()) {
                 array_walk_recursive($row, function(&$value) {
                     $value = utf8_encode($value);
