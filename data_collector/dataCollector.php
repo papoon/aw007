@@ -16,6 +16,8 @@
       const ARTICLE_FROM_DATE = '2017/01/01';
       const NULL = 'NULL';
       const MER_Python_path = './callMER.py';
+      const BLACKLISTED = array('Melanocytic nevus' => true);
+
 
       //generic construct
       public function __construct($numberDiseases=10) {
@@ -36,15 +38,20 @@
 
           # only retain diseases with valid DOIDs
           foreach($diseases as $disease) {
+            $diseaseName = $disease['label']['value'];
+            if (array_key_exists($diseaseName, self::BLACKLISTED)) {
+              echo " ".$diseaseName.": skipped".PHP_EOL;
+              continue;
+            }
 
-            $command = escapeshellcmd('python3 ' . self::MER_Python_path . ' "' . $disease['label']['value'] . '"');
+            $command = escapeshellcmd('python3 ' . self::MER_Python_path . ' "' . $diseaseName . '"');
             $output = shell_exec($command);
             # if string does not start with No DOID found
             if (strpos($output, 'No DOID found') !== 0) {
                #remove multiple spaces and newlines at the end
                $output = trim(preg_replace('/\s\s+/', ' ', $output));
                $diseasesToReturn[$output] = $disease;
-               echo " ".$disease['label']['value'].PHP_EOL;
+               echo " ".$diseaseName.PHP_EOL;
             }
 
             # if we reach the limit of needed diseases, return info
