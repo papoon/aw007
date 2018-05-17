@@ -257,23 +257,37 @@ def createInvertedIndexForDisease(disease_id, disease_name):
     articlesCalcInfo = getArticleCalcInformation(disease_id)
     #get normalization information for articles
     articlesNormInfo = getArticleNormInformation()
+    #get explicit feedback (all star ratings for articles of this disease)
+    starRatingsArticles = getStarRatingsArticles(disease_id)
     #list to contain final values (for posterior ranking)
     finalValues = []
 
     #calculate rank for the Articles
     for article in articlesCalcInfo:
+        if article['article_id'] in starRatingsArticles:
+            avgStarRating = starRatingsArticles[article['article_id']]
+        else:
+            avgStarRating = 0
+
         relevanceValue = getRelevanceValue(True, articlesNormInfo, article['tf_idf_value'], \
-                         article['resnik_value'], article['clicks'], article['relevance'], \
+                         article['resnik_value'], article['clicks'], avgStarRating, \
                          article['published_at'])
         finalValues += [(article, relevanceValue)]
     #sort list by relevanceValue
     finalValues = sorted(finalValues, key=itemgetter(1), reverse=True)
+    print(finalValues)
     #save information in the database
     for i in range(1, len(finalValues)):
         article = finalValues[i][0]
+
+        if article['article_id'] in starRatingsArticles:
+            avgStarRating = starRatingsArticles[article['article_id']]
+        else:
+            avgStarRating = 0
+
         saveInvertedIndexInformation(Table_Index_Articles, disease_id, article['article_id'], i, \
                                      article['tf_idf_value'], article['resnik_value'], \
-                                     article['clicks'], article['relevance'], \
+                                     article['clicks'], avgStarRating, \
                                      article['published_at'])
 
     #get calculation information for tweets of the given disease
