@@ -22,31 +22,52 @@ function refreshMERTermsAbstract(article, uri_disease) {
       return a.pos_start - b.pos_start;
   });
 
-  $(terms).each(function() {
+  for(var i = 0; i < terms.length; i++) {
 
-      var term = this['term'];
-      var disease_id = this['disease_id'];
-      var do_id = this['do_id'];
-      var pos_start = this['pos_start'];
-      var pos_end = this['pos_end'];
+      var currentTerm = terms[i];
+      var term = currentTerm['term'];
 
-      link = '<a href='+ uri_disease + disease_id + '>' + term + '</a>';
-
-      end = pos_start;
-      tmp = raw_text.substring(start,end);
-      clean_text += tmp + link;
-
-
-      // determines size of new title so it can divide the content after
-
-          if (end <= title.length) {
-          new_title_length += link.length - term.length;
-
+      var isSubstring = false;
+      for(var j = 0; j < terms.length; j++) {
+        if (j != i) {
+          if (terms[j]['term'].indexOf(term) > 0) {
+            isSubstring = true;
+          }
+        }
       }
 
-      start = pos_end;
+      if(!isSubstring) {
 
-  });
+        var disease_id = currentTerm['disease_id'];
+        var do_id = currentTerm['do_id'];
+        var pos_start = currentTerm['pos_start'];
+        var pos_end = currentTerm['pos_end'];
+
+        if(disease_id == null) {
+          link = '<strong>' + term + '</strong>';
+        }
+        else {
+          link = '<strong><a href='+ uri_disease + disease_id + '>' + term + '</a></strong>';
+        }
+
+        end = pos_start;
+        tmp = raw_text.substring(start,end);
+
+        clean_text += tmp + link;
+
+        console.log(clean_text);
+
+        // determines size of new title so it can divide the content after
+        if (end < title.length) {
+            new_title_length += link.length - term.length;
+        }
+
+        console.log(new_title_length);
+
+        start = pos_end;
+      }
+
+  }
 
   // Adds last part of string
   if (start != raw_text.length){
