@@ -50,36 +50,22 @@
         }
 
         public function getArticlesDiseaseRanked($idDisease){
-
             $idDisease = mysqli_real_escape_string($this->connector->connect(),$idDisease);
-            $result = $this->connector->selectWhere(TABLE_ARTICLE,'did','=',$idDisease,'int');
 
-            $data = convertDatasetToArray($result);
-
-            $queryRanks = 'SELECT article_id, article_rank FROM Inv_Index_Articles WHERE did = '.$idDisease;
+            $queryRanks  = 'SELECT '.TABLE_ARTICLE.'.* FROM '.TABLE_ARTICLE.' INNER JOIN (';
+            $queryRanks .= 'SELECT article_id, article_rank FROM Inv_Index_Articles WHERE did = '.$idDisease;
             $queryRanks .= ' UNION ';
             $queryRanks .= 'SELECT id, ~0 >> 45 FROM Article WHERE did = '.$idDisease;
-            $queryRanks .= ' AND id NOT IN (SELECT article_id FROM Inv_Index_Articles WHERE did = '.$idDisease;
-            $queryRanks .= ' ) ORDER BY article_rank;';
+            $queryRanks .= ' AND id NOT IN (SELECT article_id FROM Inv_Index_Articles WHERE did = '.$idDisease.')';
+            $queryRanks .= ') AS R ON Article.id = R.article_id ORDER BY R.article_rank, Article.id;';
 
             $ranks = $this->connector->rawQuery($queryRanks);
 
-            $ranks = convertDatasetToArray($ranks);
-
-            $newData = [];
-
-            foreach ($ranks as $infoRank) {
-               #var_dump($infoRank);
-               foreach ($data as $key => $value) {
-                  if ($value['id'] == $infoRank['article_id']) {
-                     $newData[] = $value;
-                  }
-               }
-            }
+            $data = convertDatasetToArray($ranks);
 
             $this->connector->disconnect();
 
-            return $this->utf8magic($newData);
+            return $this->utf8magic($data);
         }
 
         public function getMERTerms($id){

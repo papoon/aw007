@@ -43,34 +43,22 @@
         public function getTweetsDiseaseRanked($idDisease){
 
             $idDisease = mysqli_real_escape_string($this->connector->connect(),$idDisease);
-            $result = $this->connector->selectWhere(TABLE_TWEETS,'did','=',$idDisease,'int');
 
-            $data = convertDatasetToArray($result);
-
-            $queryRanks = 'SELECT tweet_id, tweet_rank FROM Inv_Index_Tweets WHERE did = '.$idDisease;
+            $queryRanks  = 'SELECT '.TABLE_TWEETS.'.* FROM '.TABLE_TWEETS.' INNER JOIN (';
+            $queryRanks .= 'SELECT tweet_id, tweet_rank FROM Inv_Index_Tweets WHERE did = '.$idDisease;
             $queryRanks .= ' UNION ';
             $queryRanks .= 'SELECT id, ~0 >> 45 FROM Tweets WHERE did = '.$idDisease;
-            $queryRanks .= ' AND id NOT IN (SELECT tweet_id FROM Inv_Index_Tweets WHERE did = '.$idDisease;
-            $queryRanks .= ' ) ORDER BY tweet_rank;';
+            $queryRanks .= ' AND id NOT IN (SELECT tweet_id FROM Inv_Index_Tweets WHERE did = '.$idDisease.')';
+            $queryRanks .= ') AS R ON Tweets.id = R.tweet_id ORDER BY R.tweet_rank, Tweets.id;';
+
 
             $ranks = $this->connector->rawQuery($queryRanks);
 
-            $ranks = convertDatasetToArray($ranks);
-
-            $newData = [];
-
-            foreach ($ranks as $infoRank) {
-               #var_dump($infoRank);
-               foreach ($data as $key => $value) {
-                  if ($value['id'] == $infoRank['tweet_id']) {
-                     $newData[] = $value;
-                  }
-               }
-            }
+            $data = convertDatasetToArray($ranks);
 
             $this->connector->disconnect();
 
-            return $this->utf8magic($newData);
+            return $this->utf8magic($data);
         }
     }
 ?>
