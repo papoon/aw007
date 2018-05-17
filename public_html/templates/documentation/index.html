@@ -84,17 +84,6 @@
                             <li> <b>invertedIndexBuilder.py</b>: script that takes that stored data and creates the ranks of articles and tweets per disease according to the relevance formula </li>
                         </ul>
                     </li>
-
-                    <li><h5>public_html</h5>
-                        <ul>
-                            <li> <a href="/aw007" target="_BLANK">Home</a>: allows search by disease (with autocomplete) </li>
-                            <li> <a href="diseases" target="_BLANK">Diseases</a>: displays diseases stored on database </li>
-                            <li> <a href="statistics" target="_BLANK">Statistics</a>: displays statistics of the data stored on database </li>
-                            <li> <a href="documentation" target="_BLANK">Documentation</a>: this document </li>
-                        </ul>
-                    </li>
-
-
                 </ul>
             </div>
         </div>
@@ -896,6 +885,23 @@ GET http://appserver.alunos.di.fc.ul.pt/~aw007/rest/disease/relatedTweetsRanked/
 		"did": "1",
 	(...)
 }
+                          </pre>
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td><strong>23</strong></td>
+                    <td><strong>POST</strong></td>
+                    <td><strong>http://appserver.alunos.di.fc.ul.pt/~aw007/rest/home/recalculate/invertedIndexes/0</strong></td>
+                    <td>Recalculates the inverted indexes for each disease taking in consideration the following components: the TF-IDF values, the Similarity values, implicit user feedback (the number of clicks in a given document), explicit user feedback (average user relevance rating score) and document date of publishing.</td>
+                    <td>
+                      <a class="btn btn-info btn-pretty accordion" role="button">Show/hide Example</a>
+                        <div class="collapsible-panel">
+                          <pre>
+HTTP/1.1
+Host: localhost
+(...)
                           </pre>
                         </div>
                     </td>
