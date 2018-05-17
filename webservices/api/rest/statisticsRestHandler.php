@@ -15,10 +15,6 @@ class StatisticsRestHandler extends SimpleRest {
 		$statistic = new Statistic();
 		$rawData = $statistic->getAll();
 
-		array_walk_recursive($rawData, function(&$value) {
-			$value = utf8_decode($value);
-		});
-
 		$requestContentType = $this->getHttpContentType();
 
 		$this->setHttpHeaders($requestContentType, 200);//200 ok
