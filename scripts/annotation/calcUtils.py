@@ -275,7 +275,7 @@ def createInvertedIndexForDisease(disease_id, disease_name):
         finalValues += [(article, relevanceValue)]
     #sort list by relevanceValue
     finalValues = sorted(finalValues, key=itemgetter(1), reverse=True)
-    print(finalValues)
+
     #save information in the database
     for i in range(1, len(finalValues)):
         article = finalValues[i][0]
