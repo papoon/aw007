@@ -39,7 +39,7 @@ $(document).ready(function () {
   function loadPage(href)
   {
     if(href == ""){
-      loadStatic('index');
+      loadStatic('index', initAutoComplete);
     } else if(href ==  "diseases"){
       diseases();
     } else if(href ==  "statistics"){
