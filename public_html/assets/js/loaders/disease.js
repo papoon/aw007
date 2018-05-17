@@ -38,7 +38,7 @@ function loadDiseaseData(template, id) {
 }
 
 // Event handling for 'diseases' page
-$('#main').on('mousedown','#button_open_article',function(){
+$(document).on('click','#button_open_article',function(){
   var raw_data = $(this)[0].href.split('/');
 
   var article_id = raw_data[raw_data.length-1];
