@@ -35,7 +35,7 @@
                 <ul>
                     <li><strong>Data Collection:</strong> collecting text and data about diseases (Demo I)</li>
                     <li><strong>Data Annotation: </strong> create semantic links between the collected data (Demo II)</li>
-                    <li><strong>Data Access: </strong> make the information available as a web service and as dynamic web page</li>
+                    <li><strong>Data Access: </strong> make the information available as a web service and as dynamic web page (Demo III)</li>
                 </ul>
                 </span>
                 <p>
@@ -52,6 +52,9 @@
                 </p>
                 <p>
                 <strong>Relevance formula</strong> = (rescaled TF-IDF value for the disease name in the document * 0.2) + (minimum rescaled Resnik Similarity value for the disease name in the document * 0.2) + (rescaled implicit user feedback (the number of clicks in a given document) * 0.2) + (rescaled explicit user feedback (user relevance rating score) * 0.3) + (rescaled document date of publishing * 0.1)
+                </p>
+                <p>
+                The third and final module consists in this dynamic web page which displays and allows interaction with the information made available by the means of REST Web services API calls. The API calls that are available can be found on the section Web Service API below.
                 </p>
                 <p>
             </div>
@@ -109,7 +112,6 @@
                 <li><a href="https://www.flickr.com/services/api/"><strong>PubMed</strong></a>: used to collect related articles for each disease </li>
                 </ul>
             </div>
-
         </div>
         <div class="row">
             <div class="col-sm-12">
@@ -136,6 +138,770 @@
                 <li> <a href="http://osds.openlinksw.com/"><strong>OpenLink Structured Data Sniffer (OSDS)</strong></a>: A browser extension for Google Chrome, Microsoft Edge, Mozilla Firefox, Opera, and Vivaldi (with a build planned for Apple Safari) that unveils structured metadata embedded within HTML documents and web pages (like RDFa). </li>
 
                 </ul>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <h4><b> Web Services API </b></h4>
+
+                <table class="table table-bordered">
+                <tr class="header">
+                        <th>#</th>
+                        <th>Type of HTTP Request</th>
+                        <th>URL template</th>
+                        <th>Description</th>
+                        <th>Example</th>
+                </tr>
+
+                <tr>
+                    <td><strong>1</strong></td>
+                    <td><strong>GET</strong></td>
+                    <td><strong>http://appserver.alunos.di.fc.ul.pt/~aw007/rest/diseases/0</strong></td>
+                    <td>Returns the information associated with all diseases.</td>
+                    <td>
+                      <a class="btn btn-info btn-pretty accordion" role="button">Show/hide Example</a>
+                        <div class="collapsible-panel">
+                          <pre>
+[
+	{
+		"id": "1",
+		"name": "Achondroplasia",
+		"dbpedia_id": "56579",
+		"dbpedia_revision_id": "742386653",
+		"do_id": "DOID_4480",
+		"abstract": "Achondroplasia is a (...)",
+		"thumbnail": "http:\/\/commons.wikimedia.org\/(...)",
+		"uri": "http:\/\/dbpedia.org\/resource\/Achondroplasia",
+		"created_at": "2018-05-13 21:01:13",
+		"updated_at": "2018-05-13 21:01:13"
+	},
+	{
+		"id": "2",
+		"name": "Adrenoleukodystrophy",
+	(...)
+]
+                          </pre>
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td><strong>2</strong></td>
+                    <td><strong>GET</strong></td>
+                    <td><strong>http://appserver.alunos.di.fc.ul.pt/~aw007/rest/diseases/{disease id}</strong></td>
+                    <td>Returns the information associated with a particular disease.</td>
+                    <td>
+                      <a class="btn btn-info btn-pretty accordion" role="button">Show/hide Example</a>
+                        <div class="collapsible-panel">
+                          <pre>
+GET http://appserver.alunos.di.fc.ul.pt/~aw007/rest/diseases/1
+
+{
+	"id": "1",
+	"name": "Achondroplasia",
+	"dbpedia_id": "56579",
+	"dbpedia_revision_id": "742386653",
+	"do_id": "DOID_4480",
+	"abstract": "Achondroplasia is (...)",
+	"thumbnail": "http:\/\/commons.wikimedia.org\(...)",
+	"uri": "http:\/\/dbpedia.org\/resource\/Achondroplasia",
+	"created_at": "2018-05-13 21:01:13",
+	"updated_at": "2018-05-13 21:01:13"
+}
+                          </pre>
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td><strong>3</strong></td>
+                    <td><strong>GET</strong></td>
+                    <td><strong>http://appserver.alunos.di.fc.ul.pt/~aw007/rest/diseases/{disease id}?metadata=true</strong></td>
+                    <td>Returns all the information associated with a particular disease (disease information, articles, photos, tweets and related diseases).</td>
+                    <td>
+                      <a class="btn btn-info btn-pretty accordion" role="button">Show/hide Example</a>
+                        <div class="collapsible-panel">
+                          <pre>
+GET http://appserver.alunos.di.fc.ul.pt/~aw007/rest/diseases/1?metadata=true
+
+{
+	"id": "1",
+	"name": "Achondroplasia",
+	"dbpedia_id": "56579",
+	"dbpedia_revision_id": "742386653",
+	"do_id": "DOID_4480",
+	"abstract": "Achondroplasia is a (...)",
+	"thumbnail": "http:\/\/commons.wikimedia.org\(...)",
+	"uri": "http:\/\/dbpedia.org\/resource\/Achondroplasia",
+	"created_at": "2018-05-13 21:01:13",
+	"updated_at": "2018-05-13 21:01:13",
+	"articles": [
+		{
+			"id": "1",
+			"did": "1",
+			"article_id": "29720948",
+			"journal_id": "1664-042X",
+			"title": "The Oxygen Consumption and Metabolic Cost of Walking and Running in Adults With Achondroplasia.",
+			"abstract": "The disproportionate body (...).",
+			"published_at": "2018-05-13 00:00:00",
+			"article_date": "2018-04-18 00:00:00",
+			"article_revision_date": "2018-05-07 00:00:00",
+			"clicks": "4",
+			"relevance": "0",
+			"authors": "Sims, David T, DT|Onamb\u00e9l\u00e9-Pearson, (...)",
+			"inserted_at": "2018-05-13 21:01:13",
+			"updated_at": "2018-05-13 21:01:13"
+		},
+		(...)
+	],
+	"photos": [
+		{
+			"id": "2",
+			"did": "1",
+			"url": "https:\/\/farm1.staticflickr.com\/904\/39941760980_b10f976ccb.jpg",
+			"flicrk_id": "39941760980",
+			"author_name": "Michael Banino",
+			"username": "airbreather",
+			"nr_likes": "0",
+			"nr_comments": "0",
+			"shares": "13",
+			"country": "Jakarta, Indonesia",
+			"published_at": "2018-04-26 09:02:07",
+			"inserted_at": "2018-05-13 21:01:13",
+			"updated_at": "2018-05-13 21:01:13"
+		},
+		(...)
+	],
+	"tweets": [
+		{
+			"id": "1",
+			"did": "1",
+			"url": "https:\/\/twitter.com\/savage_cyril\/status\/995684465677602817",
+			"type": "NULL",
+			"tweet_id": "995684465677602817",
+			"author_name": "Cyril Savage",
+			"username": "savage_cyril",
+			"nr_likes": "0",
+			"nr_comments": "0",
+			"relevance": "0",
+			"shares": "0",
+			"country": "United States",
+			"html": "(...)",
+			"published_at": "2018-05-13 00:00:00",
+			"inserted_at": "2018-05-13 21:01:13",
+			"updated_at": "2018-05-13 21:01:13"
+		},
+		(...)
+	],
+	"similarDiseases": [
+		{
+			"disease_id": "2",
+			"name": "Adrenoleukodystrophy",
+			"resnik_value": "0.4145"
+		},
+		(...)
+	]
+}
+
+                          </pre>
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td><strong>4</strong></td>
+                    <td><strong>GET</strong></td>
+                    <td><strong>http://appserver.alunos.di.fc.ul.pt/~aw007/rest/statistics</strong></td>
+                    <td>Returns all the information to build our statistics page graphics.</td>
+                    <td>
+                      <a class="btn btn-info btn-pretty accordion" role="button">Show/hide Example</a>
+                        <div class="collapsible-panel">
+                          <pre>
+{
+	"articlesPerDisease": [
+		[
+			"9",
+			"Botulism",
+			"9",
+			"9"
+		],
+		(...)
+	],
+	"tweetsPerDisease": [
+		(...)
+	],
+	"photosPerDisease": [
+		(...)
+	],
+	"sharesPhotosPerDisease": [
+		(...)
+	],
+	"sharesTweetsPerDisease": [
+		(...)
+	],
+	"articlesPerDay": [
+		(...)
+	],
+	"articlesPerJournal": [
+		(...)
+	],
+	"tweetsAuthor": [
+		(...)
+	],
+	"mostFreqMERTermsArticles": [
+		(...)
+	],
+	"mostFreqMERTermsTweets": [
+		(...)
+	],
+	"maxTfidfArticles": [
+		(...)
+	],
+	"maxTfidfTweets": [
+		(...)
+	],
+	"maxResnikArticles": [
+		(...)
+	],
+	"maxResnikTweets": [
+		(...)
+	]
+}
+                          </pre>
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td><strong>5</strong></td>
+                    <td><strong>GET</strong></td>
+                    <td><strong>http://appserver.alunos.di.fc.ul.pt/~aw007/rest/articles/0</strong></td>
+                    <td>Returns the information associated with all articles.</td>
+                    <td>
+                      <a class="btn btn-info btn-pretty accordion" role="button">Show/hide Example</a>
+                        <div class="collapsible-panel">
+                          <pre>
+[
+	{
+		"id": "1",
+		"did": "1",
+		"article_id": "29720948",
+		"journal_id": "1664-042X",
+		"title": "The Oxygen Consumption and Metabolic Cost of Walking and Running in Adults With Achondroplasia.",
+		"abstract": "The disproportionate body (...)",
+		"published_at": "2018-05-13 00:00:00",
+		"article_date": "2018-04-18 00:00:00",
+		"article_revision_date": "2018-05-07 00:00:00",
+		"clicks": "4",
+		"relevance": "0",
+		"authors": "Sims, David T, DT|Onamb\u00e9l\u00e9-Pearson, (...)",
+		"inserted_at": "2018-05-13 21:01:13",
+		"updated_at": "2018-05-13 21:01:13"
+	},
+	{
+		"id": "2",
+		"did": "1",
+	(...)
+]
+                          </pre>
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td><strong>6</strong></td>
+                    <td><strong>GET</strong></td>
+                    <td><strong>http://appserver.alunos.di.fc.ul.pt/~aw007/rest/articles/{article id}</strong></td>
+                    <td>Returns the information associated with a particular article.</td>
+                    <td>
+                      <a class="btn btn-info btn-pretty accordion" role="button">Show/hide Example</a>
+                        <div class="collapsible-panel">
+                          <pre>
+{
+	"id": "1",
+	"did": "1",
+	"article_id": "29720948",
+	"journal_id": "1664-042X",
+	"title": "The Oxygen Consumption and Metabolic Cost of Walking and Running in Adults With Achondroplasia.",
+	"abstract": "The disproportionate body mass (...)",
+	"published_at": "2018-05-13 00:00:00",
+	"article_date": "2018-04-18 00:00:00",
+	"article_revision_date": "2018-05-07 00:00:00",
+	"clicks": "4",
+	"relevance": "0",
+	"authors": [
+		"Sims, David T, DT", (...)
+	],
+	"inserted_at": "2018-05-13 21:01:13",
+	"updated_at": "2018-05-13 21:01:13"
+}
+                          </pre>
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td><strong>7</strong></td>
+                    <td><strong>GET</strong></td>
+                    <td><strong>http://appserver.alunos.di.fc.ul.pt/~aw007/rest/articles/{article id}?terms=true</strong></td>
+                    <td>Returns the information associated with a particular article including MER terms identified in the article's title and abstract.</td>
+                    <td>
+                      <a class="btn btn-info btn-pretty accordion" role="button">Show/hide Example</a>
+                        <div class="collapsible-panel">
+                          <pre>
+GET http://appserver.alunos.di.fc.ul.pt/~aw007/rest/articles/1?terms=true
+
+{
+	"id": "1",
+	"did": "1",
+	"article_id": "29720948",
+	"journal_id": "1664-042X",
+	"title": "The Oxygen Consumption and Metabolic Cost of Walking and Running in Adults With Achondroplasia.",
+	"abstract": "The disproportionate body (...)",
+	"published_at": "2018-05-13 00:00:00",
+	"article_date": "2018-04-18 00:00:00",
+	"article_revision_date": "2018-05-07 00:00:00",
+	"clicks": "4",
+	"relevance": "0",
+	"authors": [
+		"Sims, David T, DT", (...)
+	],
+	"inserted_at": "2018-05-13 21:01:13",
+	"updated_at": "2018-05-13 21:01:13",
+	"terms": [
+		{
+			"term": "SRS",
+			"article_id": "1",
+			"pos_start": "506",
+			"pos_end": "509",
+			"disease_id": null,
+			"do_id": "DOID_0060802",
+			"updated_at": "2018-05-13 20:32:02",
+			"likes": "0",
+			"dislikes": "0"
+		},
+		(...)
+	]
+}
+                          </pre>
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td><strong>8</strong></td>
+                    <td><strong>POST</strong></td>
+                    <td><strong>http://appserver.alunos.di.fc.ul.pt/~aw007/rest/feedback/rating/diseaseinarticle/{article id}</strong></td>
+                    <td>Saves the explicit user feedback (likes and dislikes) for the MER terms in a given article.</td>
+                    <td>
+                      <a class="btn btn-info btn-pretty accordion" role="button">Show/hide Example</a>
+                        <div class="collapsible-panel">
+                          <pre>
+Example (like): POST http://appserver.alunos.di.fc.ul.pt/~aw007/rest/feedback/rating/diseaseinarticle/7
+
+HTTP/1.1
+Host: localhost
+(...)
+Request payload: {"article_id":"7","pos_start":"100","term":"achondroplasia","type":"like"}
+
+Example (dislike): POST http://appserver.alunos.di.fc.ul.pt/~aw007/rest/feedback/rating/diseaseinarticle/7
+
+HTTP/1.1
+Host: localhost
+(...)
+Request payload: {"article_id":"7","pos_start":"100","term":"achondroplasia","type":"dislike"}
+
+                          </pre>
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td><strong>9</strong></td>
+                    <td><strong>GET</strong></td>
+                    <td><strong>http://appserver.alunos.di.fc.ul.pt/~aw007/rest/photos/0</strong></td>
+                    <td>Returns the information associated with all photos.</td>
+                    <td>
+                      <a class="btn btn-info btn-pretty accordion" role="button">Show/hide Example</a>
+                        <div class="collapsible-panel">
+                          <pre>
+[
+	{
+		"id": "1",
+		"did": "1",
+		"url": "https:\/\/farm1.staticflickr.com\/910\/41996069632_a72e57533a.jpg",
+		"flicrk_id": "41996069632",
+		"author_name": "language leadlove",
+		"username": "languageleadlove",
+		"nr_likes": "0",
+		"nr_comments": "0",
+		"shares": "10",
+		"country": "",
+		"published_at": "2018-05-11 08:50:40",
+		"inserted_at": "2018-05-13 21:01:13",
+		"updated_at": "2018-05-13 21:01:13"
+	},
+	{
+		"id": "2",
+		"did": "1",
+	(...)
+]
+                          </pre>
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td><strong>10</strong></td>
+                    <td><strong>GET</strong></td>
+                    <td><strong>http://appserver.alunos.di.fc.ul.pt/~aw007/rest/photos/{disease id}</strong></td>
+                    <td>Returns the information associated with all photos for a given disease.</td>
+                    <td>
+                      <a class="btn btn-info btn-pretty accordion" role="button">Show/hide Example</a>
+                        <div class="collapsible-panel">
+                          <pre>
+GET http://appserver.alunos.di.fc.ul.pt/~aw007/rest/photos/1
+
+[
+	{
+		"id": "2",
+		"did": "1",
+		"url": "https:\/\/farm1.staticflickr.com\/904\/39941760980_b10f976ccb.jpg",
+		"flicrk_id": "39941760980",
+		(...)
+	},
+	(...)
+	{
+		"id": "10",
+		"did": "1",
+		"url": "https:\/\/farm4.staticflickr.com\/3775\/13891237336_536b8a6024.jpg",
+		"flicrk_id": "13891237336",
+		(...)
+	}
+]
+                          </pre>
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td><strong>11</strong></td>
+                    <td><strong>GET</strong></td>
+                    <td><strong>http://appserver.alunos.di.fc.ul.pt/~aw007/rest/tweets/0</strong></td>
+                    <td>Returns the information associated with all tweets.</td>
+                    <td>
+                      <a class="btn btn-info btn-pretty accordion" role="button">Show/hide Example</a>
+                        <div class="collapsible-panel">
+                          <pre>
+[
+	{
+		"id": "1",
+		"did": "1",
+		"url": "https:\/\/twitter.com\/savage_cyril\/status\/995684465677602817",
+		"type": "NULL",
+		"tweet_id": "995684465677602817",
+		"author_name": "Cyril Savage",
+		"username": "savage_cyril",
+		"nr_likes": "0",
+		"nr_comments": "0",
+		"relevance": "0",
+		"shares": "0",
+		"country": "United States",
+		"html": "{blockquote class=\"twitter-tweet\(...)",
+		"published_at": "2018-05-13 00:00:00",
+		"inserted_at": "2018-05-13 21:01:13",
+		"updated_at": "2018-05-13 21:01:13"
+	},
+	{
+		"id": "2",
+		"did": "1",
+	(...)
+]
+                          </pre>
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td><strong>12</strong></td>
+                    <td><strong>GET</strong></td>
+                    <td><strong>http://appserver.alunos.di.fc.ul.pt/~aw007/rest/tweets/{disease id}</strong></td>
+                    <td>Returns the information associated with all tweets for a given disease.</td>
+                    <td>
+                      <a class="btn btn-info btn-pretty accordion" role="button">Show/hide Example</a>
+                        <div class="collapsible-panel">
+                          <pre>
+[
+	{
+		"id": "1",
+		"did": "1",
+		"url": "https:\/\/twitter.com\/savage_cyril\/status\/995684465677602817",
+		(...)
+	},
+	(...)
+	{
+		"id": "10",
+		"did": "1",
+		"url": "https:\/\/twitter.com\/Lynn96907565\/status\/995258356582334465",
+		(...)
+	}
+]
+                          </pre>
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td><strong>13</strong></td>
+                    <td><strong>GET</strong></td>
+                    <td><strong>http://appserver.alunos.di.fc.ul.pt/~aw007/rest/feedback/rating/article/{article id}?client_id={client id}</strong></td>
+                    <td>Returns the star rating information of a given article for a given client.</td>
+                    <td>
+                      <a class="btn btn-info btn-pretty accordion" role="button">Show/hide Example</a>
+                        <div class="collapsible-panel">
+                          <pre>
+GET http://appserver.alunos.di.fc.ul.pt/~aw007/rest/feedback/rating/article/1?client_id=1
+
+[
+	{
+		"id": "3",
+		"article_id": "1",
+		"client_id": "1",
+		"rating": "3",
+		"created_at": "2018-05-16 17:19:35"
+	}
+]
+                          </pre>
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td><strong>14</strong></td>
+                    <td><strong>POST</strong></td>
+                    <td><strong>http://appserver.alunos.di.fc.ul.pt/~aw007/rest/feedback/rating/article/{article id}</strong></td>
+                    <td>Saves the the star rating information of a given article for a given client (the client id and rating are passed in the request payload in json format).</td>
+                    <td>
+                      <a class="btn btn-info btn-pretty accordion" role="button">Show/hide Example</a>
+                        <div class="collapsible-panel">
+                          <pre>
+POST http://appserver.alunos.di.fc.ul.pt/~aw007/rest/feedback/rating/article/1
+
+HTTP/1.1
+Host: localhost
+Connection: keep-alive
+(...)
+Request Payload: {"client_id":"1","rating":"3"}
+                          </pre>
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td><strong>15</strong></td>
+                    <td><strong>GET</strong></td>
+                    <td><strong>http://appserver.alunos.di.fc.ul.pt/~aw007/rest/feedback/rating/disease/{disease id}?client_id={client id}</strong></td>
+                    <td>Returns the star rating information of a given disease for a given client.</td>
+                    <td>
+                      <a class="btn btn-info btn-pretty accordion" role="button">Show/hide Example</a>
+                        <div class="collapsible-panel">
+                          <pre>
+GET http://appserver.alunos.di.fc.ul.pt/~aw007/rest/feedback/rating/disease/1?client_id=1
+
+[
+	{
+		"id": "2",
+		"disease_id": "1",
+		"client_id": "1",
+		"rating": "3",
+		"created_at": "2018-05-15 22:14:44"
+	}
+]
+                          </pre>
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td><strong>16</strong></td>
+                    <td><strong>POST</strong></td>
+                    <td><strong>http://appserver.alunos.di.fc.ul.pt/~aw007/rest/feedback/rating/disease/{disease id}</strong></td>
+                    <td>Saves the the star rating information of a given disease for a given client (the client id and rating are passed in the request payload in json format).</td>
+                    <td>
+                      <a class="btn btn-info btn-pretty accordion" role="button">Show/hide Example</a>
+                        <div class="collapsible-panel">
+                          <pre>
+POST http://appserver.alunos.di.fc.ul.pt/~aw007/rest/feedback/rating/disease/1
+
+HTTP/1.1
+Host: localhost
+(...)
+Request Payload: {"client_id":"1","rating":"2"}
+                          </pre>
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td><strong>17</strong></td>
+                    <td><strong>POST</strong></td>
+                    <td><strong>http://appserver.alunos.di.fc.ul.pt/~aw007/rest/photos/hide/{photo id}</strong></td>
+                    <td>Marks a photo as not relevant, hiding it (and it won't be shown again for its disease unless the diseases' photos are reset).</td>
+                    <td>
+                      <a class="btn btn-info btn-pretty accordion" role="button">Show/hide Example</a>
+                        <div class="collapsible-panel">
+                          <pre>
+POST http://appserver.alunos.di.fc.ul.pt/~aw007/rest/photos/hide/1
+
+HTTP/1.1
+Host: localhost
+(...)
+                          </pre>
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td><strong>18</strong></td>
+                    <td><strong>POST</strong></td>
+                    <td><strong>http://appserver.alunos.di.fc.ul.pt/~aw007/rest/disease/photos/reset/{disease id}</strong></td>
+                    <td>All the photos for a given disease are reset (unmarked as not relevant) and shown again.</td>
+                    <td>
+                      <a class="btn btn-info btn-pretty accordion" role="button">Show/hide Example</a>
+                        <div class="collapsible-panel">
+                          <pre>
+POST http://appserver.alunos.di.fc.ul.pt/~aw007/rest/disease/photos/reset/1
+
+HTTP/1.1
+Host: localhost
+(...)
+                          </pre>
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td><strong>19</strong></td>
+                    <td><strong>GET</strong></td>
+                    <td><strong>http://appserver.alunos.di.fc.ul.pt/~aw007/rest/disease/relatedDiseases/{disease id}</strong></td>
+                    <td>Retrieves the most similar diseases to the given one (with Resnik similiarity larger than 0).</td>
+                    <td>
+                      <a class="btn btn-info btn-pretty accordion" role="button">Show/hide Example</a>
+                        <div class="collapsible-panel">
+                          <pre>
+GET http://appserver.alunos.di.fc.ul.pt/~aw007/rest/disease/relatedDiseases/1
+
+[
+	{
+		"disease_id": "2",
+		"name": "Adrenoleukodystrophy",
+		"resnik_value": "0.4145"
+	},
+	(...)
+]
+                          </pre>
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td><strong>20</strong></td>
+                    <td><strong>POST</strong></td>
+                    <td><strong>http://appserver.alunos.di.fc.ul.pt/~aw007/rest/feedback/implicit/{article id}</strong></td>
+                    <td>Increments the click count on the given article by one (implicit user feedback).</td>
+                    <td>
+                      <a class="btn btn-info btn-pretty accordion" role="button">Show/hide Example</a>
+                        <div class="collapsible-panel">
+                          <pre>
+POST http://appserver.alunos.di.fc.ul.pt/~aw007/rest/feedback/implicit/7
+
+HTTP/1.1
+Host: localhost
+(...)
+                          </pre>
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td><strong>21</strong></td>
+                    <td><strong>GET</strong></td>
+                    <td><strong>http://appserver.alunos.di.fc.ul.pt/~aw007/rest/disease/relatedArticlesRanked/{disease id}</strong></td>
+                    <td>Returns the information associated with all articles for a given disease, ranked by relevance.</td>
+                    <td>
+                      <a class="btn btn-info btn-pretty accordion" role="button">Show/hide Example</a>
+                        <div class="collapsible-panel">
+                          <pre>
+GET http://appserver.alunos.di.fc.ul.pt/~aw007/rest/disease/relatedArticlesRanked/1
+
+{
+	"6": {
+		"id": "7",
+		"did": "1",
+		"article_id": "29516753",
+		"journal_id": "1464-5165",
+		"title": "Piloting and psychometric properties (...).",
+		"abstract": "This study describes the psychometric testing (...)",
+		"published_at": "2018-03-08 00:00:00",
+		"article_date": "2018-03-08 00:00:00",
+		"article_revision_date": "2018-03-08 00:00:00",
+		"clicks": "3",
+		"relevance": "0",
+		"authors": "Bloemeke, Janika, J|Sommer, Rachel, R|Witt, Stefanie, (...)",
+		"inserted_at": "2018-05-13 21:01:13",
+		"updated_at": "2018-05-13 21:01:13"
+	},
+	"3": {
+		"id": "4",
+		"did": "1",
+		(...)
+}
+                          </pre>
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td><strong>22</strong></td>
+                    <td><strong>GET</strong></td>
+                    <td><strong>http://appserver.alunos.di.fc.ul.pt/~aw007/rest/disease/relatedTweetsRanked/{disease id}</strong></td>
+                    <td>Returns the information associated with all tweets for a given disease, ranked by relevance.</td>
+                    <td>
+                      <a class="btn btn-info btn-pretty accordion" role="button">Show/hide Example</a>
+                        <div class="collapsible-panel">
+                          <pre>
+GET http://appserver.alunos.di.fc.ul.pt/~aw007/rest/disease/relatedTweetsRanked/1
+
+{
+	"2": {
+		"id": "3",
+		"did": "1",
+		"url": "https:\/\/twitter.com\/dumycri\/status\/995536703665397760",
+		"type": "NULL",
+		"tweet_id": "995536703665397760",
+		"author_name": "??Dracula my love!??",
+		"username": "dumycri",
+		"nr_likes": "0",
+		"nr_comments": "0",
+		"relevance": "0",
+		"shares": "1",
+		"country": "Espa\u00f1a",
+		"html": "(...)",
+		"published_at": "2018-05-13 00:00:00",
+		"inserted_at": "2018-05-13 21:01:13",
+		"updated_at": "2018-05-13 21:01:13"
+	},
+	"6": {
+		"id": "7",
+		"did": "1",
+	(...)
+}
+                          </pre>
+                        </div>
+                    </td>
+                </tr>
+
+                </table>
             </div>
         </div>
     </div>
