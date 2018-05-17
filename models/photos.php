@@ -16,7 +16,7 @@
             }
 
             $this->connector->disconnect();
-            return $data;
+            return $this->utf8magic($data);
 
         }
 
@@ -41,7 +41,7 @@
 
             $this->connector->disconnect();
 
-            return $data;
+            return $this->utf8magic($data);
         }
     }
 ?>

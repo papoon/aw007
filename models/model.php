@@ -15,9 +15,13 @@
         }
 
         protected function utf8magic($data) {
-          array_walk_recursive($data, function(&$value) {
-            $value = utf8_encode($value);
-          });
+          $version = PHP_VERSION_ID;
+          $needsMagic = $version < 50500;
+          if ($needsMagic) {
+            array_walk_recursive($data, function(&$value) {
+              $value = utf8_encode($value);
+            });
+          }
           return $data;
         }
     }

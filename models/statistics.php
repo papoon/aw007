@@ -40,7 +40,7 @@
                 $data[] = $row;
             }
 
-            return $data;
+            return $this->utf8magic($data);
         }
 
         #termos mais frequentes encontrados pelo MER em Tweets
@@ -54,7 +54,7 @@
                 $data[] = $row;
             }
 
-            return $data;
+            return $this->utf8magic($data);
         }
 
         #valores de TfIdf mais altos de termos encontrados em artigos
@@ -68,7 +68,7 @@
                 $data[] = $row;
             }
 
-            return $data;
+            return $this->utf8magic($data);
         }
 
         #valores de TfIdf mais altos de termos encontrados em Tweets
@@ -82,7 +82,7 @@
                 $data[] = $row;
             }
 
-            return $data;
+            return $this->utf8magic($data);
         }
 
         #valores de Semelhanca Resnik mais altos de termos encontrados em artigos
@@ -96,7 +96,7 @@
                 $data[] = $row;
             }
 
-            return $data;
+            return $this->utf8magic($data);
         }
 
         #valores de Semelhanca Resnik mais altos de termos encontrados em tweets
@@ -110,7 +110,7 @@
                 $data[] = $row;
             }
 
-            return $data;
+            return $this->utf8magic($data);
         }
 
         #numero de artigos por disease
@@ -125,7 +125,7 @@
                 $data[] = $row;
             }
 
-            return $data;
+            return $this->utf8magic($data);
         }
 
         #numero de artigos por publicados em cada jornal
@@ -138,7 +138,7 @@
                 $data[] = $row;
             }
 
-            return $data;
+            return $this->utf8magic($data);
         }
         #numero de tweets por disease
         public function tweetsPerDisease(){
@@ -151,7 +151,7 @@
                 $data[] = $row;
             }
 
-            return $data;
+            return $this->utf8magic($data);
         }
         #numero de photos por disease desc
         public function photosPerDisease(){
@@ -163,7 +163,7 @@
                 $data[] = $row;
             }
 
-            return $data;
+            return $this->utf8magic($data);
         }
         #artigos por dia
         public function articlesPerDay(){
@@ -175,7 +175,7 @@
                 $data[] = $row;
             }
 
-            return $data;
+            return $this->utf8magic($data);
         }
         # numero de shares por disease photos
         public function sharesPhotosPerDisease(){
@@ -188,7 +188,7 @@
                 $data[] = $row;
             }
 
-            return $data;
+            return $this->utf8magic($data);
         }
 
         public function sharesTweetsPerDisease(){
@@ -200,7 +200,7 @@
                 $data[] = $row;
             }
 
-            return $data;
+            return $this->utf8magic($data);
         }
         # numero tweets por author sobre as doenças
         public function tweetsAuthor(){
@@ -216,7 +216,7 @@
             }
 
 
-            return $data;
+            return $this->utf8magic($data);
         }
 
     }

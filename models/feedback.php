@@ -162,7 +162,7 @@
 
                 $this->connector->disconnect();
 
-                return $data;
+                return $this->utf8magic($data);
             }
             catch(Exception $e){
                 $this->connector->disconnect();
@@ -317,7 +317,7 @@
 
                 $this->connector->disconnect();
 
-                return $data;
+                return $this->utf8magic($data);
             }
             catch(Exception $e){
                 $this->connector->disconnect();
