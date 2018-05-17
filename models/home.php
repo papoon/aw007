@@ -16,10 +16,9 @@
 
           echo $command.PHP_EOL;
 
-          $output = shell_exec($command);
+          $output = shell_exec($command. ' 2>&1');
 
           echo $output.PHP_EOL;
-
         }
     }
 
