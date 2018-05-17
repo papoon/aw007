@@ -44,6 +44,7 @@
         public function connect()  {
             $this->connection = mysqli_connect($this->hostName, $this->userName,
                                                $this->password, $this->dbName);
+            mysqli_set_charset($this->connection, "uft-8");
             return $this->connection;
         }
 
