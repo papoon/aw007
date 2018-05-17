@@ -61,7 +61,7 @@ $(document).on('click','#button_open_article',function(){
 
 });
 
-$('#main').on('mousedown','#button_hide_photo',function(){
+$(document).on('click','#button_hide_photo',function(){
   var photo_id = $(this)[0].getAttribute('data-id');
 
   $.ajax({
@@ -72,20 +72,19 @@ $('#main').on('mousedown','#button_hide_photo',function(){
     dataType: 'json'
   })
   .done(function(result){
-
-
+    var tokens = location.href.split('/');
+    var id = tokens[tokens.length - 1];
+    loadDiseasePage(id);
   })
   .fail(function(jqXHR, textStatus) {
     console.error(jqXHR, textStatus);
   })
   .always(function(){
-    alert('reloading!')
-    location.reload();
   });
 
 });
 
-$('#main').on('mousedown','#button_reset_photos',function(){
+$(document).on('click','#button_reset_photos',function(){
   var disease_id = $(this)[0].getAttribute('data-id');
 
   $.ajax({
@@ -98,14 +97,13 @@ $('#main').on('mousedown','#button_reset_photos',function(){
 
   })
   .done(function(result){
-
-
+    var tokens = location.href.split('/');
+    var id = tokens[tokens.length - 1];
+    loadDiseasePage(id);
   })
   .fail(function(jqXHR, textStatus) {
     console.error(jqXHR, textStatus);
   })
   .always(function() {
-    alert('reloading!')
-    location.reload();
   });
 });
