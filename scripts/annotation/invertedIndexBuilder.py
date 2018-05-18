@@ -1,10 +1,10 @@
+
 #-*- coding: utf-8 -*-
 # Python 3
 from dbUtils import *
-from DishinUtils import *
-from MERUtils import *
-from calcUtils import *
+from invertedIndexUtils import *
 from constants import *
+
 
 def createInvertedIndex():
     #get disease information

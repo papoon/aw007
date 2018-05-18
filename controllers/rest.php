@@ -6,6 +6,7 @@
     require_once '../webservices/api/rest/tweetsRestHandler.php';
     require_once '../webservices/api/rest/statisticsRestHandler.php';
     require_once '../webservices/api/rest/feedbackRestHandler.php';
+    require_once '../webservices/api/rest/homeRestHandler.php';
 
     class Rest extends Controller{
         public function __construct(){
@@ -182,6 +183,14 @@
             $desisesRestHandler = new DiseasesRestHandler();
             $desisesRestHandler->resetDiseasePhotos($id);
         }
+
+        public function recalculateInvertedIndexes(){
+
+            $homeRestHandler = new HomeRestHandler();
+            $homeRestHandler->recalculateInvertedIndexes();
+        }
+
+
 
     }
 

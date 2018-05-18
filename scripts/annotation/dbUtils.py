@@ -273,10 +273,11 @@ def saveInvertedIndexInformation(table, disease_id, id, rank, tf_idf_value, resn
             connection.commit()
     finally:
         connection.close()
+
 def getArticleCalcInformation(disease_id):
     """
     Gets all information needed for the inverted index rank calculations for articles.
-    Requires: no args.
+    Requires: disease_id, the id of the disease.
     Ensures: queries the database and retrieves inverted index rank information for articles for
     one disease in a list of dictionaries format (one line, one dictionary).
     """
@@ -300,7 +301,7 @@ def getArticleCalcInformation(disease_id):
 def getTweetCalcInformation(disease_id):
     """
     Gets all information needed for the inverted index rank calculations for tweets.
-    Requires: no args.
+    Requires: disease_id, the id of the disease.
     Ensures: queries the database and retrieves inverted index rank information for tweets for
     one disease in a list of dictionaries format (one line, one dictionary).
     """
@@ -366,5 +367,29 @@ def getTweetNormInformation():
             cursor.execute(sql)
             result = cursor.fetchall()
             return result[0]
+    finally:
+        connection.close()
+
+def getStarRatingsArticles(disease_id):
+    """
+    Gets all star ratings for articles of the given disease.
+    Requires: disease_id, the id of the disease.
+    Ensures: queries the database and retrieves all star ratings for articles of the given disease in a
+    dictionary format (key is the article id, value is list of star ratings for that article).
+    """
+    connection = getDatabaseConnection()
+
+    try:
+        with connection.cursor() as cursor:
+            sql = "SELECT AR.article_id, avg(AR.rating) FROM articles_rating AR, Article A " + \
+                  "WHERE A.id = AR.article_id AND A.did = " + str(disease_id) + " GROUP BY AR.article_id;"
+
+            cursor.execute(sql)
+            result = cursor.fetchall()
+            #convert list of dictionaries to single dictionary
+            resultDict = {}
+            for row in result:
+                resultDict[row["article_id"]] = row['avg(AR.rating)']
+            return resultDict
     finally:
         connection.close()

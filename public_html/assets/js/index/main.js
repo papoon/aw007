@@ -39,13 +39,13 @@ $(document).ready(function () {
   function loadPage(href)
   {
     if(href == ""){
-      loadStatic('index');
+      loadStatic('index', initAutoComplete);
     } else if(href ==  "diseases"){
       diseases();
     } else if(href ==  "statistics"){
       statistics();
     } else if(href ==  "documentation"){
-      loadStatic('documentation');
+      loadStatic('documentation', initAccordion);
     }
 
     var targetUrl = baseHref;
@@ -56,12 +56,15 @@ $(document).ready(function () {
     history.pushState({id:targetUrl}, '', targetUrl);
   }
 
-  function loadStatic(template) {
+  function loadStatic(template, onAfterLoad) {
     $('.sub_main').hide();
     loadTwigTemplate('templates/' + template + '/index.html', function(template) {
       var output = template.render({});
 
       $('.sub_main').html(output);
+      if(onAfterLoad) {
+        onAfterLoad();
+      }
       $('.sub_main').show();
     });
   }

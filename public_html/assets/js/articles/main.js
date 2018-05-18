@@ -44,6 +44,9 @@ function loadArticleData(template, id){
     /* since the html was replaced, we need to register the event again */
     $("#btn_term_table_display").click(toggleMerTerms);
 
+    refreshMERTermsAbstract(article, 'diseases/');
+    refreshStarRatingArticle();
+
     //change url
     var url = "articles/" + id;
     history.pushState({id:url}, '', (url == '' ? ''+url : url));

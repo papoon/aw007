@@ -1,39 +1,25 @@
 <?php
 require_once("simpleRest.php");
-require_once("../models/statistics.php");
+require_once("../models/home.php");
 
-class StatisticsRestHandler extends SimpleRest {
-	private $searchOptions = array('fields,limit');
+class HomeRestHandler extends SimpleRest {
+
 
 	public function __construct(){
 		$this->setValidVerbs(array('GET'));
 		parent::__construct();
 	}
 
-	function getStatistics() {
+	function recalculateInvertedIndexes() {
 
-		$statistic = new Statistic();
-		$rawData = $statistic->getAll();
+    $home = new Home();
+    $response = $home->recalculateInvertedIndexes();
 
-		array_walk_recursive($rawData, function(&$value) {
-			$value = utf8_decode($value);
-		});
+    $this->convertResponse($this->successResponse);
 
-		$requestContentType = $this->getHttpContentType();
-
-		$this->setHttpHeaders($requestContentType, 200);//200 ok
-
-		if(strpos($requestContentType,'application/json') !== false){
-			$response = $this->encodeJson($rawData);
-			echo $response;
-		} else if(strpos($requestContentType,'text/html') !== false){
-			$response = $this->encodeHtml($rawData);
-			echo $response;
-		} else if(strpos($requestContentType,'application/xml') !== false){
-			$response = $this->encodeXml($rawData);
-			echo $response;
-		}
+    return $response;
 	}
+
 
 	public function encodeHtml($responseData) {
 
@@ -67,7 +53,7 @@ class StatisticsRestHandler extends SimpleRest {
 
 	public function encodeXml($responseData) {
 		// creating object of SimpleXMLElement
-		$xml = new SimpleXMLElement('<?xml version="1.0"?><statistic></statistic>');
+		$xml = new SimpleXMLElement('<?xml version="1.0"?><articles></articles>');
 		$this->array_to_xml( $responseData,$xml);
 		return $xml->asXML();
 	}

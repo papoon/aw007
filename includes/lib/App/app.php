@@ -118,6 +118,7 @@
                                         Dispatcher::route('rest@relatedDiseases',$route,'rest/disease/relatedDiseases/{$id}');
                                         Dispatcher::route('rest@hidePhoto',$route,'rest/photos/hide/{$id}');
                                         Dispatcher::route('rest@resetDiseasePhotos',$route,'rest/disease/photos/reset/{$id}');
+                                        Dispatcher::route('rest@recalculateInvertedIndexes',$route,'rest/home/recalculate/invertedIndexes/{$id}');
                                     }
 
                                 }else{

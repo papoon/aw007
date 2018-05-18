@@ -16,8 +16,8 @@
             }
 
             $this->connector->disconnect();
-            return $data;
-            
+            return $this->utf8magic($data);
+
         }
         public function getTweetsDisease($idDisease){
 
@@ -37,7 +37,7 @@
 
             $this->connector->disconnect();
 
-            return $data;
+            return $this->utf8magic($data);
         }
 
         public function getTweetsDiseaseRanked($idDisease){
@@ -70,7 +70,7 @@
 
             $this->connector->disconnect();
 
-            return $newData;
+            return $this->utf8magic($newData);
         }
     }
 ?>

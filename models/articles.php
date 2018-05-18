@@ -20,7 +20,7 @@
             }
 
             $this->connector->disconnect();
-            return $data;
+            return $this->utf8magic($data);
 
         }
         public function getArticle($id){
@@ -29,7 +29,7 @@
 
             $this->connector->disconnect();
 
-            return $data;
+            return $this->utf8magic($data);
 
         }
 
@@ -46,7 +46,7 @@
 
             $this->connector->disconnect();
 
-            return $data;
+            return $this->utf8magic($data);
         }
 
         public function getArticlesDiseaseRanked($idDisease){
@@ -79,7 +79,7 @@
 
             $this->connector->disconnect();
 
-            return $newData;
+            return $this->utf8magic($newData);
         }
 
         public function getMERTerms($id){
@@ -90,7 +90,7 @@
 
             $this->connector->disconnect();
 
-            return $data;
+            return $this->utf8magic($data);
 
         }
 
@@ -124,8 +124,8 @@
         }
 
 
-        
-    
+
+
     }
 
 

@@ -16,10 +16,6 @@ class DiseasesRestHandler extends SimpleRest {
 		$diseases = new Disease();
 		$rawData = $diseases->getDiseases();
 
-		// array_walk_recursive($rawData, function(&$value) {
-		// 	$value = utf8_decode($value);
-		// });
-
 		$requestContentType = $this->getHttpContentType();
 
 		$this->setHttpHeaders($requestContentType, 200);//200 ok
@@ -61,9 +57,11 @@ class DiseasesRestHandler extends SimpleRest {
 
 	public function encodeJson($responseData) {
 
-        $jsonResponse = json_encode($responseData,JSON_PARTIAL_OUTPUT_ON_ERROR);
-				$jsonResponse = $this->prettyPrint($jsonResponse);
-				return $jsonResponse;
+		
+        $jsonResponse = (json_encode($responseData,JSON_PRETTY_PRINT) == false ? json_encode($responseData) : json_encode($responseData,JSON_PRETTY_PRINT));
+		$jsonResponse = $this->prettyPrint($jsonResponse);
+		
+		return $jsonResponse;
 	}
 
 	public function encodeXml($responseData) {
@@ -78,7 +76,7 @@ class DiseasesRestHandler extends SimpleRest {
 		$rawData = array();
 		$status = 200;
 
-		if(isset($_GET)){
+		if(isset($_GET) && count($_GET) > 0){
 
 			$this->searchOptions = array('related','top');
 
@@ -114,10 +112,6 @@ class DiseasesRestHandler extends SimpleRest {
 			
 		}
 
-		// array_walk_recursive($rawData, function(&$value) {
-		// 	$value = utf8_encode($value);
-		// });
-
 		$requestContentType = $this->getHttpContentType();
 
 		$this ->setHttpHeaders($requestContentType,$status);
@@ -142,10 +136,6 @@ class DiseasesRestHandler extends SimpleRest {
 		$disease = new Disease();
 		$rawData = $disease->getDiseaseMetadata($id);
 
-		// array_walk_recursive($rawData, function(&$value) {
-		// 	$value = utf8_decode($value);
-		// });
-
 		$requestContentType = $this->getHttpContentType();
 
 		$this ->setHttpHeaders($requestContentType,200);
@@ -168,10 +158,6 @@ class DiseasesRestHandler extends SimpleRest {
 		$article = new Article();
 		$rawData = $article->getArticlesDiseaseRanked($id);
 
-		// array_walk_recursive($rawData, function(&$value) {
-		// 	$value = utf8_decode($value);
-		// });
-
 		$requestContentType = $this->getHttpContentType();
 
 		$this->setHttpHeaders($requestContentType, 200);//200 ok
@@ -193,10 +179,6 @@ class DiseasesRestHandler extends SimpleRest {
 		$tweets = new Tweets();
 		$rawData = $tweets->getTweetsDiseaseRanked($id);
 
-		// array_walk_recursive($rawData, function(&$value) {
-		// 	$value = utf8_decode($value);
-		// });
-
 		$requestContentType = $this->getHttpContentType();
 
 		$this->setHttpHeaders($requestContentType, 200);//200 ok
@@ -217,10 +199,6 @@ class DiseasesRestHandler extends SimpleRest {
 
 		$disease = new Disease();
 		$rawData = $disease->getSimilarDisease($id);
-
-		// array_walk_recursive($rawData, function(&$value) {
-		// 	$value = utf8_decode($value);
-		// });
 
 		$requestContentType = $this->getHttpContentType();
 
