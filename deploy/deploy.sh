@@ -28,4 +28,4 @@ echo 'Patching files...'
 sed -i 's/localhost\/aw007/appserver\.alunos\.di\.fc\.ul\.pt\/\~aw007/g' dist/public_html/templates/head.html
 
 echo 'Starting deploy...'
-sshpass -p webapp007 rsync -a --stats dist/ aw007@${HOST}:~/
+sshpass -f "private/appserver.pw" rsync -a --stats dist/ aw007@${HOST}:~/
