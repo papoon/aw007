@@ -74,11 +74,8 @@
             $result = $this->connector->rawQuery($query);
 
             $data = array();
-            if($result != null)
-            {
-                while ($row = $result->fetch_assoc()) {
-                    $data[] = $row;
-                }
+            while ($row = $result->fetch_assoc()) {
+                $data[] = $row;
             }
 
             return $this->utf8magic($data);

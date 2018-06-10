@@ -360,38 +360,38 @@ class FeedbackRestHandler extends SimpleRest {
 	#MER TERMS
 
 
-     public function ratingDiseaseArticle($id) {
+  public function ratingDiseaseArticle($id) {
 
-        $this->setValidVerbs(array('GET','POST','PUT'));
-		$this->errorResponse();
+    $this->setValidVerbs(array('GET','POST','PUT'));
+    $this->errorResponse();
 
-		$request_method = $this->getHttpVerb();
+    $request_method = $this->getHttpVerb();
 
-		if($request_method == "PUT"){
+    if($request_method == "POST"){
 
-			$data = json_decode(file_get_contents("php://input"),true);
+      $data = json_decode(file_get_contents("php://input"),true);
 
-			$article_id = $id;
-			$term = $data['term'];
-			$pos_start = $data['pos_start'];
-            $type = $data['type'];
+      $article_id = $id;
+      $term = $data['term'];
+      $pos_start = $data['pos_start'];
+      $type = $data['type'];
 
 
-            if ($type == "like") {
+      if ($type == "like") {
 
-			 $response = $this->ratingDiseaseArticleLike($article_id, $term, $pos_start);
-             $this->convertResponse($response);
+        $response = $this->ratingDiseaseArticleLike($article_id, $term, $pos_start);
+        $this->convertResponse($response);
 
-            }
+      }
 
-            else {
+      else {
 
-			    $response = $this->ratingDiseaseArticleDislike($article_id, $term, $pos_start);
-                $this->convertResponse($response);
-            }
+        $response = $this->ratingDiseaseArticleDislike($article_id, $term, $pos_start);
+        $this->convertResponse($response);
+      }
 
-		}
-	}
+    }
+  }
 
 
     public function ratingDiseaseArticleLike($article_id, $term,$pos_start){

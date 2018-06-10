@@ -21,8 +21,6 @@ function loadTwigTemplate(url, callback) {
 
 $(document).on('mousedown','#button_recalc_inv_indexes',function(){
 
-  debugger;
-
   $.ajax({
 
     url: api().uri() +'home/recalculate/invertedIndexes/0',

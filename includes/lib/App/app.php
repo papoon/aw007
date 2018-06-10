@@ -7,6 +7,7 @@
             //include_once '../database/dbConnector.php';
             //include_once '../database/dbUtils.php';
 
+
             require_once '../includes/lib/Twig/Autoloader.php';
             Twig_Autoloader::register();
 
@@ -30,10 +31,12 @@
             require_once '../utils/helpers.php';
             require_once '../utils/dispatcher.php';
 
+            
+
             // Get the client ip address
             $ip_address = getClientIP();
             if(!isset($_COOKIE['client'])) {
-                setcookie('client', $ip_address,0);
+                setcookie('client', $ip_address,time()+60);
                 //$_COOKIE['client'] = $ip_address;
             }
             #setcookie($key,$value,time() + (86400 * $experie_days));

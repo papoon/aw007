@@ -71,13 +71,14 @@
 
         #VERIFICAMOS DE JÁ EXSITE COOCKIE COMO FORMA DE 
         #NÃO ESTAR SEMPRE A VERIFICAR SE É NOVO VISTANTE QUNDO O UTILIZADOR USA O SITE
-
-        if(!isset($_COOKIE['client'])) {
+        $ip_address = getClientIP();
+        if(!isset($_COOKIE['client']) || $_COOKIE['client'] != $ip_address) {
+            
 
             $connector = DbConnector::defaultConnection();
             $connector->connect();
 
-            $ip_address = getClientIP();
+            
             //check if ip already exits
             $exists_ip = $connector->selectWhere(TABLE_CLIENTS_SITE,'ip_address','=',$ip_address,'char')->fetch_row();
 
@@ -105,8 +106,22 @@
 
     function sessionHandling(){
 
-        session_start();
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
 
+        // 5 minutes - 300 seconds
+        $inactive = 300; 
+        ini_set('session.gc_maxlifetime', $inactive); 
+
+
+        if (isset($_SESSION['expire']) && (time() - $_SESSION['expire'] > $inactive)) {
+            session_unset();     
+            session_destroy();   
+        }
+        
+        $_SESSION['expire'] = time(); 
+        
         if(!isset($_SESSION['user'])) {
 
             $connector = DbConnector::defaultConnection();

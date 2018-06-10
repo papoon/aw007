@@ -2,6 +2,8 @@
 
     require_once '../database/dbConnector.php';
     require_once '../database/dbUtils.php';
+    require_once '../utils/Encoding.php';
+    use \ForceUTF8\Encoding;
 
     class Model{
         public $connector;
@@ -19,7 +21,7 @@
           $needsMagic = $version < 50604;
           if ($needsMagic) {
             array_walk_recursive($data, function(&$value) {
-              $value = utf8_encode($value);
+              $value = Encoding::toUTF8($value);
             });
           }
           return $data;

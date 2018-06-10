@@ -54,7 +54,7 @@
                 <strong>Relevance formula</strong> = (rescaled TF-IDF value for the disease name in the document * 0.2) + (minimum rescaled Resnik Similarity value for the disease name in the document * 0.2) + (rescaled implicit user feedback (the number of clicks in a given document) * 0.2) + (rescaled explicit user feedback (user relevance rating score) * 0.3) + (rescaled document date of publishing * 0.1)
                 </p>
                 <p>
-                The third and final module consists in this dynamic web page which displays and allows interaction with the information made available by the means of REST Web services API calls. The API calls that are available can be found on the section Web Service API below.
+                The third and final module consists in this dynamic web page which displays and allows interaction with the information made available by the means of REST Web services API calls and AJAX. The API calls that are available can be found on the section Web Service API below.
                 </p>
                 <p>
             </div>
@@ -84,17 +84,6 @@
                             <li> <b>invertedIndexBuilder.py</b>: script that takes that stored data and creates the ranks of articles and tweets per disease according to the relevance formula </li>
                         </ul>
                     </li>
-
-                    <li><h5>public_html</h5>
-                        <ul>
-                            <li> <a href="/aw007" target="_BLANK">Home</a>: allows search by disease (with autocomplete) </li>
-                            <li> <a href="diseases" target="_BLANK">Diseases</a>: displays diseases stored on database </li>
-                            <li> <a href="statistics" target="_BLANK">Statistics</a>: displays statistics of the data stored on database </li>
-                            <li> <a href="documentation" target="_BLANK">Documentation</a>: this document </li>
-                        </ul>
-                    </li>
-
-
                 </ul>
             </div>
         </div>
@@ -127,7 +116,13 @@
 
                 <li> <a href="http://www.chartjs.org"><strong>Chart.js</strong></a>: Simple yet flexible JavaScript charting for designers & developers.</li>
 
+                <li> <a href="https://jquery.com/"><strong>jQuery</strong></a>: jQuery is a fast, small, and feature-rich JavaScript library.</li>
+
+                <li> <a href="https://github.com/neitanod/forceutf8"><strong>ForceUTF8</strong></a>: PHP Class Encoding featuring popular \ForceUTF8\Encoding::toUTF8() function --formerly known as forceUTF8()-- that fixes mixed encoded strings..</li>
+
                 <li> <a href="https://github.com/PyMySQL/PyMySQL"><strong>PyMySql</strong></a>: Pure-Python MySQL client library.</li>
+
+                <li> <a href="https://github.com/riot/route"><strong>Riot Router</strong></a>: Simple client-side router.</li>
 
                 <li> <a href="https://github.com/lasigeBioTM/MER"><strong>MER</strong></a>: MER (Minimal Named-Entity Recognizer) is a Named-Entity Recognition tool which given any lexicon and any input text returns the list of terms recognized in the text, including their exact location (annotations). Given an ontology (owl file) MER is also able to link the entities to their classes.</li>
 
@@ -896,6 +891,23 @@ GET http://appserver.alunos.di.fc.ul.pt/~aw007/rest/disease/relatedTweetsRanked/
 		"did": "1",
 	(...)
 }
+                          </pre>
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td><strong>23</strong></td>
+                    <td><strong>POST</strong></td>
+                    <td><strong>http://appserver.alunos.di.fc.ul.pt/~aw007/rest/home/recalculate/invertedIndexes/0</strong></td>
+                    <td>Recalculates the inverted indexes for each disease taking in consideration the following components: the TF-IDF values, the Similarity values, implicit user feedback (the number of clicks in a given document), explicit user feedback (average user relevance rating score) and document date of publishing.</td>
+                    <td>
+                      <a class="btn btn-info btn-pretty accordion" role="button">Show/hide Example</a>
+                        <div class="collapsible-panel">
+                          <pre>
+HTTP/1.1
+Host: localhost
+(...)
                           </pre>
                         </div>
                     </td>
